@@ -583,6 +583,43 @@ section.cal{margin-top:34px}
 #app-koadernoa .xlinks a{font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); text-decoration:none; padding:5px 9px; border:1px solid var(--line-strong); border-radius:3px; display:flex; gap:6px; align-items:center; width:100%}
 #app-koadernoa .xlinks a:hover{border-color:var(--sea); color:var(--sea); background:var(--sea-soft)}
 
+/* ── casilleros editables ─────────────────────────────── */
+#app-koadernoa .gapf{
+  font-family:var(--f-mono); font-size:14px; color:var(--sea);
+  border:0; border-bottom:1.5px solid var(--line-strong); background:transparent;
+  padding:0 3px 1px; margin:0 3px; vertical-align:baseline; text-align:center;
+  min-width:70px; border-radius:0; outline:none;
+  transition:border-color .12s, background .12s;
+}
+#app-koadernoa .gapf:hover{border-bottom-color:var(--sea)}
+#app-koadernoa .gapf:focus{border-bottom-color:var(--sea); background:var(--sea-soft)}
+
+#app-koadernoa .ansf{
+  grid-column:2; width:100%; box-sizing:border-box; margin-top:7px; display:block;
+  font-family:var(--f-body); font-size:15.5px; line-height:1.6; color:var(--ink);
+  background:var(--surface); border:1px solid var(--line);
+  border-left:2px solid var(--line-strong); border-radius:0 var(--r) var(--r) 0;
+  padding:8px 11px; min-height:2.5em; resize:vertical; outline:none;
+  transition:border-color .12s, box-shadow .12s; overflow:hidden;
+}
+#app-koadernoa .ansf::placeholder{color:var(--muted); font-style:italic; opacity:.65}
+#app-koadernoa .ansf:hover{border-color:var(--line-strong)}
+#app-koadernoa .ansf:focus{border-left-color:var(--sea); border-color:var(--sea); box-shadow:0 0 0 3px var(--sea-soft)}
+
+#app-koadernoa .scoref{
+  font-family:var(--f-mono); font-size:12px; font-weight:600; color:var(--ink);
+  border:0; border-bottom:1.5px solid var(--iron); background:transparent;
+  text-align:center; min-width:2.4em; padding:0 2px; outline:none;
+  vertical-align:baseline;
+}
+#app-koadernoa .scoref:focus{background:var(--iron-soft)}
+
+@media print{
+  #app-koadernoa .gapf, #app-koadernoa .ansf, #app-koadernoa .scoref{
+    border-color:var(--line-strong)!important; background:transparent!important; box-shadow:none!important;
+  }
+}
+
 </style>
 
 <div class="hub">
@@ -1310,7 +1347,8 @@ window.HUB = (function(){
   <h1>Ariketen <em>koadernoa</em></h1>
   <p class="lede">Ocho cuadernos progresivos y tres simulacros completos. Cada ejercicio lleva su solución plegada debajo: haz primero, comprueba después.</p>
   <div class="howto">
-    <div><b>Hazlo a mano</b><p>Escribe las respuestas en papel antes de abrir la solución. Leerlas no sirve de nada.</p></div>
+    <div><b>Escribe en el recuadro</b><p>Rellena tu respuesta en la casilla antes de abrir la solución. Leerla sin haberla escrito no sirve de nada.</p></div>
+    <div><b>Se guarda solo</b><p>Todo lo que escribas queda guardado en tu perfil y te sigue al móvil y a cualquier navegador. No hay botón de guardar.</p></div>
     <div><b>No corrijas sobre la marcha</b><p>Termina el ejercicio entero y luego contrasta. Así ves tus patrones de error.</p></div>
     <div><b>Repite a los tres días</b><p>Un ejercicio con más de dos fallos se vuelve a hacer, en limpio, 72 horas después.</p></div>
     <div><b>En voz alta</b><p>Los diálogos y las lecturas se leen hablando. El A1 se juega en el oral.</p></div>
@@ -2498,6 +2536,118 @@ window.HUB = (function(){
       a.style.color = i===cur ? 'var(--iron)' : ''; a.style.fontWeight = i===cur ? '600' : ''; });
   }
   window.addEventListener('scroll', mark, {passive:true}); mark();
+})();
+</script>
+
+<script>
+/* ── koadernoa editable · escribir directo en las casillas ───────────
+   Cada hueco pasa a ser un campo, cada ítem abierto gana su área de
+   escritura y cada «__» de puntuación se vuelve editable. Se guarda con
+   el HUB: al instante en el navegador y, si hay cuenta, en la nube. Un
+   documento por cuaderno (koad-k1 … koad-a3).                        */
+(function(){
+  var root = document.getElementById('app-koadernoa');
+  if (!root || !window.HUB) return;
+
+  function clamp(n,a,b){ return Math.max(a, Math.min(b,n)); }
+  function grow(t){
+    if (t.offsetParent === null) return;      // panel oculto: se ajusta al mostrarse
+    t.style.height = 'auto';
+    t.style.height = (t.scrollHeight + 2) + 'px';
+  }
+  function sizeInput(inp, min){
+    inp.size = clamp((inp.value || '').length + 1, min, 44);
+  }
+
+  var textareas = [];
+
+  Array.prototype.forEach.call(root.querySelectorAll('section.unit'), function(sec){
+    var uid = sec.id;
+    var LSKEY = 'koadernoa:' + uid, DOCID = 'koad-' + uid;
+    var state = {};
+    try { var raw = localStorage.getItem(LSKEY); if (raw) state = JSON.parse(raw) || {}; } catch(e){}
+
+    var fields = {};
+    function persist(){ HUB.save(DOCID, LSKEY, state); }
+    function register(el, key, type){
+      fields[key] = { el: el, type: type };
+      el.setAttribute('data-k', key);
+      if (state[key] != null) el.value = state[key];
+      el.addEventListener('input', function(){
+        state[key] = el.value;
+        if (type === 'area') grow(el); else sizeInput(el, type === 'score' ? 3 : 6);
+        persist();
+      });
+    }
+
+    /* 1 · huecos inline */
+    Array.prototype.forEach.call(sec.querySelectorAll('span.gap'), function(span, i){
+      var inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'gapf';
+      inp.autocomplete = 'off'; inp.spellcheck = false;
+      inp.setAttribute('aria-label', 'Erantzuna · respuesta');
+      span.parentNode.replaceChild(inp, span);
+      register(inp, 'g' + i, 'gap');
+      sizeInput(inp, 6);
+    });
+
+    /* 2 · ítems abiertos (sin hueco) → área de escritura */
+    Array.prototype.forEach.call(sec.querySelectorAll('ol.items > li'), function(li, i){
+      if (li.querySelector('.gapf') || li.querySelector('span.gap')) return;
+      var ta = document.createElement('textarea');
+      ta.className = 'ansf'; ta.rows = 1;
+      ta.placeholder = 'Idatzi hemen…';
+      ta.autocomplete = 'off';
+      ta.setAttribute('aria-label', 'Zure erantzuna · tu respuesta');
+      li.appendChild(ta);
+      register(ta, 'o' + i, 'area');
+      textareas.push(ta);
+      grow(ta);
+    });
+
+    /* 3 · marcadores «__» de las líneas de puntuación */
+    var sc = 0;
+    Array.prototype.forEach.call(sec.querySelectorAll('.score'), function(scoreEl){
+      var walker = document.createTreeWalker(scoreEl, NodeFilter.SHOW_TEXT, null);
+      var texts = [], n;
+      while ((n = walker.nextNode())) { if (n.nodeValue.indexOf('__') >= 0) texts.push(n); }
+      texts.forEach(function(tn){
+        var parts = tn.nodeValue.split('__');
+        var frag = document.createDocumentFragment();
+        parts.forEach(function(p, idx){
+          if (p) frag.appendChild(document.createTextNode(p));
+          if (idx < parts.length - 1){
+            var inp = document.createElement('input');
+            inp.type = 'text'; inp.className = 'scoref';
+            inp.autocomplete = 'off'; inp.inputMode = 'numeric';
+            inp.setAttribute('aria-label', 'Puntuazioa · puntuación');
+            frag.appendChild(inp);
+            register(inp, 's' + (sc++), 'score');
+            sizeInput(inp, 3);
+          }
+        });
+        tn.parentNode.replaceChild(frag, tn);
+      });
+    });
+
+    /* nube: si llega una versión más nueva, repuebla los campos */
+    HUB.bind(DOCID, LSKEY, function(v){
+      if (!v || typeof v !== 'object') return;
+      state = v;
+      Object.keys(fields).forEach(function(k){
+        var f = fields[k];
+        f.el.value = (v[k] != null) ? v[k] : '';
+        if (f.type === 'area') grow(f.el); else sizeInput(f.el, f.type === 'score' ? 3 : 6);
+      });
+    }, function(){ return state; });
+  });
+
+  /* al mostrarse la pestaña, ajustar la altura de las áreas ocultas */
+  if (window.MutationObserver){
+    new MutationObserver(function(){
+      if (!root.hidden) requestAnimationFrame(function(){ textareas.forEach(grow); });
+    }).observe(root, { attributes:true, attributeFilter:['hidden'] });
+  }
 })();
 </script>
 </section>
