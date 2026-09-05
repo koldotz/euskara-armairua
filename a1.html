@@ -874,6 +874,45 @@ window.HUB = (function(){
   </div>
 </div>
 
+<style id="mem-css">
+.mem{margin:34px 0 0}
+.mem-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:14px}
+.mem-head h2{font-size:clamp(20px,3vw,26px); margin-top:2px}
+.mem-head h2 em{font-style:normal; color:var(--sea)}
+.mem-sub{font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); margin-top:6px; max-width:72ch; line-height:1.5}
+.mem-prog{display:flex; gap:10px; flex:none}
+.mem-prog .kp{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:8px 12px; text-align:center; min-width:70px}
+.mem-prog .kp b{display:block; font-family:var(--f-display); font-size:20px; line-height:1}
+.mem-prog .kp span{font-family:var(--f-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.mem-prog .kp.g b{color:var(--sea)}
+.mem-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
+.mi{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:13px 15px}
+.mi.known{border-color:var(--sea); box-shadow:inset 3px 0 0 var(--sea)}
+.mi-top{display:flex; align-items:baseline; gap:8px}
+.mi-tit{font-family:var(--f-display); font-weight:600; font-size:15.5px; color:var(--ink); flex:1; line-height:1.2}
+.mi-day{font-family:var(--f-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line-strong); border-radius:2px; padding:1px 5px; flex:none; white-space:nowrap}
+.mi-day.new{color:var(--sea); border-color:var(--sea)}
+.mi-note{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.45}
+.mi-reveal{margin-top:10px; width:100%; cursor:pointer; font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--sea); background:var(--ground); border:1px solid var(--line-strong); border-radius:var(--r); padding:7px 10px}
+.mi-reveal:hover{border-color:var(--sea); background:var(--sea-soft)}
+.mi-say{font-family:var(--f-mono); font-size:13.5px; color:var(--ink); margin-top:9px; padding:10px 12px; background:var(--surface-2); border-radius:var(--r); line-height:1.95}
+.mi-say b{color:var(--sea); font-weight:600}
+.mi-know{display:flex; align-items:center; gap:7px; margin-top:11px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); cursor:pointer; user-select:none}
+.mi-know input{width:15px; height:15px; cursor:pointer; accent-color:var(--sea)}
+</style>
+
+<section class="mem" id="memoria">
+  <div class="mem-head">
+    <div>
+      <span class="eyebrow">Memoria gramatikala</span>
+      <h2>Recita de <em>memoria</em></h2>
+      <p class="mem-sub" id="memSub">—</p>
+    </div>
+    <div class="mem-prog" id="memProg"></div>
+  </div>
+  <div class="mem-grid" id="memBody"></div>
+</section>
+
 <section class="cal">
   <div class="sechead"><h2>Egutegia</h2><span class="note">Pulsa cualquier día para abrir su plan</span></div>
   <div class="legend">
@@ -1282,6 +1321,108 @@ window.HUB = (function(){
 
   render();
   HUB.bind('errepasoa', KEY, function(v){ st=v||{know:{}}; render(); }, function(){ return st; });
+})();
+</script>
+
+<script>
+/* ── MEMORIA GRAMATIKALA · recitados de memoria; crecen con el plan ── */
+(function(){
+  var P = JSON.parse(document.getElementById('plan').textContent);
+  var KEY = 'euskara-memoria-v1';
+  var st = load();
+  function load(){ try{ var r = localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {know:{}}; }
+  function save(){ HUB.save('memoria', KEY, st); }
+
+  function todayN(){
+    var t = new Date(); t.setHours(0,0,0,0);
+    for(var i=0;i<P.days.length;i++){ var p=P.days[i].date.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(d.getTime()===t.getTime()) return i+1; }
+    var first=new Date(2026,8,3), last=new Date(2026,8,30);
+    if(t<first) return 1; if(t>last) return 28; return 1;
+  }
+
+  var MEM = [
+    {d:2,  tit:"IZAN (NOR) · orainaldia", note:"Ser/estar · un solo participante (NOR).",
+     say:"ni <b>naiz</b> · zu <b>zara</b> · hura <b>da</b> · gu <b>gara</b> · zuek <b>zarete</b> · haiek <b>dira</b>"},
+    {d:3,  tit:"Erakusleak · demostrativos", note:"Este/ese/aquel + plurales. Van detrás: «etxe hau».",
+     say:"hau · hori · hura &nbsp;/&nbsp; hauek · horiek · haiek"},
+    {d:5,  tit:"NON / NONGO · terminaciones", note:"Dónde estás / de dónde eres.",
+     say:"NON → -<b>an</b> · <i>etxean</i> &nbsp;·&nbsp; NONGO → -<b>ko</b> · <i>Bilboko</i>"},
+    {d:8,  tit:"UKAN (NOR-NORK) · orainaldia", note:"Haber/tener · sujeto con -k, un objeto.",
+     say:"nik <b>dut</b> · zuk <b>duzu</b> · hark <b>du</b> · guk <b>dugu</b> · zuek <b>duzue</b> · haiek <b>dute</b>"},
+    {d:9,  tit:"UKAN · objeto plural", note:"Cuando el objeto es «varios»: di-…-t.",
+     say:"nik <b>ditut</b> · zuk <b>dituzu</b> · hark <b>ditu</b> · guk <b>ditugu</b> · zuek <b>dituzue</b> · haiek <b>dituzte</b>"},
+    {d:12, tit:"Aditz trinkoak · ni / hura", note:"Sintéticos, sin auxiliar. Recita las dos columnas.",
+     say:"egon <b>nago</b>/<b>dago</b> · joan <b>noa</b>/<b>doa</b> · etorri <b>nator</b>/<b>dator</b><br>ibili <b>nabil</b>/<b>dabil</b> · jakin <b>dakit</b>/<b>daki</b> · eduki <b>daukat</b>/<b>dauka</b>"},
+    {d:13, tit:"Zenbakiak · 1–10", note:"Los números del uno al diez.",
+     say:"<b>bat</b> · <b>bi</b> · <b>hiru</b> · <b>lau</b> · <b>bost</b> · <b>sei</b> · <b>zazpi</b> · <b>zortzi</b> · <b>bederatzi</b> · <b>hamar</b>"},
+    {d:13, tit:"Ordua · la hora", note:"«La una» va en singular; el resto, plural; «a las…» con -etan.",
+     say:"Ordu <b>bata</b> da · <b>biak</b> dira · <b>hirurak</b> dira &nbsp;·&nbsp; a las 4 → <b>lauretan</b>"},
+    {d:15, tit:"Aspektua · -tzen / -ko", note:"Habitual frente a futuro, sobre el mismo verbo.",
+     say:"jan → <b>jaten</b> dut (como) &nbsp;·&nbsp; jan → <b>jango</b> dut (comeré)"},
+    {d:18, tit:"NOR-NORI · zait (gustatu)", note:"«A mí me gusta…»: el que disfruta va en dativo.",
+     say:"niri <b>zait</b> · zuri <b>zaizu</b> · hari <b>zaio</b> · guri <b>zaigu</b> · zuei <b>zaizue</b> · haiei <b>zaie</b>"},
+    {d:19, tit:"NOR-NORI-NORK · diot (varía NORK)", note:"«Yo se lo… a él», una cosa.",
+     say:"nik <b>diot</b> · zuk <b>diozu</b> · hark <b>dio</b> · guk <b>diogu</b> · zuek <b>diozue</b> · haiek <b>diote</b>"},
+    {d:19, tit:"NOR-NORI-NORK · dit (varía NORI)", note:"«Él me/te/le… lo», una cosa.",
+     say:"niri <b>dit</b> · zuri <b>dizu</b> · hari <b>dio</b> · guri <b>digu</b> · zuei <b>dizue</b> · haiei <b>die</b>"},
+    {d:22, tit:"Deklinabidea · el mapa de casos", note:"Las terminaciones en orden: la escalera completa.",
+     say:"NOR -<b>a</b> · NORK -<b>ak</b> · NORI -<b>ari</b> · NOREN -<b>aren</b> · NON -<b>an</b> · NORA -<b>ra</b> · NONDIK -<b>tik</b> · NONGO -<b>ko</b> · NOREKIN -<b>arekin</b> · -<b>z</b>"}
+  ];
+  MEM.forEach(function(it,i){ it._id = 'm'+i; });
+
+  var body = document.getElementById('memBody'),
+      memSub = document.getElementById('memSub'),
+      memProg = document.getElementById('memProg');
+
+  function unlocked(N){ return MEM.filter(function(it){ return it.d <= N; }); }
+  function knownCount(list){ return list.filter(function(it){ return st.know[it._id]; }).length; }
+
+  function updateProg(){
+    var u = unlocked(todayN());
+    memProg.innerHTML =
+      '<div class="kp"><b>' + u.length + '</b><span>Recitados</span></div>' +
+      '<div class="kp g"><b>' + knownCount(u) + '</b><span>Dominados</span></div>';
+  }
+
+  function card(it, N){
+    var known = !!st.know[it._id];
+    return '<div class="mi' + (known ? ' known' : '') + '" data-id="' + it._id + '">' +
+      '<div class="mi-top"><span class="mi-tit">' + it.tit + '</span>' +
+      '<span class="mi-day' + (it.d === N ? ' new' : '') + '">D' + it.d + '</span></div>' +
+      '<div class="mi-note">' + it.note + '</div>' +
+      '<button type="button" class="mi-reveal" aria-expanded="false">Recitar y comprobar &#9662;</button>' +
+      '<div class="mi-say" hidden>' + it.say + '</div>' +
+      '<label class="mi-know"><input type="checkbox"' + (known ? ' checked' : '') + '> Badakit · me lo sé de memoria</label>' +
+      '</div>';
+  }
+
+  function render(){
+    var N = todayN(), u = unlocked(N);
+    memSub.innerHTML = 'Los paradigmas que ya deberías recitar sin pensar a día <b>' + N + '</b>. Tápalos, dilos en voz alta y comprueba. Van apareciendo según los introduce el plan.';
+    body.innerHTML = u.length
+      ? u.map(function(it){ return card(it, N); }).join('')
+      : '<p class="mem-sub">Los primeros recitados aparecen a partir del día 2 del plan.</p>';
+    updateProg();
+  }
+
+  body.addEventListener('click', function(e){
+    var btn = e.target.closest('.mi-reveal'); if(!btn) return;
+    var say = btn.parentNode.querySelector('.mi-say'); if(!say) return;
+    var willOpen = say.hidden;
+    say.hidden = !willOpen;
+    btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    btn.innerHTML = willOpen ? 'Ocultar &#9652;' : 'Recitar y comprobar &#9662;';
+  });
+  body.addEventListener('change', function(e){
+    var cb = e.target.closest('.mi-know input'); if(!cb) return;
+    var mi = cb.closest('.mi'), id = mi.getAttribute('data-id');
+    if(cb.checked) st.know[id] = 1; else delete st.know[id];
+    mi.classList.toggle('known', cb.checked);
+    save(); updateProg();
+  });
+
+  render();
+  HUB.bind('memoria', KEY, function(v){ st = v || {know:{}}; render(); }, function(){ return st; });
 })();
 </script>
 </section>
