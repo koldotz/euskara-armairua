@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Glosario de conceptos gramaticales fundamentales (caso, sintagma, núcleo, ergativo, genitivo, aspecto…) explicados en lenguaje llano, con casos prácticos y su relación con el euskera.">
+<title>Glosario gramatical</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2; --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC; --ok:#2E6B42;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --f-display:"Zilla Slab", Georgia, serif; --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:4px; --topbar:66px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);}}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; line-height:1.12; margin:0}
+p{margin:0}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+.eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+/* ── topbar ── */
+.hub{position:sticky; top:0; z-index:80; background:var(--surface); border-bottom:1px solid var(--line-strong)}
+.hub .in{max-width:1100px; margin:0 auto; padding:0 22px; display:flex; align-items:center; gap:16px; min-height:var(--topbar)}
+.hub .brand{display:flex; flex-direction:column; justify-content:center; gap:1px; padding-right:20px; border-right:1px solid var(--line); flex:none}
+.hub .brand a{display:flex; align-items:center; gap:6px; text-decoration:none; color:inherit}
+.hub .brand .home{font-family:var(--f-mono); color:var(--muted); font-size:15px}
+.hub .brand b{font-family:var(--f-display); font-size:18px; font-weight:700; letter-spacing:-.01em}
+.hub .brand b em{font-style:normal; color:var(--iron)}
+.hub .brand span{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted)}
+.hub .ctx{flex:none; display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:14.5px; font-weight:600; color:var(--ink-2)}
+.hub .ctx i{font-style:normal; opacity:.75}
+.hub .spacer{flex:1}
+.hub .back{flex:none; display:flex; align-items:center; gap:7px; font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--sea); text-decoration:none; border:1px solid var(--line-strong); border-radius:var(--r); padding:7px 12px; background:var(--ground)}
+.hub .back:hover{border-color:var(--sea); background:var(--sea-soft)}
+@media (max-width:860px){:root{--topbar:56px} .hub .in{gap:10px; padding:0 14px} .hub .brand span,.hub .ctx{display:none}}
+
+.wrap{max-width:1100px; margin:0 auto; padding:0 22px}
+.hero{padding:40px 0 8px}
+.hero h1{font-size:clamp(30px,5vw,44px); letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--sea)}
+.hero .lede{font-family:var(--f-ui); font-size:16px; color:var(--ink-2); max-width:70ch; margin:12px 0 0}
+
+/* ── barra de búsqueda ── */
+.tools{position:sticky; top:var(--topbar); z-index:60; background:var(--ground); padding:16px 0 10px; margin-top:20px; border-bottom:1px solid var(--line)}
+.search{position:relative; max-width:640px}
+.search input{width:100%; font-family:var(--f-ui); font-size:16px; padding:12px 14px 12px 40px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); color:var(--ink)}
+.search input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.search .mag{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:15px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:11px}
+.chip{font-family:var(--f-ui); font-size:12.5px; font-weight:500; cursor:pointer; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); border-radius:20px; padding:5px 12px; white-space:nowrap}
+.chip:hover{border-color:var(--sea); color:var(--sea)}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.count{font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; color:var(--muted); margin-top:10px}
+
+/* ── entradas ── */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(420px,1fr)); gap:16px; margin:20px 0 90px; align-items:start}
+.entry{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:17px 19px; scroll-margin-top:calc(var(--topbar) + 80px)}
+.entry .etop{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.entry .term{font-family:var(--f-display); font-size:22px; font-weight:600; color:var(--ink); letter-spacing:-.01em}
+.entry .eus{font-family:var(--f-mono); font-size:12px; color:var(--sea)}
+.entry .cat{font-family:var(--f-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; margin-left:auto}
+.entry .def{font-family:var(--f-ui); font-size:15px; color:var(--ink); margin-top:10px}
+.entry .rel{font-family:var(--f-ui); font-size:14px; color:var(--ink-2); margin-top:9px; padding:9px 11px; background:var(--sea-soft); border-radius:var(--r); line-height:1.5}
+.entry .rel b{color:var(--sea)}
+.cases{margin-top:12px; display:flex; flex-direction:column; gap:10px}
+.case{padding-left:12px; border-left:2px solid var(--line-strong)}
+.case .ex{font-family:var(--f-body); font-size:16px; color:var(--ink)}
+.case .ex .eu{font-weight:600}
+.case .ex .eu b{color:var(--iron); font-weight:700}
+.case .ex .g{color:var(--muted)}
+.case .note{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); margin-top:4px; line-height:1.5}
+.mono{font-family:var(--f-mono); font-size:.92em; background:var(--surface-2); padding:0 4px; border-radius:3px}
+.entry:target{border-color:var(--sea); box-shadow:0 0 0 2px var(--sea-soft), var(--shadow)}
+.empty{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-family:var(--f-ui)}
+.empty b{display:block; font-size:18px; color:var(--ink-2); margin-bottom:6px}
+.foot{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding:20px 0 40px; line-height:1.6}
+</style>
+
+<div class="hub"><div class="in">
+  <div class="brand"><a href="index.html" title="Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b></a><span>Glosarioa</span></div>
+  <div class="ctx"><i>📚</i>Kontzeptu gramatikalak</div>
+  <div class="spacer"></div>
+  <a class="back" href="gramatika.html">Gramatika bilatzailea &#8599;</a>
+</div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Hiztegi gramatikala · es</div>
+    <h1>Glosario <em>gramatical</em></h1>
+    <p class="lede">Los términos «clásicos» de la gramática —caso, sintagma, núcleo, ergativo, genitivo, aspecto…— explicados en lenguaje llano. Cada entrada trae uno o dos <b>casos prácticos</b> con frase de ejemplo y su explicación, y sobre todo <b>cómo se traduce ese concepto al euskera</b>.</p>
+  </header>
+
+  <div class="tools">
+    <div class="search">
+      <span class="mag" aria-hidden="true">&#128269;</span>
+      <input type="search" id="q" placeholder="Buscar: ergativo, genitivo, sintagma, aspecto…" autocomplete="off" aria-label="Buscar en el glosario">
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip" type="button" data-cat="all" aria-pressed="true">Todo</button>
+      <button class="chip" type="button" data-cat="sintaxis" aria-pressed="false">Sintaxis</button>
+      <button class="chip" type="button" data-cat="declinacion" aria-pressed="false">Declinación · casos</button>
+      <button class="chip" type="button" data-cat="verbo" aria-pressed="false">Verbo</button>
+      <button class="chip" type="button" data-cat="morfologia" aria-pressed="false">Morfología</button>
+      <button class="chip" type="button" data-cat="otros" aria-pressed="false">Otros</button>
+    </div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <section class="grid" id="grid" aria-live="polite">
+
+    <!-- ══ SINTAXIS ══ -->
+    <article class="entry" id="g-sintagma-nominal" data-cat="sintaxis" data-k="sintagma nominal grupo palabras izen sintagma orden">
+      <div class="etop"><span class="term">Sintagma nominal</span><span class="eus">izen-sintagma</span><span class="cat">Sintaxis</span></div>
+      <p class="def">Grupo de palabras que gira en torno a un nombre (el núcleo) y funciona como una unidad dentro de la frase: «la casa grande», «los tres libros nuevos».</p>
+      <p class="rel"><b>En euskera:</b> el orden es casi el inverso del castellano y todo se «apila» al final. La marca (artículo, plural, caso) se pega solo a la <b>última</b> palabra del sintagma. Esquema: [genitivo] · [numeral] · NÚCLEO · [adjetivo] · [determinante].</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe handi<b>a</b></span> <span class="g">→ la casa grande</span></p><p class="note">Núcleo <i>etxe</i> + adjetivo <i>handi</i> + el artículo <span class="mono">-a</span>, que se pega al adjetivo por ser la última palabra.</p></div>
+        <div class="case"><p class="ex"><span class="eu">Mikel<b>en</b> hiru lagun on<b>ak</b></span> <span class="g">→ los tres buenos amigos de Mikel</span></p><p class="note">Poseedor (Mikelen) → numeral (hiru) → núcleo (lagun) → adjetivo (on) → plural <span class="mono">-ak</span> al final.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-nucleo" data-cat="sintaxis" data-k="nucleo núcleo cabeza sintagma nombre">
+      <div class="etop"><span class="term">Núcleo</span><span class="eus">buru / ardatza</span><span class="cat">Sintaxis</span></div>
+      <p class="def">La palabra principal de un sintagma, la que manda; el resto (determinantes, adjetivos) la acompañan. En un sintagma nominal el núcleo es el nombre.</p>
+      <p class="rel"><b>En euskera:</b> el núcleo va casi al final del sintagma, y los complementos que en castellano van detrás (adjetivo, artículo) se le añaden pegados por la derecha.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu"><b>kotxe</b> gorria</span> <span class="g">→ el coche rojo</span></p><p class="note">El núcleo es <i>kotxe</i> (coche); <i>gorri</i> (rojo) es el adjetivo y <span class="mono">-a</span> el artículo. Todo depende del núcleo.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-determinante" data-cat="sintaxis" data-k="determinante determinantes articulo artículo demostrativo el la los las mugatzailea">
+      <div class="etop"><span class="term">Determinante</span><span class="eus">determinatzailea</span><span class="cat">Sintaxis</span></div>
+      <p class="def">Palabra o marca que concreta al nombre: el artículo (el/la/los/las), los demostrativos (este/ese/aquel), los numerales… Dicen «cuál» o «cuántos».</p>
+      <p class="rel"><b>En euskera:</b> el artículo no es una palabra suelta delante, sino un <b>sufijo</b>: <span class="mono">-a</span> (singular) y <span class="mono">-ak</span> (plural), pegado al final del sintagma. Los demostrativos, en cambio, van <b>detrás</b> del nombre.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">lagun → lagun<b>a</b> / lagun<b>ak</b></span> <span class="g">→ el amigo / los amigos</span></p><p class="note">El determinante «el/los» es el sufijo -a / -ak, no una palabra aparte.</p></div>
+        <div class="case"><p class="ex"><span class="eu">etxe <b>hau</b></span> <span class="g">→ esta casa</span></p><p class="note">Con demostrativo el nombre NO lleva -a: es <i>etxe hau</i>, no *etxea hau.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-adjetivo" data-cat="sintaxis" data-k="adjetivo adjetivos izenondoa calificativo describe">
+      <div class="etop"><span class="term">Adjetivo</span><span class="eus">izenondoa</span><span class="cat">Sintaxis</span></div>
+      <p class="def">Palabra que describe una cualidad del nombre: grande, rojo, nuevo, guapo.</p>
+      <p class="rel"><b>En euskera:</b> el adjetivo va <b>detrás</b> del nombre (al revés que muchas veces en castellano), y es él quien recibe el artículo cuando cierra el sintagma.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">liburu <b>berri</b>a</span> <span class="g">→ el libro nuevo</span></p><p class="note">Nombre <i>liburu</i> + adjetivo <i>berri</i> + artículo -a. Orden: nombre → adjetivo → artículo.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-sujeto" data-cat="sintaxis" data-k="sujeto quien hace subjektua">
+      <div class="etop"><span class="term">Sujeto</span><span class="eus">subjektua</span><span class="cat">Sintaxis</span></div>
+      <p class="def">El que realiza o protagoniza la acción del verbo: en «Mikel come», el sujeto es Mikel.</p>
+      <p class="rel"><b>En euskera:</b> el sujeto <b>cambia de forma según el verbo</b>. Si el verbo no lleva objeto (intransitivo), el sujeto va en absolutivo (sin marca). Si lleva objeto (transitivo), el sujeto lleva la marca ergativa <span class="mono">-k</span>. Esto no existe en castellano.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">Mikel etorri da</span> <span class="g">→ Mikel ha venido</span></p><p class="note">Verbo sin objeto → sujeto <i>Mikel</i> sin marca (absolutivo).</p></div>
+        <div class="case"><p class="ex"><span class="eu">Mikel<b>ek</b> liburua irakurri du</span> <span class="g">→ Mikel ha leído el libro</span></p><p class="note">Hay objeto (liburua) → el sujeto lleva -k: <i>Mikelek</i> (ergativo).</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-objeto-directo" data-cat="sintaxis" data-k="objeto directo complemento que cosa acusativo">
+      <div class="etop"><span class="term">Objeto directo</span><span class="eus">objektu zuzena</span><span class="cat">Sintaxis</span></div>
+      <p class="def">La cosa o persona sobre la que recae directamente la acción: en «leo el libro», el objeto directo es «el libro».</p>
+      <p class="rel"><b>En euskera:</b> el objeto directo va en <b>absolutivo</b> (la forma base, con -a/-ak), la misma forma que tiene el sujeto de un verbo intransitivo. El verbo, además, concuerda con él (dut = 1 cosa, ditut = varias).</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">liburu<b>a</b> irakurri dut</span> <span class="g">→ he leído el libro</span></p><p class="note">El objeto <i>liburua</i> lleva -a (absolutivo); el verbo <i>dut</i> concuerda con él (una sola cosa).</p></div>
+        <div class="case"><p class="ex"><span class="eu">liburu<b>ak</b> irakurri ditut</span> <span class="g">→ he leído los libros</span></p><p class="note">Objeto en plural (liburuak) → el verbo cambia a <i>ditut</i>.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-objeto-indirecto" data-cat="sintaxis" data-k="objeto indirecto complemento indirecto dativo a quien nori destinatario">
+      <div class="etop"><span class="term">Objeto indirecto</span><span class="eus">zehar-objektua · NORI</span><span class="cat">Sintaxis</span></div>
+      <p class="def">El destinatario o beneficiario de la acción; responde a «¿a quién?»: en «le doy el libro a Jon», el objeto indirecto es «a Jon».</p>
+      <p class="rel"><b>En euskera:</b> se marca con el caso <b>dativo</b> (sufijo <span class="mono">-ari</span>/<span class="mono">-i</span>) y el verbo también lo recoge (diot = se lo doy a él).</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">Jon<b>i</b> liburua eman diot</span> <span class="g">→ le he dado el libro a Jon</span></p><p class="note"><i>Joni</i> = «a Jon» (dativo). El verbo <i>diot</i> ya incluye ese «a él».</p></div>
+      </div>
+    </article>
+
+    <!-- ══ DECLINACIÓN · CASOS ══ -->
+    <article class="entry" id="g-caso" data-cat="declinacion" data-k="caso casos declinacion declinación deklinabidea funcion terminacion">
+      <div class="etop"><span class="term">Caso · declinación</span><span class="eus">kasua · deklinabidea</span><span class="cat">Declinación</span></div>
+      <p class="def">El «caso» es la función que cumple una palabra en la frase (sujeto, destino, compañía, posesión…). Declinar es cambiar la palabra según ese papel.</p>
+      <p class="rel"><b>En euskera:</b> lo que el castellano hace con <b>preposiciones sueltas delante</b> (a, de, en, con, para…), el euskera lo hace con <b>sufijos pegados detrás</b>. Hay unos 11 casos básicos y cada uno tiene su terminación.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe<b>a</b> · etxe<b>an</b> · etxe<b>ra</b> · etxe<b>tik</b></span> <span class="g">→ la casa · en casa · a casa · de casa</span></p><p class="note">Un mismo nombre (etxe) cambia de terminación según su función. En castellano cambia la preposición; en euskera, el sufijo.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-absolutivo" data-cat="declinacion" data-k="absolutivo nor absolutiboa caso base sujeto objeto">
+      <div class="etop"><span class="term">Absolutivo</span><span class="eus">absolutiboa · NOR · -a/-ak</span><span class="cat">Declinación</span></div>
+      <p class="def">El caso «base», sin marca especial. Es la forma de diccionario con el artículo.</p>
+      <p class="rel"><b>En euskera:</b> marca a la vez el <b>sujeto de un verbo intransitivo</b> y el <b>objeto directo de uno transitivo</b>. Coincide con el artículo: -a (sing.), -ak (pl.).</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">ume<b>a</b> etorri da</span> <span class="g">→ el niño ha venido</span></p><p class="note"><i>umea</i> es el sujeto de un verbo sin objeto → absolutivo.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ur<b>a</b> edan dut</span> <span class="g">→ he bebido el agua</span></p><p class="note">Aquí <i>ura</i> es el objeto directo → también absolutivo.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-ergativo" data-cat="declinacion" data-k="ergativo ergatiboa nork sujeto -k transitivo agente">
+      <div class="etop"><span class="term">Ergativo</span><span class="eus">ergatiboa · NORK · -k</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso que marca al sujeto <b>cuando el verbo tiene objeto directo</b>. No existe en castellano y es lo más ajeno para un hispanohablante.</p>
+      <p class="rel"><b>En euskera:</b> si la frase lleva objeto (dut/du/dute…), el sujeto añade <span class="mono">-k</span>. Regla mecánica: si el auxiliar es <i>dut, duzu, du, dugu…</i>, el sujeto lleva -k, sin excepción.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">gizon<b>ak</b> esan du</span> <span class="g">→ el hombre lo ha dicho</span></p><p class="note"><i>gizonak</i> (con -k, singular ergativo) porque hay objeto y auxiliar transitivo <i>du</i>.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ni<b>k</b> ez dakit</span> <span class="g">→ yo no sé</span></p><p class="note">El pronombre también se declina: <i>ni</i> (yo) → <i>nik</i> como sujeto de verbo transitivo.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-dativo" data-cat="declinacion" data-k="dativo datiboa nori a quien complemento indirecto -ari">
+      <div class="etop"><span class="term">Dativo</span><span class="eus">datiboa · NORI · -ari/-i</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso del complemento indirecto: «a quién». Corresponde al «a» del castellano en «se lo doy <b>a Jon</b>».</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-ari</span> (sing.) / <span class="mono">-ei</span> (pl.). Los verbos tipo <i>gustatu</i> (gustar) lo usan siempre: el que disfruta va en dativo.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">nir<b>i</b> kafea gustatzen zait</span> <span class="g">→ a mí me gusta el café</span></p><p class="note"><i>niri</i> = «a mí» (dativo). Lo que gusta (kafea) es el sujeto gramatical; por eso el verbo es <i>zait</i>.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ume<b>ei</b> eman diet</span> <span class="g">→ se lo he dado a los niños</span></p><p class="note">Dativo plural <i>-ei</i>: <i>umeei</i> = «a los niños».</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-genitivo" data-cat="declinacion" data-k="genitivo genitiboa noren posesion posesivo de quien -aren">
+      <div class="etop"><span class="term">Genitivo posesivo</span><span class="eus">genitiboa · NOREN · -aren/-en</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso que indica posesión o pertenencia: «de quién» es algo.</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-aren</span> (sing.) / <span class="mono">-en</span> (pl.). A diferencia del castellano, el poseedor va <b>delante</b> de lo poseído.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">Jon<b>en</b> etxea</span> <span class="g">→ la casa de Jon</span></p><p class="note">El poseedor (Jonen) precede al núcleo (etxea). Literalmente «de-Jon la-casa».</p></div>
+        <div class="case"><p class="ex"><span class="eu">lagun<b>aren</b> kotxea</span> <span class="g">→ el coche del amigo</span></p><p class="note">-aren sobre <i>lagun</i> (singular): «del amigo».</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-inesivo" data-cat="declinacion" data-k="inesivo inesiboa non en lugar donde -an">
+      <div class="etop"><span class="term">Inesivo</span><span class="eus">inesiboa · NON · -an/-ean</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso de lugar «en dónde» (y también «en» de tiempo).</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-an</span>. Responde a la pregunta <i>non?</i> (¿dónde?). Equivale a la preposición «en».</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe<b>an</b> nago</span> <span class="g">→ estoy en casa</span></p><p class="note">-an sobre <i>etxe</i> → «en casa». Sin preposición suelta.</p></div>
+        <div class="case"><p class="ex"><span class="eu">Bilbo<b>n</b> bizi naiz</span> <span class="g">→ vivo en Bilbao</span></p><p class="note">Con nombres propios acabados en vocal, la marca se reduce (Bilbo → Bilbon).</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-adlativo" data-cat="declinacion" data-k="adlativo adlatiboa nora a hacia destino movimiento -ra">
+      <div class="etop"><span class="term">Adlativo</span><span class="eus">adlatiboa · NORA · -ra/-era</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso de destino: «a / hacia dónde» va algo.</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-ra</span>. Responde a <i>nora?</i> (¿a dónde?). Es el «a» de movimiento.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe<b>ra</b> noa</span> <span class="g">→ voy a casa</span></p><p class="note">-ra sobre <i>etxe</i> → «a casa», con idea de movimiento hacia allí.</p></div>
+        <div class="case"><p class="ex"><span class="eu">mendi<b>ra</b> goaz</span> <span class="g">→ vamos al monte</span></p><p class="note">Mismo sufijo -ra: destino <i>mendira</i>.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-ablativo" data-cat="declinacion" data-k="ablativo ablatiboa nondik de desde origen procedencia -tik">
+      <div class="etop"><span class="term">Ablativo</span><span class="eus">ablatiboa · NONDIK · -tik/-etik</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso de origen o procedencia: «de / desde dónde».</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-tik</span>. Responde a <i>nondik?</i> (¿de dónde?). Es el «de/desde» de procedencia, distinto del «de» posesivo (genitivo).</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe<b>tik</b> nator</span> <span class="g">→ vengo de casa</span></p><p class="note">-tik sobre <i>etxe</i> → «de casa» (procedencia). Ojo: no confundir con <i>etxearen</i> = «de la casa» (posesión).</p></div>
+        <div class="case"><p class="ex"><span class="eu">lane<b>tik</b> nator</span> <span class="g">→ vengo del trabajo</span></p><p class="note">Misma idea de origen: <i>lanetik</i>.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-sociativo" data-cat="declinacion" data-k="sociativo comitativo soziatiboa norekin con compañia -ekin -arekin">
+      <div class="etop"><span class="term">Sociativo (comitativo)</span><span class="eus">soziatiboa · NOREKIN · -arekin/-ekin</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso de compañía: «con quién / con qué».</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-arekin</span> (sing.) / <span class="mono">-ekin</span> (pl.). Es el «con» de acompañamiento.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">lagun<b>arekin</b> nago</span> <span class="g">→ estoy con el amigo</span></p><p class="note">-arekin sobre <i>lagun</i> → «con el amigo».</p></div>
+        <div class="case"><p class="ex"><span class="eu">zu<b>rekin</b> joango naiz</span> <span class="g">→ iré contigo</span></p><p class="note">El pronombre <i>zu</i> (tú) → <i>zurekin</i> = «contigo».</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-instrumental" data-cat="declinacion" data-k="instrumental instrumentala medio en por de -z">
+      <div class="etop"><span class="term">Instrumental</span><span class="eus">instrumentala · -z/-taz</span><span class="cat">Declinación</span></div>
+      <p class="def">Caso del medio, instrumento o materia: «en», «por medio de», «de» (tema).</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-z</span>. Sirve para medios de transporte, lengua, tema del que se habla, etc.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">auto<b>z</b> noa</span> <span class="g">→ voy en coche</span></p><p class="note">-z sobre <i>auto</i> → «en coche» (medio).</p></div>
+        <div class="case"><p class="ex"><span class="eu">euskara<b>z</b> hitz egiten dut</span> <span class="g">→ hablo en euskera</span></p><p class="note">El instrumental marca también la lengua: <i>euskaraz</i> = «en euskera».</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-partitivo" data-cat="declinacion" data-k="partitivo partitiboa -rik negacion pregunta nada algo de">
+      <div class="etop"><span class="term">Partitivo</span><span class="eus">partitiboa · -rik</span><span class="cat">Declinación</span></div>
+      <p class="def">Marca que sustituye al artículo en frases <b>negativas</b> y en <b>preguntas</b>: «(no) nada de», «(¿hay) algo de?».</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-rik</span>. Cuando negamos o preguntamos por la existencia de algo, el nombre pierde el -a y toma -rik.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">ez dut diru<b>rik</b></span> <span class="g">→ no tengo dinero</span></p><p class="note">En negativo, <i>dirua</i> (el dinero) pasa a <i>dirurik</i>.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ba al dago ur<b>ik</b>?</span> <span class="g">→ ¿hay agua?</span></p><p class="note">En la pregunta por existencia, <i>ura</i> → <i>urik</i>.</p></div>
+      </div>
+    </article>
+
+    <!-- ══ VERBO ══ -->
+    <article class="entry" id="g-auxiliar" data-cat="verbo" data-k="auxiliar auxiliares laguntzailea izan ukan edun conjugacion">
+      <div class="etop"><span class="term">Verbo auxiliar</span><span class="eus">aditz laguntzailea · izan / ukan</span><span class="cat">Verbo</span></div>
+      <p class="def">Verbo «de apoyo» que se conjuga y aporta las personas y el tiempo, mientras el verbo principal aparece en una forma fija (participio).</p>
+      <p class="rel"><b>En euskera:</b> casi todo se dice con dos auxiliares: <b>izan</b> (para verbos sin objeto: naiz, da, gara…) y <b>ukan/*edun</b> (para verbos con objeto: dut, du, dute…). El auxiliar es el que carga con la gramática.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etorri <b>naiz</b></span> <span class="g">→ he venido</span></p><p class="note">Participio fijo <i>etorri</i> + auxiliar <i>naiz</i> (izan), que aporta el «yo» y el tiempo.</p></div>
+        <div class="case"><p class="ex"><span class="eu">hartu <b>dut</b></span> <span class="g">→ (lo) he cogido</span></p><p class="note">Aquí el auxiliar es <i>dut</i> (ukan) porque hay objeto.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-transitivo-intransitivo" data-cat="verbo" data-k="transitivo intransitivo objeto directo nor nork iragankorra">
+      <div class="etop"><span class="term">Transitivo / intransitivo</span><span class="eus">iragankorra / iragangaitza</span><span class="cat">Verbo</span></div>
+      <p class="def">Un verbo <b>transitivo</b> lleva objeto directo (comer algo, leer algo); uno <b>intransitivo</b> no (venir, ir, estar).</p>
+      <p class="rel"><b>En euskera:</b> la distinción es capital porque decide dos cosas: qué auxiliar se usa (izan vs ukan) y si el sujeto lleva la marca ergativa <span class="mono">-k</span> o no.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">ni etxera noa</span> <span class="g">→ yo voy a casa</span></p><p class="note">Intransitivo: sin objeto → sujeto <i>ni</i> sin -k, auxiliar tipo izan.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ni<b>k</b> ura edaten dut</span> <span class="g">→ yo bebo agua</span></p><p class="note">Transitivo: hay objeto (ura) → sujeto <i>nik</i> con -k, auxiliar <i>dut</i> (ukan).</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-participio" data-cat="verbo" data-k="participio infinitivo partizipioa forma base -tu -i -n">
+      <div class="etop"><span class="term">Participio (infinitivo)</span><span class="eus">partizipioa · -tu/-i/-n</span><span class="cat">Verbo</span></div>
+      <p class="def">La forma de diccionario del verbo, la «base» que no cambia con la persona: coger, ver, comer.</p>
+      <p class="rel"><b>En euskera:</b> termina en <span class="mono">-tu/-du</span> (hartu, edan), <span class="mono">-i</span> (ikusi, etorri) o <span class="mono">-n</span> (izan, egon, jakin). Se combina con el auxiliar, que es el que se conjuga.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu"><b>ikusi</b> dut</span> <span class="g">→ (lo) he visto</span></p><p class="note">El participio <i>ikusi</i> no cambia; el «yo» y el tiempo los pone el auxiliar <i>dut</i>.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-aspecto" data-cat="verbo" data-k="aspecto aspektua gerundio habitual futuro perfecto -tzen -ko -tu tiempo">
+      <div class="etop"><span class="term">Aspecto</span><span class="eus">aspektua · -tu / -t(z)en / -ko</span><span class="cat">Verbo</span></div>
+      <p class="def">Cómo se ve la acción: acabada, habitual/en curso, o futura. Es distinto del «tiempo» y en euskera se marca sobre el verbo principal.</p>
+      <p class="rel"><b>En euskera:</b> el participio adopta tres «trajes»: <span class="mono">-tu</span> (perfectivo, acción cumplida), <span class="mono">-t(z)en</span> (habitual o «-ando/-endo», incluye el gerundio) y <span class="mono">-ko/-go</span> (futuro). El auxiliar acompaña.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">lan egin<b>go</b> dut</span> <span class="g">→ trabajaré</span></p><p class="note">-go sobre el participio → aspecto futuro.</p></div>
+        <div class="case"><p class="ex"><span class="eu">lan egi<b>ten</b> dut</span> <span class="g">→ trabajo / suelo trabajar</span></p><p class="note">-ten → aspecto habitual; es también la forma del gerundio.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-imperativo" data-cat="verbo" data-k="imperativo agintera orden mandato haz ven">
+      <div class="etop"><span class="term">Imperativo</span><span class="eus">agintera</span><span class="cat">Verbo</span></div>
+      <p class="def">La forma para dar órdenes o instrucciones: «¡ven!», «¡cierra!».</p>
+      <p class="rel"><b>En euskera:</b> muchas veces coincide con el participio a secas, sin auxiliar: <i>etorri!</i> «¡ven!». También existe la forma con <i>ezazu</i> para «usted».</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">atea <b>itxi</b>!</span> <span class="g">→ ¡cierra la puerta!</span></p><p class="note">El participio <i>itxi</i> vale como orden directa.</p></div>
+        <div class="case"><p class="ex"><span class="eu">ur pixka bat <b>ekarri</b>, mesedez</span> <span class="g">→ trae un poco de agua, por favor</span></p><p class="note">Mismo mecanismo: participio como imperativo.</p></div>
+      </div>
+    </article>
+
+    <!-- ══ MORFOLOGÍA ══ -->
+    <article class="entry" id="g-morfema" data-cat="morfologia" data-k="morfema morfemas sufijo sufijos atzizkia pieza aglutinante">
+      <div class="etop"><span class="term">Morfema · sufijo</span><span class="eus">morfema · atzizkia</span><span class="cat">Morfología</span></div>
+      <p class="def">La pieza mínima con significado. Los <b>sufijos</b> son morfemas que se añaden al final de una palabra para cambiar su sentido o función.</p>
+      <p class="rel"><b>En euskera:</b> es una lengua <b>aglutinante</b>: apila varios morfemas en una sola palabra. Donde el castellano usa varias palabras sueltas, el euskera encadena sufijos.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">etxe<b>·eta·</b>n</span> <span class="g">→ en las casas</span></p><p class="note">Tres piezas en una palabra: <i>etxe</i> (casa) + <i>-eta-</i> (plural) + <i>-n</i> (en). <i>etxeetan</i> = «en las casas».</p></div>
+        <div class="case"><p class="ex"><span class="eu">euskal<b>dun</b></span> <span class="g">→ vascohablante</span></p><p class="note">El sufijo <span class="mono">-dun</span> («que tiene») convierte «euskera» en «el que tiene euskera».</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-comparativo" data-cat="morfologia" data-k="comparativo -ago mas grande que baino">
+      <div class="etop"><span class="term">Comparativo</span><span class="eus">konparatiboa · -ago</span><span class="cat">Morfología</span></div>
+      <p class="def">Forma que expresa «más … que»: más grande, más rápido.</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-ago</span> sobre el adjetivo, y <i>baino</i> para el «que» de la comparación.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">Mikel Jon <b>baino</b> altu<b>ago</b>a da</span> <span class="g">→ Mikel es más alto que Jon</span></p><p class="note">altu (alto) + -ago = «más alto»; <i>baino</i> introduce el término comparado (Jon).</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-superlativo" data-cat="morfologia" data-k="superlativo -en el mas mejor grado maximo">
+      <div class="etop"><span class="term">Superlativo</span><span class="eus">superlatiboa · -en</span><span class="cat">Morfología</span></div>
+      <p class="def">Forma que expresa el grado máximo: «el más …», «el mejor».</p>
+      <p class="rel"><b>En euskera:</b> sufijo <span class="mono">-en</span> sobre el adjetivo (y luego el artículo -a): handi → handiena «el más grande».</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">hau da etxe<b>rik</b> handi<b>ena</b></span> <span class="g">→ esta es la casa más grande</span></p><p class="note">handi (grande) + -en + -a = <i>handiena</i>, «la más grande».</p></div>
+      </div>
+    </article>
+
+    <!-- ══ OTROS ══ -->
+    <article class="entry" id="g-posposicion" data-cat="otros" data-k="posposicion posposiciones preposicion posposizioa gainean azpian encima debajo">
+      <div class="etop"><span class="term">Posposición</span><span class="eus">posposizioa</span><span class="cat">Otros</span></div>
+      <p class="def">Palabra que sitúa o relaciona (encima, debajo, delante, contra…). Es como una preposición, pero colocada <b>detrás</b>.</p>
+      <p class="rel"><b>En euskera:</b> donde el castellano pone la preposición <b>delante</b> («encima de la mesa»), el euskera la pone <b>detrás</b> y suele pedir el nombre en genitivo o sin artículo.</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu">mahai <b>gainean</b></span> <span class="g">→ encima de la mesa</span></p><p class="note">La relación «encima de» (gainean) va después del nombre <i>mahai</i>.</p></div>
+        <div class="case"><p class="ex"><span class="eu">etxe <b>aurrean</b></span> <span class="g">→ delante de la casa</span></p><p class="note">Mismo orden invertido respecto al castellano.</p></div>
+      </div>
+    </article>
+
+    <article class="entry" id="g-adverbio" data-cat="otros" data-k="adverbio adverbios adberbioa modo tiempo lugar cantidad como cuando donde">
+      <div class="etop"><span class="term">Adverbio</span><span class="eus">adberbioa</span><span class="cat">Otros</span></div>
+      <p class="def">Palabra que modifica al verbo (o a un adjetivo) diciendo cómo, cuándo, dónde o cuánto: bien, hoy, aquí, mucho.</p>
+      <p class="rel"><b>En euskera:</b> muchos adverbios son invariables (no se declinan): <i>gaur</i> (hoy), <i>hemen</i> (aquí), <i>poliki</i> (despacio), <i>asko</i> (mucho).</p>
+      <div class="cases">
+        <div class="case"><p class="ex"><span class="eu"><b>poliki</b> hitz egiten du</span> <span class="g">→ habla despacio</span></p><p class="note"><i>poliki</i> (despacio) modifica al verbo: dice «cómo» habla.</p></div>
+        <div class="case"><p class="ex"><span class="eu"><b>gaur</b> ez naiz etorriko</span> <span class="g">→ hoy no vendré</span></p><p class="note"><i>gaur</i> (hoy) sitúa la acción en el tiempo, sin cambiar de forma.</p></div>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="empty" id="empty" hidden><b>Ez da ezer aurkitu</b>Prueba con otra palabra: «ergativo», «genitivo», «aspecto», «sintagma»…</div>
+
+  <p class="foot">Glosario de apoyo para <b>Euskara Armairua</b>. Las definiciones son deliberadamente sencillas (nivel A1–A2); para el detalle normativo, la referencia es <i>Euskaltzaindia</i>. Cada concepto se enlaza desde el <a href="gramatika.html">buscador de gramática</a>.</p>
+</main>
+
+<script>
+/* ── filtro + búsqueda + deep-link (#g-…) ─────────────────────────────── */
+(function(){
+  var q = document.getElementById('q'),
+      chipsEl = document.getElementById('chips'),
+      grid = document.getElementById('grid'),
+      countEl = document.getElementById('count'),
+      emptyEl = document.getElementById('empty');
+  var entries = [].slice.call(grid.querySelectorAll('.entry'));
+  var active = 'all';
+
+  function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  entries.forEach(function(e){ e._s = norm(e.getAttribute('data-k') + ' ' + e.textContent); });
+
+  function render(){
+    var terms = norm(q.value).split(/\s+/).filter(Boolean);
+    var n = 0;
+    entries.forEach(function(e){
+      var okCat = active === 'all' || e.getAttribute('data-cat') === active;
+      var okTxt = terms.every(function(t){ return e._s.indexOf(t) >= 0; });
+      var show = okCat && okTxt;
+      e.hidden = !show;
+      if (show) n++;
+    });
+    emptyEl.hidden = n > 0;
+    countEl.textContent = n + ' / ' + entries.length + ' kontzeptu';
+  }
+
+  [].forEach.call(chipsEl.children, function(b){
+    b.addEventListener('click', function(){
+      active = b.getAttribute('data-cat');
+      [].forEach.call(chipsEl.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+
+  // si se entra con #g-…, limpiar filtros para que el destino sea visible y saltar a él
+  function jumpToHash(){
+    var id = (location.hash || '').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    active = 'all'; q.value = '';
+    [].forEach.call(chipsEl.children, function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-cat') === 'all' ? 'true' : 'false'); });
+    render();
+    setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30);
+  }
+  window.addEventListener('hashchange', jumpToHash);
+
+  render();
+  jumpToHash();
+})();
+</script>
+</body>
+</html>
