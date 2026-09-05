@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Euskara Armairua — buscador de gramática vasca comparada con el castellano: verbos, tiempos, declinación, morfemas, posposiciones y adverbios.">
+<title>Gramatika · Bilatzailea</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2; --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC; --ok:#2E6B42;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --f-display:"Zilla Slab", Georgia, serif; --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:4px; --topbar:66px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);}}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; line-height:1.12; margin:0}
+p{margin:0}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+.eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+/* ── topbar ── */
+.hub{position:sticky; top:0; z-index:80; background:var(--surface); border-bottom:1px solid var(--line-strong)}
+.hub .in{max-width:1100px; margin:0 auto; padding:0 22px; display:flex; align-items:center; gap:16px; min-height:var(--topbar)}
+.hub .brand{display:flex; flex-direction:column; justify-content:center; gap:1px; padding-right:20px; border-right:1px solid var(--line); flex:none}
+.hub .brand a{display:flex; align-items:center; gap:6px; text-decoration:none; color:inherit}
+.hub .brand .home{font-family:var(--f-mono); color:var(--muted); font-size:15px}
+.hub .brand b{font-family:var(--f-display); font-size:18px; font-weight:700; letter-spacing:-.01em}
+.hub .brand b em{font-style:normal; color:var(--iron)}
+.hub .brand span{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted)}
+.hub .ctx{flex:none; display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:14.5px; font-weight:600; color:var(--ink-2)}
+.hub .ctx i{font-style:normal; opacity:.75}
+.hub .spacer{flex:1}
+.hub .guide{flex:none; display:flex; align-items:center; gap:7px; font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--sea); text-decoration:none; border:1px solid var(--line-strong); border-radius:var(--r); padding:7px 12px; background:var(--ground)}
+.hub .guide:hover{border-color:var(--sea); background:var(--sea-soft)}
+.hub .guide span{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+.hub .who{flex:none; display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); border-radius:var(--r); padding:6px 11px; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--ink-2)}
+.hub .who:hover{border-color:var(--line-strong); background:var(--surface-2)}
+.hub .who .dot{width:7px; height:7px; border-radius:50%; background:var(--line-strong); flex:none}
+.hub .who[data-state="cloud"] .dot{background:var(--ok)}
+.hub .who .nm{font-weight:600; color:var(--ink)}
+.hub .who .st{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+.hub .who .stack{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25}
+@media (max-width:860px){:root{--topbar:56px} .hub .in{gap:10px; padding:0 14px} .hub .brand span,.hub .ctx,.hub .who .st,.hub .guide span{display:none}}
+
+.wrap{max-width:1100px; margin:0 auto; padding:0 22px}
+.hero{padding:40px 0 8px}
+.hero h1{font-size:clamp(30px,5vw,44px); letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--sea)}
+.hero .lede{font-family:var(--f-ui); font-size:16px; color:var(--ink-2); max-width:64ch; margin:12px 0 0}
+.hero .full{display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-family:var(--f-ui); font-size:13.5px; font-weight:500; color:var(--sea); text-decoration:none; border:1px solid var(--line-strong); border-radius:var(--r); padding:7px 13px; background:var(--surface)}
+.hero .full:hover{border-color:var(--sea); background:var(--sea-soft)}
+
+/* ── barra de búsqueda ── */
+.tools{position:sticky; top:var(--topbar); z-index:60; background:var(--ground); padding:16px 0 10px; margin-top:20px; border-bottom:1px solid var(--line)}
+.search{position:relative; max-width:640px}
+.search input{width:100%; font-family:var(--f-ui); font-size:16px; padding:12px 14px 12px 40px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); color:var(--ink)}
+.search input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.search .mag{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:15px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:11px}
+.chip{font-family:var(--f-ui); font-size:12.5px; font-weight:500; cursor:pointer; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); border-radius:20px; padding:5px 12px; white-space:nowrap}
+.chip:hover{border-color:var(--sea); color:var(--sea)}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.count{font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; color:var(--muted); margin-top:10px}
+
+/* ── resultados ── */
+.results{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:14px; margin:18px 0 90px; align-items:start}
+.card{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:15px 17px}
+.card.wide{grid-column:1/-1}
+.card .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.card .eu{font-family:var(--f-display); font-size:21px; font-weight:600; color:var(--ink); letter-spacing:-.01em}
+.card .kat{font-family:var(--f-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; margin-left:auto}
+.card .es{font-family:var(--f-ui); font-size:15px; color:var(--ink); margin-top:8px}
+.card .es b{color:var(--sea); font-family:var(--f-mono); font-weight:500; margin-right:5px}
+.card .fun{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); margin-top:7px; line-height:1.5}
+.card .adib{font-family:var(--f-body); font-size:15px; margin-top:10px; padding-left:11px; border-left:2px solid var(--sea-soft); color:var(--ink)}
+.card .adib .g{color:var(--muted)}
+.card .adib + .adib{margin-top:5px}
+.card table{width:100%; border-collapse:collapse; margin-top:11px; font-family:var(--f-mono); font-size:13px}
+.card th{text-align:left; font-weight:500; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:3px 8px 5px; border-bottom:1px solid var(--line)}
+.card td{padding:3px 8px; border-bottom:1px solid var(--line); color:var(--ink)}
+.card td:first-child{color:var(--muted)}
+.card td.f{color:var(--sea); font-weight:500}
+.card tr:last-child td{border-bottom:0}
+.empty{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-family:var(--f-ui)}
+.empty b{display:block; font-size:18px; color:var(--ink-2); margin-bottom:6px}
+
+/* ── gate ── */
+.gate{position:fixed; inset:0; z-index:200; background:rgba(12,15,12,.62); display:grid; place-items:center; padding:22px}
+.gate .gbox{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); box-shadow:var(--shadow); padding:30px 30px 24px; max-width:440px; width:100%}
+.gate h2{font-size:28px; margin-bottom:4px} .gate h2 em{font-style:normal; color:var(--iron)}
+.gate .lede{font-family:var(--f-ui); font-size:14.5px; color:var(--ink-2); margin-top:10px}
+.gate form{display:flex; gap:8px; margin-top:18px}
+.gate input{flex:1; min-width:0; font-family:var(--f-ui); font-size:15px; padding:9px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink)}
+.gate input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.gate button[type="submit"]{font-family:var(--f-ui); font-size:14px; font-weight:600; padding:9px 18px; cursor:pointer; border:1px solid var(--sea); border-radius:var(--r); background:var(--sea); color:#fff}
+.gate .fine{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:16px; border-top:1px solid var(--line); padding-top:14px}
+.gate .later{display:inline-block; margin-top:12px; background:none; border:0; padding:0; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--muted); text-decoration:underline; text-underline-offset:3px}
+</style>
+
+<div class="hub"><div class="in">
+  <div class="brand"><a href="index.html" title="Mailak · Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b></a><span>Gramatika</span></div>
+  <div class="ctx"><i>📖</i>Bilatzailea</div>
+  <div class="spacer"></div>
+  <button type="button" class="who" id="who" data-state="local" aria-label="Perfil"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
+</div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Euskara ↔ Gaztelania</div>
+    <h1>Gramatika <em>bilatzailea</em></h1>
+    <p class="lede">Busca cualquier forma: conjugaciones de los auxiliares y verbos sintéticos con sus tiempos, formas verbales, casos de la declinación, determinantes (artículos), morfemas, posposiciones y adverbios. Cada entrada, comparada con el castellano para ver qué cambia.</p>
+    <a class="full" href="https://claude.ai/code/artifact/35026aab-cef0-431b-a346-09202820c5c4" target="_blank" rel="noopener">Gramatika-gida osoa (azalpen luzeak) &#8599;</a>
+  </header>
+
+  <div class="tools">
+    <div class="search">
+      <span class="mag" aria-hidden="true">&#128269;</span>
+      <input type="search" id="q" placeholder="Bilatu: naiz, dut, -rekin, encima, futuro, dativo…" autocomplete="off" aria-label="Buscar en la gramática">
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <section class="results" id="results" aria-live="polite"></section>
+</main>
+
+<div class="gate" id="gate" hidden>
+  <div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="eyebrow">Euskara armairua</div>
+    <h2 id="gateTitle">Nor <em>zara</em>?</h2>
+    <p class="lede">Tu nombre es la etiqueta de tu progreso; se comparte con A1 y A2.</p>
+    <form id="gateForm"><input id="gateName" type="text" autocomplete="off" placeholder="Maialen" maxlength="40" required aria-label="Tu nombre"><button type="submit">Sartu</button></form>
+    <p class="fine">No hay contraseña: solo una etiqueta para el progreso guardado.</p>
+    <button type="button" class="later" id="gateLater">Ahora no</button>
+  </div>
+</div>
+
+<script>
+/* ── perfil (compartido con A1/A2) ── */
+window.HUB=(function(){var NAMEK='euskara-izena',COL='aurrerapena',db=null,izena='';
+  function emit(){var c=document.getElementById('who');if(c){c.querySelector('.nm').textContent=izena||'Sin perfil';c.querySelector('.st').textContent=izena?'Zure profila':'Toca para crear tu perfil';c.setAttribute('data-state',izena&&db?'cloud':'local');}}
+  function save(n){izena=n;try{localStorage.setItem(NAMEK,n);}catch(e){}emit();if(db)db.doc(COL+'/profila').set({izena:n,t:Date.now()})['catch'](function(){});}
+  function open(){var g=document.getElementById('gate');if(!g)return;g.hidden=false;var i=document.getElementById('gateName');i.value=izena||'';setTimeout(function(){i.focus();i.select();},30);}
+  function close(){var g=document.getElementById('gate');if(g)g.hidden=true;}
+  try{izena=localStorage.getItem(NAMEK)||'';}catch(e){}
+  document.addEventListener('DOMContentLoaded',function(){
+    emit();
+    var f=document.getElementById('gateForm');if(f)f.addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('gateName').value.trim();if(v){save(v);close();}});
+    var l=document.getElementById('gateLater');if(l)l.addEventListener('click',close);
+    var c=document.getElementById('who');if(c)c.addEventListener('click',open);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    if(window.claude&&typeof claude.use==='function'){claude.use('db').then(function(d){if(d){db=d;emit();}})['catch'](function(){});}
+  });
+  return {name:function(){return izena;}};
+})();
+</script>
+
+<script>
+/* ══ GRAMATIKA · datuak (euskara ↔ gaztelania) ═══════════════════════ */
+var KAT={
+  lag:'Aditz laguntzaileak', trink:'Aditz trinkoak', forma:'Aditz-formak',
+  denbora:'Denborak · aspektua', dekl:'Deklinabidea · kasuak', det:'Determinatzaileak',
+  morf:'Morfemak · atzizkiak', pos:'Posposizioak', adb:'Adberbioak'
+};
+var CH=['lag','trink','forma','denbora','dekl','det','morf','pos','adb'];
+
+var D=[
+/* ── ADITZ LAGUNTZAILEAK ── */
+{k:'lag', eu:'IZAN (NOR) · orainaldia', es:'ser / estar — auxiliar intransitivo',
+ fun:'Un solo participante (NOR). Con -tzen forma el presente: «etortzen naiz» = vengo.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','naiz','soy / estoy'],['zu','zara','eres / estás'],['hura','da','es / está'],['gu','gara','somos / estamos'],['zuek','zarete','sois / estáis'],['haiek','dira','son / están']]},
+{k:'lag', eu:'IZAN (NOR) · lehenaldia', es:'era / estaba — pasado del auxiliar intransitivo',
+ fun:'Pasado: raíz + -tzen + estas formas → «etortzen nintzen» = venía.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','nintzen','era / estaba'],['zu','zinen','eras'],['hura','zen','era'],['gu','ginen','éramos'],['zuek','zineten','erais'],['haiek','ziren','eran']]},
+{k:'lag', eu:'UKAN / *edun (NOR-NORK) · orainaldia', es:'haber / tener — auxiliar transitivo',
+ fun:'Sujeto ergativo (NORK) + objeto. La forma cambia si el objeto es singular (dut) o plural (ditut).',
+ head:['NORK','+ 1 gauza','+ gauza asko'], t:[['nik','dut','ditut'],['zuk','duzu','dituzu'],['hark','du','ditu'],['guk','dugu','ditugu'],['zuek','duzue','dituzue'],['haiek','dute','dituzte']]},
+{k:'lag', eu:'UKAN / *edun (NOR-NORK) · lehenaldia', es:'había / tenía — pasado transitivo',
+ fun:'«hartu nuen» = (lo) cogí / había cogido.',
+ head:['NORK','+ 1 gauza','+ asko'], t:[['nik','nuen','nituen'],['zuk','zenuen','zenituen'],['hark','zuen','zituen'],['guk','genuen','genituen'],['zuek','zenuten','zenituzten'],['haiek','zuten','zituzten']]},
+{k:'lag', eu:'NOR-NORI (zait…)', es:'me / te / le… — dativo (a quién)',
+ fun:'Verbos como gustatu, falta izan: «niri gustatzen ZAIT» = a mí me gusta.',
+ head:['NORI','euskara','gaztelaniaz'], t:[['niri','zait','me'],['zuri','zaizu','te'],['hari','zaio','le'],['guri','zaigu','nos'],['zuei','zaizue','os'],['haiei','zaie','les']]},
+
+/* ── ADITZ TRINKOAK ── */
+{k:'trink', eu:'EGON · estar (ubicación/estado)', es:'estar — dónde / cómo se está',
+ fun:'«non zaude?» = ¿dónde estás?. Sintético: no lleva auxiliar.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','nago','estoy'],['zu','zaude','estás'],['hura','dago','está'],['gu','gaude','estamos'],['zuek','zaudete','estáis'],['haiek','daude','están']]},
+{k:'trink', eu:'JOAN · ir', es:'ir',
+ fun:'«nora zoaz?» = ¿a dónde vas?.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','noa','voy'],['zu','zoaz','vas'],['hura','doa','va'],['gu','goaz','vamos'],['zuek','zoazte','vais'],['haiek','doaz','van']]},
+{k:'trink', eu:'ETORRI · venir', es:'venir',
+ fun:'«nondik zatoz?» = ¿de dónde vienes?.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','nator','vengo'],['zu','zatoz','vienes'],['hura','dator','viene'],['gu','gatoz','venimos'],['zuek','zatozte','venís'],['haiek','datoz','vienen']]},
+{k:'trink', eu:'EDUKI · tener', es:'tener (posesión, en la mano)',
+ fun:'Como *edun, distingue objeto singular (daukat) / plural (dauzkat).',
+ head:['NORK','+ 1','+ asko'], t:[['nik','daukat','dauzkat'],['zuk','daukazu','dauzkazu'],['hark','dauka','dauzka'],['guk','daukagu','dauzkagu'],['zuek','daukazue','dauzkazue'],['haiek','daukate','dauzkate']]},
+{k:'trink', eu:'JAKIN · saber', es:'saber',
+ fun:'«ez dakit» = no sé.',
+ head:['NORK','euskara','gaztelaniaz'], t:[['nik','dakit','sé'],['zuk','dakizu','sabes'],['hark','daki','sabe'],['guk','dakigu','sabemos'],['zuek','dakizue','sabéis'],['haiek','dakite','saben']]},
+{k:'trink', eu:'IBILI · andar', es:'andar / andar (haciendo)',
+ fun:'«zer moduz zabiltza?» = ¿qué tal andas?.',
+ head:['NOR','euskara','gaztelaniaz'], t:[['ni','nabil','ando'],['zu','zabiltza','andas'],['hura','dabil','anda'],['gu','gabiltza','andamos'],['zuek','zabiltzate','andáis'],['haiek','dabiltza','andan']]},
+
+/* ── ADITZ-FORMAK ── */
+{k:'forma', eu:'Partizipioa (-tu / -i / -n)', es:'participio / infinitivo (base del verbo)',
+ fun:'La forma de diccionario. Terminaciones: -tu/-du (hartu, edan), -i ( ikusi, etorri), -n (izan, egon, jakin).',
+ ad:'hartu → coger | ikusi → ver | egon → estar'},
+{k:'forma', eu:'-tzen / -ten', es:'presente habitual · gerundio (-ando/-endo)',
+ fun:'Acción habitual o en curso, con izan/ukan: «lan egiten dut» = trabajo.',
+ ad:'jaten → comiendo | joaten naiz → suelo ir'},
+{k:'forma', eu:'-ko / -go (geroaldia)', es:'futuro (-ré / voy a)',
+ fun:'Sobre el participio: hartu→hartuko, edan→edango. Con izan/ukan: «etorriko naiz» = vendré.',
+ ad:'hartuko dut → cogeré | joango gara → iremos'},
+{k:'forma', eu:'Aditz-izena · -t(z)ea', es:'nombre de acción: el / lo de + infinitivo',
+ fun:'Nominaliza el verbo. «erretzea debekatuta dago» = está prohibido fumar.',
+ ad:'jatea → el comer | ikastea gustatzen zait → me gusta estudiar'},
+{k:'forma', eu:'-t(z)eko', es:'para + infinitivo',
+ fun:'Finalidad. «edateko zerbait» = algo para beber.',
+ ad:'hartzeko → para coger | ordaintzeko → para pagar'},
+{k:'forma', eu:'-tzen ari (progresiboa)', es:'estar + gerundio (justo ahora)',
+ fun:'Acción en desarrollo. «jaten ari naiz» = estoy comiendo.',
+ ad:'lanean ari da → está trabajando'},
+{k:'forma', eu:'Agintera (imperativo)', es:'imperativo (¡haz!)',
+ fun:'Suele coincidir con el participio: «hartu!», «etorri!», «jan!». También «har ezazu!».',
+ ad:'itxaron! → ¡espera! | ekarri ura → trae agua'},
+{k:'forma', eu:'behar / nahi izan', es:'tener que / querer (perífrasis)',
+ fun:'Participio + behar/nahi + izan/ukan: «joan behar dut» = tengo que ir; «edan nahi dut» = quiero beber.',
+ ad:'itxoin behar duzu → tienes que esperar'},
+
+/* ── DENBORAK · ASPEKTUA ── */
+{k:'denbora', eu:'Orainaldia', es:'presente',
+ fun:'Estructura: raíz + -tzen + izan/ukan (presente). «etortzen naiz» / «hartzen dut».',
+ ad:'lan egiten dut → trabajo'},
+{k:'denbora', eu:'Lehenaldia', es:'pretérito imperfecto (pasado habitual)',
+ fun:'raíz + -tzen + auxiliar en pasado. «etortzen nintzen» = (yo) venía.',
+ ad:'jaten nuen → comía'},
+{k:'denbora', eu:'Geroaldia', es:'futuro',
+ fun:'participio + -ko/-go + izan/ukan (presente). «etorriko naiz» = vendré.',
+ ad:'hartuko dut → cogeré'},
+{k:'denbora', eu:'Aspektu burutua', es:'pretérito perfecto (he hecho)',
+ fun:'participio + izan/ukan. «etorri naiz» = he venido; «hartu dut» = he cogido.',
+ ad:'etorri da → ha venido'},
+
+/* ── DEKLINABIDEA · KASUAK ── */
+{k:'dekl', eu:'Absolutiboa · NOR (-a / -ak)', es:'el/la (sujeto o objeto) — sin marca especial',
+ fun:'Caso base. Sujeto de intransitivo y objeto de transitivo. Es también el «artículo»: -a (sing.), -ak (pl.).',
+ ad:'etxea → la casa | etxeak → las casas'},
+{k:'dekl', eu:'Ergatiboa · NORK (-ak / -ek)', es:'el/la que hace (sujeto de verbo transitivo)',
+ fun:'No existe en castellano: marca al sujeto cuando hay objeto. «gizonAK esan du» = el hombre (lo) ha dicho.',
+ ad:'nik → yo (haciendo) | lagunek → los amigos'},
+{k:'dekl', eu:'Datiboa · NORI (-ari / -ei)', es:'a (complemento indirecto)',
+ fun:'A quién. «JonARI eman diot» = se lo he dado a Jon.',
+ ad:'niri → a mí | umeei → a los niños'},
+{k:'dekl', eu:'Inesiboa · NON (-an / -ean)', es:'en (lugar / tiempo)',
+ fun:'Dónde. El vasco pospone y flexiona el nombre: «mahaian» = en la mesa.',
+ ad:'etxean → en casa | Bilbon → en Bilbao'},
+{k:'dekl', eu:'Adlatiboa · NORA (-ra / -era)', es:'a / hacia (destino)',
+ fun:'A dónde. «etxera noa» = voy a casa.',
+ ad:'mendira → al monte | hondartzara → a la playa'},
+{k:'dekl', eu:'Ablatiboa · NONDIK (-tik / -etik)', es:'de / desde (origen)',
+ fun:'De dónde. «etxetik nator» = vengo de casa.',
+ ad:'lanetik → del trabajo | Donostiatik → desde San Sebastián'},
+{k:'dekl', eu:'Soziatiboa · NOREKIN (-arekin / -ekin)', es:'con (compañía)',
+ fun:'Con quién/qué. Singular -arekin, plural -ekin: «lagunarekin», «patatekin».',
+ ad:'zurekin → contigo | ardoarekin → con vino'},
+{k:'dekl', eu:'Genitiboa · NOREN (-aren / -en)', es:'de (posesión)',
+ fun:'De quién. Va delante: «JonEN etxea» = la casa de Jon.',
+ ad:'nire → mi(o) | amaren → de la madre'},
+{k:'dekl', eu:'Destinatiboa · NORENTZAT (-arentzat / -entzat)', es:'para (destinatario)',
+ fun:'Para quién. «niretzat» = para mí; «umeentzat» = para los niños.',
+ ad:'zuretzat → para ti'},
+{k:'dekl', eu:'Leku-genitiboa · NONGO (-ko / -go)', es:'de (procedencia / de lugar)',
+ fun:'De dónde es. «Bilboko» = de Bilbao; «hemengo» = de aquí.',
+ ad:'nongoa zara? → ¿de dónde eres? | etxeko → de casa'},
+{k:'dekl', eu:'Instrumentala (-z / -taz)', es:'en / por / de (medio, tema)',
+ fun:'Medio o materia. «autoz» = en coche; «euskaraz» = en euskera.',
+ ad:'trenez → en tren | eskuz → a mano'},
+{k:'dekl', eu:'Partitiboa (-rik)', es:'(nada / algo de) — en preguntas y negaciones',
+ fun:'Sustituye a -a/-ak en interrogativas y negativas. «ez daukat dirurik» = no tengo dinero.',
+ ad:'badago urik? → ¿hay agua? | ez dut ardorik → no tengo vino'},
+{k:'dekl', eu:'Motibatiboa (-gatik)', es:'por / a causa de',
+ fun:'Causa o motivo. «zuregatik» = por ti; «euriagatik» = por la lluvia.',
+ ad:'horregatik → por eso'},
+
+/* ── DETERMINATZAILEAK ── */
+{k:'det', eu:'-a (mugatu singularra)', es:'el / la',
+ fun:'Artículo determinado singular, pegado al nombre. Cuidado con la «-a orgánica»: neska ya la lleva.',
+ ad:'etxe → etxea (la casa)'},
+{k:'det', eu:'-ak (mugatu plurala)', es:'los / las',
+ fun:'Artículo determinado plural.',
+ ad:'lagun → lagunak (los amigos)'},
+{k:'det', eu:'Mugagabea (sin artículo)', es:'sin artículo — tras número, «zenbat» o «asko»',
+ fun:'El nombre queda «desnudo»: «bi etxe» (dos casas), «zenbat lagun?», «lagun asko».',
+ ad:'hiru kafe → tres cafés'},
+{k:'det', eu:'bat', es:'un / una',
+ fun:'Se coloca DETRÁS del nombre: «etxe bat» = una casa; «kafe bat» = un café.',
+ ad:'ardo bat → un vino'},
+{k:'det', eu:'Erakusleak · hau / hori / hura', es:'este / ese / aquel (+ plurales hauek/horiek/haiek)',
+ fun:'Van detrás del nombre y este NO lleva -a: «etxe hau» = esta casa, «liburu horiek» = esos libros.',
+ head:['euskara','gaztelaniaz'], t:[['hau / hauek','este / estos'],['hori / horiek','ese / esos'],['hura / haiek','aquel / aquellos']]},
+{k:'det', eu:'Zenbatzaileak (numeralak)', es:'números — orden número + nombre',
+ fun:'bat, bi, hiru, lau, bost… El número va delante y el nombre en mugagabe (sin -a): «lau pintxo».',
+ ad:'bost euro → cinco euros'},
+
+/* ── MORFEMAK · ATZIZKIAK ── */
+{k:'morf', eu:'-dun', es:'con / provisto de',
+ fun:'Añade una característica: «marradun» = de rayas / con rayas; «sorpresadun» = con sorpresa.',
+ ad:'euskaldun → vascohablante (que tiene euskera)'},
+{k:'morf', eu:'-zko / -ezko', es:'de (material o tema)',
+ fun:'«egurrezko» = de madera; «paperezko» = de papel; «marrubizko» = de fresa.',
+ ad:'plastikozko → de plástico'},
+{k:'morf', eu:'-tegi', es:'lugar de / -ería',
+ fun:'Lugar donde hay o se hace algo: «liburutegi» = biblioteca; «okindegi» = panadería.',
+ ad:'euskaltegi → academia de euskera'},
+{k:'morf', eu:'-(t)zaile / -le', es:'-dor / -or (agente)',
+ fun:'El que hace la acción: «irakasle» = profesor; «saltzaile» = vendedor; «entzule» = oyente.',
+ ad:'idazle → escritor'},
+{k:'morf', eu:'-tasun', es:'-dad / -eza (cualidad abstracta)',
+ fun:'«edertasun» = belleza; «adiskidetasun» = amistad; «askatasun» = libertad.',
+ ad:'gizatasun → humanidad'},
+{k:'morf', eu:'-ago', es:'más (comparativo)',
+ fun:'«handiago» = más grande; «politago» = más bonito. Comparar: «…-a baino …-ago».',
+ ad:'altuago → más alto'},
+{k:'morf', eu:'-egi', es:'demasiado',
+ fun:'«handiegi» = demasiado grande; «beroegi» = demasiado caliente.',
+ ad:'garestiegi → demasiado caro'},
+{k:'morf', eu:'-en (superlatiboa)', es:'el más (superlativo)',
+ fun:'«handiena» = el más grande; «onena» = el mejor.',
+ ad:'politena → el más bonito'},
+{k:'morf', eu:'-txo / -xka', es:'-ito / -illo (diminutivo)',
+ fun:'«etxetxo» = casita; «berandutxo» = un poco tarde; «gorrixka» = rojizo.',
+ ad:'poliki-poliki → despacito'},
+{k:'morf', eu:'-garri', es:'-able / que causa',
+ fun:'«interesgarri» = interesante; «harrigarri» = sorprendente; «beldurgarri» = terrible.',
+ ad:'ikusgarri → espectacular (digno de verse)'},
+{k:'morf', eu:'ba- (baiezkoa / baldintza)', es:'sí (afirmación enfática) / si (condición)',
+ fun:'«badator» = sí viene; «badakit» = ya lo sé. También condición: «nahi baduzu» = si quieres.',
+ ad:'badago → sí que hay'},
+{k:'morf', eu:'ez (ezeztapena)', es:'no (negación)',
+ fun:'Delante del verbo: «ez dut nahi» = no quiero. El orden cambia respecto al afirmativo.',
+ ad:'ez dakit → no sé | ezin da → no se puede'},
+
+/* ── POSPOSIZIOAK ── */
+{k:'pos', eu:'gainean', es:'encima de / sobre',
+ fun:'Va tras el nombre (genitivo): «mahai gainean» = encima de la mesa.', ad:'mahai gainean → sobre la mesa'},
+{k:'pos', eu:'azpian', es:'debajo de', fun:'«mahai azpian» = debajo de la mesa.', ad:'zubi azpian → bajo el puente'},
+{k:'pos', eu:'aurrean', es:'delante de / ante', fun:'«etxe aurrean» = delante de la casa.', ad:'nire aurrean → delante de mí'},
+{k:'pos', eu:'atzean', es:'detrás de', fun:'«barra atzean» = detrás de la barra.', ad:'atearen atzean → detrás de la puerta'},
+{k:'pos', eu:'ondoan', es:'al lado de / junto a', fun:'«barraren ondoan» = al lado de la barra.', ad:'plazaren ondoan → junto a la plaza'},
+{k:'pos', eu:'artean', es:'entre', fun:'«lagunen artean» = entre amigos.', ad:'bien artean → entre los dos'},
+{k:'pos', eu:'inguruan', es:'alrededor de / hacia (aprox.)', fun:'«mahaiaren inguruan» = alrededor de la mesa; «bederatzien inguruan» = hacia las nueve.', ad:'herriaren inguruan → en torno al pueblo'},
+{k:'pos', eu:'barruan', es:'dentro de', fun:'«etxe barruan» = dentro de casa.', ad:'ordu barruan → dentro de una hora'},
+{k:'pos', eu:'kanpoan', es:'fuera de', fun:'«herritik kanpo» = fuera del pueblo.', ad:'kanpoan → fuera'},
+{k:'pos', eu:'aurka / kontra', es:'contra', fun:'«zure aurka» = contra ti.', ad:'taldearen aurka → contra el equipo'},
+{k:'pos', eu:'arte', es:'hasta', fun:'«bihar arte» = hasta mañana; «gaur arte» = hasta hoy.', ad:'gero arte → hasta luego'},
+{k:'pos', eu:'buruz', es:'acerca de / sobre (tema)', fun:'«euskarari buruz» = sobre el euskera.', ad:'horri buruz → acerca de eso'},
+{k:'pos', eu:'bidez / bitartez', es:'mediante / a través de', fun:'«internet bidez» = por internet.', ad:'lagun baten bidez → a través de un amigo'},
+{k:'pos', eu:'zehar', es:'a lo largo de / por', fun:'«kalean zehar» = por la calle; «egunean zehar» = a lo largo del día.', ad:'mundu osoan zehar → por todo el mundo'},
+
+/* ── ADBERBIOAK ── */
+{k:'adb', eu:'Denbora-adberbioak', es:'adverbios de tiempo', fun:'Cuándo.',
+ head:['euskara','gaztelaniaz'], t:[['gaur','hoy'],['bihar','mañana'],['atzo','ayer'],['herenegun','anteayer'],['etzi','pasado mañana'],['orain','ahora'],['gero','luego / después'],['lehen','antes'],['beti','siempre'],['inoiz / sekula','nunca / alguna vez'],['batzuetan','a veces'],['maiz / sarri','a menudo'],['goiz','temprano'],['berandu','tarde']]},
+{k:'adb', eu:'Leku-adberbioak', es:'adverbios de lugar', fun:'Dónde.',
+ head:['euskara','gaztelaniaz'], t:[['hemen','aquí'],['hor','ahí'],['han','allí'],['goian','arriba'],['behean','abajo'],['barruan','dentro'],['kanpoan','fuera'],['gertu / hurbil','cerca'],['urrun','lejos'],['inguruan','alrededor']]},
+{k:'adb', eu:'Modu-adberbioak', es:'adverbios de modo', fun:'Cómo.',
+ head:['euskara','gaztelaniaz'], t:[['ondo / ongi','bien'],['gaizki','mal'],['poliki','despacio'],['azkar / bizkor','rápido'],['honela','así (de este modo)'],['horrela','así (de ese modo)'],['hala','así'],['batez ere','sobre todo']]},
+{k:'adb', eu:'Kantitate-adberbioak', es:'adverbios de cantidad', fun:'Cuánto.',
+ head:['euskara','gaztelaniaz'], t:[['asko','mucho'],['gutxi','poco'],['oso','muy'],['nahiko(a)','bastante'],['gehiegi','demasiado'],['gutxiegi','demasiado poco'],['pixka bat','un poco'],['dexente','bastante / un montón']]}
+];
+
+/* ══ render + búsqueda ═══════════════════════════════════════════════ */
+(function(){
+  var q = document.getElementById('q'), chipsEl = document.getElementById('chips'),
+      resEl = document.getElementById('results'), countEl = document.getElementById('count');
+  var active = 'all';
+
+  function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  // alias en castellano por categoría, para que la búsqueda funcione en ambos idiomas
+  var KATES = {
+    lag:'auxiliar auxiliares verbo conjugacion conjugaciones',
+    trink:'verbo sintetico verbos conjugacion',
+    forma:'verbo forma formas infinitivo participio gerundio imperativo futuro',
+    denbora:'tiempo tiempos presente pasado futuro aspecto',
+    dekl:'declinacion caso casos ergativo absolutivo dativo genitivo inesivo adlativo ablativo sociativo destinativo instrumental partitivo',
+    det:'articulo articulos determinante determinantes demostrativo demostrativos numeral',
+    morf:'morfema morfemas sufijo sufijos comparativo superlativo diminutivo',
+    pos:'posposicion posposiciones preposicion preposiciones',
+    adb:'adverbio adverbios'
+  };
+  D.forEach(function(e){
+    var parts = [e.eu, e.es, e.fun||'', e.ad||'', KAT[e.k], KATES[e.k]||''];
+    if (e.t) e.t.forEach(function(r){ parts.push(r.join(' ')); });
+    e._s = norm(parts.join(' '));
+  });
+
+  // chips
+  var chips = [{k:'all',l:'Denak'}].concat(CH.map(function(k){ return {k:k, l:KAT[k]}; }));
+  chips.forEach(function(c){
+    var b = document.createElement('button');
+    b.className='chip'; b.type='button'; b.textContent=c.l; b.setAttribute('aria-pressed', c.k==='all'?'true':'false'); b.dataset.k=c.k;
+    b.addEventListener('click', function(){ active=c.k; [].forEach.call(chipsEl.children,function(x){x.setAttribute('aria-pressed', x.dataset.k===active?'true':'false');}); render(); });
+    chipsEl.appendChild(b);
+  });
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function adib(a){ // "eu → es"
+    var i = a.indexOf('→');
+    if (i<0) return '<div class="adib">'+esc(a)+'</div>';
+    return '<div class="adib">'+esc(a.slice(0,i))+'<span class="g">→'+esc(a.slice(i+1))+'</span></div>';
+  }
+  function cardHTML(e){
+    var h = '<div class="top"><span class="eu">'+esc(e.eu)+'</span><span class="kat">'+esc(KAT[e.k])+'</span></div>';
+    h += '<div class="es"><b>=</b>'+esc(e.es)+'</div>';
+    if (e.fun) h += '<div class="fun">'+esc(e.fun)+'</div>';
+    if (e.t){
+      h += '<table><thead><tr>';
+      (e.head||[]).forEach(function(c,i){ h += '<th'+(i===0?'':'')+'>'+esc(c)+'</th>'; });
+      h += '</tr></thead><tbody>';
+      e.t.forEach(function(r){
+        h += '<tr>'; r.forEach(function(c,i){ h += '<td'+(i>0&&e.head&&e.head.length>2?' class="f"':(i===1&&e.head&&e.head.length===2?' class="f"':''))+'>'+esc(c)+'</td>'; }); h += '</tr>';
+      });
+      h += '</tbody></table>';
+    }
+    if (e.ad) h += adib(e.ad);
+    return h;
+  }
+
+  function render(){
+    var terms = norm(q.value).split(/\s+/).filter(Boolean);
+    var out = D.filter(function(e){
+      if (active!=='all' && e.k!==active) return false;
+      return terms.every(function(t){ return e._s.indexOf(t)>=0; });
+    });
+    resEl.innerHTML = '';
+    if (!out.length){
+      resEl.innerHTML = '<div class="empty"><b>Ez da ezer aurkitu</b>Prueba con otra palabra (en euskera o castellano): «naiz», «dativo», «encima», «futuro»…</div>';
+    } else {
+      var frag = document.createDocumentFragment();
+      out.forEach(function(e){
+        var d = document.createElement('div');
+        d.className = 'card' + (e.t ? ' wide' : '');
+        d.innerHTML = cardHTML(e);
+        frag.appendChild(d);
+      });
+      resEl.appendChild(frag);
+    }
+    countEl.textContent = out.length + ' / ' + D.length + ' sarrera';
+  }
+
+  q.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>

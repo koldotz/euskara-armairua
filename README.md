@@ -31,12 +31,15 @@ python3 -m http.server 8000
 
 ```
 euskara-armairua/
-├── index.html    # Portada · selector de nivel
-├── a1.html       # Nivel A1 (egutegia + hiztegia + koadernoa)
-├── a2.html       # Nivel A2 (koadernoa · Jatetxean)
-├── .nojekyll     # Evita el procesado de Jekyll en GitHub Pages
+├── index.html      # Portada · selector de nivel
+├── a1.html         # Nivel A1 (egutegia + hiztegia + koadernoa)
+├── a2.html         # Nivel A2 (koadernoa · Jatetxean)
+├── gramatika.html  # Buscador de gramática (transversal, eu↔es)
+├── .nojekyll       # Evita el procesado de Jekyll en GitHub Pages
 └── README.md
 ```
+
+`gramatika.html` es un buscador transversal (compartido por todos los niveles): conjugaciones de auxiliares y verbos sintéticos con sus tiempos, formas verbales, casos de la declinación, determinantes, morfemas, posposiciones y adverbios, cada uno comparado con el castellano. La búsqueda funciona en euskera y en castellano y es insensible a tildes. Enlaza a la guía de gramática completa (prosa) alojada como artefacto de Claude.
 
 Para añadir un nivel nuevo, copia `a2.html` como plantilla, cambia el prefijo de las claves de guardado (p. ej. `koadernoa-b1:*`) y añade su tarjeta en `index.html`.
 
