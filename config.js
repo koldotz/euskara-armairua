@@ -9,7 +9,7 @@
    (perfil y progreso solo en este navegador).
    ───────────────────────────────────────────────────────────────────── */
 window.ARMAIRUA_CFG = {
-  url:   "",          // ← pega aquí tu Project URL
-  key:   "",          // ← pega aquí tu anon public key
+  url:   "https://vqbwospxdoyquuqqcuxj.supabase.co",   // Project URL
+  key:   "sb_publishable_Nipeg8V4EFYYUAFlrn9uhA_OT97osVQ", // clave publishable (pública por diseño)
   table: "perfilak"   // nombre de la tabla (déjalo así salvo que la llames distinto)
 };
