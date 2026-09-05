@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Euskararen Geruzak — guía de gramática y morfología vasca (A1): las capas que se apilan al final de la palabra, con tablas y ejemplos comparados con el castellano.">
+<title>Euskararen Geruzak</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
+<style>
+/* ── EUSKARA A1 · sistema visual "Geruzak" (estratos) ───────────────────
+   Metáfora: el euskera es aglutinante — las palabras se construyen por
+   capas, como el flysch de la costa vasca. Paleta mineral: caliza, mar
+   cantábrico, hierro oxidado (burdina gorria).                        */
+
+:root{
+  --ground:#EDEEEA;
+  --surface:#F8F9F6;
+  --surface-2:#E4E7E0;
+  --ink:#171B18;
+  --ink-2:#3E453F;
+  --muted:#6E756C;
+  --line:#D2D6CC;
+  --line-strong:#B6BCB1;
+  --sea:#1F5E4C;          /* acento principal */
+  --sea-soft:#DCE9E2;
+  --iron:#B0472B;         /* acento secundario: morfemas */
+  --iron-soft:#F3DED6;
+  --gold:#8A6A19;
+  --gold-soft:#F0E6CC;
+  --ok:#2E6B42;
+  --warn:#946015;
+  --crit:#A33325;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --r:4px;
+  --maxw:74ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131613;
+    --surface:#1B1F1B;
+    --surface-2:#242924;
+    --ink:#E8EBE4;
+    --ink-2:#C2C8BE;
+    --muted:#8D948A;
+    --line:#2E342E;
+    --line-strong:#414840;
+    --sea:#63C0A0;
+    --sea-soft:#1B3830;
+    --iron:#E08A6B;
+    --iron-soft:#3A2620;
+    --gold:#D3AE5A;
+    --gold-soft:#33290F;
+    --ok:#6FBF88;
+    --warn:#D9A44A;
+    --crit:#E0776A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131613;
+  --surface:#1B1F1B;
+  --surface-2:#242924;
+  --ink:#E8EBE4;
+  --ink-2:#C2C8BE;
+  --muted:#8D948A;
+  --line:#2E342E;
+  --line-strong:#414840;
+  --sea:#63C0A0;
+  --sea-soft:#1B3830;
+  --iron:#E08A6B;
+  --iron-soft:#3A2620;
+  --gold:#D3AE5A;
+  --gold-soft:#33290F;
+  --ok:#6FBF88;
+  --warn:#D9A44A;
+  --crit:#E0776A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--f-body); font-size:17px; line-height:1.66;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--f-display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--sea); text-underline-offset:3px; text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+
+/* ── etiquetas y microtipografía ── */
+.eyebrow{
+  font-family:var(--f-mono); font-size:11px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+}
+.eu{font-style:italic; color:var(--sea)}
+.es{color:var(--muted)}
+code,.mono{font-family:var(--f-mono); font-size:.92em}
+
+/* ── el estrato: motivo central del sistema ──
+   Muestra una palabra descompuesta en sus capas morfológicas.        */
+.strata{display:flex; flex-wrap:wrap; gap:10px 12px; align-items:stretch; margin:0; padding:0; list-style:none}
+.strata li{display:flex; flex-direction:column; min-width:0}
+.strata .seg{
+  font-family:var(--f-mono); font-size:15px; font-weight:500;
+  padding:7px 10px; text-align:center; white-space:nowrap;
+  border:1px solid var(--line-strong); border-radius:2px;
+  background:var(--surface); color:var(--ink);
+}
+.strata .fn{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); text-align:center;
+  padding-top:5px; white-space:nowrap;
+}
+.strata li[data-k="root"] .seg{background:var(--surface-2); border-color:var(--line-strong)}
+.strata li[data-k="det"]  .seg{background:var(--gold-soft); border-color:var(--gold); color:var(--gold)}
+.strata li[data-k="case"] .seg{background:var(--iron-soft); border-color:var(--iron); color:var(--iron)}
+.strata li[data-k="num"]  .seg{background:var(--sea-soft); border-color:var(--sea); color:var(--sea)}
+
+/* ── tablas de declinación / conjugación ── */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-family:var(--f-mono); font-size:14px; font-variant-numeric:tabular-nums}
+th,td{padding:8px 12px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap}
+thead th{
+  font-family:var(--f-ui); font-size:11px; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); background:var(--surface-2);
+  position:sticky; top:0;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody th{font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.06em; color:var(--sea); text-transform:uppercase}
+.suf{color:var(--iron)}
+td .es{font-size:.92em}
+
+
+/* ── layout de la guía ── */
+.shell{display:grid; grid-template-columns:250px minmax(0,1fr); gap:0; min-height:100vh}
+@media (max-width:900px){.shell{grid-template-columns:1fr}}
+
+nav.toc{border-right:1px solid var(--line); background:var(--surface)}
+nav.toc .inner{padding:26px 20px 60px; position:sticky; top:0; max-height:100vh; overflow-y:auto}
+@media (max-width:900px){nav.toc{border-right:0; border-bottom:1px solid var(--line)} nav.toc .inner{position:static; max-height:none}}
+nav.toc .brand{font-family:var(--f-display); font-weight:700; font-size:20px; letter-spacing:-.01em; line-height:1.1; margin-bottom:2px}
+nav.toc .brand span{color:var(--sea)}
+nav.toc .sub{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:20px}
+nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px; counter-reset:s}
+nav.toc a{
+  display:flex; gap:9px; font-family:var(--f-ui); font-size:13px; line-height:1.35;
+  color:var(--ink-2); text-decoration:none; padding:5px 7px; border-radius:3px;
+}
+nav.toc a:hover{background:var(--surface-2); color:var(--ink)}
+nav.toc a .n{font-family:var(--f-mono); font-size:11px; color:var(--muted); flex:none; width:1.6em; padding-top:2px}
+nav.toc a.on{background:var(--sea-soft); color:var(--sea); font-weight:600}
+nav.toc a.on .n{color:var(--sea)}
+
+main{padding:0 0 96px; min-width:0}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+.wide{max-width:900px; margin:0 auto; padding:0 28px}
+
+header.hero{border-bottom:1px solid var(--line); padding:64px 0 44px; margin-bottom:8px}
+header.hero h1{font-size:clamp(40px,6vw,62px); font-weight:700; letter-spacing:-.02em}
+header.hero h1 em{font-style:normal; color:var(--sea)}
+header.hero .lede{font-size:19px; color:var(--ink-2); margin-top:16px; max-width:60ch}
+header.hero .meta{display:flex; flex-wrap:wrap; gap:22px; margin-top:26px}
+header.hero .meta div{display:flex; flex-direction:column; gap:2px}
+header.hero .meta b{font-family:var(--f-mono); font-size:15px; font-weight:500; color:var(--ink)}
+
+section{padding-top:52px; scroll-margin-top:12px}
+section > .wrap > h2, section > .wide > h2{font-size:29px; letter-spacing:-.01em; margin-bottom:6px}
+section .kicker{display:flex; align-items:baseline; gap:10px; margin-bottom:14px}
+section .kicker .num{
+  font-family:var(--f-mono); font-size:12px; font-weight:500; color:var(--iron);
+  border:1px solid var(--iron); border-radius:2px; padding:1px 6px; flex:none;
+}
+h3{font-size:19px; margin:32px 0 8px; color:var(--ink)}
+h4{font-family:var(--f-ui); font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:22px 0 6px}
+p + p{margin-top:12px}
+section p{margin-bottom:0}
+main ul,main ol{margin:10px 0 0; padding-left:22px}
+main li{margin-bottom:5px}
+hr.rule{border:0; border-top:1px solid var(--line); margin:0}
+
+/* bloques */
+.box{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:18px 20px; margin-top:18px}
+.box.key{border-left:3px solid var(--sea); background:var(--sea-soft)}
+.box.warn{border-left:3px solid var(--iron); background:var(--iron-soft)}
+.box h4{margin-top:0}
+.box.key h4{color:var(--sea)}
+.box.warn h4{color:var(--iron)}
+
+.ex{margin-top:14px; display:flex; flex-direction:column; gap:7px}
+.ex div{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; padding-left:13px; border-left:2px solid var(--line-strong)}
+.ex b{font-family:var(--f-body); font-weight:600; font-size:16.5px; color:var(--ink)}
+.ex b u{text-decoration:none; color:var(--iron); text-decoration:underline; text-decoration-color:var(--iron); text-underline-offset:3px}
+.ex i{font-style:normal; font-family:var(--f-ui); font-size:13.5px; color:var(--muted)}
+
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:16px}
+.card{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:14px 16px}
+.card .t{font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+.card .v{font-family:var(--f-mono); font-size:14px; line-height:1.7}
+
+.strata-block{margin-top:20px; padding:18px 20px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+.strata-block .cap{font-family:var(--f-ui); font-size:13px; color:var(--muted); margin-top:12px}
+.strata-block .cap b{color:var(--ink); font-weight:600}
+
+.pill{display:inline-block; font-family:var(--f-mono); font-size:12px; padding:1px 7px; border-radius:2px; border:1px solid var(--line-strong); background:var(--surface-2); color:var(--ink-2)}
+.pill.i{border-color:var(--iron); color:var(--iron); background:var(--iron-soft)}
+.pill.s{border-color:var(--sea); color:var(--sea); background:var(--sea-soft)}
+
+footer{border-top:1px solid var(--line); margin-top:70px; padding:28px 0; font-family:var(--f-ui); font-size:13px; color:var(--muted)}
+
+.xlinks{display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line)}
+.xlinks a{font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); text-decoration:none; padding:5px 9px; border:1px solid var(--line-strong); border-radius:3px; display:flex; gap:6px; align-items:center; width:100%}
+.xlinks a:hover{border-color:var(--sea); color:var(--sea); background:var(--sea-soft)}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="toc"><div class="inner">
+  <div class="brand">Euskararen<br><span>Geruzak</span></div>
+  <div class="sub">Gramatika · A1</div>
+  <ol>
+    <li><a href="#s1"><span class="n">01</span>Cómo funciona el euskera</a></li>
+    <li><a href="#s2"><span class="n">02</span>Hotsak eta letrak</a></li>
+    <li><a href="#s3"><span class="n">03</span>El sintagma nominal</a></li>
+    <li><a href="#s4"><span class="n">04</span>Hau, hori, hura</a></li>
+    <li><a href="#s5"><span class="n">05</span>La declinación: el mapa</a></li>
+    <li><a href="#s6"><span class="n">06</span>Los casos, uno a uno</a></li>
+    <li><a href="#s7"><span class="n">07</span>Animados y nombres propios</a></li>
+    <li><a href="#s8"><span class="n">08</span>Galdetzaileak</a></li>
+    <li><a href="#s9"><span class="n">09</span>IZAN · el verbo NOR</a></li>
+    <li><a href="#s10"><span class="n">10</span>UKAN · el verbo NOR-NORK</a></li>
+    <li><a href="#s11"><span class="n">11</span>Aspecto: -tu / -tzen / -ko</a></li>
+    <li><a href="#s12"><span class="n">12</span>Verbos sintéticos</a></li>
+    <li><a href="#s13"><span class="n">13</span>NOR-NORI-NORK</a></li>
+    <li><a href="#s14"><span class="n">14</span>Nahi, behar, ari izan</a></li>
+    <li><a href="#s15"><span class="n">15</span>La negación y el partitivo</a></li>
+    <li><a href="#s16"><span class="n">16</span>Adjetivos y posposiciones</a></li>
+    <li><a href="#s17"><span class="n">17</span>Números, hora, calendario</a></li>
+    <li><a href="#s18"><span class="n">18</span>Galdegaia · el foco</a></li>
+    <li><a href="#s19"><span class="n">19</span>Subordinación de A1</a></li>
+    <li><a href="#s20"><span class="n">20</span>Tablas maestras</a></li>
+  </ol>
+<div class="xlinks"><a href="a1.html#egutegia"><span>📅</span>Panela</a><a href="a1.html#koadernoa"><span>✏️</span>Koadernoa</a><a href="a1.html#hiztegia"><span>🗃️</span>Hiztegia</a></div>
+</div></nav>
+
+<main>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Gramatika eta morfologia · A1 maila</div>
+  <h1>Euskararen <em>geruzak</em></h1>
+  <p class="lede">El euskera no conjuga preposiciones ni ordena la frase como el castellano: <b>apila capas</b> al final de la palabra. Esta guía enseña esas capas — cuáles hay, en qué orden van y qué obliga a hacer cada una al verbo.</p>
+  <div class="meta">
+    <div><span class="eyebrow">Alcance</span><b>20 bloques · A1 completo</b></div>
+    <div><span class="eyebrow">Apoyo</span><b>Bakarka 1 · 14 ikasgai</b></div>
+    <div><span class="eyebrow">Formas verbales</span><b>≈ 90 imprescindibles</b></div>
+  </div>
+</div></header>
+
+<section id="s1"><div class="wrap">
+  <div class="kicker"><span class="num">01</span><span class="eyebrow">Antes de empezar</span></div>
+  <h2>Cinco cosas que cambian todo</h2>
+  <p>Si entiendes estas cinco, el resto de la guía es rellenar tablas. Si no las entiendes, ninguna tabla te va a servir.</p>
+
+  <h3>1. Todo va detrás, y todo va junto</h3>
+  <p>El castellano pone marcas <i>delante</i> y sueltas: <span class="es">«de la casa»</span>, <span class="es">«en las casas»</span>. El euskera las pone <b>detrás y pegadas</b>, una encima de otra. Una palabra vasca es una pila de capas.</p>
+  <div class="strata-block">
+    <ul class="strata">
+      <li data-k="root"><span class="seg">etxe</span><span class="fn">raíz · casa</span></li>
+      <li data-k="num"><span class="seg">-e-</span><span class="fn">plural</span></li>
+      <li data-k="det"><span class="seg">-ta-</span><span class="fn">enlace</span></li>
+      <li data-k="case"><span class="seg">-n</span><span class="fn">NON · en</span></li>
+    </ul>
+    <p class="cap"><b>etxeetan</b> = «en las casas». Cuatro morfemas, una sola palabra. No existe ninguna preposición suelta que puedas colocar delante.</p>
+  </div>
+
+  <h3>2. El sujeto lleva marca cuando hay complemento directo</h3>
+  <p>Esto es la <b>ergatividad</b> y es lo más ajeno para un castellanohablante. El sujeto de un verbo <i>sin</i> objeto directo va desnudo (caso <span class="pill s">NOR</span>). El sujeto de un verbo <i>con</i> objeto directo lleva una <b>-k</b> (caso <span class="pill i">NORK</span>).</p>
+  <div class="ex">
+    <div><b>Gizona etorri da.</b><i>El hombre ha venido. — «gizona» sin -k: no hay objeto directo.</i></div>
+    <div><b>Gizona<u>k</u> liburua irakurri du.</b><i>El hombre ha leído el libro. — «gizonak» con -k: hay objeto («liburua»).</i></div>
+  </div>
+  <div class="box warn"><h4>El error que todos cometemos</h4><p>Decir <span class="mono">*Ni liburua irakurri dut</span> en lugar de <b>Nik liburua irakurri dut</b>. Regla mecánica: <b>si el auxiliar es</b> <span class="mono">dut / duzu / du / dugu / duzue / dute</span>, <b>el sujeto lleva -k</b>. Sin excepción.</p></div>
+
+  <h3>3. El verbo concuerda con hasta tres cosas a la vez</h3>
+  <p>El auxiliar castellano solo mira al sujeto. El vasco mira al <b>sujeto (NORK)</b>, al <b>objeto directo (NOR)</b> y al <b>objeto indirecto (NORI)</b>, los tres dentro de la misma forma.</p>
+  <div class="strata-block">
+    <ul class="strata">
+      <li data-k="root"><span class="seg">d-</span><span class="fn">NOR · lo (3ª sg)</span></li>
+      <li data-k="det"><span class="seg">-i-</span><span class="fn">hay un NORI</span></li>
+      <li data-k="case"><span class="seg">-o-</span><span class="fn">NORI · a él/ella</span></li>
+      <li data-k="num"><span class="seg">-t</span><span class="fn">NORK · yo</span></li>
+    </ul>
+    <p class="cap"><b>diot</b> = «yo se lo (a él/ella)». Una sola palabra de cuatro letras contiene tres personas gramaticales.</p>
+  </div>
+
+  <h3>4. Lo importante va justo antes del verbo</h3>
+  <p>El orden de la frase vasca no es libre: el elemento que responde a la pregunta — el <b>galdegaia</b> o foco — se coloca <b>inmediatamente delante del verbo</b>. Cambiar de sitio una palabra cambia el sentido de la frase, no el estilo. Lo desarrollamos en el bloque 18, pero tenlo presente desde hoy.</p>
+
+  <h3>5. No hay género, y el artículo es un sufijo</h3>
+  <p>Nada de <i>el/la/los/las</i>: ni género gramatical ni artículo suelto. La determinación es la <b>-a</b> final (singular) o la <b>-ak</b> (plural), pegada al nombre y siempre en la última posición del grupo.</p>
+  <div class="ex">
+    <div><b>etxe</b><i>casa (sin determinar)</i></div>
+    <div><b>etxe<u>a</u></b><i>la casa</i></div>
+    <div><b>etxe zuri<u>a</u></b><i>la casa blanca — la -a se va al final del grupo, no al nombre</i></div>
+    <div><b>etxe zuri handi<u>ak</u></b><i>las casas blancas grandes</i></div>
+  </div>
+</div></section>
+
+<section id="s2"><div class="wrap">
+  <div class="kicker"><span class="num">02</span><span class="eyebrow">Hotsak eta letrak</span></div>
+  <h2>Sonidos y letras</h2>
+  <p>El euskera se escribe casi como se pronuncia. Solo hay que aprender un puñado de letras que no suenan como en castellano — y sobre todo la serie de <b>sibilantes</b>, que es donde se juega la inteligibilidad real.</p>
+
+  <h3>Las sibilantes: la serie decisiva</h3>
+  <p>El castellano tiene una <i>s</i>. El euskera tiene seis sonidos en esa zona y los distingue de verdad: <span class="mono">zu</span> (tú) y <span class="mono">su</span> (fuego) son palabras distintas.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Letra</th><th>Cómo suena</th><th>Ejemplo</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td class="suf">z</td><td>s de punta de lengua, silbante, fina — como la <i>s</i> andaluza</td><td>zu, zazpi, hotza</td><td>tú, siete, frío</td></tr>
+      <tr><td class="suf">s</td><td>s apical, más apagada — la <i>s</i> del norte de España</td><td>su, esan, gauza</td><td>fuego, decir, cosa</td></tr>
+      <tr><td class="suf">x</td><td>como la <i>sh</i> inglesa de <i>shop</i></td><td>xagu, kaixo, ipuinxka</td><td>ratoncito, hola, cuentecillo</td></tr>
+      <tr><td class="suf">tz</td><td>como la <i>z</i> del italiano <i>pizza</i></td><td>hotz, atzo, bihotz</td><td>frío, ayer, corazón</td></tr>
+      <tr><td class="suf">ts</td><td>igual pero apical, más grave</td><td>hots, itsaso, etsi</td><td>sonido, mar, rendirse</td></tr>
+      <tr><td class="suf">tx</td><td>como la <i>ch</i> castellana</td><td>txakur, etxe, txarto</td><td>perro, casa, mal</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box key"><h4>Ejercicio de oído, 2 minutos al día</h4><p>Repite en voz alta la serie mínima: <b>zu / su</b>, <b>hotz / hots</b>, <b>zakur / txakur</b>, <b>eskerrik / etxerik</b>. Si no distingues los pares al oírlos, no los vas a distinguir en la prueba de comprensión oral.</p></div>
+
+  <h3>El resto del alfabeto</h3>
+  <div class="grid2">
+    <div class="card"><div class="t">j</div><div class="v">Suena <b>y</b> en el estándar (<i>jan</i> = «yan», comer), aunque en Bizkaia se oye como <i>j</i> castellana. Ambas se aceptan.</div></div>
+    <div class="card"><div class="t">h</div><div class="v">Muda en el sur, aspirada en Iparralde. <b>Pero se escribe</b>: <i>hiru, hotza, ahal</i>. Aprende cada palabra con su h.</div></div>
+    <div class="card"><div class="t">r / rr</div><div class="v">Igual que en castellano: <i>ere</i> (suave) frente a <i>erre</i> (vibrante). En posición final, la <b>-r</b> es fuerte: <i>eder</i>.</div></div>
+    <div class="card"><div class="t">ñ / il / in</div><div class="v"><i>baina</i> se pronuncia «baiña»; la <b>i</b> ante n o l las palataliza. <i>Mutila</i> = «mutilla».</div></div>
+    <div class="card"><div class="t">c, q, v, w, y</div><div class="v">No existen en euskera. Solo aparecen en nombres extranjeros: <i>Washington</i>.</div></div>
+    <div class="card"><div class="t">Vocales</div><div class="v">Cinco, puras y claras como en castellano: <b>a e i o u</b>. Sin diptongos raros ni vocales relajadas.</div></div>
+  </div>
+
+  <h3>Acento</h3>
+  <p>El euskera estándar no marca tilde nunca y su acento es débil. Como regla práctica, en palabras de tres o más sílabas el acento cae en la <b>segunda</b>: <span class="mono">e-TXE-a</span>, <span class="mono">i-KAS-le-a</span>, <span class="mono">a-MATS-ak</span>. No lo fuerces: acentuar «a la castellana» es la marca acústica más delatora de un principiante.</p>
+</div></section>
+
+<section id="s3"><div class="wrap">
+  <div class="kicker"><span class="num">03</span><span class="eyebrow">Izen sintagma</span></div>
+  <h2>El sintagma nominal</h2>
+  <p>Antes de declinar nada hay que saber <b>construir el grupo</b>. En euskera el orden interno es fijo y los sufijos se enganchan siempre al <b>último elemento</b>.</p>
+
+  <div class="strata-block">
+    <ul class="strata">
+      <li data-k="case"><span class="seg">anaiaren</span><span class="fn">genitivo</span></li>
+      <li data-k="num"><span class="seg">herriko</span><span class="fn">de dónde</span></li>
+      <li data-k="num"><span class="seg">bi</span><span class="fn">numeral</span></li>
+      <li data-k="root"><span class="seg">lagun</span><span class="fn">NÚCLEO</span></li>
+      <li data-k="root"><span class="seg">zahar</span><span class="fn">adjetivo</span></li>
+      <li data-k="det"><span class="seg">-ak</span><span class="fn">determinante</span></li>
+    </ul>
+    <p class="cap"><b>anaiaren herriko bi lagun zaharrak</b> — «los dos viejos amigos del pueblo de mi hermano». Lee de fuera hacia dentro: todo lo que en castellano iría detrás del nombre, en euskera va delante.</p>
+  </div>
+
+  <h4>El esquema, en seco</h4>
+  <p class="mono" style="margin-top:8px">[genitivo] · [de dónde] · [numeral] · <b>NÚCLEO</b> · [adjetivo] · [determinante]</p>
+
+  <h3>Mugatua / mugagabea — determinado e indeterminado</h3>
+  <p>Es la distinción que organiza toda la declinación. Tres formas posibles del mismo grupo:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Forma</th><th>Marca</th><th>Ejemplo</th><th>Cuándo</th></tr></thead>
+    <tbody>
+      <tr><th>Mugagabea</th><td class="suf">— (nada)</td><td>etxe, lagun</td><td>Tras <b>zenbat</b>, <b>zein</b>, <b>zer</b>, numerales sin artículo, en negativas con -ik</td></tr>
+      <tr><th>Mugatu sing.</th><td class="suf">-a</td><td>etxea, laguna</td><td>«la casa», «el amigo» — y también el genérico</td></tr>
+      <tr><th>Mugatu plur.</th><td class="suf">-ak</td><td>etxeak, lagunak</td><td>«las casas», «los amigos»</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box warn"><h4>La «-a orgánica»: la trampa clásica</h4><p>Algunas palabras <b>ya terminan en -a</b> y esa -a forma parte de la raíz: <span class="mono">neska</span> (chica), <span class="mono">gauza</span> (cosa), <span class="mono">eliza</span> (iglesia), <span class="mono">denda</span> (tienda), <span class="mono">ama</span> (madre), <span class="mono">alaba</span> (hija), <span class="mono">hizkuntza</span> (lengua). Al determinar no se duplica: <b>neska + a → neska</b> (la chica), y el plural es <b>neskak</b>. En cambio <span class="mono">mutil</span> → <b>mutila</b>, <b>mutilak</b>. Cuando aprendas una palabra nueva acabada en -a, apunta si esa -a es orgánica o no.</p></div>
+
+  <h3>Bat y batzuk</h3>
+  <p>No hay artículo indeterminado, pero sí <b>bat</b> («uno/a») y <b>batzuk</b> («unos/as»), que van <b>detrás</b> del grupo y ocupan el sitio del determinante:</p>
+  <div class="ex">
+    <div><b>etxe zuri bat</b><i>una casa blanca</i></div>
+    <div><b>lagun batzuk</b><i>unos amigos</i></div>
+    <div><b>Lagun batek deitu du.</b><i>Ha llamado un amigo. — «bat» también se declina: bat + -ek</i></div>
+  </div>
+</div></section>
+
+<section id="s4"><div class="wrap">
+  <div class="kicker"><span class="num">04</span><span class="eyebrow">Erakusleak</span></div>
+  <h2>Hau, hori, hura</h2>
+  <p>Tres grados de distancia, igual que <i>este / ese / aquel</i>. Van <b>detrás</b> del nombre, que entonces queda <b>sin determinante</b>.</p>
+  <div class="ex">
+    <div><b>etxe hau</b><i>esta casa <span class="es">(no *etxea hau)</span></i></div>
+    <div><b>gizon horiek</b><i>esos hombres</i></div>
+    <div><b>liburu zahar haiek</b><i>aquellos libros viejos</i></div>
+  </div>
+  <p style="margin-top:14px">Solos, funcionan como pronombres: <b>Hau nirea da.</b> <span class="es">Esto es mío.</span></p>
+
+  <h4>Declinación de los demostrativos — memorízala entera</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>este / estos</th><th>ese / esos</th><th>aquel / aquellos</th></tr></thead>
+    <tbody>
+      <tr><th>NOR</th><td>hau · hauek</td><td>hori · horiek</td><td>hura · haiek</td></tr>
+      <tr><th>NORK</th><td>honek · hauek</td><td>horrek · horiek</td><td>hark · haiek</td></tr>
+      <tr><th>NORI</th><td>honi · hauei</td><td>horri · horiei</td><td>hari · haiei</td></tr>
+      <tr><th>NOREN</th><td>honen · hauen</td><td>horren · horien</td><td>haren · haien</td></tr>
+      <tr><th>NOREKIN</th><td>honekin · hauekin</td><td>horrekin · horiekin</td><td>harekin · haiekin</td></tr>
+      <tr><th>NON</th><td>honetan · hauetan</td><td>horretan · horietan</td><td>hartan · haietan</td></tr>
+      <tr><th>NORA</th><td>honetara · hauetara</td><td>horretara · horietara</td><td>hartara · haietara</td></tr>
+      <tr><th>NONDIK</th><td>honetatik · hauetatik</td><td>horretatik · horietatik</td><td>hartatik · haietatik</td></tr>
+      <tr><th>NONGO</th><td>honetako · hauetako</td><td>horretako · horietako</td><td>hartako · haietako</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Los adverbios que van con ellos</h4>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>aquí (hau)</th><th>ahí (hori)</th><th>allí (hura)</th></tr></thead>
+    <tbody>
+      <tr><th>NON · dónde</th><td>hemen</td><td>hor</td><td>han</td></tr>
+      <tr><th>NORA · a dónde</th><td>hona</td><td>horra</td><td>hara</td></tr>
+      <tr><th>NONDIK · de dónde</th><td>hemendik</td><td>hortik</td><td>handik</td></tr>
+      <tr><th>NONGO · de dónde (adj.)</th><td>hemengo</td><td>horko</td><td>hango</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Los pronombres personales</h4>
+  <div class="tw"><table>
+    <thead><tr><th>NOR</th><th>NORK</th><th>NORI</th><th>NOREN</th><th>NOREKIN</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>ni</td><td>nik</td><td>niri</td><td>nire</td><td>nirekin</td><td class="es">yo</td></tr>
+      <tr><td>zu</td><td>zuk</td><td>zuri</td><td>zure</td><td>zurekin</td><td class="es">tú / usted</td></tr>
+      <tr><td>hura</td><td>hark</td><td>hari</td><td>haren</td><td>harekin</td><td class="es">él / ella</td></tr>
+      <tr><td>gu</td><td>guk</td><td>guri</td><td>gure</td><td>gurekin</td><td class="es">nosotros</td></tr>
+      <tr><td>zuek</td><td>zuek</td><td>zuei</td><td>zuen</td><td>zuekin</td><td class="es">vosotros</td></tr>
+      <tr><td>haiek</td><td>haiek</td><td>haiei</td><td>haien</td><td>haiekin</td><td class="es">ellos / ellas</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box"><h4>Ojo</h4><p><b>zuek</b> es idéntico en NOR y en NORK. Y no hay «él/ella» propio: se usa el demostrativo <b>hura</b>. Existe además el tratamiento familiar <b>hi</b> (hik, hiri, hire), que a nivel A1 solo necesitas <i>reconocer</i>, no usar.</p></div>
+</div></section>
+<section id="s5"><div class="wide">
+  <div class="kicker"><span class="num">05</span><span class="eyebrow">Deklinabidea</span></div>
+  <h2>La declinación: el mapa completo</h2>
+  <p style="max-width:70ch">Esta es <b>la</b> tabla del A1. Todo lo demás son notas al pie. Cada casilla se construye igual: <b>raíz + (plural) + sufijo de caso</b>. Lo único que cambia el resultado es si la palabra acaba en vocal o en consonante — y en consonante simplemente se intercala una <b>-e-</b> de apoyo.</p>
+
+  <h3>Nombres comunes acabados en vocal · <span class="mono">etxe</span> (casa)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>Pregunta</th><th>Mugagabe</th><th>Singular</th><th>Plural</th></tr></thead>
+    <tbody>
+      <tr><th>NOR</th><td class="es">¿quién/qué?</td><td>etxe</td><td>etxe<span class="suf">a</span></td><td>etxe<span class="suf">ak</span></td></tr>
+      <tr><th>NORK</th><td class="es">¿quién? (agente)</td><td>etxe<span class="suf">k</span></td><td>etxe<span class="suf">ak</span></td><td>etxe<span class="suf">ek</span></td></tr>
+      <tr><th>NORI</th><td class="es">¿a quién?</td><td>etxe<span class="suf">ri</span></td><td>etxe<span class="suf">ari</span></td><td>etxe<span class="suf">ei</span></td></tr>
+      <tr><th>NOREN</th><td class="es">¿de quién?</td><td>etxe<span class="suf">ren</span></td><td>etxe<span class="suf">aren</span></td><td>etxe<span class="suf">en</span></td></tr>
+      <tr><th>NORENTZAT</th><td class="es">¿para quién?</td><td>etxe<span class="suf">rentzat</span></td><td>etxe<span class="suf">arentzat</span></td><td>etxe<span class="suf">entzat</span></td></tr>
+      <tr><th>NOREKIN</th><td class="es">¿con quién?</td><td>etxe<span class="suf">rekin</span></td><td>etxe<span class="suf">arekin</span></td><td>etxe<span class="suf">ekin</span></td></tr>
+      <tr><th>NONGO</th><td class="es">¿de dónde? (adj.)</td><td>etxe<span class="suf">tako</span></td><td>etxe<span class="suf">ko</span></td><td>etxe<span class="suf">etako</span></td></tr>
+      <tr><th>NON</th><td class="es">¿dónde?</td><td>etxe<span class="suf">tan</span></td><td>etxe<span class="suf">an</span></td><td>etxe<span class="suf">etan</span></td></tr>
+      <tr><th>NORA</th><td class="es">¿a dónde?</td><td>etxe<span class="suf">tara</span></td><td>etxe<span class="suf">ra</span></td><td>etxe<span class="suf">etara</span></td></tr>
+      <tr><th>NONDIK</th><td class="es">¿desde dónde?</td><td>etxe<span class="suf">tatik</span></td><td>etxe<span class="suf">tik</span></td><td>etxe<span class="suf">etatik</span></td></tr>
+      <tr><th>-Z</th><td class="es">¿de qué? ¿con qué?</td><td>etxe<span class="suf">z</span></td><td>etxe<span class="suf">az</span></td><td>etxe<span class="suf">ez</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Nombres comunes acabados en consonante · <span class="mono">lagun</span> (amigo)</h3>
+  <p style="max-width:70ch">Misma tabla con una <b>-e-</b> de enlace. Compara las dos columnas de singular y verás que el patrón es idéntico.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>Mugagabe</th><th>Singular</th><th>Plural</th></tr></thead>
+    <tbody>
+      <tr><th>NOR</th><td>lagun</td><td>lagun<span class="suf">a</span></td><td>lagun<span class="suf">ak</span></td></tr>
+      <tr><th>NORK</th><td>lagun<span class="suf">ek</span></td><td>lagun<span class="suf">ak</span></td><td>lagun<span class="suf">ek</span></td></tr>
+      <tr><th>NORI</th><td>lagun<span class="suf">i</span></td><td>lagun<span class="suf">ari</span></td><td>lagun<span class="suf">ei</span></td></tr>
+      <tr><th>NOREN</th><td>lagun<span class="suf">en</span></td><td>lagun<span class="suf">aren</span></td><td>lagun<span class="suf">en</span></td></tr>
+      <tr><th>NORENTZAT</th><td>lagun<span class="suf">entzat</span></td><td>lagun<span class="suf">arentzat</span></td><td>lagun<span class="suf">entzat</span></td></tr>
+      <tr><th>NOREKIN</th><td>lagun<span class="suf">ekin</span></td><td>lagun<span class="suf">arekin</span></td><td>lagun<span class="suf">ekin</span></td></tr>
+      <tr><th>NONGO</th><td>lagun<span class="suf">etako</span></td><td>lagun<span class="suf">eko</span></td><td>lagun<span class="suf">etako</span></td></tr>
+      <tr><th>NON</th><td>lagun<span class="suf">etan</span></td><td>lagun<span class="suf">ean</span></td><td>lagun<span class="suf">etan</span></td></tr>
+      <tr><th>NORA</th><td>lagun<span class="suf">etara</span></td><td>lagun<span class="suf">era</span></td><td>lagun<span class="suf">etara</span></td></tr>
+      <tr><th>NONDIK</th><td>lagun<span class="suf">etatik</span></td><td>lagun<span class="suf">etik</span></td><td>lagun<span class="suf">etatik</span></td></tr>
+      <tr><th>-Z</th><td>lagun<span class="suf">ez</span></td><td>lagun<span class="suf">az</span></td><td>lagun<span class="suf">ez</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box key" style="max-width:70ch"><h4>Cómo memorizarla de verdad</h4><p>No la leas en horizontal. Apréndete <b>columnas</b>: primero todo el singular de <span class="mono">etxe</span> en voz alta y seguido (etxea, etxeak, etxeari, etxearen, etxearekin, etxeko, etxean, etxera, etxetik), luego todo el plural. Es una letanía de nueve formas; en cuatro días la tienes automatizada y esa automatización es lo que te va a salvar en la expresión oral.</p></div>
+
+  <div class="box warn" style="max-width:70ch"><h4>Las tres homofonías que hay que vigilar</h4>
+  <ul>
+    <li><b>lagunak</b> = «los amigos» (NOR plural) <i>y</i> «el amigo» como sujeto agente (NORK singular). Lo desambigua el verbo: <span class="mono">Lagunak etorri dira</span> vs. <span class="mono">Lagunak liburua du</span>.</li>
+    <li><b>lagunen</b> = NOREN plural («de los amigos») <i>y</i> NOREN mugagabe.</li>
+    <li><b>lagunek</b> = NORK plural <i>y</i> NORK mugagabe. Contexto y numerales lo resuelven.</li>
+  </ul></div>
+</div></section>
+
+<section id="s6"><div class="wrap">
+  <div class="kicker"><span class="num">06</span><span class="eyebrow">Kasuak banan-banan</span></div>
+  <h2>Los casos, uno a uno</h2>
+  <p>La tabla anterior te da las formas. Aquí tienes <b>qué hace</b> cada caso y en qué contexto te lo vas a encontrar en el examen.</p>
+
+  <h3><span class="pill s">NOR</span> · absolutivo — el caso desnudo</h3>
+  <p>Es el caso «por defecto»: sujeto de verbo sin objeto directo, y objeto directo de verbo con sujeto. Es el que concuerda con la parte <b>d-/da-/dira</b> del verbo.</p>
+  <div class="ex">
+    <div><b>Ni Bilbokoa naiz.</b><i>Yo soy de Bilbao.</i></div>
+    <div><b>Nik ura edaten dut.</b><i>Yo bebo agua. — «ura» es NOR aunque sea el objeto.</i></div>
+  </div>
+
+  <h3><span class="pill i">NORK</span> · ergativo — el sujeto con -k</h3>
+  <p>Marca al sujeto <b>solo</b> cuando el verbo lleva auxiliar de la familia <span class="mono">du</span>. Aparece siempre que el verbo sea transitivo, aunque el objeto no esté dicho.</p>
+  <div class="ex">
+    <div><b>Amak afaria prestatu du.</b><i>Mi madre ha preparado la cena.</i></div>
+    <div><b>Nork daki?</b><i>¿Quién sabe? — no hay objeto expreso, pero «jakin» es transitivo.</i></div>
+  </div>
+
+  <h3><span class="pill">NORI</span> · dativo — a quién</h3>
+  <p>Objeto indirecto. Obliga al verbo a cambiar de familia entera (bloque 13): <span class="mono">dut</span> pasa a ser <span class="mono">diot</span>.</p>
+  <div class="ex">
+    <div><b>Mikeli liburua eman diot.</b><i>Le he dado el libro a Mikel.</i></div>
+    <div><b>Niri euskara gustatzen zait.</b><i>A mí me gusta el euskera.</i></div>
+  </div>
+
+  <h3><span class="pill">NOREN</span> · genitivo posesivo — de quién</h3>
+  <p>Va <b>delante</b> del nombre poseído. Puede elidirse el núcleo: <b>Nirea da</b> («es mía»), donde <span class="mono">nire + a</span> ya lo dice todo.</p>
+  <div class="ex">
+    <div><b>Mikelen etxea handia da.</b><i>La casa de Mikel es grande.</i></div>
+    <div><b>Giltza hori norena da?</b><i>¿De quién es esa llave?</i></div>
+    <div><b>Nirea da.</b><i>Es mía.</i></div>
+  </div>
+
+  <h3><span class="pill">NONGO</span> · genitivo locativo — de dónde, el de</h3>
+  <p>Se confunde constantemente con NOREN. La diferencia es limpia: <b>NOREN</b> es posesión (un ser lo posee); <b>NONGO</b> es procedencia o ubicación (un lugar o un tiempo lo caracteriza).</p>
+  <div class="ex">
+    <div><b>Anaia<u>ren</u> autoa</b><i>el coche de mi hermano — posesión</i></div>
+    <div><b>Bilbo<u>ko</u> autoa</b><i>el coche de Bilbao — procedencia</i></div>
+    <div><b>Gaur<u>ko</u> egunkaria</b><i>el periódico de hoy — también sirve para el tiempo</i></div>
+  </div>
+  <div class="box"><h4>Regla ortográfica</h4><p>Tras <b>-n</b> y <b>-l</b>, el sufijo <span class="mono">-ko</span> se sonoriza en <span class="mono">-go</span>: <b>Irun → Irungo</b>, <b>Zumarraga → Zumarragako</b> (vocal, normal), <b>Deba → Debako</b>. Y tras <b>-z, -s, -tz, -ts</b> la sibilante se simplifica: <b>Zarautz → Zarauzko</b>, <b>Aritz → Arizko</b>.</p></div>
+
+  <h3><span class="pill">NON · NORA · NONDIK</span> · el trío del lugar</h3>
+  <p>Dónde estás, a dónde vas, de dónde vienes. Cada verbo de movimiento pide el suyo y el examen los cruza constantemente.</p>
+  <div class="ex">
+    <div><b>Non bizi zara? — Donostia<u>n</u> bizi naiz.</b><i>¿Dónde vives? — Vivo en San Sebastián.</i></div>
+    <div><b>Nora zoaz? — Etxe<u>ra</u> noa.</b><i>¿A dónde vas? — Voy a casa.</i></div>
+    <div><b>Nondik zatoz? — Lanetik nator.</b><i>¿De dónde vienes? — Vengo del trabajo.</i></div>
+  </div>
+
+  <h3><span class="pill">NOREKIN</span> · sociativo — con quién</h3>
+  <div class="ex">
+    <div><b>Norekin joango zara? — Lagun batzuekin.</b><i>¿Con quién irás? — Con unos amigos.</i></div>
+  </div>
+
+  <h3><span class="pill">-Z</span> · instrumental — de qué, con qué, sobre qué</h3>
+  <p>Tres valores que en castellano usan preposiciones distintas: materia, instrumento y tema.</p>
+  <div class="ex">
+    <div><b>Egurr<u>ezko</u> mahaia.</b><i>Mesa de madera. — materia (-zko forma el adjetivo)</i></div>
+    <div><b>Autobus<u>ez</u> etorri naiz.</b><i>He venido en autobús. — medio</i></div>
+    <div><b>Zure<u>taz</u> hitz egin dugu.</b><i>Hemos hablado de ti. — tema</i></div>
+  </div>
+  <p style="margin-top:12px">También forma adverbios de modo muy frecuentes: <b>poliki</b>/<b>astiro</b> (despacio), <b>ozenki</b> (en voz alta), <b>zorionez</b> (afortunadamente), <b>batez ere</b> (sobre todo).</p>
+</div></section>
+
+<section id="s7"><div class="wrap">
+  <div class="kicker"><span class="num">07</span><span class="eyebrow">Bizidunak eta izen bereziak</span></div>
+  <h2>Animados y nombres propios</h2>
+
+  <h3>Nombres propios: sin determinante nunca</h3>
+  <p>Un nombre propio ya está determinado, así que <b>no lleva -a</b> y se declina como el mugagabe.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>Mikel <span class="es">(consonante)</span></th><th>Lupe <span class="es">(vocal)</span></th><th>Bilbo <span class="es">(lugar)</span></th><th>Irun <span class="es">(lugar en -n)</span></th></tr></thead>
+    <tbody>
+      <tr><th>NOR</th><td>Mikel</td><td>Lupe</td><td>Bilbo</td><td>Irun</td></tr>
+      <tr><th>NORK</th><td>Mikelek</td><td>Lupek</td><td>Bilbok</td><td>Irunek</td></tr>
+      <tr><th>NORI</th><td>Mikeli</td><td>Luperi</td><td>Bilbori</td><td>Iruni</td></tr>
+      <tr><th>NOREN</th><td>Mikelen</td><td>Luperen</td><td>Bilboren</td><td>Irunen</td></tr>
+      <tr><th>NOREKIN</th><td>Mikelekin</td><td>Luperekin</td><td>Bilborekin</td><td>Irunekin</td></tr>
+      <tr><th>NONGO</th><td>—</td><td>—</td><td>Bilboko</td><td>Irungo</td></tr>
+      <tr><th>NON</th><td>—</td><td>—</td><td>Bilbon</td><td>Irunen</td></tr>
+      <tr><th>NORA</th><td>—</td><td>—</td><td>Bilbora</td><td>Irunera</td></tr>
+      <tr><th>NONDIK</th><td>—</td><td>—</td><td>Bilbotik</td><td>Irundik</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Seres animados: no se «entra» en una persona</h3>
+  <p>Los casos de lugar (NON, NORA, NONDIK) no se aplican directamente a personas ni animales. Se intercala <b>-engan-</b>:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>Singular</th><th>Plural</th><th>Pronombre</th></tr></thead>
+    <tbody>
+      <tr><th>NORENGAN</th><td>lagun<span class="suf">arengan</span></td><td>lagun<span class="suf">engan</span></td><td>nigan, zugan</td></tr>
+      <tr><th>NORENGANA</th><td>lagun<span class="suf">arengana</span></td><td>lagun<span class="suf">engana</span></td><td>nigana, zugana</td></tr>
+      <tr><th>NORENGANDIK</th><td>lagun<span class="suf">arengandik</span></td><td>lagun<span class="suf">engandik</span></td><td>nigandik, zugandik</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ex">
+    <div><b>Medikuarengana noa.</b><i>Voy al médico. <span class="es">(no *medikura)</span></i></div>
+    <div><b>Amarengandik ikasi dut.</b><i>Lo he aprendido de mi madre.</i></div>
+  </div>
+</div></section>
+
+<section id="s8"><div class="wrap">
+  <div class="kicker"><span class="num">08</span><span class="eyebrow">Galdetzaileak</span></div>
+  <h2>Los interrogativos</h2>
+  <p>Cada caso tiene su pregunta, y esa es la mejor forma de recordarlos. Los interrogativos van <b>inmediatamente antes del verbo</b> — ocupan por definición la posición de foco.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Galdetzailea</th><th>Castellano</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td class="suf">nor</td><td>quién</td><td>Nor da hori?</td></tr>
+      <tr><td class="suf">zer</td><td>qué</td><td>Zer da hau?</td></tr>
+      <tr><td class="suf">zein</td><td>cuál, qué (de un conjunto)</td><td>Zein liburu nahi duzu?</td></tr>
+      <tr><td class="suf">nork</td><td>quién (agente)</td><td>Nork egin du?</td></tr>
+      <tr><td class="suf">nori</td><td>a quién</td><td>Nori eman diozu?</td></tr>
+      <tr><td class="suf">noren</td><td>de quién</td><td>Noren autoa da?</td></tr>
+      <tr><td class="suf">norekin</td><td>con quién</td><td>Norekin bizi zara?</td></tr>
+      <tr><td class="suf">non</td><td>dónde</td><td>Non dago geltokia?</td></tr>
+      <tr><td class="suf">nora</td><td>a dónde</td><td>Nora zoaz?</td></tr>
+      <tr><td class="suf">nondik</td><td>de dónde</td><td>Nondik zatoz?</td></tr>
+      <tr><td class="suf">nongo</td><td>de dónde (adj.)</td><td>Nongoa zara?</td></tr>
+      <tr><td class="suf">noiz</td><td>cuándo</td><td>Noiz etorriko zara?</td></tr>
+      <tr><td class="suf">zenbat</td><td>cuánto</td><td>Zenbat urte dituzu?</td></tr>
+      <tr><td class="suf">zenbat denbora</td><td>cuánto tiempo</td><td>Zenbat denbora behar duzu?</td></tr>
+      <tr><td class="suf">nola</td><td>cómo</td><td>Nola zaude?</td></tr>
+      <tr><td class="suf">nolako</td><td>cómo es, qué tal</td><td>Nolakoa da zure etxea?</td></tr>
+      <tr><td class="suf">zergatik</td><td>por qué</td><td>Zergatik ez zara etorri?</td></tr>
+      <tr><td class="suf">zertarako</td><td>para qué</td><td>Zertarako da hau?</td></tr>
+      <tr><td class="suf">zenbatgarren</td><td>qué número, cuál (orden)</td><td>Zenbatgarren pisua da?</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box warn"><h4>Tras zer, zein y zenbat, mugagabe</h4><p>El nombre va <b>sin determinante</b>: <b>Zenbat liburu?</b> (no <span class="mono">*zenbat liburuak</span>), <b>Zein etxetan?</b> (no <span class="mono">*zein etxean</span>). Es un error que los correctores marcan siempre.</p></div>
+  <div class="box key"><h4>Nolako / Nongo / Noren, en una línea</h4><p><b>Nolakoa da?</b> → cualidad (<i>handia da</i>). <b>Nongoa da?</b> → procedencia (<i>Bilbokoa da</i>). <b>Norena da?</b> → dueño (<i>Mikelena da</i>). Fíjate en que las tres respuestas llevan <b>-a</b> final: son atributos.</p></div>
+</div></section>
+<section id="s9"><div class="wrap">
+  <div class="kicker"><span class="num">09</span><span class="eyebrow">Aditza I</span></div>
+  <h2>IZAN · el verbo NOR</h2>
+  <p>Es «ser», «estar», «haber» y además el <b>auxiliar</b> de todos los verbos sin objeto directo. Seis formas: apréndelas hoy mismo, sin excusas.</p>
+  <div class="tw"><table>
+    <thead><tr><th>NOR</th><th>Presente</th><th>Pasado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><th>ni</th><td>naiz</td><td>nintzen</td><td>Ni ikaslea naiz.</td></tr>
+      <tr><th>zu</th><td>zara</td><td>zinen</td><td>Zu Mikel zara.</td></tr>
+      <tr><th>hura</th><td>da</td><td>zen</td><td>Hau etxea da.</td></tr>
+      <tr><th>gu</th><td>gara</td><td>ginen</td><td>Gu lagunak gara.</td></tr>
+      <tr><th>zuek</th><td>zarete</td><td>zineten</td><td>Zuek nongoak zarete?</td></tr>
+      <tr><th>haiek</th><td>dira</td><td>ziren</td><td>Horiek liburuak dira.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Sus tres trabajos</h4>
+  <div class="ex">
+    <div><b>Ni irakaslea naiz.</b><i>Identificar: soy profesora.</i></div>
+    <div><b>Kotxea zuria da.</b><i>Describir: el coche es blanco.</i></div>
+    <div><b>Mikel etorri da.</b><i>Auxiliar: Mikel ha venido. — el participio delante, el auxiliar detrás.</i></div>
+  </div>
+  <div class="box key"><h4>Concordancia en plural</h4><p>El atributo también se pluraliza: <b>Gu ikasle<u>ak</u> gara</b>, no <span class="mono">*Gu ikaslea gara</span>. Y con <b>-ko/-tar</b> de procedencia: <b>Bilbokoa naiz</b> / <b>Bilbokoak gara</b>.</p></div>
+
+  <h4>Existencia: badago / ez dago</h4>
+  <p>Para «hay» se usa <b>egon</b>, no izan: <b>Zenbat lagun dago hemen?</b> · <b>Ez dago inor.</b> El prefijo afirmativo <b>ba-</b> aparece cuando el verbo va solo: <b>Bai, badago.</b></p>
+</div></section>
+
+<section id="s10"><div class="wrap">
+  <div class="kicker"><span class="num">10</span><span class="eyebrow">Aditza II</span></div>
+  <h2>UKAN · el verbo NOR-NORK</h2>
+  <p>«Tener» y auxiliar de todos los verbos transitivos. Aquí es donde el euskera se separa de verdad del castellano, porque la forma <b>cambia según cuántos objetos haya</b>.</p>
+
+  <h4>Un solo objeto (NOR = hura)</h4>
+  <div class="tw"><table>
+    <thead><tr><th>NORK</th><th>Presente</th><th>Pasado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><th>nik</th><td>dut</td><td>nuen</td><td>Nik liburua dut.</td></tr>
+      <tr><th>zuk</th><td>duzu</td><td>zenuen</td><td>Zuk kotxea duzu.</td></tr>
+      <tr><th>hark</th><td>du</td><td>zuen</td><td>Mikelek etxea du.</td></tr>
+      <tr><th>guk</th><td>dugu</td><td>genuen</td><td>Guk denbora dugu.</td></tr>
+      <tr><th>zuek</th><td>duzue</td><td>zenuten</td><td>Zuek dirua duzue.</td></tr>
+      <tr><th>haiek</th><td>dute</td><td>zuten</td><td>Haiek arrazoia dute.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Varios objetos (NOR = haiek) — se intercala <span class="mono">-it-</span></h4>
+  <div class="tw"><table>
+    <thead><tr><th>NORK</th><th>Presente</th><th>Pasado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><th>nik</th><td>ditut</td><td>nituen</td><td>Nik hiru anaia ditut.</td></tr>
+      <tr><th>zuk</th><td>dituzu</td><td>zenituen</td><td>Zenbat urte dituzu?</td></tr>
+      <tr><th>hark</th><td>ditu</td><td>zituen</td><td>Amak bi kotxe ditu.</td></tr>
+      <tr><th>guk</th><td>ditugu</td><td>genituen</td><td>Guk liburuak ditugu.</td></tr>
+      <tr><th>zuek</th><td>dituzue</td><td>zenituzten</td><td>Zuek galderak dituzue.</td></tr>
+      <tr><th>haiek</th><td>dituzte</td><td>zituzten</td><td>Haiek arazoak dituzte.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="strata-block">
+    <ul class="strata">
+      <li data-k="root"><span class="seg">d-</span><span class="fn">presente</span></li>
+      <li data-k="num"><span class="seg">-it-</span><span class="fn">NOR plural</span></li>
+      <li data-k="det"><span class="seg">-u-</span><span class="fn">raíz *edun</span></li>
+      <li data-k="case"><span class="seg">-zu</span><span class="fn">NORK · tú</span></li>
+    </ul>
+    <p class="cap"><b>dituzu</b> = «tú los/las tienes». Quita el <span class="mono">-it-</span> y tienes <b>duzu</b>, «tú lo tienes». Ese trocito es toda la diferencia entre singular y plural del objeto — y es lo que más se falla.</p>
+  </div>
+
+  <div class="box warn"><h4>Zenbat urte dituzu?</h4><p>La edad se dice con <b>objeto plural</b> porque los años son varios: <b>Hogeita hamar urte ditut.</b> Decir <span class="mono">*hogeita hamar urte dut</span> es incorrecto.</p></div>
+</div></section>
+
+<section id="s11"><div class="wrap">
+  <div class="kicker"><span class="num">11</span><span class="eyebrow">Aspektua</span></div>
+  <h2>El aspecto: -tu, -t(z)en, -ko</h2>
+  <p>Aquí está la clave del sistema verbal vasco: <b>el auxiliar no cambia de tiempo, cambia el participio</b>. Con el mismo <span class="mono">dut</span> puedes decir «he comido», «como» y «comeré» — solo cambiando la terminación del verbo principal.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Forma</th><th>Aspecto</th><th>Con izan</th><th>Con ukan</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><th>-tu / -i / -n</th><td>perfecto</td><td>etorri naiz</td><td>jan dut</td><td class="es">he venido / he comido</td></tr>
+      <tr><th>-t(z)en</th><td>habitual</td><td>etortzen naiz</td><td>jaten dut</td><td class="es">vengo, suelo venir / como</td></tr>
+      <tr><th>-ko / -go</th><td>futuro</td><td>etorriko naiz</td><td>jango dut</td><td class="es">vendré / comeré</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Cómo se forma cada una</h4>
+  <ul>
+    <li><b>Participio</b>: es la forma de diccionario. Acaba en <span class="mono">-tu/-du</span> (hartu, saldu), <span class="mono">-i</span> (ikusi, etorri, jarri) o <span class="mono">-n</span> (jan, egon, esan, egin).</li>
+    <li><b>Habitual</b>: participio sin la terminación + <span class="mono">-tzen</span> o <span class="mono">-ten</span>. <i>hartu → hartzen</i>, <i>ikusi → ikusten</i>, <i>jan → jaten</i>, <i>egin → egiten</i>, <i>etorri → etortzen</i>, <i>joan → joaten</i>.</li>
+    <li><b>Futuro</b>: participio + <span class="mono">-ko</span>; si acaba en <b>-n</b>, se usa <span class="mono">-go</span>. <i>hartuko, ikusiko, jango, egingo, etorriko, joango</i>.</li>
+  </ul>
+
+  <div class="box key"><h4>La frase que te va a resolver media prueba oral</h4><p><b>Egunero etxetik lanera oinez joaten naiz.</b> — «Todos los días voy andando de casa al trabajo». Tiene NONDIK, NORA, adverbio de modo y habitual. Aprende esta estructura y cámbiale las piezas.</p></div>
+
+  <h4>Verbos frecuentes con sus tres formas</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Significado</th><th>Participio</th><th>Habitual</th><th>Futuro</th></tr></thead>
+    <tbody>
+      <tr><th class="es">comer</th><td>jan</td><td>jaten</td><td>jango</td></tr>
+      <tr><th class="es">beber</th><td>edan</td><td>edaten</td><td>edango</td></tr>
+      <tr><th class="es">hacer</th><td>egin</td><td>egiten</td><td>egingo</td></tr>
+      <tr><th class="es">ver</th><td>ikusi</td><td>ikusten</td><td>ikusiko</td></tr>
+      <tr><th class="es">venir</th><td>etorri</td><td>etortzen</td><td>etorriko</td></tr>
+      <tr><th class="es">ir</th><td>joan</td><td>joaten</td><td>joango</td></tr>
+      <tr><th class="es">coger</th><td>hartu</td><td>hartzen</td><td>hartuko</td></tr>
+      <tr><th class="es">dar</th><td>eman</td><td>ematen</td><td>emango</td></tr>
+      <tr><th class="es">decir</th><td>esan</td><td>esaten</td><td>esango</td></tr>
+      <tr><th class="es">comprar</th><td>erosi</td><td>erosten</td><td>erosiko</td></tr>
+      <tr><th class="es">trabajar</th><td>lan egin</td><td>lan egiten</td><td>lan egingo</td></tr>
+      <tr><th class="es">estudiar</th><td>ikasi</td><td>ikasten</td><td>ikasiko</td></tr>
+      <tr><th class="es">vivir</th><td>bizi izan</td><td>bizi</td><td>biziko</td></tr>
+      <tr><th class="es">salir</th><td>irten / atera</td><td>irteten / ateratzen</td><td>irtengo / aterako</td></tr>
+      <tr><th class="es">llegar</th><td>iritsi / heldu</td><td>iristen / heltzen</td><td>iritsiko / helduko</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section id="s12"><div class="wrap">
+  <div class="kicker"><span class="num">12</span><span class="eyebrow">Aditz trinkoak</span></div>
+  <h2>Verbos sintéticos</h2>
+  <p>Un puñado de verbos muy usados tienen <b>presente propio</b>, sin auxiliar: una sola palabra. Son irregulares y hay que sabérselos de memoria, pero son solo seis los que necesitas en A1.</p>
+  <div class="tw"><table>
+    <thead><tr><th>NOR</th><th>egon<br><span class="es">estar</span></th><th>joan<br><span class="es">ir</span></th><th>etorri<br><span class="es">venir</span></th><th>ibili<br><span class="es">andar</span></th></tr></thead>
+    <tbody>
+      <tr><th>ni</th><td>nago</td><td>noa</td><td>nator</td><td>nabil</td></tr>
+      <tr><th>zu</th><td>zaude</td><td>zoaz</td><td>zatoz</td><td>zabiltza</td></tr>
+      <tr><th>hura</th><td>dago</td><td>doa</td><td>dator</td><td>dabil</td></tr>
+      <tr><th>gu</th><td>gaude</td><td>goaz</td><td>gatoz</td><td>gabiltza</td></tr>
+      <tr><th>zuek</th><td>zaudete</td><td>zoazte</td><td>zatozte</td><td>zabiltzate</td></tr>
+      <tr><th>haiek</th><td>daude</td><td>doaz</td><td>datoz</td><td>dabiltza</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:16px">Y dos transitivos, que llevan <b>NORK</b>:</p>
+  <div class="tw"><table>
+    <thead><tr><th>NORK</th><th>jakin <span class="es">· saber</span></th><th>eduki <span class="es">· tener</span></th><th>eduki + plural</th></tr></thead>
+    <tbody>
+      <tr><th>nik</th><td>dakit</td><td>daukat</td><td>dauzkat</td></tr>
+      <tr><th>zuk</th><td>dakizu</td><td>daukazu</td><td>dauzkazu</td></tr>
+      <tr><th>hark</th><td>daki</td><td>dauka</td><td>dauzka</td></tr>
+      <tr><th>guk</th><td>dakigu</td><td>daukagu</td><td>dauzkagu</td></tr>
+      <tr><th>zuek</th><td>dakizue</td><td>daukazue</td><td>dauzkazue</td></tr>
+      <tr><th>haiek</th><td>dakite</td><td>daukate</td><td>dauzkate</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box"><h4>egon frente a izan</h4><p><b>izan</b> es identidad y cualidad permanente: <i>Mikel altua da</i>. <b>egon</b> es estado y ubicación: <i>Mikel gaixorik dago</i>, <i>Non dago liburua?</i>. La intuición del castellano ser/estar funciona bastante bien aquí.</p></div>
+  <div class="box warn"><h4>nago / noa: no los confundas</h4><p><b>Etxean nago</b> = estoy en casa (NON). <b>Etxera noa</b> = voy a casa (NORA). El caso del complemento te dice qué verbo toca, y viceversa.</p></div>
+</div></section>
+
+<section id="s13"><div class="wrap">
+  <div class="kicker"><span class="num">13</span><span class="eyebrow">NOR-NORI-NORK</span></div>
+  <h2>Cuando entra un tercero</h2>
+  <p>En cuanto la frase tiene un <b>objeto indirecto</b>, el auxiliar cambia de familia entera. Es el bloque que separa un A1 raspado de un A1 sólido.</p>
+
+  <h4>NOR-NORI · el tipo «gustatu»</h4>
+  <p>Verbos sin sujeto agente: algo <i>me</i> pasa, <i>me</i> gusta, <i>me</i> parece. El auxiliar es <b>zait</b> y familia.</p>
+  <div class="tw"><table>
+    <thead><tr><th>NORI</th><th>NOR singular</th><th>NOR plural</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><th>niri</th><td>zait</td><td>zaizkit</td><td>Euskara gustatzen zait.</td></tr>
+      <tr><th>zuri</th><td>zaizu</td><td>zaizkizu</td><td>Zer gustatzen zaizu?</td></tr>
+      <tr><th>hari</th><td>zaio</td><td>zaizkio</td><td>Mikeli ez zaio gustatzen.</td></tr>
+      <tr><th>guri</th><td>zaigu</td><td>zaizkigu</td><td>Filmak gustatzen zaizkigu.</td></tr>
+      <tr><th>zuei</th><td>zaizue</td><td>zaizkizue</td><td>Gustatzen zaizue?</td></tr>
+      <tr><th>haiei</th><td>zaie</td><td>zaizkie</td><td>Haurrei gozokiak gustatzen zaizkie.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box warn"><h4>Lo que gusta es el sujeto</h4><p>Igual que en castellano «me gustan los libros». Si te gusta <b>una</b> cosa: <b>Liburua gustatzen zait.</b> Si te gustan <b>varias</b>: <b>Liburuak gustatzen zaizkit.</b> El verbo concuerda con el libro, no contigo.</p></div>
+
+  <h4>NOR-NORI-NORK · el tipo «eman»</h4>
+  <p>Alguien da algo a alguien. Familia <b>diot</b>. Estructura: <span class="mono">d + i + [NORI] + [NORK]</span>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>NORK ↓ / NORI →</th><th>niri</th><th>zuri</th><th>hari</th><th>guri</th><th>haiei</th></tr></thead>
+    <tbody>
+      <tr><th>nik</th><td>—</td><td>dizut</td><td>diot</td><td>—</td><td>diet</td></tr>
+      <tr><th>zuk</th><td>didazu</td><td>—</td><td>diozu</td><td>diguzu</td><td>diezu</td></tr>
+      <tr><th>hark</th><td>dit</td><td>dizu</td><td>dio</td><td>digu</td><td>die</td></tr>
+      <tr><th>guk</th><td>—</td><td>dizugu</td><td>diogu</td><td>—</td><td>diegu</td></tr>
+      <tr><th>zuek</th><td>didazue</td><td>—</td><td>diozue</td><td>diguzue</td><td>diezue</td></tr>
+      <tr><th>haiek</th><td>didate</td><td>dizute</td><td>diote</td><td>digute</td><td>diete</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:14px">Si el objeto directo es <b>plural</b>, se intercala <span class="mono">-zki-</span>: <b>diot → dizkiot</b>, <b>dizu → dizkizu</b>, <b>digute → dizkigute</b>.</p>
+  <div class="ex">
+    <div><b>Liburua eman diot.</b><i>Le he dado el libro.</i></div>
+    <div><b>Liburuak eman dizkiot.</b><i>Le he dado los libros.</i></div>
+    <div><b>Zer esan didazu?</b><i>¿Qué me has dicho?</i></div>
+  </div>
+  <div class="box key"><h4>Prioriza</h4><p>Para el A1 basta con dominar la columna de <b>hari</b> (diot, diozu, dio, diogu, diozue, diote) y la fila de <b>hark</b> (dit, dizu, dio, digu, dizue, die), más <b>didazu</b> y <b>dizut</b>. Con eso cubres el 90 % de lo que sale.</p></div>
+
+  <h4>Verbos que piden NORI</h4>
+  <p class="mono" style="margin-top:8px">eman · esan · erakutsi · saldu · erosi · idatzi · deitu · galdetu · erantzun · ekarri · eskatu · gustatu · iruditu · ahaztu · gertatu</p>
+</div></section>
+
+<section id="s14"><div class="wrap">
+  <div class="kicker"><span class="num">14</span><span class="eyebrow">Perifrasiak</span></div>
+  <h2>Nahi, behar, ahal y ari izan</h2>
+
+  <h3>Querer, deber, poder</h3>
+  <p>Se construyen con el <b>participio delante</b> y el auxiliar de <b>ukan</b>, aunque el verbo principal sea intransitivo.</p>
+  <div class="ex">
+    <div><b>Ura edan nahi dut.</b><i>Quiero beber agua.</i></div>
+    <div><b>Orain joan behar dut.</b><i>Ahora tengo que irme. — «joan» es intransitivo, pero el auxiliar es «dut».</i></div>
+    <div><b>Ezin dut etorri.</b><i>No puedo venir. — «ezin» es la negación de «ahal».</i></div>
+    <div><b>Etorri ahal zara?</b><i>¿Puedes venir?</i></div>
+    <div><b>Zenbat balio du?</b><i>¿Cuánto cuesta? — «balio izan».</i></div>
+  </div>
+  <div class="box warn"><h4>El cambio de auxiliar</h4><p>Sin perífrasis: <b>Etxera noa</b> / <b>Etxera joan naiz</b> (izan). Con nahi/behar: <b>Etxera joan nahi <u>dut</u></b> (ukan). Es contraintuitivo y es un punto que los exámenes pinchan a propósito.</p></div>
+
+  <h3>Ari izan · estar haciendo algo</h3>
+  <p>El progresivo. Estructura: <b>verbo en -t(z)en + ari + izan</b>. Siempre con <b>izan</b>, nunca con ukan.</p>
+  <div class="ex">
+    <div><b>Liburua irakurtzen ari naiz.</b><i>Estoy leyendo el libro.</i></div>
+    <div><b>Zer egiten ari zara?</b><i>¿Qué estás haciendo?</i></div>
+    <div><b>Euria ari du.</b><i>Está lloviendo. — expresión fija con «du».</i></div>
+  </div>
+
+  <h3>Otras fórmulas muy rentables</h3>
+  <div class="grid2">
+    <div class="card"><div class="t">gogoa / gogorik</div><div class="v"><b>Jateko gogoa dut.</b><br><span class="es">Tengo ganas de comer.</span><br><b>Ez dut gogorik.</b><br><span class="es">No tengo ganas.</span></div></div>
+    <div class="card"><div class="t">-tzen jakin</div><div class="v"><b>Igerian egiten dakit.</b><br><span class="es">Sé nadar.</span><br><b>Ez dakit euskaraz.</b><br><span class="es">No sé euskera.</span></div></div>
+    <div class="card"><div class="t">-tzera joan / etorri</div><div class="v"><b>Erostera noa.</b><br><span class="es">Voy a comprar.</span></div></div>
+    <div class="card"><div class="t">-tzeko</div><div class="v"><b>Ikasteko liburua.</b><br><span class="es">Libro para estudiar.</span></div></div>
+  </div>
+</div></section>
+<section id="s15"><div class="wrap">
+  <div class="kicker"><span class="num">15</span><span class="eyebrow">Ezeztapena</span></div>
+  <h2>La negación y el partitivo</h2>
+  <p>Negar en euskera no es poner un «no» delante: <b>reordena la frase</b>. El <span class="mono">ez</span> se pega al auxiliar y ambos saltan por delante del verbo principal.</p>
+  <div class="ex">
+    <div><b>Liburua irakurri dut.</b><i>He leído el libro.</i></div>
+    <div><b>Ez dut liburua irakurri.</b><i>No he leído el libro. — «ez dut» va junto y delante.</i></div>
+    <div><b>Etxera joan naiz. → Ez naiz etxera joan.</b><i>No he ido a casa.</i></div>
+  </div>
+  <h4>Cambios fonéticos obligatorios</h4>
+  <div class="tw"><table>
+    <thead><tr><th>ez +</th><th>se escribe</th><th>ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>d-</td><td class="suf">ez d- → ez d-</td><td>ez dut, ez da, ez dago</td></tr>
+      <tr><td>n-</td><td class="suf">ez n- → ez n-</td><td>ez naiz, ez nago</td></tr>
+      <tr><td>z-</td><td class="suf">ez z- → ez z-</td><td>ez zara, ez zaude</td></tr>
+      <tr><td>g-</td><td class="suf">ez g- → ez g-</td><td>ez gara, ez gaude</td></tr>
+      <tr><td>+ da</td><td class="suf">ezta</td><td>Ezta ni ere. <span class="es">Yo tampoco.</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>El partitivo <span class="mono">-ik</span></h3>
+  <p>En frases <b>negativas</b>, <b>interrogativas</b> y de <b>duda</b>, el objeto pierde el determinante y toma <b>-ik</b>. Es una marca muy visible de dominio.</p>
+  <div class="ex">
+    <div><b>Dirua dut. → Ez dut dirurik.</b><i>Tengo dinero. → No tengo dinero.</i></div>
+    <div><b>Ba al duzu libururik?</b><i>¿Tienes algún libro?</i></div>
+    <div><b>Ez dago arazorik.</b><i>No hay problema.</i></div>
+  </div>
+  <p style="margin-top:12px">Tras consonante se añade <span class="mono">-ik</span> (<i>lagun → lagunik</i>); tras vocal, <span class="mono">-rik</span> (<i>etxe → etxerik</i>); tras <b>-a</b> orgánica, <span class="mono">-rik</span> (<i>gauza → gauzarik</i>).</p>
+
+  <h3>Los indefinidos negativos</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Positivo</th><th>Negativo</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>norbait <span class="es">alguien</span></td><td class="suf">inor ez</td><td>Ez dago inor. <span class="es">No hay nadie.</span></td></tr>
+      <tr><td>zerbait <span class="es">algo</span></td><td class="suf">ezer ez</td><td>Ez dut ezer. <span class="es">No tengo nada.</span></td></tr>
+      <tr><td>nonbait <span class="es">en algún sitio</span></td><td class="suf">inon ez</td><td>Ez dago inon. <span class="es">No está en ningún sitio.</span></td></tr>
+      <tr><td>noizbait <span class="es">alguna vez</span></td><td class="suf">inoiz / sekula ez</td><td>Ez naiz inoiz joan. <span class="es">Nunca he ido.</span></td></tr>
+      <tr><td>batzuk <span class="es">algunos</span></td><td class="suf">bat ere ez</td><td>Ez dut bat ere. <span class="es">No tengo ninguno.</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box"><h4>Preguntar con «ba... al»</h4><p>La pregunta de sí/no lleva la partícula <b>al</b> entre el verbo y el auxiliar: <b>Etorriko al zara?</b> Con verbos sintéticos aparece <b>ba-</b>: <b>Ba al dakizu?</b> · <b>Ba al dago inor?</b> En Bizkaia se usa <b>ete</b>. Y la respuesta afirmativa corta reduplica el verbo: <b>— Badakizu? — Bai, badakit.</b></p></div>
+</div></section>
+
+<section id="s16"><div class="wrap">
+  <div class="kicker"><span class="num">16</span><span class="eyebrow">Izenondoak eta postposizioak</span></div>
+  <h2>Adjetivos y posposiciones</h2>
+
+  <h3>El adjetivo va detrás</h3>
+  <p>Y arrastra el determinante: <b>etxe handi<u>a</u></b>. Los grados se marcan con sufijos:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Grado</th><th>Sufijo</th><th>Ejemplo</th><th>Castellano</th></tr></thead>
+    <tbody>
+      <tr><th>Comparativo</th><td class="suf">-ago</td><td>handiagoa</td><td>más grande</td></tr>
+      <tr><th>Superlativo</th><td class="suf">-en</td><td>handiena</td><td>el más grande</td></tr>
+      <tr><th>Excesivo</th><td class="suf">-egi</td><td>handiegia</td><td>demasiado grande</td></tr>
+      <tr><th>Intensivo</th><td class="suf">oso / -en-en</td><td>oso handia</td><td>muy grande</td></tr>
+      <tr><th>Atenuado</th><td class="suf">samar / nahiko</td><td>handi samarra</td><td>bastante grande</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ex">
+    <div><b>Nire etxea zurea baino handiagoa da.</b><i>Mi casa es más grande que la tuya. — «baino» = que.</i></div>
+    <div><b>Hau da etxerik handiena.</b><i>Esta es la casa más grande. — ojo al partitivo «etxerik».</i></div>
+    <div><b>Kafea beroegi dago.</b><i>El café está demasiado caliente.</i></div>
+  </div>
+
+  <h3>Posposiciones de lugar</h3>
+  <p>Son nombres, así que el complemento va en <b>NOREN</b> (o <b>NONGO</b> si es lugar) y ellas se declinan como cualquier sustantivo.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Posposición</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td class="suf">aurrean</td><td>delante de</td><td>Etxearen aurrean</td></tr>
+      <tr><td class="suf">atzean</td><td>detrás de</td><td>Elizaren atzean</td></tr>
+      <tr><td class="suf">gainean</td><td>encima de, sobre</td><td>Mahaiaren gainean</td></tr>
+      <tr><td class="suf">azpian</td><td>debajo de</td><td>Ohearen azpian</td></tr>
+      <tr><td class="suf">ondoan</td><td>al lado de</td><td>Bankuaren ondoan</td></tr>
+      <tr><td class="suf">artean</td><td>entre</td><td>Bien artean</td></tr>
+      <tr><td class="suf">barruan</td><td>dentro de</td><td>Poltsaren barruan</td></tr>
+      <tr><td class="suf">kanpoan</td><td>fuera de</td><td>Herritik kanpo</td></tr>
+      <tr><td class="suf">inguruan</td><td>alrededor de, sobre</td><td>Plazaren inguruan</td></tr>
+      <tr><td class="suf">erdian</td><td>en medio de</td><td>Kalearen erdian</td></tr>
+      <tr><td class="suf">goian / behean</td><td>arriba / abajo</td><td>Goian dago</td></tr>
+      <tr><td class="suf">urruti / gertu</td><td>lejos / cerca</td><td>Hemendik gertu</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:14px">Y algunas que rigen otros casos: <b>-tik ... -ra arte</b> (desde… hasta), <b>-i buruz</b> (acerca de), <b>-rekin batera</b> (junto con), <b>-rik gabe</b> (sin), <b>-ren bidez</b> (por medio de).</p>
+</div></section>
+
+<section id="s17"><div class="wrap">
+  <div class="kicker"><span class="num">17</span><span class="eyebrow">Zenbakiak eta ordua</span></div>
+  <h2>Números, hora y calendario</h2>
+
+  <h3>Números</h3>
+  <div class="tw"><table>
+    <thead><tr><th>1–10</th><th>11–20</th><th>Decenas</th><th>Grandes</th></tr></thead>
+    <tbody>
+      <tr><td>bat</td><td>hamaika</td><td>hogei · 20</td><td>ehun · 100</td></tr>
+      <tr><td>bi</td><td>hamabi</td><td>hogeita hamar · 30</td><td>berrehun · 200</td></tr>
+      <tr><td>hiru</td><td>hamahiru</td><td>berrogei · 40</td><td>hirurehun · 300</td></tr>
+      <tr><td>lau</td><td>hamalau</td><td>berrogeita hamar · 50</td><td>mila · 1.000</td></tr>
+      <tr><td>bost</td><td>hamabost</td><td>hirurogei · 60</td><td>bi mila · 2.000</td></tr>
+      <tr><td>sei</td><td>hamasei</td><td>hirurogeita hamar · 70</td><td>milioi bat</td></tr>
+      <tr><td>zazpi</td><td>hamazazpi</td><td>laurogei · 80</td><td></td></tr>
+      <tr><td>zortzi</td><td>hemezortzi</td><td>laurogeita hamar · 90</td><td></td></tr>
+      <tr><td>bederatzi</td><td>hemeretzi</td><td></td><td></td></tr>
+      <tr><td>hamar</td><td>hogei</td><td></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box"><h4>Sistema vigesimal</h4><p>Se cuenta de veinte en veinte: <b>berrogei</b> es «dos veintes» (40) y <b>hirurogeita hamar</b> es «tres veintes y diez» (70). No es un capricho: es el mismo sistema que dejó huella en el francés <i>quatre-vingts</i>.</p></div>
+  <p style="margin-top:14px"><b>Ordinales</b>: lehen(engo), bigarren, hirugarren, laugarren, bosgarren, seigarren, zazpigarren, zortzigarren, bederatzigarren, hamargarren. Se forman con <span class="mono">-garren</span>.</p>
+
+  <h3>La hora</h3>
+  <p>Las horas van en <b>plural</b> (son «las tres»), salvo la una. Se usa el verbo <b>izan</b>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Pregunta</th><th>Euskera</th><th>Castellano</th></tr></thead>
+    <tbody>
+      <tr><td>Zer ordu da?</td><td>Ordu bata da.</td><td>Es la una.</td></tr>
+      <tr><td></td><td>Ordu biak dira.</td><td>Son las dos.</td></tr>
+      <tr><td></td><td>Hirurak dira.</td><td>Son las tres.</td></tr>
+      <tr><td></td><td>Laurak eta laurden.</td><td>Las cuatro y cuarto.</td></tr>
+      <tr><td></td><td>Bostak eta erdi.</td><td>Las cinco y media.</td></tr>
+      <tr><td></td><td>Seiak hogei gutxi.</td><td>Las seis menos veinte.</td></tr>
+      <tr><td></td><td>Zortziak hamar.</td><td>Las ocho y diez.</td></tr>
+      <tr><td>Zer ordutan?</td><td>Hiruretan.</td><td>A las tres.</td></tr>
+      <tr><td></td><td>Ordu batean.</td><td>A la una.</td></tr>
+      <tr><td></td><td>Bostak eta erdietan.</td><td>A las cinco y media.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Días, meses y tiempo</h3>
+  <div class="grid2">
+    <div class="card"><div class="t">Asteko egunak</div><div class="v">astelehena · asteartea<br>asteazkena · osteguna<br>ostirala · larunbata<br>igandea</div></div>
+    <div class="card"><div class="t">Hilabeteak</div><div class="v">urtarrila · otsaila · martxoa<br>apirila · maiatza · ekaina<br>uztaila · abuztua · iraila<br>urria · azaroa · abendua</div></div>
+    <div class="card"><div class="t">Cuándo</div><div class="v">gaur <span class="es">hoy</span> · atzo <span class="es">ayer</span><br>bihar <span class="es">mañana</span> · etzi <span class="es">pasado</span><br>orain <span class="es">ahora</span> · gero <span class="es">luego</span><br>beti <span class="es">siempre</span> · inoiz <span class="es">nunca</span></div></div>
+    <div class="card"><div class="t">Partes del día</div><div class="v">goizean <span class="es">por la mañana</span><br>arratsaldean <span class="es">por la tarde</span><br>gauean <span class="es">por la noche</span><br>eguerdian <span class="es">al mediodía</span></div></div>
+    <div class="card"><div class="t">Frecuencia</div><div class="v">egunero <span class="es">a diario</span><br>astero <span class="es">semanalmente</span><br>batzuetan <span class="es">a veces</span><br>maiz / sarri <span class="es">a menudo</span></div></div>
+    <div class="card"><div class="t">Fecha</div><div class="v"><b>Gaur irailaren 3a da.</b><br><span class="es">Hoy es 3 de septiembre.</span><br><b>Irailaren 3an.</b><br><span class="es">El 3 de septiembre.</span></div></div>
+  </div>
+  <p style="margin-top:14px" class="es">Nota: los días de la semana llevan <b>-a</b> orgánica (<i>astelehena</i>, <i>osteguna</i>); «el lunes» se dice <b>astelehenean</b>, y «los lunes» <b>astelehenetan</b>.</p>
+</div></section>
+
+<section id="s18"><div class="wrap">
+  <div class="kicker"><span class="num">18</span><span class="eyebrow">Galdegaia</span></div>
+  <h2>El foco: dónde va cada cosa</h2>
+  <p>Este es el bloque que más nota da y el que casi nadie estudia. En euskera <b>el orden de las palabras es gramática</b>, no estilo: la información que responde a la pregunta va <b>pegada delante del verbo</b>.</p>
+  <p style="margin-top:14px">Toma la frase <b>Koldok Luperi ogia eman dio</b> («Koldo le ha dado el pan a Lupe») y mira cómo se reordena según lo que se pregunte:</p>
+  <div class="ex" style="margin-top:16px">
+    <div><b>— Nork eman dio ogia Luperi?<br>— Ogia Luperi, <u>Koldok</u> eman dio.</b><i>Quién → «Koldok» pegado al verbo.</i></div>
+    <div><b>— Zer eman dio Koldok Luperi?<br>— Koldok Luperi, <u>ogia</u> eman dio.</b><i>Qué → «ogia» pegado al verbo.</i></div>
+    <div><b>— Nori eman dio Koldok ogia?<br>— Koldok ogia, <u>Luperi</u> eman dio.</b><i>A quién → «Luperi» pegado al verbo.</i></div>
+  </div>
+  <div class="box key"><h4>Las tres reglas prácticas</h4>
+  <ul>
+    <li><b>Respuesta a una pregunta</b>: el dato nuevo va justo antes del verbo. Lo demás, al principio.</li>
+    <li><b>Frase neutra</b>, sin foco especial: orden <span class="mono">Sujeto · Complementos · Objeto · Verbo</span>. El verbo tiende al final.</li>
+    <li><b>Frase negativa</b>: <span class="mono">ez + auxiliar</span> ocupan el hueco delante, y el foco se desplaza detrás: <b>Ez dut <u>nik</u> egin</b> («no lo he hecho <i>yo</i>»).</li>
+  </ul></div>
+  <div class="box warn"><h4>El examen oral lo mide</h4><p>Cuando te pregunten <b>Non bizi zara?</b>, la respuesta con nota es <b>Donostian bizi naiz</b> — no <span class="mono">Bizi naiz Donostian</span>. Y a <b>Zenbat urte dituzu?</b>, <b>Hogeita bost urte ditut</b>. Contesta siempre repitiendo la estructura de la pregunta con el dato pegado al verbo.</p></div>
+</div></section>
+
+<section id="s19"><div class="wrap">
+  <div class="kicker"><span class="num">19</span><span class="eyebrow">Menderakuntza</span></div>
+  <h2>La subordinación que necesitas</h2>
+  <p>A nivel A1 no hace falta dominar toda la subordinación vasca, pero sí seis marcas. Todas son <b>sufijos que se pegan al auxiliar</b>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Marca</th><th>Valor</th><th>Ejemplo</th><th>Castellano</th></tr></thead>
+    <tbody>
+      <tr><td class="suf">-(e)la</td><td>completiva</td><td>Berandu dela uste dut.</td><td>Creo que es tarde.</td></tr>
+      <tr><td class="suf">-(e)n</td><td>interrogativa indirecta</td><td>Ez dakit non dagoen.</td><td>No sé dónde está.</td></tr>
+      <tr><td class="suf">-(e)nean</td><td>temporal</td><td>Etortzen naizenean.</td><td>Cuando vengo / venga.</td></tr>
+      <tr><td class="suf">-t(z)eko</td><td>final</td><td>Ikasteko liburua da.</td><td>Es un libro para estudiar.</td></tr>
+      <tr><td class="suf">-elako</td><td>causal</td><td>Nekatuta nagoelako.</td><td>Porque estoy cansada.</td></tr>
+      <tr><td class="suf">ba-</td><td>condicional</td><td>Nahi baduzu, joango gara.</td><td>Si quieres, iremos.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box"><h4>Cómo se pega</h4><p>El sufijo va al <b>final del auxiliar</b>, y si este acaba en consonante se intercala <b>-e-</b>: <span class="mono">da → dela</span>, <span class="mono">dut → dudala</span>, <span class="mono">dago → dagoela</span>, <span class="mono">naiz → naizela</span>, <span class="mono">zara → zarela</span>, <span class="mono">dira → direla</span>. Y el condicional <b>ba-</b> es un <i>prefijo</i>: <span class="mono">duzu → baduzu</span>, <span class="mono">zara → bazara</span>.</p></div>
+
+  <h3>Conectores para hilar frases</h3>
+  <div class="grid2">
+    <div class="card"><div class="t">Suma</div><div class="v">eta <span class="es">y</span> · ere <span class="es">también</span><br>baita... ere <span class="es">también</span><br>gainera <span class="es">además</span></div></div>
+    <div class="card"><div class="t">Contraste</div><div class="v">baina <span class="es">pero</span> · ordea <span class="es">sin embargo</span><br>hala ere <span class="es">aun así</span><br>berriz <span class="es">en cambio</span></div></div>
+    <div class="card"><div class="t">Causa y consecuencia</div><div class="v">zergatik... -elako<br>beraz <span class="es">por lo tanto</span><br>orduan <span class="es">entonces</span></div></div>
+    <div class="card"><div class="t">Orden</div><div class="v">lehenengo <span class="es">primero</span><br>gero <span class="es">luego</span> · azkenean <span class="es">al final</span><br>-en aurretik / ondoren</div></div>
+  </div>
+</div></section>
+
+<section id="s20"><div class="wide">
+  <div class="kicker"><span class="num">20</span><span class="eyebrow">Laburpena</span></div>
+  <h2>Tablas maestras</h2>
+  <p style="max-width:70ch">Las dos páginas que tienes que poder reproducir de memoria en una hoja en blanco el día antes del examen. Si puedes escribirlas sin mirar, tienes el A1.</p>
+
+  <h3>Declinación · el esqueleto en sufijos</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Caso</th><th>Mugagabe</th><th>Singular</th><th>Plural</th><th>Vale para</th></tr></thead>
+    <tbody>
+      <tr><th>NOR</th><td>—</td><td class="suf">-a</td><td class="suf">-ak</td><td class="es">sujeto intrans. / objeto directo</td></tr>
+      <tr><th>NORK</th><td class="suf">-(e)k</td><td class="suf">-ak</td><td class="suf">-ek</td><td class="es">sujeto con «du»</td></tr>
+      <tr><th>NORI</th><td class="suf">-(r)i</td><td class="suf">-ari</td><td class="suf">-ei</td><td class="es">objeto indirecto</td></tr>
+      <tr><th>NOREN</th><td class="suf">-(r)en</td><td class="suf">-aren</td><td class="suf">-en</td><td class="es">posesión</td></tr>
+      <tr><th>NORENTZAT</th><td class="suf">-(r)entzat</td><td class="suf">-arentzat</td><td class="suf">-entzat</td><td class="es">destinatario</td></tr>
+      <tr><th>NOREKIN</th><td class="suf">-(r)ekin</td><td class="suf">-arekin</td><td class="suf">-ekin</td><td class="es">compañía</td></tr>
+      <tr><th>NONGO</th><td class="suf">-(e)tako</td><td class="suf">-(e)ko</td><td class="suf">-etako</td><td class="es">procedencia, tiempo</td></tr>
+      <tr><th>NON</th><td class="suf">-(e)tan</td><td class="suf">-(e)an</td><td class="suf">-etan</td><td class="es">ubicación</td></tr>
+      <tr><th>NORA</th><td class="suf">-(e)tara</td><td class="suf">-(e)ra</td><td class="suf">-etara</td><td class="es">destino</td></tr>
+      <tr><th>NONDIK</th><td class="suf">-(e)tatik</td><td class="suf">-(e)tik</td><td class="suf">-etatik</td><td class="es">origen</td></tr>
+      <tr><th>-Z</th><td class="suf">-(e)z</td><td class="suf">-az</td><td class="suf">-ez</td><td class="es">medio, materia, tema</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Verbo · las noventa formas del A1</h3>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>izan<br><span class="es">NOR</span></th><th>ukan sg.<br><span class="es">NOR-NORK</span></th><th>ukan pl.</th><th>izan + NORI</th><th>eman<br><span class="es">a él/ella</span></th></tr></thead>
+    <tbody>
+      <tr><th>ni / nik</th><td>naiz</td><td>dut</td><td>ditut</td><td>zait</td><td>diot</td></tr>
+      <tr><th>zu / zuk</th><td>zara</td><td>duzu</td><td>dituzu</td><td>zaizu</td><td>diozu</td></tr>
+      <tr><th>hura / hark</th><td>da</td><td>du</td><td>ditu</td><td>zaio</td><td>dio</td></tr>
+      <tr><th>gu / guk</th><td>gara</td><td>dugu</td><td>ditugu</td><td>zaigu</td><td>diogu</td></tr>
+      <tr><th>zuek</th><td>zarete</td><td>duzue</td><td>dituzue</td><td>zaizue</td><td>diozue</td></tr>
+      <tr><th>haiek</th><td>dira</td><td>dute</td><td>dituzte</td><td>zaie</td><td>diote</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Fórmulas de supervivencia</h3>
+  <div class="grid2">
+    <div class="card"><div class="t">Saludar</div><div class="v">Kaixo! · Egun on!<br>Arratsalde on! · Gabon!<br>Agur! · Gero arte! · Ikusi arte!</div></div>
+    <div class="card"><div class="t">Presentarse</div><div class="v">Ni Maialen naiz.<br>Nongoa zara? — Donostiakoa naiz.<br>Zer moduz? — Ondo, eskerrik asko.</div></div>
+    <div class="card"><div class="t">En clase</div><div class="v">Ez dut ulertzen.<br>Errepika dezakezu, mesedez?<br>Nola esaten da euskaraz?<br>Zer esan nahi du horrek?</div></div>
+    <div class="card"><div class="t">Cortesía</div><div class="v">Mesedez · Eskerrik asko<br>Ez horregatik · Barkatu<br>Zorionak! · On egin!</div></div>
+    <div class="card"><div class="t">Comprar</div><div class="v">Zenbat balio du?<br>Hau nahi dut, mesedez.<br>Merkeegia / garestiegia da.</div></div>
+    <div class="card"><div class="t">Orientarse</div><div class="v">Non dago geltokia?<br>Zuzen · eskuinera · ezkerrera<br>Hemendik gertu dago.</div></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Euskararen Geruzak</b> — guía de gramática y morfología de nivel A1, preparada para el plan intensivo de septiembre de 2026. Ordenada siguiendo la secuencia de <i>Bakarka 1</i> (J.A. Letamendia, Elkar) y los descriptores A1 del currículum HEOC.</p>
+</div></footer>
+</main>
+</div>
+<script src="armairua-export.js"></script>
+</body>
+</html>

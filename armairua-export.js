@@ -26,6 +26,7 @@
   var TARGETS = [
     { sel:'.card', need:'table' },        // fichas de gramatika con tabla
     { sel:'.tw2' },                       // tabla de vocabulario (a1)
+    { sel:'.tw' },                        // tablas de la guía (geruzak)
     { sel:'.ar',  drop:['.sol'] }         // ejercicios, sin soluciones
   ];
 
