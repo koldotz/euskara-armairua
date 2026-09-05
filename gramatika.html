@@ -89,6 +89,9 @@ a{color:var(--sea)}
 .card .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
 .card .eu{font-family:var(--f-display); font-size:21px; font-weight:600; color:var(--ink); letter-spacing:-.01em}
 .card .kat{font-family:var(--f-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; margin-left:auto}
+.card.warned{border-color:var(--gold); box-shadow:inset 3px 0 0 var(--gold)}
+.card .warn{font-family:var(--f-mono); font-size:8.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--gold); background:var(--gold-soft); border:1px solid var(--gold); border-radius:2px; padding:1px 6px; white-space:nowrap; cursor:help}
+.card.warned .kat{margin-left:0}
 .card .es{font-family:var(--f-ui); font-size:15px; color:var(--ink); margin-top:8px}
 .card .es b{color:var(--sea); font-family:var(--f-mono); font-weight:500; margin-right:5px}
 .card .fun{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); margin-top:7px; line-height:1.5}
@@ -189,13 +192,13 @@ var D=[
 {k:'lag', eu:'IZAN (NOR) · orainaldia', es:'ser / estar — auxiliar intransitivo',
  fun:'Un solo participante (NOR). Con -tzen forma el presente: «etortzen naiz» = vengo.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','naiz','soy / estoy'],['zu','zara','eres / estás'],['hura','da','es / está'],['gu','gara','somos / estamos'],['zuek','zarete','sois / estáis'],['haiek','dira','son / están']]},
-{k:'lag', eu:'IZAN (NOR) · lehenaldia', es:'era / estaba — pasado del auxiliar intransitivo',
+{k:'lag', w:1, eu:'IZAN (NOR) · lehenaldia', es:'era / estaba — pasado del auxiliar intransitivo',
  fun:'Pasado: raíz + -tzen + estas formas → «etortzen nintzen» = venía.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','nintzen','era / estaba'],['zu','zinen','eras'],['hura','zen','era'],['gu','ginen','éramos'],['zuek','zineten','erais'],['haiek','ziren','eran']]},
 {k:'lag', eu:'UKAN / *edun (NOR-NORK) · orainaldia', es:'haber / tener — auxiliar transitivo',
  fun:'Sujeto ergativo (NORK) + objeto. La forma cambia si el objeto es singular (dut) o plural (ditut).',
  head:['NORK','+ 1 gauza','+ gauza asko'], t:[['nik','dut','ditut'],['zuk','duzu','dituzu'],['hark','du','ditu'],['guk','dugu','ditugu'],['zuek','duzue','dituzue'],['haiek','dute','dituzte']]},
-{k:'lag', eu:'UKAN / *edun (NOR-NORK) · lehenaldia', es:'había / tenía — pasado transitivo',
+{k:'lag', w:1, eu:'UKAN / *edun (NOR-NORK) · lehenaldia', es:'había / tenía — pasado transitivo',
  fun:'«hartu nuen» = (lo) cogí / había cogido.',
  head:['NORK','+ 1 gauza','+ asko'], t:[['nik','nuen','nituen'],['zuk','zenuen','zenituen'],['hark','zuen','zituen'],['guk','genuen','genituen'],['zuek','zenuten','zenituzten'],['haiek','zuten','zituzten']]},
 {k:'lag', eu:'NOR-NORI (zait…)', es:'me / te / le… — dativo (a quién)',
@@ -206,10 +209,10 @@ var D=[
 {k:'trink', eu:'EGON · estar (ubicación/estado)', es:'estar — dónde / cómo se está',
  fun:'«non zaude?» = ¿dónde estás?. Sintético: no lleva auxiliar.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','nago','estoy'],['zu','zaude','estás'],['hura','dago','está'],['gu','gaude','estamos'],['zuek','zaudete','estáis'],['haiek','daude','están']]},
-{k:'trink', eu:'JOAN · ir', es:'ir',
+{k:'trink', w:1, eu:'JOAN · ir', es:'ir',
  fun:'«nora zoaz?» = ¿a dónde vas?.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','noa','voy'],['zu','zoaz','vas'],['hura','doa','va'],['gu','goaz','vamos'],['zuek','zoazte','vais'],['haiek','doaz','van']]},
-{k:'trink', eu:'ETORRI · venir', es:'venir',
+{k:'trink', w:1, eu:'ETORRI · venir', es:'venir',
  fun:'«nondik zatoz?» = ¿de dónde vienes?.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','nator','vengo'],['zu','zatoz','vienes'],['hura','dator','viene'],['gu','gatoz','venimos'],['zuek','zatozte','venís'],['haiek','datoz','vienen']]},
 {k:'trink', eu:'EDUKI · tener', es:'tener (posesión, en la mano)',
@@ -218,7 +221,7 @@ var D=[
 {k:'trink', eu:'JAKIN · saber', es:'saber',
  fun:'«ez dakit» = no sé.',
  head:['NORK','euskara','gaztelaniaz'], t:[['nik','dakit','sé'],['zuk','dakizu','sabes'],['hark','daki','sabe'],['guk','dakigu','sabemos'],['zuek','dakizue','sabéis'],['haiek','dakite','saben']]},
-{k:'trink', eu:'IBILI · andar', es:'andar / andar (haciendo)',
+{k:'trink', w:1, eu:'IBILI · andar', es:'andar / andar (haciendo)',
  fun:'«zer moduz zabiltza?» = ¿qué tal andas?.',
  head:['NOR','euskara','gaztelaniaz'], t:[['ni','nabil','ando'],['zu','zabiltza','andas'],['hura','dabil','anda'],['gu','gabiltza','andamos'],['zuek','zabiltzate','andáis'],['haiek','dabiltza','andan']]},
 
@@ -252,7 +255,7 @@ var D=[
 {k:'denbora', eu:'Orainaldia', es:'presente',
  fun:'Estructura: raíz + -tzen + izan/ukan (presente). «etortzen naiz» / «hartzen dut».',
  ad:'lan egiten dut → trabajo'},
-{k:'denbora', eu:'Lehenaldia', es:'pretérito imperfecto (pasado habitual)',
+{k:'denbora', w:1, eu:'Lehenaldia', es:'pretérito imperfecto (pasado habitual)',
  fun:'raíz + -tzen + auxiliar en pasado. «etortzen nintzen» = (yo) venía.',
  ad:'jaten nuen → comía'},
 {k:'denbora', eu:'Geroaldia', es:'futuro',
@@ -330,13 +333,13 @@ var D=[
 {k:'morf', eu:'-zko / -ezko', es:'de (material o tema)',
  fun:'«egurrezko» = de madera; «paperezko» = de papel; «marrubizko» = de fresa.',
  ad:'plastikozko → de plástico'},
-{k:'morf', eu:'-tegi', es:'lugar de / -ería',
+{k:'morf', w:1, eu:'-tegi', es:'lugar de / -ería',
  fun:'Lugar donde hay o se hace algo: «liburutegi» = biblioteca; «okindegi» = panadería.',
  ad:'euskaltegi → academia de euskera'},
 {k:'morf', eu:'-(t)zaile / -le', es:'-dor / -or (agente)',
  fun:'El que hace la acción: «irakasle» = profesor; «saltzaile» = vendedor; «entzule» = oyente.',
  ad:'idazle → escritor'},
-{k:'morf', eu:'-tasun', es:'-dad / -eza (cualidad abstracta)',
+{k:'morf', w:1, eu:'-tasun', es:'-dad / -eza (cualidad abstracta)',
  fun:'«edertasun» = belleza; «adiskidetasun» = amistad; «askatasun» = libertad.',
  ad:'gizatasun → humanidad'},
 {k:'morf', eu:'-ago', es:'más (comparativo)',
@@ -345,13 +348,13 @@ var D=[
 {k:'morf', eu:'-egi', es:'demasiado',
  fun:'«handiegi» = demasiado grande; «beroegi» = demasiado caliente.',
  ad:'garestiegi → demasiado caro'},
-{k:'morf', eu:'-en (superlatiboa)', es:'el más (superlativo)',
+{k:'morf', w:1, eu:'-en (superlatiboa)', es:'el más (superlativo)',
  fun:'«handiena» = el más grande; «onena» = el mejor.',
  ad:'politena → el más bonito'},
-{k:'morf', eu:'-txo / -xka', es:'-ito / -illo (diminutivo)',
+{k:'morf', w:1, eu:'-txo / -xka', es:'-ito / -illo (diminutivo)',
  fun:'«etxetxo» = casita; «berandutxo» = un poco tarde; «gorrixka» = rojizo.',
  ad:'poliki-poliki → despacito'},
-{k:'morf', eu:'-garri', es:'-able / que causa',
+{k:'morf', w:1, eu:'-garri', es:'-able / que causa',
  fun:'«interesgarri» = interesante; «harrigarri» = sorprendente; «beldurgarri» = terrible.',
  ad:'ikusgarri → espectacular (digno de verse)'},
 {k:'morf', eu:'ba- (baiezkoa / baldintza)', es:'sí (afirmación enfática) / si (condición)',
@@ -372,11 +375,11 @@ var D=[
 {k:'pos', eu:'inguruan', es:'alrededor de / hacia (aprox.)', fun:'«mahaiaren inguruan» = alrededor de la mesa; «bederatzien inguruan» = hacia las nueve.', ad:'herriaren inguruan → en torno al pueblo'},
 {k:'pos', eu:'barruan', es:'dentro de', fun:'«etxe barruan» = dentro de casa.', ad:'ordu barruan → dentro de una hora'},
 {k:'pos', eu:'kanpoan', es:'fuera de', fun:'«herritik kanpo» = fuera del pueblo.', ad:'kanpoan → fuera'},
-{k:'pos', eu:'aurka / kontra', es:'contra', fun:'«zure aurka» = contra ti.', ad:'taldearen aurka → contra el equipo'},
+{k:'pos', w:1, eu:'aurka / kontra', es:'contra', fun:'«zure aurka» = contra ti.', ad:'taldearen aurka → contra el equipo'},
 {k:'pos', eu:'arte', es:'hasta', fun:'«bihar arte» = hasta mañana; «gaur arte» = hasta hoy.', ad:'gero arte → hasta luego'},
-{k:'pos', eu:'buruz', es:'acerca de / sobre (tema)', fun:'«euskarari buruz» = sobre el euskera.', ad:'horri buruz → acerca de eso'},
-{k:'pos', eu:'bidez / bitartez', es:'mediante / a través de', fun:'«internet bidez» = por internet.', ad:'lagun baten bidez → a través de un amigo'},
-{k:'pos', eu:'zehar', es:'a lo largo de / por', fun:'«kalean zehar» = por la calle; «egunean zehar» = a lo largo del día.', ad:'mundu osoan zehar → por todo el mundo'},
+{k:'pos', w:1, eu:'buruz', es:'acerca de / sobre (tema)', fun:'«euskarari buruz» = sobre el euskera.', ad:'horri buruz → acerca de eso'},
+{k:'pos', w:1, eu:'bidez / bitartez', es:'mediante / a través de', fun:'«internet bidez» = por internet.', ad:'lagun baten bidez → a través de un amigo'},
+{k:'pos', w:1, eu:'zehar', es:'a lo largo de / por', fun:'«kalean zehar» = por la calle; «egunean zehar» = a lo largo del día.', ad:'mundu osoan zehar → por todo el mundo'},
 
 /* ── ADBERBIOAK ── */
 {k:'adb', eu:'Denbora-adberbioak', es:'adverbios de tiempo', fun:'Cuándo.',
@@ -409,7 +412,7 @@ var D=[
     adb:'adverbio adverbios'
   };
   D.forEach(function(e){
-    var parts = [e.eu, e.es, e.fun||'', e.ad||'', KAT[e.k], KATES[e.k]||''];
+    var parts = [e.eu, e.es, e.fun||'', e.ad||'', KAT[e.k], KATES[e.k]||'', (e.w?'warning fuera del metodo ostalaritzatik kanpo revisar verificar':'')];
     if (e.t) e.t.forEach(function(r){ parts.push(r.join(' ')); });
     e._s = norm(parts.join(' '));
   });
@@ -430,7 +433,7 @@ var D=[
     return '<div class="adib">'+esc(a.slice(0,i))+'<span class="g">→'+esc(a.slice(i+1))+'</span></div>';
   }
   function cardHTML(e){
-    var h = '<div class="top"><span class="eu">'+esc(e.eu)+'</span><span class="kat">'+esc(KAT[e.k])+'</span></div>';
+    var h = '<div class="top"><span class="eu">'+esc(e.eu)+'</span>'+(e.w?'<span class="warn" title="Fuera del método Ostalaritza — euskara batua estándar añadido por Claude; conviene verificarlo con una fuente autoritativa (Euskaltzaindia).">&#9888; Fuera del método</span>':'')+'<span class="kat">'+esc(KAT[e.k])+'</span></div>';
     h += '<div class="es"><b>=</b>'+esc(e.es)+'</div>';
     if (e.fun) h += '<div class="fun">'+esc(e.fun)+'</div>';
     if (e.t){
@@ -459,7 +462,7 @@ var D=[
       var frag = document.createDocumentFragment();
       out.forEach(function(e){
         var d = document.createElement('div');
-        d.className = 'card' + (e.t ? ' wide' : '');
+        d.className = 'card' + (e.t ? ' wide' : '') + (e.w ? ' warned' : '');
         d.innerHTML = cardHTML(e);
         frag.appendChild(d);
       });
