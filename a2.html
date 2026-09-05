@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Euskara Armairua — nivel A2. Koadernoa basado en Ostalaritza «Jatetxean».">
+<title>Euskara Armairua · A2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
+</head>
+<body>
+<style>
+
+/* ── EUSKARA ARMAIRUA · A2 «Jatetxean» ──────────────────────────────
+   Mismo sistema visual "Geruzak" que a1.html / index.html.           */
+
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2; --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC; --ok:#2E6B42; --warn:#946015; --crit:#A33325;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:4px; --topbar:66px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+    --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+    --line:#2E342E; --line-strong:#414840;
+    --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+    --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --warn:#D9A44A; --crit:#E0776A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+  --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840;
+  --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --warn:#D9A44A; --crit:#E0776A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.66; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--sea); text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+.eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+/* ── topbar ── */
+.hub{position:sticky; top:0; z-index:80; background:var(--surface); border-bottom:1px solid var(--line-strong)}
+.hub .in{max-width:1280px; margin:0 auto; padding:0 22px; display:flex; align-items:center; gap:16px; min-height:var(--topbar)}
+.hub .brand{display:flex; flex-direction:column; justify-content:center; gap:1px; padding-right:20px; border-right:1px solid var(--line); flex:none}
+.hub .brand a{display:flex; align-items:center; gap:6px; text-decoration:none; color:inherit}
+.hub .brand .home{font-family:var(--f-mono); color:var(--muted); font-size:15px}
+.hub .brand b{font-family:var(--f-display); font-size:18px; font-weight:700; letter-spacing:-.01em; line-height:1.1}
+.hub .brand b em{font-style:normal; color:var(--iron)}
+.hub .brand span{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted)}
+.hub .ctx{flex:none; display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:14.5px; font-weight:600; color:var(--ink-2)}
+.hub .ctx i{font-style:normal; opacity:.75}
+.hub .spacer{flex:1}
+.hub .guide{flex:none; display:flex; align-items:center; gap:7px; font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--sea); text-decoration:none; border:1px solid var(--line-strong); border-radius:var(--r); padding:7px 12px; background:var(--ground)}
+.hub .guide:hover{border-color:var(--sea); background:var(--sea-soft)}
+.hub .guide span{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+.hub .who{flex:none; display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); border-radius:var(--r); padding:6px 11px; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--ink-2)}
+.hub .who:hover{border-color:var(--line-strong); background:var(--surface-2)}
+.hub .who .dot{width:7px; height:7px; border-radius:50%; background:var(--muted); flex:none}
+.hub .who[data-state="cloud"] .dot{background:var(--ok)}
+.hub .who[data-state="saving"] .dot{background:var(--gold)}
+.hub .who[data-state="local"] .dot{background:var(--line-strong)}
+.hub .who .nm{font-weight:600; color:var(--ink)}
+.hub .who .st{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+.hub .who .stack{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25}
+@media (max-width:900px){:root{--topbar:56px} .hub .in{gap:10px; padding:0 14px} .hub .brand span,.hub .ctx,.hub .who .st,.hub .guide span{display:none}}
+html{scroll-padding-top:calc(var(--topbar) + 16px)}
+
+/* ══ koadernoa (mismo layout que A1) ══════════════════════════════ */
+#app-koadernoa .shell{display:grid; grid-template-columns:236px minmax(0,1fr)}
+@media (max-width:900px){#app-koadernoa .shell{grid-template-columns:1fr}}
+#app-koadernoa nav.toc{border-right:1px solid var(--line); background:var(--surface)}
+#app-koadernoa nav.toc .inner{padding:26px 18px 60px; position:sticky; top:var(--topbar); max-height:calc(100vh - var(--topbar)); overflow-y:auto}
+@media (max-width:900px){#app-koadernoa nav.toc{border-right:0; border-bottom:1px solid var(--line)} #app-koadernoa nav.toc .inner{position:static; max-height:none}}
+#app-koadernoa nav.toc .brand{font-family:var(--f-display); font-weight:700; font-size:19px; line-height:1.1}
+#app-koadernoa nav.toc .brand span{color:var(--iron)}
+#app-koadernoa nav.toc .sub{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:3px 0 18px}
+#app-koadernoa nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px}
+#app-koadernoa nav.toc a{display:flex; gap:8px; font-family:var(--f-ui); font-size:13px; line-height:1.35; color:var(--ink-2); text-decoration:none; padding:5px 7px; border-radius:3px}
+#app-koadernoa nav.toc a:hover{background:var(--surface-2); color:var(--ink)}
+#app-koadernoa nav.toc a .n{font-family:var(--f-mono); font-size:11px; color:var(--muted); width:1.5em; flex:none; padding-top:2px}
+#app-koadernoa nav.toc li.off a{color:var(--muted); pointer-events:none}
+#app-koadernoa nav.toc li.off a .n{color:var(--line-strong)}
+#app-koadernoa nav.toc .grp{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin:16px 0 6px 7px}
+
+#app-koadernoa main{padding:0 0 96px; min-width:0}
+#app-koadernoa .wrap{max-width:78ch; margin:0 auto; padding:0 30px}
+#app-koadernoa header.hero{border-bottom:1px solid var(--line); padding:60px 0 40px}
+#app-koadernoa header.hero h1{font-size:clamp(36px,5.4vw,54px); font-weight:700; letter-spacing:-.02em}
+#app-koadernoa header.hero h1 em{font-style:normal; color:var(--iron)}
+#app-koadernoa header.hero .lede{font-size:18px; color:var(--ink-2); margin-top:14px; max-width:58ch}
+#app-koadernoa .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:26px}
+#app-koadernoa .howto div{border-left:2px solid var(--line-strong); padding-left:12px}
+#app-koadernoa .howto b{display:block; font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--iron); margin-bottom:3px}
+#app-koadernoa .howto p{font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); line-height:1.5}
+
+#app-koadernoa section.unit{padding-top:56px; scroll-margin-top:calc(var(--topbar) + 10px)}
+#app-koadernoa .uhead{border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:8px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+#app-koadernoa .uhead .n{font-family:var(--f-mono); font-size:13px; font-weight:500; color:var(--surface); background:var(--ink); padding:2px 8px; border-radius:2px}
+#app-koadernoa .uhead h2{font-size:26px; letter-spacing:-.01em}
+#app-koadernoa .uhead .tag{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-left:auto}
+#app-koadernoa .uintro{font-family:var(--f-ui); font-size:14px; color:var(--muted); margin-bottom:6px}
+
+#app-koadernoa .ar{margin-top:30px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden}
+#app-koadernoa .ar > .h{display:flex; gap:11px; align-items:baseline; padding:14px 18px 10px; border-bottom:1px solid var(--line)}
+#app-koadernoa .ar > .h .k{font-family:var(--f-mono); font-size:12px; font-weight:500; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; flex:none}
+#app-koadernoa .ar > .h h3{font-family:var(--f-ui); font-size:15px; font-weight:600; margin:0; color:var(--ink); line-height:1.35}
+#app-koadernoa .ar > .b{padding:14px 18px 18px}
+#app-koadernoa .ar .instr{font-family:var(--f-ui); font-size:13.5px; color:var(--muted); margin-bottom:12px; font-style:italic}
+#app-koadernoa .ar ol.items{list-style:none; counter-reset:it; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
+#app-koadernoa .ar ol.items > li{counter-increment:it; display:grid; grid-template-columns:26px minmax(0,1fr); gap:10px; align-items:baseline}
+#app-koadernoa .ar ol.items > li::before{content:counter(it) "."; font-family:var(--f-mono); font-size:12px; color:var(--muted); text-align:right}
+#app-koadernoa .ar ol.items .q{font-family:var(--f-body); font-size:16px; line-height:1.5}
+#app-koadernoa .ar .gap{display:inline-block; min-width:88px; border-bottom:1px solid var(--line-strong); margin:0 3px; vertical-align:baseline}
+#app-koadernoa .ar .cue{font-family:var(--f-mono); font-size:12.5px; color:var(--sea)}
+#app-koadernoa .mono{font-family:var(--f-mono); font-size:.92em}
+
+#app-koadernoa details.sol{border-top:1px dashed var(--line-strong); background:var(--surface-2)}
+#app-koadernoa details.sol summary{list-style:none; cursor:pointer; padding:10px 18px; font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sea); display:flex; align-items:center; gap:8px}
+#app-koadernoa details.sol summary::-webkit-details-marker{display:none}
+#app-koadernoa details.sol summary::before{content:"▸"; font-size:11px}
+#app-koadernoa details.sol[open] summary::before{content:"▾"}
+#app-koadernoa details.sol summary:hover{color:var(--ink)}
+#app-koadernoa details.sol .in{padding:2px 18px 16px}
+#app-koadernoa details.sol ol{margin:0; padding-left:22px; font-family:var(--f-mono); font-size:13.5px; line-height:1.75; color:var(--ink-2)}
+#app-koadernoa details.sol ol li b{font-family:var(--f-mono); font-weight:500; color:var(--sea)}
+#app-koadernoa details.sol .es{color:var(--muted)}
+#app-koadernoa details.sol p.note{font-family:var(--f-ui); font-size:13px; color:var(--muted); margin-top:10px; padding-left:2px}
+
+#app-koadernoa .laster{margin-top:40px; border:1px dashed var(--line-strong); border-radius:var(--r); background:transparent; padding:22px 22px}
+#app-koadernoa .laster h3{font-family:var(--f-ui); font-size:14px; font-weight:600; color:var(--ink-2); margin-bottom:12px}
+#app-koadernoa .laster ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px}
+#app-koadernoa .laster li{font-family:var(--f-ui); font-size:13.5px; color:var(--muted); display:flex; gap:8px}
+#app-koadernoa .laster li .n{font-family:var(--f-mono); color:var(--line-strong)}
+#app-koadernoa .laster .pill{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; margin-left:auto; align-self:center}
+
+#app-koadernoa footer{border-top:1px solid var(--line); margin-top:70px; padding:26px 0; font-family:var(--f-ui); font-size:13px; color:var(--muted)}
+
+/* ── casilleros editables (idéntico a A1) ── */
+#app-koadernoa .gapf{font-family:var(--f-mono); font-size:14px; color:var(--sea); border:0; border-bottom:1.5px solid var(--line-strong); background:transparent; padding:0 3px 1px; margin:0 3px; vertical-align:baseline; text-align:center; min-width:70px; border-radius:0; outline:none; transition:border-color .12s, background .12s}
+#app-koadernoa .gapf:hover{border-bottom-color:var(--sea)}
+#app-koadernoa .gapf:focus{border-bottom-color:var(--sea); background:var(--sea-soft)}
+#app-koadernoa .ansf{grid-column:2; width:100%; box-sizing:border-box; margin-top:7px; display:block; font-family:var(--f-body); font-size:15.5px; line-height:1.6; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--line-strong); border-radius:0 var(--r) var(--r) 0; padding:8px 11px; min-height:2.5em; resize:vertical; outline:none; transition:border-color .12s, box-shadow .12s; overflow:hidden}
+#app-koadernoa .ansf::placeholder{color:var(--muted); font-style:italic; opacity:.65}
+#app-koadernoa .ansf:hover{border-color:var(--line-strong)}
+#app-koadernoa .ansf:focus{border-left-color:var(--sea); border-color:var(--sea); box-shadow:0 0 0 3px var(--sea-soft)}
+
+/* ── gate (perfil) ── */
+.gate{position:fixed; inset:0; z-index:200; background:rgba(12,15,12,.62); display:grid; place-items:center; padding:22px}
+.gate .gbox{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); box-shadow:var(--shadow); padding:30px 30px 24px; max-width:440px; width:100%}
+.gate h2{font-size:28px; margin-bottom:4px} .gate h2 em{font-style:normal; color:var(--iron)}
+.gate .lede{font-family:var(--f-ui); font-size:14.5px; color:var(--ink-2); margin-top:10px}
+.gate form{display:flex; gap:8px; margin-top:18px}
+.gate input{flex:1; min-width:0; font-family:var(--f-ui); font-size:15px; padding:9px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink)}
+.gate input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.gate button[type="submit"]{font-family:var(--f-ui); font-size:14px; font-weight:600; padding:9px 18px; cursor:pointer; border:1px solid var(--sea); border-radius:var(--r); background:var(--sea); color:#fff}
+.gate button[type="submit"]:hover{filter:brightness(1.08)}
+.gate .fine{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:16px; border-top:1px solid var(--line); padding-top:14px}
+.gate .later{display:inline-block; margin-top:12px; background:none; border:0; padding:0; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--muted); text-decoration:underline; text-underline-offset:3px}
+</style>
+
+<div class="hub"><div class="in">
+  <div class="brand"><a href="index.html" title="Mailak · Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b></a><span>A2 · Jatetxean</span></div>
+  <div class="ctx"><i>✏️</i>Koadernoa</div>
+  <div class="spacer"></div>
+  <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
+  <a class="guide" href="https://claude.ai/code/artifact/35026aab-cef0-431b-a346-09202820c5c4" target="_blank" rel="noopener">Gramatika <span>&#8599;</span></a>
+</div></div>
+
+<section class="app" id="app-koadernoa">
+<div class="shell">
+<nav class="toc"><div class="inner">
+  <div class="brand">Ariketen<br><span>Koadernoa</span></div>
+  <div class="sub">A2 · Jatetxean · 9 koaderno</div>
+  <div class="grp">Koadernoak</div>
+  <ol>
+    <li><a href="#j1"><span class="n">1</span>Menua: eduki, partitiboa, -rekin</a></li>
+    <li class="off"><a href="#"><span class="n">2</span>Eskaera: falta zaio</a></li>
+    <li class="off"><a href="#"><span class="n">3</span>Kexa: nolakoa / nola dago</a></li>
+    <li class="off"><a href="#"><span class="n">4</span>Argibideak: NON/NORA/NONDIK</a></li>
+    <li class="off"><a href="#"><span class="n">5</span>Erreserba: noiz / noizko</a></li>
+    <li class="off"><a href="#"><span class="n">6</span>Koktela: zer da hau/hauek</a></li>
+    <li class="off"><a href="#"><span class="n">7</span>Eguneko menua: geroaldia</a></li>
+    <li class="off"><a href="#"><span class="n">8</span>Sukaldean: aurretik/bitartean/gero</a></li>
+    <li class="off"><a href="#"><span class="n">9</span>Hornitzailea: eskaerak egitea</a></li>
+  </ol>
+</div></nav>
+
+<main>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Ariketak eta erantzunak · A2</div>
+  <h1>Ariketen <em>koadernoa</em></h1>
+  <p class="lede">Segunda capa: del bar al restaurante. Nueve cuadernos que retoman «Ostalaritza · Jatetxean» — con «eduki», el futuro, los casos y la subordinación. Escribe directamente en los recuadros; se guardan solos en tu perfil.</p>
+  <div class="howto">
+    <div><b>Escribe en el recuadro</b><p>Rellena tu respuesta antes de abrir la solución. Leerla sin escribirla no sirve.</p></div>
+    <div><b>Se guarda solo</b><p>Todo lo que escribas queda en tu perfil A2, separado de A1, y te sigue a cualquier navegador.</p></div>
+    <div><b>Repite a los tres días</b><p>Un ejercicio con más de dos fallos se rehace, en limpio, 72 horas después.</p></div>
+    <div><b>En voz alta</b><p>Los diálogos del restaurante se leen hablando. El A2 se juega también en el oral.</p></div>
+  </div>
+</div></header>
+
+<section class="unit" id="j1"><div class="wrap">
+  <div class="uhead"><span class="n">1</span><h2>Menua: <i>eduki</i>, partitiboa eta <span class="mono">-(r)ekin</span></h2><span class="tag">Ostalaritza 11</span></div>
+  <p class="uintro">Pedir y ofrecer en el restaurante: qué hay, qué tenemos, con qué se acompaña.</p>
+
+  <div class="ar">
+    <div class="h"><span class="k">1.1</span><h3>Completa con la forma correcta de <i>eduki</i> (tener)</h3></div>
+    <div class="b">
+      <p class="instr">daukat · dauzkat · daukazu · dauzkazu · daukagu · dauzkagu · daukazue · dauzkazue</p>
+      <ol class="items">
+        <li><span class="q">Nik legatza <span class="gap"></span> gustuko. <span class="cue">(1 gauza)</span></span></li>
+        <li><span class="q">Zuek zer <span class="gap"></span> afaltzeko? <span class="cue">(gauza asko)</span></span></li>
+        <li><span class="q">Guk bi menu <span class="gap"></span>: eguneko menua eta berezia. <span class="cue">(asko)</span></span></li>
+        <li><span class="q">Zuk txuletarik <span class="gap"></span>? <span class="cue">(1)</span></span></li>
+        <li><span class="q">Nik hiru postre <span class="gap"></span> hozkailuan. <span class="cue">(asko)</span></span></li>
+        <li><span class="q">Guk ez <span class="gap"></span> arrainik gaur. <span class="cue">(ezezkoa)</span></span></li>
+      </ol>
+    </div>
+    <details class="sol"><summary>Erantzunak</summary><div class="in"><ol>
+      <li><b>daukat</b></li><li><b>dauzkazue</b></li><li><b>dauzkagu</b></li>
+      <li><b>daukazu</b></li><li><b>dauzkat</b></li><li><b>daukagu</b> <span class="es">— «ez daukagu arrainik»</span></li>
+    </ol><p class="note">NOR-NORK: la <i>k</i> antes de la raíz marca «muchas cosas» (dau<b>zk</b>at). Objeto singular → dauka-, plural → dauzka-.</p></div></details>
+  </div>
+
+  <div class="ar">
+    <div class="h"><span class="k">1.2</span><h3>El partitivo <span class="mono">-(r)ik</span>: pregunta y responde</h3></div>
+    <div class="b">
+      <p class="instr">En preguntas y negativas, el objeto lleva -rik: «Badaukazu <b>txuletarik</b>?» · «Ez, ez daukagu <b>txuletarik</b>.» Contesta cada una en euskera (sí y no).</p>
+      <ol class="items">
+        <li><span class="q">entsalada → <span class="cue">¿tenéis? / no</span></span></li>
+        <li><span class="q">arrain-zopa → <span class="cue">¿tienes? / sí</span></span></li>
+        <li><span class="q">postre → <span class="cue">¿tenéis? / sí</span></span></li>
+        <li><span class="q">sagardo → <span class="cue">¿tienes? / no</span></span></li>
+      </ol>
+    </div>
+    <details class="sol"><summary>Erantzunak</summary><div class="in"><ol>
+      <li><b>Badaukazue entsaladarik? — Ez, ez daukagu entsaladarik.</b></li>
+      <li><b>Badaukazu arrain-zoparik? — Bai, badaukagu arrain-zopa.</b></li>
+      <li><b>Badaukazue postrerik? — Bai, badaukagu postrea.</b></li>
+      <li><b>Badaukazu sagardorik? — Ez, ez daukagu sagardorik.</b></li>
+    </ol><p class="note">En la respuesta afirmativa el partitivo desaparece: «badaukagu entsalada<b>·</b>».</p></details>
+  </div>
+
+  <div class="ar">
+    <div class="h"><span class="k">1.3</span><h3>Compañía con <span class="mono">-(r)ekin</span> (con)</h3></div>
+    <div class="b">
+      <p class="instr">Singular → -arekin · plural → -ekin. Forma «X con Y».</p>
+      <ol class="items">
+        <li><span class="q">xerra + patatak → <span class="cue">filete con patatas</span></span></li>
+        <li><span class="q">solomoa + piper gorriak → <span class="cue">lomo con pimientos rojos</span></span></li>
+        <li><span class="q">arrautzak + tomatea → <span class="cue">huevos con tomate</span></span></li>
+        <li><span class="q">kafea + esnea → <span class="cue">café con leche</span></span></li>
+      </ol>
+    </div>
+    <details class="sol"><summary>Erantzunak</summary><div class="in"><ol>
+      <li><b>xerra patatekin</b></li><li><b>solomoa piper gorriekin</b></li>
+      <li><b>arrautzak tomatearekin</b></li><li><b>kafea esnearekin</b></li>
+    </ol><p class="note">Plural: patata<b>k</b> → patat<b>ekin</b>. Singular: tomate<b>a</b> → tomate<b>arekin</b>.</p></details>
+  </div>
+
+  <div class="ar">
+    <div class="h"><span class="k">1.4</span><h3>Traduce al euskera (menú del restaurante)</h3></div>
+    <div class="b">
+      <ol class="items">
+        <li><span class="q">¿Qué tenéis para cenar?</span></li>
+        <li><span class="q">De primero tomaré una ensalada mixta.</span></li>
+        <li><span class="q">Yo prefiero pescado: merluza.</span></li>
+        <li><span class="q">¿Y para beber? — Beberemos sidra.</span></li>
+        <li><span class="q">¿Tenéis besugo? — No, no tenemos besugo.</span></li>
+      </ol>
+    </div>
+    <details class="sol"><summary>Erantzunak</summary><div class="in"><ol>
+      <li><b>Zer daukazue afaltzeko?</b></li>
+      <li><b>Hasteko, entsalada mistoa hartuko dut.</b></li>
+      <li><b>Nik arraina nahiago dut: legatza.</b></li>
+      <li><b>Eta edateko? — Sagardoa edango dugu.</b></li>
+      <li><b>Badaukazue bixigurik? — Ez, ez daukagu bixigurik.</b></li>
+    </ol></div></details>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="laster">
+    <h3>Datozen koadernoak · en preparación</h3>
+    <ol>
+      <li><span class="n">2</span> Eskaera: <i>falta zaio</i> <span class="pill">Laster</span></li>
+      <li><span class="n">3</span> Kexa: nolakoa da / nola dago <span class="pill">Laster</span></li>
+      <li><span class="n">4</span> Argibideak: NON/NORA/NONDIK <span class="pill">Laster</span></li>
+      <li><span class="n">5</span> Erreserba: noiz / noizko <span class="pill">Laster</span></li>
+      <li><span class="n">6</span> Koktela: zer da hau/hauek <span class="pill">Laster</span></li>
+      <li><span class="n">7</span> Eguneko menua: geroaldia <span class="pill">Laster</span></li>
+      <li><span class="n">8</span> Sukaldean: denborazkoak <span class="pill">Laster</span></li>
+      <li><span class="n">9</span> Hornitzailea: eskaerak <span class="pill">Laster</span></li>
+    </ol>
+  </div>
+  <footer><p><b>Ariketen Koadernoa · A2</b> — 9 cuadernos de nivel A2 basados en <i>Ostalaritza · Jatetxean</i> (HABE/Elhuyar). Las respuestas se guardan en tu perfil, separadas de A1.</p></footer>
+</div>
+</main>
+</div>
+</section>
+
+<div class="gate" id="gate" hidden>
+  <div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="eyebrow">Euskara armairua · A2</div>
+    <h2 id="gateTitle">Nor <em>zara</em>?</h2>
+    <p class="lede">Escribe tu nombre y el armario guardará tu progreso. Es el mismo perfil que en A1: los materiales están separados, pero tú eres la misma persona.</p>
+    <form id="gateForm">
+      <input id="gateName" type="text" autocomplete="off" placeholder="Maialen" maxlength="40" required aria-label="Tu nombre">
+      <button type="submit">Sartu</button>
+    </form>
+    <p class="fine">No hay contraseña: el nombre es solo una etiqueta para el progreso guardado.</p>
+    <button type="button" class="later" id="gateLater">Ahora no — guardar solo en este navegador</button>
+  </div>
+</div>
+
+<script>
+/* ── HUB · perfil y guardado (igual que A1) ── */
+window.HUB = (function(){
+  var COL = 'aurrerapena', NAMEK = 'euskara-izena';
+  var db = null, entries = {}, watchers = [], state = 'local', izena = '';
+  function emit(){
+    var chip = document.getElementById('who');
+    if (chip){
+      chip.setAttribute('data-state', state);
+      chip.querySelector('.nm').textContent = izena || 'Sin perfil';
+      chip.querySelector('.st').textContent =
+        !izena ? 'Toca para crear tu perfil' :
+        state === 'cloud' ? 'Gordeta · en tu cuenta' :
+        state === 'saving' ? 'Gordetzen…' : 'Solo en este navegador';
+    }
+    watchers.forEach(function(f){ try { f(state, izena); } catch(e){} });
+  }
+  function setState(s){ state = s; emit(); }
+  function tKey(k){ return k + '__t'; }
+  function readT(k){ try { return Number(localStorage.getItem(tKey(k))) || 0; } catch(e){ return 0; } }
+  function writeLocal(k, val, t){ try { localStorage.setItem(k, JSON.stringify(val)); localStorage.setItem(tKey(k), String(t)); } catch(e){} }
+  function push(e){
+    if (!db) return;
+    if (e.timer) clearTimeout(e.timer);
+    e.timer = setTimeout(function(){
+      e.timer = null; setState('saving');
+      db.doc(COL + '/' + e.id).set({ v: e.get(), t: e.t }).then(function(){ setState('cloud'); })['catch'](function(){ setState('local'); });
+    }, 700);
+  }
+  function subscribe(e){
+    try {
+      db.doc(COL + '/' + e.id).onSnapshot(function(snap){
+        if (!snap.exists){ if (e.t) push(e); setState('cloud'); return; }
+        var d = snap.data() || {}, rt = Number(d.t) || 0;
+        if (rt > e.t && d.v && typeof d.v === 'object'){ e.t = rt; writeLocal(e.lsKey, d.v, rt); try { e.apply(d.v); } catch(err){} }
+        else if (e.t > rt){ push(e); }
+        setState('cloud');
+      }, function(){ setState('local'); });
+    } catch(err){ setState('local'); }
+  }
+  function saveName(n){ izena = n; try { localStorage.setItem(NAMEK, n); } catch(e){} emit(); if (db) db.doc(COL + '/profila').set({ izena: n, t: Date.now() })['catch'](function(){}); }
+  function openGate(){ var g = document.getElementById('gate'); if (!g) return; g.hidden = false; var i = document.getElementById('gateName'); i.value = izena || ''; setTimeout(function(){ i.focus(); i.select(); }, 30); }
+  function closeGate(){ var g = document.getElementById('gate'); if (g) g.hidden = true; }
+  function wireGate(){
+    var f = document.getElementById('gateForm');
+    if (f) f.addEventListener('submit', function(ev){ ev.preventDefault(); var v = document.getElementById('gateName').value.trim(); if (!v) return; saveName(v); closeGate(); });
+    var l = document.getElementById('gateLater'); if (l) l.addEventListener('click', closeGate);
+    document.addEventListener('keydown', function(ev){ var g = document.getElementById('gate'); if (ev.key === 'Escape' && g && !g.hidden) closeGate(); });
+    var chip = document.getElementById('who'); if (chip) chip.addEventListener('click', openGate);
+  }
+  try { izena = localStorage.getItem(NAMEK) || ''; } catch(e){}
+  var api = {
+    save: function(id, lsKey, val){ var t = Date.now(); writeLocal(lsKey, val, t); var e = entries[id]; if (e){ e.t = t; push(e); } },
+    bind: function(id, lsKey, apply, get){ var e = entries[id] = { id:id, lsKey:lsKey, apply:apply, get:get, t:readT(lsKey), timer:null }; if (db) subscribe(e); return e; },
+    onChange: function(fn){ watchers.push(fn); fn(state, izena); }, name: function(){ return izena; }, open: openGate
+  };
+  function start(){
+    wireGate(); emit();
+    if (!(window.claude && typeof claude.use === 'function')){ setState('local'); return; }
+    claude.use('db').then(function(d){
+      if (!d){ setState('local'); return; }
+      db = d; setState('cloud');
+      Object.keys(entries).forEach(function(k){ subscribe(entries[k]); });
+      try {
+        db.doc(COL + '/profila').onSnapshot(function(snap){
+          var n = snap.exists ? String((snap.data() || {}).izena || '') : '';
+          if (n){ izena = n; try { localStorage.setItem(NAMEK, n); } catch(e){} emit(); }
+          else if (!izena) openGate(); else saveName(izena);
+        }, function(){});
+      } catch(err){}
+    })['catch'](function(){ setState('local'); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  return api;
+})();
+</script>
+
+<script>
+/* ── koadernoa A2 editable · claves namespaceadas (koadernoa-a2:*) ── */
+(function(){
+  var root = document.getElementById('app-koadernoa');
+  if (!root || !window.HUB) return;
+  function clamp(n,a,b){ return Math.max(a, Math.min(b,n)); }
+  function grow(t){ if (t.offsetParent === null) return; t.style.height = 'auto'; t.style.height = (t.scrollHeight + 2) + 'px'; }
+  function sizeInput(inp, min){ inp.size = clamp((inp.value || '').length + 1, min, 44); }
+  var textareas = [];
+
+  Array.prototype.forEach.call(root.querySelectorAll('section.unit'), function(sec){
+    var uid = sec.id;                       // j1, j2…
+    var LSKEY = 'koadernoa-a2:' + uid, DOCID = 'koadA2-' + uid;
+    var state = {};
+    try { var raw = localStorage.getItem(LSKEY); if (raw) state = JSON.parse(raw) || {}; } catch(e){}
+    var fields = {};
+    function persist(){ HUB.save(DOCID, LSKEY, state); }
+    function register(el, key, type){
+      fields[key] = { el: el, type: type };
+      el.setAttribute('data-k', key);
+      if (state[key] != null) el.value = state[key];
+      el.addEventListener('input', function(){
+        state[key] = el.value;
+        if (type === 'area') grow(el); else sizeInput(el, type === 'score' ? 3 : 6);
+        persist();
+      });
+    }
+    Array.prototype.forEach.call(sec.querySelectorAll('span.gap'), function(span, i){
+      var inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'gapf'; inp.autocomplete = 'off'; inp.spellcheck = false;
+      inp.setAttribute('aria-label', 'Erantzuna · respuesta');
+      span.parentNode.replaceChild(inp, span);
+      register(inp, 'g' + i, 'gap'); sizeInput(inp, 6);
+    });
+    Array.prototype.forEach.call(sec.querySelectorAll('ol.items > li'), function(li, i){
+      if (li.querySelector('.gapf') || li.querySelector('span.gap')) return;
+      var ta = document.createElement('textarea');
+      ta.className = 'ansf'; ta.rows = 1; ta.placeholder = 'Idatzi hemen…'; ta.autocomplete = 'off';
+      ta.setAttribute('aria-label', 'Zure erantzuna · tu respuesta');
+      li.appendChild(ta);
+      register(ta, 'o' + i, 'area'); textareas.push(ta); grow(ta);
+    });
+    HUB.bind(DOCID, LSKEY, function(v){
+      if (!v || typeof v !== 'object') return;
+      state = v;
+      Object.keys(fields).forEach(function(k){
+        var f = fields[k];
+        f.el.value = (v[k] != null) ? v[k] : '';
+        if (f.type === 'area') grow(f.el); else sizeInput(f.el, 6);
+      });
+    }, function(){ return state; });
+  });
+
+  window.addEventListener('load', function(){ textareas.forEach(grow); });
+})();
+</script>
+</body>
+</html>
