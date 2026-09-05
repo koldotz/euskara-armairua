@@ -392,6 +392,48 @@ section.cal{margin-top:34px}
 #app-egutegia .test.pass input{border-color:var(--sea); color:var(--sea)}
 #app-egutegia .test.fail input{border-color:var(--crit); color:var(--crit)}
 
+/* ── errepasoa · repaso acumulado que crece con el calendario ── */
+#app-egutegia section.rev{margin-top:34px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); overflow:hidden}
+#app-egutegia .rev-head{display:flex; gap:18px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; padding:22px 22px 18px; border-bottom:1px solid var(--line); background:linear-gradient(180deg, var(--sea-soft), transparent)}
+#app-egutegia .rev-head h2{font-family:var(--f-display); font-size:26px; letter-spacing:-.01em; margin:4px 0 0}
+#app-egutegia .rev-head h2 em{font-style:normal; color:var(--sea)}
+#app-egutegia .rev-sub{font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); margin-top:7px; max-width:60ch; line-height:1.5}
+#app-egutegia .rev-prog{display:flex; gap:22px; flex:none}
+#app-egutegia .rev-prog .kp{display:flex; flex-direction:column; align-items:flex-end}
+#app-egutegia .rev-prog .kp b{font-family:var(--f-mono); font-size:26px; font-weight:500; line-height:1; font-variant-numeric:tabular-nums}
+#app-egutegia .rev-prog .kp b small{font-size:14px; color:var(--muted); font-weight:400}
+#app-egutegia .rev-prog .kp span{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:6px}
+#app-egutegia .rev-prog .kp.g b{color:var(--sea)}
+
+#app-egutegia .rev-reto{margin:16px 22px 0; border:1px solid var(--iron); border-left:3px solid var(--iron); border-radius:var(--r); background:var(--iron-soft); padding:13px 16px; cursor:pointer}
+#app-egutegia .rev-reto .rl{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); font-weight:500}
+#app-egutegia .rev-reto .rq{font-family:var(--f-body); font-size:18px; color:var(--ink); margin-top:5px; line-height:1.4}
+#app-egutegia .rev-reto .ra{font-family:var(--f-body); font-size:16px; color:var(--sea); margin-top:6px}
+#app-egutegia .rev-reto .hint{font-family:var(--f-ui); font-size:12px; color:var(--muted); margin-top:6px}
+
+#app-egutegia .rev-cat{padding:18px 22px 2px}
+#app-egutegia .rev-cat h4{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin:0 0 11px; display:flex; align-items:center; gap:8px}
+#app-egutegia .rev-cat h4 .c{color:var(--muted); font-weight:400}
+#app-egutegia .rev-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(232px,1fr)); gap:10px; margin-bottom:6px}
+#app-egutegia .ri{border:1px solid var(--line); border-radius:var(--r); background:var(--ground); padding:11px 13px; cursor:pointer; position:relative; transition:border-color .12s}
+#app-egutegia .ri:not(.ref){padding-right:34px}
+#app-egutegia .ri:hover{border-color:var(--line-strong)}
+#app-egutegia .ri.ref{cursor:default; background:var(--surface)}
+#app-egutegia .ri .rt{font-family:var(--f-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+#app-egutegia .ri.ref .rt{color:var(--sea)}
+#app-egutegia .ri .new{color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:0 4px; margin-left:6px}
+#app-egutegia .ri .eu{font-family:var(--f-body); font-size:16px; color:var(--ink); margin-top:5px; line-height:1.4}
+#app-egutegia .ri .eu b{color:var(--iron); font-weight:600}
+#app-egutegia .ri .es{font-family:var(--f-ui); font-size:13.5px; color:var(--sea); margin-top:6px; line-height:1.45}
+#app-egutegia .ri .es b{color:var(--iron)}
+#app-egutegia .ri .es.forms{color:var(--ink-2); font-family:var(--f-mono); font-size:12.5px}
+#app-egutegia .ri:not(.open):not(.ref) .es{display:none}
+#app-egutegia .ri:not(.open):not(.ref)::after{content:"Pulsa para ver"; font-family:var(--f-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); display:block; margin-top:6px}
+#app-egutegia .ri .know{position:absolute; top:9px; right:9px; appearance:none; width:18px; height:18px; border:1.5px solid var(--line-strong); border-radius:99px; background:var(--surface); cursor:pointer}
+#app-egutegia .ri .know:checked{background:var(--sea); border-color:var(--sea)}
+#app-egutegia .ri .know:checked::after{content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:700}
+#app-egutegia .ri.known{opacity:.55}
+
 
 #app-egutegia footer.f{border-top:1px solid var(--line); margin-top:44px; padding:22px 0; font-size:12.5px; color:var(--muted); display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap}
 #app-egutegia footer.f button{font-family:var(--f-ui); font-size:12px; padding:5px 11px; border:1px solid var(--line-strong); border-radius:3px; background:transparent; color:var(--muted); cursor:pointer}
@@ -845,6 +887,19 @@ window.HUB = (function(){
   <div class="grid" id="grid"></div>
 </section>
 
+<section class="rev" id="errepasoa">
+  <div class="rev-head">
+    <div>
+      <span class="eyebrow">Errepasoa · orain arte</span>
+      <h2>Repasa hasta <em>hoy</em></h2>
+      <p class="rev-sub" id="revSub">—</p>
+    </div>
+    <div class="rev-prog" id="revProg"></div>
+  </div>
+  <div class="rev-reto" id="revReto" hidden></div>
+  <div id="revBody"></div>
+</section>
+
 <div class="three">
   <div class="pnl"><h3>Hitzorduak · hitos</h3><div id="hitos"></div></div>
   <div class="pnl"><h3>Erronkak · retos</h3><div id="retos"></div></div>
@@ -1051,6 +1106,182 @@ window.HUB = (function(){
     st = v;
     renderDay(); renderGrid(); renderKpis(); renderHitos(); renderRetos(); renderPruebas();
   }, function(){ return st; });
+})();
+</script>
+
+<script>
+/* ── ERREPASOA · repaso acumulativo que crece según el día del plan ── */
+(function(){
+  var P = JSON.parse(document.getElementById('plan').textContent);
+  var KEY = 'euskara-errepasoa-v1';
+  var st = load();
+  function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {know:{}}; }
+  function save(){ HUB.save('errepasoa', KEY, st); }
+
+  function todayN(){
+    var t=new Date(); t.setHours(0,0,0,0);
+    for(var i=0;i<P.days.length;i++){ var p=P.days[i].date.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(d.getTime()===t.getTime()) return i+1; }
+    var first=new Date(2026,8,3), last=new Date(2026,8,30);
+    if(t<first) return 1; if(t>last) return 28; return 1;
+  }
+
+  var REV=[
+{d:1,t:"oinarri",tit:"Ahoskera · sibilantes",es:"z = s silbante (zu), s = s apical (su), x = «sh» (xagu). Fuertes: tz/ts/tx → hotz, hots, txakur. Distínguelas siempre."},
+{d:1,t:"oinarri",tit:"Agurrak · saludos",es:"Egun on (mañana) · Arratsalde on (tarde) · Gabon (noche) · Kaixo/Eup (hola). Respuesta: Baita zuri ere / Berdin."},
+{d:1,t:"frase",eu:"Kaixo! Zer moduz?",es:"¡Hola! ¿Qué tal?"},
+{d:1,t:"frase",eu:"Ondo, eskerrik asko. Eta zu?",es:"Bien, gracias. ¿Y tú?"},
+{d:1,t:"hitz",eu:"mesedez",es:"por favor"},
+{d:1,t:"hitz",eu:"barkatu",es:"perdón / perdona"},
+{d:1,t:"hitz",eu:"bai / ez",es:"sí / no"},
+{d:2,t:"gram",tit:"IZAN (NOR) · ser/estar",eu:"ni <b>naiz</b> · zu <b>zara</b> · hura <b>da</b> · gu <b>gara</b> · zuek <b>zarete</b> · haiek <b>dira</b>",es:"El verbo de un solo participante, sin objeto."},
+{d:2,t:"gram",tit:"Determinatzailea -a / -ak",eu:"etxe → etxe<b>a</b> (la casa) · etxe<b>ak</b> (las casas)",es:"El artículo va pegado al nombre. Ojo con la «-a orgánica» (neska)."},
+{d:2,t:"frase",eu:"Ni Maialen naiz.",es:"Yo soy Maialen."},
+{d:2,t:"frase",eu:"Hau nire etxea da.",es:"Esta es mi casa."},
+{d:2,t:"ariketa",q:"Gu ikasleak ___ . (izan)",a:"gara"},
+{d:2,t:"hitz",eu:"ama / aita",es:"madre / padre"},
+{d:2,t:"hitz",eu:"anaia / arreba",es:"hermano / hermana (de chica)"},
+{d:2,t:"hitz",eu:"lagun",es:"amigo/a"},
+{d:3,t:"gram",tit:"Erakusleak · demostrativos",eu:"hau / hori / hura · hauek / horiek / haiek",es:"este/ese/aquel. Van detrás y el nombre pierde la -a: «etxe hau» (no *etxea hau)."},
+{d:3,t:"frase",eu:"Nor da gizon hori?",es:"¿Quién es ese hombre?"},
+{d:3,t:"ariketa",q:"esta casa → ___",a:"etxe hau"},
+{d:3,t:"ariketa",q:"esos libros → ___",a:"liburu horiek"},
+{d:3,t:"hitz",eu:"hemen / hor / han",es:"aquí / ahí / allí"},
+{d:4,t:"frase",eu:"Gu Donostiakoak gara.",es:"Somos de San Sebastián."},
+{d:4,t:"ariketa",q:"«aquellas mesas» →",a:"mahai haiek"},
+{d:5,t:"gram",tit:"NON (-an) · NONGO (-ko)",eu:"etxe<b>an</b> (en casa) · Bilbo<b>n</b> · Bilbo<b>ko</b> (de Bilbao)",es:"NON = dónde estás/vives. NONGO = de dónde eres."},
+{d:5,t:"frase",eu:"Non bizi zara? — Bilbon bizi naiz.",es:"¿Dónde vives? — Vivo en Bilbao."},
+{d:5,t:"frase",eu:"Nongoa zara? — Donostiakoa naiz.",es:"¿De dónde eres? — Soy de San Sebastián."},
+{d:5,t:"hitz",eu:"herria / hiria / kalea",es:"pueblo / ciudad / calle"},
+{d:6,t:"gram",tit:"Izenondoak eta NOREN",eu:"etxe handi<b>a</b> · Jon<b>en</b> etxea (la casa de Jon)",es:"Orden: [NOREN] núcleo + adjetivo + determinante. Comparativo -ago, «demasiado» -egi."},
+{d:6,t:"frase",eu:"Nire etxea zurea baino handiagoa da.",es:"Mi casa es más grande que la tuya."},
+{d:6,t:"hitz",eu:"handi / txiki",es:"grande / pequeño"},
+{d:6,t:"hitz",eu:"polit / itsusi",es:"bonito / feo"},
+{d:6,t:"hitz",eu:"berri / zahar",es:"nuevo / viejo"},
+{d:7,t:"oinarri",tit:"★ Proba 1 · bloque NOR",es:"Deberías dominar: izan, -a/-ak, demostrativos, NON/NONGO, adjetivos y NOREN. Si algo falla, repásalo aquí antes de seguir."},
+{d:7,t:"ariketa",q:"«¿Quién es ese hombre? — Es de Bilbao.»",a:"Nor da gizon hori? — Bilbokoa da."},
+{d:8,t:"gram",tit:"NORK (-k) eta UKAN",eu:"nik <b>dut</b> · zuk <b>duzu</b> · hark <b>du</b> · guk <b>dugu</b> · zuek <b>duzue</b> · haiek <b>dute</b>",es:"El sujeto de un verbo con objeto lleva -k (ergativo). «ukan» = haber/tener."},
+{d:8,t:"frase",eu:"Nik euskara ikasten dut.",es:"Yo estudio euskera."},
+{d:8,t:"hitz",eu:"ikasi / jan / edan",es:"aprender / comer / beber"},
+{d:8,t:"hitz",eu:"egin / hartu / nahi izan",es:"hacer / coger / querer"},
+{d:9,t:"gram",tit:"Objeto sing./pl.: dut / ditut",eu:"liburua <b>dut</b> (1) · liburuak <b>ditut</b> (varios)",es:"La forma del verbo cambia con el número del objeto."},
+{d:9,t:"frase",eu:"Bi liburu ditut.",es:"Tengo dos libros."},
+{d:9,t:"ariketa",q:"«Tengo tres hermanos» → Hiru anaia ___",a:"ditut"},
+{d:10,t:"gram",tit:"Ezeztapena eta partitiboa (-rik)",eu:"ez dut nahi · ez dut diru<b>rik</b>",es:"En negativa el objeto lleva -rik; el orden cambia (ez + verbo)."},
+{d:10,t:"frase",eu:"Ez dut dirurik.",es:"No tengo dinero."},
+{d:10,t:"frase",eu:"Ez naiz berandu iritsi.",es:"No he llegado tarde."},
+{d:11,t:"ariketa",q:"«¿Tienes pan? — No, no tengo pan.»",a:"Ogirik baduzu? — Ez, ez dut ogirik."},
+{d:12,t:"gram",tit:"Aditz trinkoak · sintéticos",eu:"egon: nago/dago · joan: noa/doa · etorri: nator/dator · eduki: daukat",es:"Se conjugan sin auxiliar."},
+{d:12,t:"frase",eu:"Non zaude? — Hemen nago.",es:"¿Dónde estás? — Estoy aquí."},
+{d:13,t:"gram",tit:"NORA (-ra) eta ordua",eu:"etxe<b>ra</b> (a casa) · Hirurak dira · laur<b>etan</b>",es:"NORA = destino. Hora: -ak dira / -etan."},
+{d:13,t:"frase",eu:"Zer ordu da? — Bostak eta erdiak dira.",es:"¿Qué hora es? — Son las cinco y media."},
+{d:13,t:"hitz",eu:"bat, bi, hiru, lau, bost",es:"1, 2, 3, 4, 5"},
+{d:13,t:"hitz",eu:"sei, zazpi, zortzi, bederatzi, hamar",es:"6, 7, 8, 9, 10"},
+{d:14,t:"oinarri",tit:"★ Proba 2 · bloque NORK",es:"Domina: ukan (dut/ditut), negación + partitivo, verbos sintéticos, NORA, hora y números."},
+{d:15,t:"gram",tit:"Aspektua: -tzen / -ko",eu:"jaten dut (como) · jango dut (comeré)",es:"-tzen = presente habitual. -ko/-go = futuro."},
+{d:15,t:"frase",eu:"Bihar etorriko naiz.",es:"Vendré mañana."},
+{d:16,t:"frase",eu:"Goizeko zortzietan esnatzen naiz.",es:"Me despierto a las ocho de la mañana."},
+{d:16,t:"hitz",eu:"esnatu / jaiki",es:"despertarse / levantarse"},
+{d:16,t:"hitz",eu:"gosaldu / bazkaldu / afaldu",es:"desayunar / comer / cenar"},
+{d:17,t:"gram",tit:"Progresiboa: -tzen ari",eu:"jaten ari naiz",es:"Estar + gerundio (justo ahora)."},
+{d:17,t:"frase",eu:"Lanean ari naiz.",es:"Estoy trabajando."},
+{d:18,t:"gram",tit:"NORI (dativo) · gustatu",eu:"niri <b>zait</b> · zuri <b>zaizu</b> · hari <b>zaio</b> · guri <b>zaigu</b>",es:"Verbos tipo gustatu: «a mí me…»."},
+{d:18,t:"frase",eu:"Euskara gustatzen zait.",es:"Me gusta el euskera."},
+{d:19,t:"gram",tit:"NOR-NORI-NORK: diot/dizut/dit",eu:"eman <b>diot</b> (se lo he dado) · esan <b>dizut</b> (te lo he dicho)",es:"El verbo de tres personas: quién, a quién, qué."},
+{d:19,t:"frase",eu:"Liburua eman diot.",es:"Le he dado el libro."},
+{d:20,t:"ariketa",q:"«Me gusta el café» →",a:"Kafea gustatzen zait."},
+{d:21,t:"oinarri",tit:"★ Proba 3 · sistema verbal",es:"Domina: aspecto (-tzen/-ko), progresivo, NORI (gustatu) y NOR-NORI-NORK (diot/dizut/dit)."},
+{d:22,t:"gram",tit:"NOREKIN (-rekin) · -Z",eu:"lagun<b>arekin</b> (con un amigo) · auto<b>z</b> (en coche)",es:"Compañía (-rekin) y medio (-z)."},
+{d:22,t:"frase",eu:"Lagunekin nago.",es:"Estoy con los amigos."},
+{d:23,t:"gram",tit:"Menderakuntza: -(e)la / -lako",eu:"…de<b>la</b> (que) · …de<b>lako</b> (porque)",es:"Subordinadas: completivas y causales."},
+{d:23,t:"frase",eu:"Ez naiz etorri, berandu delako.",es:"No he venido porque es tarde."},
+{d:24,t:"oinarri",tit:"★ Simulazioa 1",es:"Primer examen completo (4 destrezas), cronometrado. Repasa aquí lo que falle."},
+{d:25,t:"gram",tit:"Galdegaia · el foco",eu:"Nork jan du tarta? → <b>Jonek</b> jan du.",es:"El elemento que responde a la pregunta va justo antes del verbo."},
+{d:26,t:"oinarri",tit:"★ Simulazioa 2",es:"Segundo examen. Compáralo con el primero: dónde has mejorado."},
+{d:27,t:"oinarri",tit:"Azken errepasoa",es:"Repasa las tarjetas marcadas y las frases clave de las 4 fases."},
+{d:28,t:"oinarri",tit:"★ Azterketa",es:"Examen final del plan. Ánimo: llevas 28 días de trabajo detrás."}
+  ];
+  REV.forEach(function(it,idx){ it._id='r'+idx; });
+
+  var CAT={frase:"Frase clave · esaldiak", hitz:"Hitzak · tarjetas", ariketa:"Ariketa · ejercicios", gram:"Gramatika", oinarri:"Oinarria · lo elemental"};
+  var TLABEL={frase:"Esaldia", hitz:"Hitza", ariketa:"Ariketa", gram:"Gramatika", oinarri:"Oinarria"};
+  var ORDER=["frase","hitz","ariketa","gram","oinarri"];
+  var TEST={frase:1,hitz:1,ariketa:1};
+  var ANIMO=["Cinco minutos aquí antes de seguir y lo de hoy se apoyará en lo de ayer.",
+    "Lo que repasas hoy es lo que no tendrás que reaprender mañana.",
+    "Marca «badakit» solo cuando lo digas sin pensar. Ahí está el nivel.",
+    "Cada tarjeta dominada es un ladrillo del A1. Ya llevas unos cuantos."];
+
+  var body=document.getElementById('revBody'), revProg=document.getElementById('revProg'),
+      revSub=document.getElementById('revSub'), revReto=document.getElementById('revReto');
+
+  function unlocked(N){ return REV.filter(function(it){ return it.d<=N; }); }
+  function knownCount(list){ return list.filter(function(it){ return TEST[it.t] && st.know[it._id]; }).length; }
+
+  function updateProg(){
+    var N=todayN(), u=unlocked(N), testable=u.filter(function(it){return TEST[it.t];});
+    var g=revProg.querySelector('.kp.g b'); if(g) g.textContent=knownCount(u)+' ';
+    // aria/text refresh not critical
+    void testable;
+  }
+
+  function card(it, N){
+    var ref=!TEST[it.t];
+    var cls='ri'+(ref?' ref':'')+(st.know[it._id]?' known':'');
+    var tag='<span class="rt">'+TLABEL[it.t]+' · D'+it.d+(it.d===N?' <span class="new">berria</span>':'')+'</span>';
+    var cb=ref?'':'<input class="know" type="checkbox" '+(st.know[it._id]?'checked':'')+' aria-label="Badakit · lo sé">';
+    var h;
+    if(it.t==='gram') h=cb+tag+'<div class="eu"><strong>'+it.tit+'</strong></div>'+(it.eu?'<div class="es forms">'+it.eu+'</div>':'')+'<div class="es">'+it.es+'</div>';
+    else if(it.t==='oinarri') h=cb+tag+'<div class="eu"><strong>'+it.tit+'</strong></div><div class="es">'+it.es+'</div>';
+    else if(it.t==='ariketa') h=cb+tag+'<div class="eu">'+it.q+'</div><div class="es">'+it.a+'</div>';
+    else h=cb+tag+'<div class="eu">'+it.eu+'</div><div class="es">'+it.es+'</div>';
+    return '<div class="'+cls+'" data-id="'+it._id+'">'+h+'</div>';
+  }
+
+  function render(){
+    var N=todayN(), u=unlocked(N), day=P.days[N-1];
+    revSub.innerHTML='Todo lo que deberías dominar hasta el <b>día '+N+'</b> ('+day.t+'). Crece cada día. '+ANIMO[N%ANIMO.length];
+    revProg.innerHTML=
+      '<div class="kp"><b>'+N+'<small>/28</small></b><span>Eguna</span></div>'+
+      '<div class="kp"><b>'+u.length+'</b><span>Repasos</span></div>'+
+      '<div class="kp g"><b>'+knownCount(u)+'</b><span>Dominados</span></div>';
+
+    // reto del día = ítem testable más reciente
+    var reto=null;
+    for(var i=u.length-1;i>=0;i--){ if(TEST[u[i].t]){ reto=u[i]; break; } }
+    if(reto){
+      revReto.hidden=false;
+      var q=reto.t==='ariketa'?reto.q:reto.eu, a=reto.t==='ariketa'?reto.a:reto.es;
+      revReto.innerHTML='<div class="rl">Erronka · reto de hoy</div><div class="rq">'+q+'</div><div class="ra" hidden>'+a+'</div><div class="hint">Pulsa para comprobar</div>';
+      revReto.onclick=function(){ var ra=revReto.querySelector('.ra'), hn=revReto.querySelector('.hint'); ra.hidden=!ra.hidden; hn.textContent=ra.hidden?'Pulsa para comprobar':'¿Lo tenías?'; };
+    } else revReto.hidden=true;
+
+    body.innerHTML='';
+    ORDER.forEach(function(cat){
+      var items=u.filter(function(it){return it.t===cat;});
+      if(!items.length) return;
+      items.sort(function(a,b){return b.d-a.d;});
+      var sec=document.createElement('div'); sec.className='rev-cat';
+      var grid=items.map(function(it){return card(it,N);}).join('');
+      sec.innerHTML='<h4>'+CAT[cat]+' <span class="c">· '+items.length+'</span></h4><div class="rev-grid">'+grid+'</div>';
+      body.appendChild(sec);
+    });
+  }
+
+  body.addEventListener('click', function(e){
+    if(e.target.closest('.know')) return;          // el toggle lo lleva el checkbox
+    var card=e.target.closest('.ri'); if(!card || card.classList.contains('ref')) return;
+    card.classList.toggle('open');
+  });
+  body.addEventListener('change', function(e){
+    var cb=e.target.closest('.know'); if(!cb) return;
+    var card=cb.closest('.ri'), id=card.getAttribute('data-id');
+    if(cb.checked) st.know[id]=1; else delete st.know[id];
+    card.classList.toggle('known', cb.checked);
+    save(); updateProg();
+  });
+
+  render();
+  HUB.bind('errepasoa', KEY, function(v){ st=v||{know:{}}; render(); }, function(){ return st; });
 })();
 </script>
 </section>
