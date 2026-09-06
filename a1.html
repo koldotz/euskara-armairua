@@ -1559,7 +1559,8 @@ window.HUB = (function(){
    Tira del mismo array MEM que «Memoria gramatikala» (window.MEMORIA):
    una sola fuente de datos, y los recitados nuevos suenan sin tocar nada.
    Sin voz de euskera en el equipo → usa voz castellana con una ligera
-   aproximación de grafemas vascos (tx→ch, tz→ts, z/x→s).               */
+   aproximación de grafemas vascos (tx→ch, tz→ts, g dura ge→gue/gi→gui,
+   z/x→s).                                                              */
 (function(){
   function init(){
     var M = window.MEMORIA; if(!M) return;
@@ -1624,7 +1625,14 @@ window.HUB = (function(){
       return String(s).replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
         .replace(/&#(\d+);/g,function(_,n){ return String.fromCharCode(+n); });
     }
-    function esPhon(t){ return t.replace(/tx/gi,'ch').replace(/tz/gi,'ts').replace(/x/gi,'s').replace(/z/gi,'s'); }
+    function esPhon(t){
+      return t
+        .replace(/tx/gi,'ch')          // tx = /tʃ/ → «ch»
+        .replace(/tz/gi,'ts')          // tz = /ts/ → «ts»
+        .replace(/g([ei])/gi,'gu$1')   // g vasca SIEMPRE dura: ge→gue, gi→gui (gizon→guison, gero→guero)
+        .replace(/x/gi,'s')            // x = /ʃ/, aproximada a «s» (el castellano no tiene «sh»)
+        .replace(/z/gi,'s');           // z vasca = /s̻/ → «s» (no /θ/)
+    }
     function chunksFor(it){
       if(it.read && it.read.length) return it.read.slice();
       var s=String(it.say||'');
