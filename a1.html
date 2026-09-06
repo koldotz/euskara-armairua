@@ -166,6 +166,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 
 .hub nav{display:flex; gap:0; flex:1; min-width:0; overflow-x:auto; scrollbar-width:none}
 .hub nav::-webkit-scrollbar{display:none}
+.hub nav.ovf{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
 .hub nav button{
   appearance:none; background:none; border:0; cursor:pointer;
   display:flex; flex-direction:column; justify-content:center; gap:2px;
@@ -179,6 +180,10 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 .hub nav button[aria-selected="true"]{border-bottom-color:var(--iron); color:var(--ink)}
 .hub nav button[aria-selected="true"] .c{color:var(--iron)}
 
+@media (max-width:1200px){
+  .hub nav button{padding:0 13px}
+  .hub nav button .c{display:none}
+}
 .hub .guide{
   align-self:center; flex:none; display:flex; align-items:center; gap:7px;
   font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--sea);
@@ -671,6 +676,7 @@ section.cal{margin-top:34px}
   <button type="button" id="tab-egutegia" role="tab" aria-selected="false" aria-controls="app-egutegia"><span class="t"><i>📅</i>Egutegia</span><span class="c">Plan de 28 días</span></button>
   <button type="button" id="tab-hiztegia" role="tab" aria-selected="false" aria-controls="app-hiztegia"><span class="t"><i>🗃️</i>Hiztegia</span><span class="c">796 palabras</span></button>
   <button type="button" id="tab-koadernoa" role="tab" aria-selected="false" aria-controls="app-koadernoa"><span class="t"><i>✏️</i>Koadernoa</span><span class="c">Ariketak eta erantzunak</span></button>
+  <button type="button" id="tab-entzumena" role="tab" aria-selected="false" aria-controls="app-entzumena"><span class="t"><i>🎧</i>Entzumena</span><span class="c">Escucha en bucle</span></button>
   </nav>
   <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
   <a class="guide" href="gramatika.html">Gramatika <span>bilatu</span></a>
@@ -899,6 +905,54 @@ window.HUB = (function(){
 .mi-say b{color:var(--sea); font-weight:600}
 .mi-know{display:flex; align-items:center; gap:7px; margin-top:11px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); cursor:pointer; user-select:none}
 .mi-know input{width:15px; height:15px; cursor:pointer; accent-color:var(--sea)}
+
+/* ── ENTZUMENA · reproductor de escucha en bucle ───────────────────── */
+#app-entzumena .wrap.ent{max-width:900px; margin:0 auto; padding:40px 24px 80px}
+.ent-hero{margin-bottom:24px}
+.ent-hero h1{font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; margin-top:6px}
+.ent-hero h1 em{font-style:normal; color:var(--sea)}
+.ent-lede{font-family:var(--f-ui); font-size:16px; color:var(--ink-2); max-width:64ch; margin-top:12px; line-height:1.55}
+
+.ent-player{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); box-shadow:var(--shadow); padding:22px 22px 18px; margin-bottom:22px}
+.epl-now{text-align:center; padding:8px 6px 18px; border-bottom:1px solid var(--line)}
+.epl-badge{font-family:var(--f-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.epl-tit{font-family:var(--f-display); font-weight:600; font-size:22px; color:var(--ink); margin-top:8px; line-height:1.2; text-wrap:balance}
+.epl-say{font-family:var(--f-mono); font-size:15px; color:var(--ink-2); margin-top:12px; line-height:1.95; min-height:1.95em}
+.epl-say b{color:var(--sea); font-weight:600}
+.epl-bar{display:flex; align-items:center; justify-content:center; gap:22px; padding:18px 0 4px}
+.epl-nav{width:46px; height:46px; border-radius:50%; cursor:pointer; font-size:16px; color:var(--ink-2); background:var(--ground); border:1px solid var(--line-strong); display:grid; place-items:center}
+.epl-nav:hover{border-color:var(--sea); color:var(--sea)}
+.epl-play{width:66px; height:66px; border-radius:50%; cursor:pointer; font-size:24px; color:#fff; background:var(--sea); border:1px solid var(--sea); display:grid; place-items:center; box-shadow:0 4px 14px -4px var(--sea)}
+.epl-play:hover{filter:brightness(1.08)}
+.epl-play.playing{background:var(--iron); border-color:var(--iron); box-shadow:0 4px 14px -4px var(--iron); animation:eplPulse 1.7s ease-in-out infinite}
+@keyframes eplPulse{0%,100%{box-shadow:0 4px 14px -4px var(--iron)}50%{box-shadow:0 6px 22px -2px var(--iron)}}
+.epl-opts{display:flex; flex-wrap:wrap; gap:10px 16px; justify-content:center; align-items:center; padding:16px 4px 2px; border-top:1px solid var(--line); margin-top:12px}
+.epo{display:flex; align-items:center; gap:7px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2)}
+.epo>span{font-family:var(--f-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.epo select{font-family:var(--f-ui); font-size:13px; padding:5px 8px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink); cursor:pointer; max-width:210px}
+.epo-check{cursor:pointer; user-select:none}
+.epo-check input{width:15px; height:15px; accent-color:var(--sea); cursor:pointer}
+.epl-voicewarn{font-family:var(--f-ui); font-size:12px; color:var(--warn); text-align:center; margin-top:12px; line-height:1.5; max-width:60ch; margin-left:auto; margin-right:auto}
+
+.ent-empty,.ent-unsupported{background:var(--surface); border:1px dashed var(--line-strong); border-radius:var(--r); padding:22px; font-family:var(--f-ui); font-size:14.5px; color:var(--ink-2); line-height:1.6}
+.ent-listhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:10px; flex-wrap:wrap}
+.ent-listhead #entCount{font-family:var(--f-display); font-weight:600; font-size:16px; color:var(--ink)}
+.ent-hint{font-family:var(--f-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.ent-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.ent-row{display:flex; align-items:center; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); cursor:pointer; transition:border-color .12s, background .12s}
+.ent-row:hover{border-color:var(--line-strong); background:var(--surface-2)}
+.ent-row.active{border-color:var(--sea); box-shadow:inset 3px 0 0 var(--sea); background:var(--sea-soft)}
+.ent-row .er-n{font-family:var(--f-mono); font-size:12px; color:var(--muted); width:22px; flex:none; text-align:center; font-variant-numeric:tabular-nums}
+.ent-row.active .er-n{color:var(--sea)}
+.ent-row .er-main{flex:1; min-width:0}
+.ent-row .er-tit{font-family:var(--f-ui); font-weight:600; font-size:14px; color:var(--ink); line-height:1.25}
+.ent-row .er-note{font-family:var(--f-ui); font-size:12px; color:var(--muted); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.ent-row .er-day{font-family:var(--f-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line-strong); border-radius:2px; padding:1px 5px; flex:none}
+.ent-row .er-know{flex:none; background:none; border:1px solid var(--line-strong); border-radius:20px; padding:3px 11px; font-family:var(--f-ui); font-size:11.5px; font-weight:600; color:var(--muted); cursor:pointer; white-space:nowrap}
+.ent-row .er-know:hover{border-color:var(--sea); color:var(--sea)}
+.ent-row .er-know.on{background:var(--sea-soft); border-color:var(--sea); color:var(--sea)}
+@media (max-width:560px){ .ent-row .er-note{display:none} .epl-opts{gap:9px 12px} #app-entzumena .wrap.ent{padding:28px 16px 70px} }
+@media (prefers-reduced-motion:reduce){ .epl-play.playing{animation:none} .ent-row{transition:none} }
 </style>
 
 <section class="mem" id="memoria">
@@ -1356,7 +1410,8 @@ window.HUB = (function(){
     {d:13, tit:"Zenbakiak · 1–10", note:"Los números del uno al diez.",
      say:"<b>bat</b> · <b>bi</b> · <b>hiru</b> · <b>lau</b> · <b>bost</b> · <b>sei</b> · <b>zazpi</b> · <b>zortzi</b> · <b>bederatzi</b> · <b>hamar</b>"},
     {d:13, tit:"Ordua · la hora", note:"«La una» va en singular; el resto, plural; «a las…» con -etan.",
-     say:"Ordu <b>bata</b> da · <b>biak</b> dira · <b>hirurak</b> dira &nbsp;·&nbsp; a las 4 → <b>lauretan</b>"},
+     say:"Ordu <b>bata</b> da · <b>biak</b> dira · <b>hirurak</b> dira &nbsp;·&nbsp; a las 4 → <b>lauretan</b>",
+     read:["Ordu bata da","ordu biak dira","hirurak dira","lauretan"]},
     {d:15, tit:"Aspektua · -tzen / -ko", note:"Habitual frente a futuro, sobre el mismo verbo.",
      say:"jan → <b>jaten</b> dut (como) &nbsp;·&nbsp; jan → <b>jango</b> dut (comeré)"},
     {d:18, tit:"NOR-NORI · zait (gustatu)", note:"«A mí me gusta…»: el que disfruta va en dativo.",
@@ -1403,6 +1458,7 @@ window.HUB = (function(){
       ? u.map(function(it){ return card(it, N); }).join('')
       : '<p class="mem-sub">Los primeros recitados aparecen a partir del día 2 del plan.</p>';
     updateProg();
+    document.dispatchEvent(new CustomEvent('memoria:change'));
   }
 
   body.addEventListener('click', function(e){
@@ -1419,13 +1475,341 @@ window.HUB = (function(){
     if(cb.checked) st.know[id] = 1; else delete st.know[id];
     mi.classList.toggle('known', cb.checked);
     save(); updateProg();
+    document.dispatchEvent(new CustomEvent('memoria:change'));
   });
+
+  /* ── API compartida para el reproductor de Entzumena (misma fuente de datos) ── */
+  window.MEMORIA = {
+    items:    function(){ return MEM; },
+    todayN:   todayN,
+    unlocked: unlocked,
+    isKnown:  function(id){ return !!(st.know && st.know[id]); },
+    setKnown: function(id, val){
+      if(!st.know) st.know = {};
+      if(val) st.know[id] = 1; else delete st.know[id];
+      save(); render();
+    },
+    onChange: function(fn){ document.addEventListener('memoria:change', fn); }
+  };
 
   render();
   HUB.bind('memoria', KEY, function(v){ st = v || {know:{}}; render(); }, function(){ return st; });
+  document.dispatchEvent(new CustomEvent('memoria:ready'));
 })();
 </script>
 </section>
+
+<section class="app" id="app-entzumena" role="tabpanel" aria-labelledby="tab-entzumena" hidden>
+  <div class="wrap ent">
+    <header class="ent-hero">
+      <div class="eyebrow">Entzumena · escucha en bucle</div>
+      <h1>Ikasi <em>belarriz</em></h1>
+      <p class="ent-lede">Pon a sonar en bucle los paradigmas que tienes que saber de memoria y déjalo puesto mientras haces otra cosa: la repetición constante los fija sin esfuerzo. Suena la misma lista que «Memoria gramatikala», y crece con el plan.</p>
+    </header>
+
+    <div class="ent-player" id="entPlayer" hidden>
+      <div class="epl-now">
+        <div class="epl-badge" id="eplBadge">—</div>
+        <div class="epl-tit" id="eplTit">Pulsa play para empezar</div>
+        <div class="epl-say" id="eplSay"></div>
+      </div>
+
+      <div class="epl-bar">
+        <button type="button" class="epl-nav" id="eplPrev" aria-label="Anterior">⏮</button>
+        <button type="button" class="epl-play" id="eplPlay" aria-label="Reproducir en bucle">▶</button>
+        <button type="button" class="epl-nav" id="eplNext" aria-label="Siguiente">⏭</button>
+      </div>
+
+      <div class="epl-opts">
+        <label class="epo"><span>Repite</span>
+          <select id="optReps"><option value="1">×1</option><option value="2">×2</option><option value="3">×3</option><option value="4">×4</option></select>
+        </label>
+        <label class="epo"><span>Velocidad</span>
+          <select id="optRate"><option value="0.7">Lenta</option><option value="0.85">Normal</option><option value="1">Rápida</option></select>
+        </label>
+        <label class="epo"><span>Pausa</span>
+          <select id="optGap"><option value="0.7">Corta</option><option value="1">Normal</option><option value="1.5">Larga</option></select>
+        </label>
+        <label class="epo"><span>Voz</span>
+          <select id="optVoice" aria-label="Voz"></select>
+        </label>
+        <label class="epo epo-check"><input type="checkbox" id="optCue"><span>Pista en castellano</span></label>
+        <label class="epo epo-check"><input type="checkbox" id="optWeak"><span>Solo los que no domino</span></label>
+      </div>
+      <p class="epl-voicewarn" id="eplVoiceWarn" hidden></p>
+    </div>
+
+    <div class="ent-empty" id="entEmpty" hidden>
+      <p>Aún no hay recitados desbloqueados. Los paradigmas van apareciendo con el plan, a partir del <b>día 2</b>. Vuelve entonces y podrás escucharlos en bucle.</p>
+    </div>
+
+    <div class="ent-listwrap" id="entListWrap" hidden>
+      <div class="ent-listhead"><span id="entCount">—</span><span class="ent-hint">Pulsa un recitado para saltar a él</span></div>
+      <ol class="ent-list" id="entList"></ol>
+    </div>
+
+    <div class="ent-unsupported" id="entUnsupported" hidden>
+      <p>Tu navegador no puede generar voz (la Web Speech API no está disponible). Prueba con Chrome, Edge o Safari actualizados. Mientras tanto, usa <a href="#egutegia">Memoria gramatikala</a> para recitar en voz alta y comprobar.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ── ENTZUMENA · reproductor de escucha en bucle (Web Speech API) ───────
+   Tira del mismo array MEM que «Memoria gramatikala» (window.MEMORIA):
+   una sola fuente de datos, y los recitados nuevos suenan sin tocar nada.
+   Sin voz de euskera en el equipo → usa voz castellana con una ligera
+   aproximación de grafemas vascos (tx→ch, tz→ts, z/x→s).               */
+(function(){
+  function init(){
+    var M = window.MEMORIA; if(!M) return;
+
+    var synth = window.speechSynthesis;
+    var player = document.getElementById('entPlayer'),
+        listWrap = document.getElementById('entListWrap'),
+        emptyEl = document.getElementById('entEmpty'),
+        unsupEl = document.getElementById('entUnsupported');
+
+    if(!synth || typeof SpeechSynthesisUtterance === 'undefined'){ unsupEl.hidden = false; return; }
+
+    var elPlay=document.getElementById('eplPlay'), elPrev=document.getElementById('eplPrev'),
+        elNext=document.getElementById('eplNext'), elTit=document.getElementById('eplTit'),
+        elSay=document.getElementById('eplSay'), elBadge=document.getElementById('eplBadge'),
+        elList=document.getElementById('entList'), elCount=document.getElementById('entCount'),
+        elVoice=document.getElementById('optVoice'), elWarn=document.getElementById('eplVoiceWarn'),
+        optReps=document.getElementById('optReps'), optRate=document.getElementById('optRate'),
+        optGap=document.getElementById('optGap'), optCue=document.getElementById('optCue'),
+        optWeak=document.getElementById('optWeak');
+
+    /* ── ajustes persistidos ── */
+    var SK='euskara-entzumena-v1';
+    var cfg={ reps:2, rate:0.85, gap:1, cue:true, weak:false, voice:'' };
+    try{ var r=localStorage.getItem(SK); if(r){ var o=JSON.parse(r); for(var k in o) if(k in cfg) cfg[k]=o[k]; } }catch(e){}
+    function saveCfg(){ try{ localStorage.setItem(SK, JSON.stringify(cfg)); }catch(e){} }
+    optReps.value=String(cfg.reps); optRate.value=String(cfg.rate); optGap.value=String(cfg.gap);
+    optCue.checked=!!cfg.cue; optWeak.checked=!!cfg.weak;
+
+    /* ── voces ── */
+    var voices=[], euVoice=null, esVoice=null, curVoice=null;
+    function pickVoices(){
+      var all=synth.getVoices()||[];
+      voices=all.filter(function(v){ return /^eu/i.test(v.lang)||/^es/i.test(v.lang); });
+      if(!voices.length) voices=all.slice();
+      voices.sort(function(a,b){ function rk(v){ return /^eu/i.test(v.lang)?0:/^es/i.test(v.lang)?1:2; } return rk(a)-rk(b); });
+      elVoice.innerHTML='';
+      voices.forEach(function(v){ var op=document.createElement('option'); op.value=v.voiceURI; op.textContent=v.name+' · '+v.lang; elVoice.appendChild(op); });
+      curVoice = cfg.voice ? (voices.filter(function(v){ return v.voiceURI===cfg.voice; })[0]||null) : null;
+      if(!curVoice) curVoice = voices.filter(function(v){ return /^eu/i.test(v.lang); })[0]
+        || voices.filter(function(v){ return /^es-ES/i.test(v.lang); })[0]
+        || voices.filter(function(v){ return /^es/i.test(v.lang); })[0] || voices[0] || null;
+      if(curVoice) elVoice.value=curVoice.voiceURI;
+      euVoice=curVoice;
+      esVoice = voices.filter(function(v){ return /^es/i.test(v.lang); })[0] || curVoice;
+      var hasEu = /^eu/i.test((curVoice&&curVoice.lang)||'');
+      elWarn.hidden = hasEu || !curVoice;
+      if(!elWarn.hidden) elWarn.textContent='Tu dispositivo no tiene voz de euskera; se usa una voz castellana como aproximación (tx/tz/z/x no serán perfectas). Puedes elegir otra arriba.';
+    }
+    pickVoices();
+    try{ synth.onvoiceschanged = function(){ pickVoices(); }; }catch(e){}
+
+    /* ── cola según alcance ── */
+    function queue(){
+      var u=M.unlocked(M.todayN());
+      if(cfg.weak) u=u.filter(function(it){ return !M.isKnown(it._id); });
+      return u;
+    }
+
+    /* ── texto hablable ── */
+    function decode(s){
+      return String(s).replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+        .replace(/&#(\d+);/g,function(_,n){ return String.fromCharCode(+n); });
+    }
+    function esPhon(t){ return t.replace(/tx/gi,'ch').replace(/tz/gi,'ts').replace(/x/gi,'s').replace(/z/gi,'s'); }
+    function chunksFor(it){
+      if(it.read && it.read.length) return it.read.slice();
+      var s=String(it.say||'');
+      s=s.replace(/<br\s*\/?>/gi,' · ').replace(/<[^>]+>/g,'');
+      s=decode(s).replace(/\([^)]*\)/g,' ').replace(/→|—/g,',');
+      var out=[];
+      s.split(/[·\/]/).forEach(function(p){
+        p=p.replace(/\s+/g,' ').replace(/(^|\s)-/g,'$1').replace(/^[,\s]+|[,\s]+$/g,'').trim();
+        if(p) out.push(p);
+      });
+      return out;
+    }
+    function cueFor(it){
+      return decode(String(it.note||'').replace(/<[^>]+>/g,''))
+        .replace(/\([^)]*\)/g,' ').replace(/[«»]/g,'').replace(/[·\/]/g,', ')
+        .replace(/(^|\s)-(?=\w)/g,'$1').replace(/\s+/g,' ').trim();
+    }
+    function stripTit(t){ return decode(String(t).replace(/<[^>]+>/g,'')); }
+    function itemById(id){ var a=M.items(); for(var i=0;i<a.length;i++) if(a[i]._id===id) return a[i]; return null; }
+
+    /* ── plan de locución para una vuelta ── */
+    var plan=[], pos=0, playing=false, curId=null, token=0, stepTimer=null, keepAlive=null;
+
+    function buildPlan(){
+      plan=[];
+      queue().forEach(function(it){
+        if(cfg.cue){ var c=cueFor(it); if(c) plan.push({ id:it._id, kind:'cue', es:true, text:c }); }
+        var ch=chunksFor(it);
+        for(var r=0;r<cfg.reps;r++){
+          ch.forEach(function(t,ci){ plan.push({ id:it._id, kind:'say', es:false, text:t, last:(r===cfg.reps-1 && ci===ch.length-1) }); });
+        }
+      });
+    }
+
+    function clearTimer(){ if(stepTimer){ clearTimeout(stepTimer); stepTimer=null; } }
+    function cancelSpeak(){ token++; clearTimer(); try{ synth.cancel(); }catch(e){} }
+    function restart(){ cancelSpeak(); stepTimer=setTimeout(stepNext, 70); }
+
+    function highlight(id){
+      if(id===curId) return;
+      curId=id;
+      var it=itemById(id);
+      elTit.textContent = it?stripTit(it.tit):'—';
+      elSay.innerHTML = it?it.say:'';
+      elBadge.textContent = it?('Día '+it.d):'—';
+      var a=null;
+      Array.prototype.forEach.call(elList.children,function(li){
+        var on=li.getAttribute('data-id')===id; li.classList.toggle('active',on); if(on) a=li;
+      });
+      if(a && !player.hidden) try{ a.scrollIntoView({block:'nearest'}); }catch(e){}
+    }
+    function previewAt(p){ var e=plan[p]; if(e) highlight(e.id); }
+
+    function speak(entry, onend){
+      var my=token;
+      var v = entry.es ? (esVoice||curVoice) : (euVoice||curVoice);
+      var txt = entry.text;
+      if(!entry.es && v && /^es/i.test(v.lang)) txt=esPhon(txt);
+      var u=new SpeechSynthesisUtterance(txt);
+      u.lang = v ? v.lang : (entry.es?'es-ES':'eu-ES'); if(v) u.voice=v;
+      u.rate=cfg.rate; u.pitch=1;
+      u.onend=function(){ if(my===token) onend(); };
+      u.onerror=function(){ if(my===token) onend(); };
+      try{ synth.speak(u); }catch(e){ if(my===token) onend(); }
+    }
+    function gapMs(e){ var base = e && e.kind==='cue' ? 380 : (e && e.last ? 850 : 320); return Math.round(base*cfg.gap); }
+
+    function stepNext(){
+      if(!playing) return;
+      if(pos>=plan.length){ buildPlan(); pos=0; if(!plan.length){ stop(); return; } }
+      var entry=plan[pos];
+      highlight(entry.id);
+      speak(entry, function(){
+        if(!playing) return;
+        pos++; clearTimer();
+        stepTimer=setTimeout(stepNext, gapMs(entry));
+      });
+    }
+
+    function start(){
+      if(!plan.length) buildPlan();
+      if(!plan.length) return;
+      playing=true;
+      elPlay.textContent='❚❚'; elPlay.classList.add('playing'); elPlay.setAttribute('aria-label','Pausar');
+      if(keepAlive) clearInterval(keepAlive);
+      keepAlive=setInterval(function(){ if(playing){ try{ synth.resume(); }catch(e){} } }, 8000);
+      restart();
+    }
+    function pause(){
+      playing=false;
+      elPlay.textContent='▶'; elPlay.classList.remove('playing'); elPlay.setAttribute('aria-label','Reproducir en bucle');
+      if(keepAlive){ clearInterval(keepAlive); keepAlive=null; }
+      cancelSpeak();
+    }
+    function stop(){ pause(); pos=0; }
+
+    function itemStarts(){ var s=[],prev=null; for(var i=0;i<plan.length;i++){ if(plan[i].id!==prev){ s.push(i); prev=plan[i].id; } } return s; }
+    function jump(delta){
+      if(!plan.length) buildPlan(); if(!plan.length) return;
+      var starts=itemStarts(), cur=pos<plan.length?pos:plan.length-1, si=0;
+      for(var i=0;i<starts.length;i++){ if(starts[i]<=cur) si=i; else break; }
+      var target;
+      if(delta>0) target = si+1<starts.length ? starts[si+1] : starts[0];
+      else target = cur>starts[si] ? starts[si] : (si-1>=0 ? starts[si-1] : starts[starts.length-1]);
+      pos=target;
+      if(playing) restart(); else previewAt(pos);
+    }
+    function jumpTo(id){
+      if(!plan.length) buildPlan();
+      var idx=-1; for(var i=0;i<plan.length;i++){ if(plan[i].id===id){ idx=i; break; } }
+      if(idx<0) return;
+      pos=idx;
+      if(playing) restart(); else start();
+    }
+
+    /* ── lista/playlist ── */
+    function renderList(){
+      var items=queue();
+      if(!items.length){ listWrap.hidden=true; player.hidden=true; emptyEl.hidden=false; elCount.textContent=''; return; }
+      emptyEl.hidden=true; player.hidden=false; listWrap.hidden=false;
+      elCount.textContent = items.length + (items.length===1?' recitado en el bucle':' recitados en el bucle');
+      elList.innerHTML='';
+      items.forEach(function(it,i){
+        var known=M.isKnown(it._id);
+        var li=document.createElement('li');
+        li.className='ent-row'+(it._id===curId?' active':'');
+        li.setAttribute('data-id', it._id);
+        li.innerHTML =
+          '<span class="er-n">'+(i+1)+'</span>'+
+          '<span class="er-main"><span class="er-tit">'+stripTit(it.tit)+'</span>'+
+          '<span class="er-note">'+decode(String(it.note||'').replace(/<[^>]+>/g,''))+'</span></span>'+
+          '<span class="er-day">D'+it.d+'</span>'+
+          '<button type="button" class="er-know'+(known?' on':'')+'" data-id="'+it._id+'">'+(known?'Badakit ✓':'Badakit')+'</button>';
+        elList.appendChild(li);
+      });
+    }
+
+    /* ── eventos ── */
+    elPlay.addEventListener('click', function(){ if(playing) pause(); else start(); });
+    elPrev.addEventListener('click', function(){ jump(-1); });
+    elNext.addEventListener('click', function(){ jump(1); });
+    elList.addEventListener('click', function(e){
+      var kb=e.target.closest('.er-know');
+      if(kb){ e.stopPropagation(); var id=kb.getAttribute('data-id'); M.setKnown(id, !M.isKnown(id)); return; }
+      var row=e.target.closest('.ent-row'); if(row) jumpTo(row.getAttribute('data-id'));
+    });
+
+    function onOpt(){
+      cfg.reps=+optReps.value; cfg.rate=+optRate.value; cfg.gap=+optGap.value;
+      cfg.cue=optCue.checked; cfg.weak=optWeak.checked;
+      saveCfg();
+      var keep=curId;
+      buildPlan(); renderList();
+      if(playing){ pos=startPosOf(keep); restart(); } else previewAt(Math.min(pos, Math.max(0,plan.length-1)));
+    }
+    function startPosOf(id){ if(id){ for(var i=0;i<plan.length;i++) if(plan[i].id===id) return i; } return 0; }
+    [optReps,optRate,optGap,optCue,optWeak].forEach(function(el){ el.addEventListener('change', onOpt); });
+    elVoice.addEventListener('change', function(){
+      cfg.voice=elVoice.value; saveCfg();
+      curVoice = voices.filter(function(v){ return v.voiceURI===cfg.voice; })[0] || curVoice;
+      euVoice=curVoice;
+      elWarn.hidden = /^eu/i.test((curVoice&&curVoice.lang)||'') || !curVoice;
+      if(playing) restart();
+    });
+
+    /* ── reacciona a cambios de Memoria (Badakit, sync en la nube) ── */
+    M.onChange(function(){
+      var keep=curId;
+      buildPlan(); renderList();
+      if(playing){ pos=startPosOf(keep); }
+      else previewAt(Math.min(pos, Math.max(0,plan.length-1)));
+    });
+
+    /* ── por si Chrome pausa la síntesis al volver a la pestaña ── */
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden && playing){ try{ synth.resume(); }catch(e){} } });
+
+    buildPlan(); renderList();
+    if(!player.hidden && plan.length) previewAt(0);
+  }
+
+  if(window.MEMORIA) init();
+  else document.addEventListener('memoria:ready', init);
+})();
+</script>
+
 <section class="app" id="app-hiztegia" role="tabpanel" aria-labelledby="tab-hiztegia" hidden>
 <div class="page">
 <header class="top">
@@ -3040,13 +3424,26 @@ window.HUB = (function(){
 
 <script>
 (function(){
-  var TABS = ['egutegia','hiztegia','koadernoa'];
+  var TABS = ['egutegia','hiztegia','koadernoa','entzumena'];
   var KEY = 'euskara-armairua-tab';
   var secs = {}, btns = {};
   TABS.forEach(function(t){
     secs[t] = document.getElementById('app-' + t);
     btns[t] = document.getElementById('tab-' + t);
   });
+  var nav = btns[TABS[0]] ? btns[TABS[0]].parentNode : null;
+
+  /* con 4 materiales el nav puede desbordar en pantallas medianas:
+     mantén la pestaña activa a la vista y avisa (degradado) si hay más */
+  function updateOvf(){ if (nav) nav.classList.toggle('ovf', (nav.scrollWidth - nav.clientWidth - nav.scrollLeft) > 4); }
+  function revealTab(t){
+    if (!nav || !btns[t]) return;
+    try {
+      var nr = nav.getBoundingClientRect(), br = btns[t].getBoundingClientRect();
+      if (br.left < nr.left) nav.scrollLeft -= (nr.left - br.left) + 12;
+      else if (br.right > nr.right) nav.scrollLeft += (br.right - nr.right) + 12;
+    } catch(e){}
+  }
 
   function show(t, anchor){
     if (TABS.indexOf(t) < 0) t = TABS[0];
@@ -3054,6 +3451,7 @@ window.HUB = (function(){
       secs[x].hidden = x !== t;
       btns[x].setAttribute('aria-selected', x === t ? 'true' : 'false');
     });
+    revealTab(t); updateOvf();
     try { localStorage.setItem(KEY, t); } catch(e){}
     try { window.dispatchEvent(new Event('scroll')); } catch(e){}
     if (anchor){
@@ -3084,7 +3482,9 @@ window.HUB = (function(){
     });
   });
   window.addEventListener('hashchange', function(){ route(false); });
+  if (nav){ nav.addEventListener('scroll', updateOvf, { passive:true }); window.addEventListener('resize', updateOvf); }
   route(true);
+  updateOvf();
 })();
 </script>
 <script src="config.js"></script>
