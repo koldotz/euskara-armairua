@@ -824,6 +824,21 @@ window.HUB = (function(){
   return api;
 })();
 </script>
+<section class="app" id="app-home" aria-label="Materialak" hidden>
+  <div class="wrap home2">
+    <header class="mat-hero">
+      <div class="eyebrow">A1 · Oinarria</div>
+      <h1>Aukeratu zure <em>materiala</em></h1>
+      <p class="lede">Cada material es una herramienta distinta. Entra en el que quieras — arriba puedes cambiar entre ellos cuando quieras.</p>
+    </header>
+    <div class="mats">
+      <a class="mat" href="#egutegia"><span class="mat-ic">📅</span><span class="mat-b"><span class="mat-t">Egutegia</span><span class="mat-d">Plan de 28 días, memoria gramatical y repaso</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#hiztegia"><span class="mat-ic">🗃️</span><span class="mat-b"><span class="mat-t">Hiztegia</span><span class="mat-d">796 palabras en flashcards, por temas</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#koadernoa"><span class="mat-ic">✏️</span><span class="mat-b"><span class="mat-t">Koadernoa</span><span class="mat-d">Ariketak eta erantzunak · 8 cuadernos + 3 simulacros</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#entzumena"><span class="mat-ic">🎧</span><span class="mat-b"><span class="mat-t">Entzumena</span><span class="mat-d">Escucha en bucle los recitados de memoria</span></span><span class="mat-go">→</span></a>
+    </div>
+  </div>
+</section>
 <section class="app" id="app-egutegia" role="tabpanel" aria-labelledby="tab-egutegia" hidden>
 <div class="page">
 <header class="top">
@@ -953,6 +968,21 @@ window.HUB = (function(){
 .ent-row .er-know.on{background:var(--sea-soft); border-color:var(--sea); color:var(--sea)}
 @media (max-width:560px){ .ent-row .er-note{display:none} .epl-opts{gap:9px 12px} #app-entzumena .wrap.ent{padding:28px 16px 70px} }
 @media (prefers-reduced-motion:reduce){ .epl-play.playing{animation:none} .ent-row{transition:none} }
+
+/* ── SELECTOR DE MATERIALES · al entrar en el nivel ───────────────── */
+#app-home .wrap.home2{max-width:1040px; margin:0 auto; padding:52px 24px 84px}
+.mat-hero{margin-bottom:6px}
+.mat-hero h1{font-size:clamp(30px,5.4vw,48px); letter-spacing:-.02em; margin-top:6px}
+.mat-hero h1 em{font-style:normal; color:var(--sea)}
+.mat-hero .lede{font-family:var(--f-ui); font-size:16.5px; color:var(--ink-2); max-width:60ch; margin-top:12px; line-height:1.55}
+.mats{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:16px; margin-top:30px}
+a.mat{display:flex; align-items:center; gap:15px; text-decoration:none; color:inherit; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); padding:17px 18px; transition:border-color .14s, transform .14s, box-shadow .14s}
+a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(--shadow)}
+.mat-ic{font-size:24px; line-height:1; flex:none; width:46px; height:46px; display:grid; place-items:center; background:var(--ground); border:1px solid var(--line); border-radius:var(--r)}
+.mat-b{display:block; flex:1; min-width:0}
+.mat-t{display:block; font-family:var(--f-display); font-weight:600; font-size:19px; color:var(--ink); line-height:1.15}
+.mat-d{display:block; font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:4px; line-height:1.45}
+.mat-go{font-family:var(--f-mono); color:var(--sea); flex:none; font-size:16px}
 </style>
 
 <section class="mem" id="memoria">
@@ -3440,6 +3470,7 @@ window.HUB = (function(){
     btns[t] = document.getElementById('tab-' + t);
   });
   var nav = btns[TABS[0]] ? btns[TABS[0]].parentNode : null;
+  var home = document.getElementById('app-home');
 
   /* con 4 materiales el nav puede desbordar en pantallas medianas:
      mantén la pestaña activa a la vista y avisa (degradado) si hay más */
@@ -3453,8 +3484,16 @@ window.HUB = (function(){
     } catch(e){}
   }
 
+  function showHome(){
+    TABS.forEach(function(x){ secs[x].hidden = true; btns[x].setAttribute('aria-selected', 'false'); });
+    if (home) home.hidden = false;
+    updateOvf();
+    window.scrollTo(0, 0);
+  }
+
   function show(t, anchor){
     if (TABS.indexOf(t) < 0) t = TABS[0];
+    if (home) home.hidden = true;
     TABS.forEach(function(x){
       secs[x].hidden = x !== t;
       btns[x].setAttribute('aria-selected', x === t ? 'true' : 'false');
@@ -3469,19 +3508,15 @@ window.HUB = (function(){
     window.scrollTo(0, 0);
   }
 
-  function route(initial){
+  function route(){
     var h = (location.hash || '').slice(1);
     if (h && TABS.indexOf(h) >= 0){ show(h); return; }
-    if (h){
+    if (h && h !== 'home'){
       var el = document.getElementById(h);
       var app = el && el.closest ? el.closest('.app') : null;
       if (app){ show(app.id.slice(4), h); return; }
     }
-    if (initial){
-      var last = null;
-      try { last = localStorage.getItem(KEY); } catch(e){}
-      show(last || TABS[0]);
-    }
+    showHome();   // sin pestaña concreta → selector de materiales (no la última usada)
   }
 
   TABS.forEach(function(t){
@@ -3489,9 +3524,9 @@ window.HUB = (function(){
       if ((location.hash || '').slice(1) === t) show(t); else location.hash = t;
     });
   });
-  window.addEventListener('hashchange', function(){ route(false); });
+  window.addEventListener('hashchange', route);
   if (nav){ nav.addEventListener('scroll', updateOvf, { passive:true }); window.addEventListener('resize', updateOvf); }
-  route(true);
+  route();
   updateOvf();
 })();
 </script>
