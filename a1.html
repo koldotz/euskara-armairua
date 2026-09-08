@@ -488,6 +488,7 @@ section.cal{margin-top:34px}
 #app-hiztegia .stats span{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:5px}
 #app-hiztegia .stats .due b{color:var(--iron)}
 #app-hiztegia .stats .ok b{color:var(--sea)}
+#app-hiztegia .stats .hard b{color:var(--gold)}
 
 #app-hiztegia .bar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:16px 0; border-bottom:1px solid var(--line)}
 #app-hiztegia .seg{display:flex; border:1px solid var(--line-strong); border-radius:3px; overflow:hidden}
@@ -2449,11 +2450,12 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   <div>
     <div class="eyebrow">Hiztegia · A1 · 796 sarrera</div>
     <h1>Hitzen <em>kutxa</em></h1>
-    <p class="sub">Todo el léxico del A1 en veinte cajones temáticos, con repaso espaciado. Cada palabra sube de caja cuando la aciertas y vuelve a la primera cuando falla.</p>
+    <p class="sub">Todo el léxico del A1 en veinte cajones temáticos, con repaso espaciado adaptativo: cada palabra ajusta sola cuándo vuelve a aparecer según lo bien que la recuerdes, y las que fallas se cuelan antes.</p>
   </div>
   <div class="stats">
     <div class="due"><b id="stDue">—</b><span>Hoy toca</span></div>
     <div class="ok"><b id="stOk">—</b><span>Dominadas</span></div>
+    <div class="hard"><b id="stHard">—</b><span>Difíciles</span></div>
     <div><b id="stTot">796</b><span>Total</span></div>
   </div>
 </header>
@@ -2496,9 +2498,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       </div>
     </div>
     <div class="grade">
-      <button class="no"  id="g0" disabled>Ez dakit<small>vuelve a la caja 1</small></button>
-      <button class="mid" id="g1" disabled>Kosta zait<small>se queda igual</small></button>
-      <button class="yes" id="g2" disabled>Badakit<small>sube de caja</small></button>
+      <button class="no"  id="g0" disabled>Ez dakit<small>reinicia el repaso</small></button>
+      <button class="mid" id="g1" disabled>Kosta zait<small>vuelve pronto</small></button>
+      <button class="yes" id="g2" disabled>Badakit<small>espacia más el repaso</small></button>
     </div>
   </div>
   <div class="done" id="done" hidden>
@@ -2517,7 +2519,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   <div class="empty" id="noRows" hidden>Ninguna palabra coincide con esa búsqueda.</div>
 </section>
 
-<footer class="f">Hitzen Kutxa — léxico A1 organizado en cajas de Leitner. Intervalos: caja 1 hoy · caja 2 en 1 día · caja 3 en 2 días · caja 4 en 4 días · caja 5 en 8 días. Tu progreso se guarda solo en este navegador.</footer>
+<footer class="f">Hitzen Kutxa — léxico A1 con repaso espaciado adaptativo (SM-2). Los cinco puntitos marcan la madurez de cada palabra; el tiempo hasta el próximo repaso crece cuando aciertas y se recorta o reinicia cuando dudas o fallas. La cola prioriza lo más atrasado y lo que más fallas. Tu progreso se guarda solo en este navegador.</footer>
 </div>
 
 <script src="armairua-a1-data.js"></script>
@@ -2526,9 +2528,14 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   var D = A1_DATA;
   var WORDS = D.w, THEMES = D.t;
   var KEY = 'hitzen-kutxa-v1';
-  var INTERVAL = [0,0,1,2,4,8];   // caja -> días hasta el próximo repaso
+  /* ── Programación SM-2 adaptativa (conserva las 5 cajas como madurez) ──
+     Cada palabra lleva: b=madurez 1-5 (puntitos), d=día de repaso,
+     ef=factor de facilidad, iv=intervalo en días, n=aciertos seguidos,
+     lp=veces falladas. El intervalo crece según lo bien que la recuerdes
+     y se recorta —o reinicia— cuando dudas o fallas. */
+  var EF_MIN = 1.3, EF_MAX = 2.7, EF_DEF = 2.5, IV_CAP = 21;
 
-  var state = load();
+  var state = load(); migrate();
   var mode = 'study', dir = 'eu', theme = -1, flipped = false, cur = null, queue = [], sess = 50;
 
   function load(){
@@ -2537,8 +2544,57 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   }
   function save(){ HUB.save('hiztegia', KEY, state); }
   function today(){ return Math.floor(Date.now()/864e5); }
-  function rec(i){ return state[i] || {b:1,d:0}; }
-  function due(i){ var r = rec(i); return r.d <= today(); }
+
+  function fresh(){ return { b:1, d:0, ef:EF_DEF, iv:0, n:0, lp:0 }; }
+  function rec(i){ return state[i] || fresh(); }
+  function due(i){ return rec(i).d <= today(); }
+
+  /* madurez (1-5 puntitos) derivada del intervalo alcanzado */
+  function boxFor(iv, n){
+    if (n <= 0 || iv < 1) return 1;
+    if (iv < 2)  return 2;
+    if (iv < 6)  return 3;
+    if (iv < 15) return 4;
+    return 5;
+  }
+
+  /* migra registros antiguos de Leitner {b,d} al modelo SM-2 */
+  function migrate(){
+    var OLD_IV = [0,0,1,2,4,8], changed = false;
+    for (var k in state){
+      var r = state[k];
+      if (r && r.ef == null){
+        var b = r.b || 1;
+        r.iv = OLD_IV[b] || 0;
+        r.n  = Math.max(0, b - 1);
+        r.ef = EF_DEF;
+        r.lp = 0;
+        if (r.d == null) r.d = 0;
+        r.b  = boxFor(r.iv, r.n);
+        changed = true;
+      }
+    }
+    if (changed) try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  /* aplica una calificación (0 fallo · 1 cuesta · 2 bien) y reprograma */
+  function schedule(r, q){
+    if (q === 0){
+      r.n = 0; r.lp = (r.lp||0) + 1;
+      r.ef = Math.max(EF_MIN, r.ef - 0.2);
+      r.iv = 1;
+    } else {
+      r.n = (r.n||0) + 1;
+      r.ef = (q === 1) ? Math.max(EF_MIN, r.ef - 0.15) : Math.min(EF_MAX, r.ef + 0.1);
+      if      (r.n === 1) r.iv = 1;
+      else if (r.n === 2) r.iv = (q === 1) ? 3 : 6;
+      else                r.iv = Math.round(r.iv * (q === 1 ? Math.max(1.2, r.ef - 0.4) : r.ef));
+      r.iv = Math.max(1, Math.min(IV_CAP, r.iv));
+    }
+    r.b = boxFor(r.iv, r.n);
+    r.d = today() + r.iv;
+    return r;
+  }
 
   // ── selectores ──
   var themeSel = document.getElementById('theme');
@@ -2551,22 +2607,35 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
   function pool(){ return WORDS.filter(function(w){ return theme < 0 || w.t === theme; }); }
 
+  /* cola priorizada: primero lo más débil (caja baja), luego lo más
+     atrasado y lo más fallado; azar solo para deshacer empates */
   function buildQueue(){
-    queue = pool().filter(function(w){ return due(w.i); });
-    for (var i = queue.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random()*(i+1)), t = queue[i]; queue[i] = queue[j]; queue[j] = t;
-    }
-    if (sess > 0) queue = queue.slice(0, sess);
+    var q = pool().filter(function(w){ return due(w.i); }), t = today();
+    q.sort(function(a,b){
+      var ra = rec(a.i), rb = rec(b.i);
+      if (ra.b !== rb.b) return ra.b - rb.b;
+      var oa = t - ra.d, ob = t - rb.d;
+      if (ob !== oa) return ob - oa;
+      var la = ra.lp||0, lb = rb.lp||0;
+      if (lb !== la) return lb - la;
+      return Math.random() - 0.5;
+    });
+    queue = (sess > 0) ? q.slice(0, sess) : q;
     return queue;
   }
 
   // ── estadísticas ──
   function stats(){
-    var p = pool(), d = 0, ok = 0;
-    p.forEach(function(w){ if (due(w.i)) d++; if (rec(w.i).b >= 5) ok++; });
+    var p = pool(), d = 0, ok = 0, hard = 0;
+    p.forEach(function(w){ var r = rec(w.i);
+      if (due(w.i)) d++;
+      if (r.b >= 5) ok++;
+      if ((r.lp||0) >= 2) hard++;
+    });
     document.getElementById('stDue').textContent = d;
     document.getElementById('stOk').textContent = ok;
     document.getElementById('stTot').textContent = p.length;
+    var eh = document.getElementById('stHard'); if (eh) eh.textContent = hard;
   }
 
   // ── tarjeta ──
@@ -2613,9 +2682,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
   function grade(g){
     if (!cur || !flipped) return;
-    var r = rec(cur.i), b = r.b;
-    if (g === 0) b = 1; else if (g === 2) b = Math.min(5, b + 1);
-    state[cur.i] = { b: b, d: today() + INTERVAL[b] };
+    var r = state[cur.i] || fresh();
+    schedule(r, g);
+    state[cur.i] = r;
     save();
     if (g === 0) { queue.push(queue.shift()); } else { queue.shift(); }
     stats(); show(); renderList();
@@ -2701,7 +2770,14 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
   refresh();
 
-  HUB.bind('hiztegia', KEY, function(v){ state = v; refresh(); }, function(){ return state; });
+  /* ── API para el modo sesión y otros módulos ── */
+  window.HIZTEGIA = {
+    dueCount: function(){ return WORDS.filter(function(w){ return due(w.i); }).length; },
+    total: function(){ return WORDS.length; },
+    focusReview: function(){ theme = -1; if (themeSel) themeSel.value = '-1'; setMode('study'); refresh(); }
+  };
+
+  HUB.bind('hiztegia', KEY, function(v){ state = v; migrate(); refresh(); }, function(){ return state; });
 })();
 </script>
 </section>
