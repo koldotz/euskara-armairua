@@ -101,9 +101,17 @@ main{padding-bottom:70px}
 .card .ex .e{font-family:var(--f-mono); font-size:13.5px; color:var(--ink)}
 .card .ex .e b{color:var(--sea); font-weight:600}
 .card .ex .g{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
-.card .pin{position:absolute; top:11px; right:11px; width:28px; height:28px; display:grid; place-items:center; border:0; background:none; cursor:pointer; font-size:16px; color:var(--line-strong); border-radius:6px; line-height:1}
+.card-tr{position:absolute; top:10px; right:10px; display:flex; align-items:center; gap:5px; z-index:2}
+.card .pin{width:28px; height:28px; display:grid; place-items:center; border:0; background:none; cursor:pointer; font-size:16px; color:var(--line-strong); border-radius:6px; line-height:1; flex:none}
 .card .pin:hover{background:var(--surface-2); color:var(--gold)}
 .card .pin.on{color:var(--gold)}
+.card.hasalt .eu{padding-right:104px}
+.card .vtog{font-family:var(--f-mono); font-size:10px; font-weight:500; letter-spacing:.03em; color:var(--sea); background:var(--sea-soft); border:1px solid var(--sea); border-radius:20px; padding:3px 9px; cursor:pointer; white-space:nowrap; line-height:1.4}
+.card .vtog:hover{filter:brightness(1.04)}
+.card.showalt .vtog{background:var(--sea); color:#fff}
+.card.showalt{border-color:var(--sea)}
+.alt-sub{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--iron); margin:11px 0 2px}
+.alt-t td.n{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
 .card.warned{border-left:3px solid var(--gold)}
 .card.warned .eu::after{content:" ⚠️"; font-size:12px}
 .empty{text-align:center; padding:50px 20px; color:var(--muted); font-family:var(--f-ui)}
@@ -224,15 +232,45 @@ var PAT=[
   KAT[PATKEY]='Esaldi-ereduak · patrones';
   var ORDER=[PATKEY].concat(CH);
 
+  /* ── declinación aplicada y comparada al castellano (vista alterna de cada caso) ──
+     Se declina «etxe» (casa) igual en los 13 casos para una referencia visual clara. */
+  var DEKL2={
+    NOR:      {sub:'etxe (casa) · Absolutibo', rows:[['sing.','etxea','la casa'],['plur.','etxeak','las casas']]},
+    NORK:     {sub:'etxe · Ergatibo (sujeto transitivo)', rows:[['sing.','etxeak','la casa'],['plur.','etxeek','las casas']]},
+    NORI:     {sub:'etxe · Datibo', rows:[['sing.','etxeari','a la casa'],['plur.','etxeei','a las casas']]},
+    NOREN:    {sub:'etxe · Genitibo', rows:[['sing.','etxearen','de la casa'],['plur.','etxeen','de las casas']]},
+    NON:      {sub:'etxe · Inesibo', rows:[['sing.','etxean','en la casa'],['plur.','etxeetan','en las casas']]},
+    NORA:     {sub:'etxe · Adlatibo', rows:[['sing.','etxera','a (la) casa'],['plur.','etxeetara','a las casas']]},
+    NONDIK:   {sub:'etxe · Ablatibo', rows:[['sing.','etxetik','desde (la) casa'],['plur.','etxeetatik','desde las casas']]},
+    NOREKIN:  {sub:'etxe · Soziatibo', rows:[['sing.','etxearekin','con la casa'],['plur.','etxeekin','con las casas']]},
+    NORENTZAT:{sub:'etxe · Destinatibo', rows:[['sing.','etxearentzat','para la casa'],['plur.','etxeentzat','para las casas']]},
+    NONGO:    {sub:'etxe · Leku-genitibo', rows:[['sing.','etxeko','de (la) casa'],['plur.','etxeetako','de las casas']]},
+    INST:     {sub:'etxe · Instrumentala', rows:[['sing.','etxeaz','de / por la casa'],['plur.','etxeez','de / por las casas']]},
+    PART:     {sub:'etxe · Partitibo (neg./interrog.)', rows:[['—','etxerik','(nada de) casa']]},
+    MOT:      {sub:'etxe · Motibatibo', rows:[['sing.','etxeagatik','por (causa de) la casa'],['plur.','etxeengatik','por las casas']]}
+  };
+  var DKEYS=['NORENTZAT','NONDIK','NONGO','NOREKIN','NOREN','NORA','NORK','NORI','NON','NOR'];
+  function caseId(eu){
+    var s=(eu||'').toUpperCase();
+    for(var i=0;i<DKEYS.length;i++){ if(new RegExp('\\b'+DKEYS[i]+'\\b').test(s)) return DKEYS[i]; }
+    if(/INSTRUMENTAL/.test(s)) return 'INST';
+    if(/PARTITIBO/.test(s)) return 'PART';
+    if(/MOTIBATIBO/.test(s)) return 'MOT';
+    return null;
+  }
+  function altOf(e){ return (e.k==='dekl') ? (DEKL2[caseId(e.eu)]||null) : null; }
+
   /* ítems unificados con id estable y texto de búsqueda */
   var ITEMS=[];
   D.forEach(function(e,i){ e._id='d'+i; e._cat=e.k; ITEMS.push(e); });
   PAT.forEach(function(p,i){ p._id='p'+i; p._cat=PATKEY; p.k=PATKEY; ITEMS.push(p); });
   function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
   ITEMS.forEach(function(e){
+    e._alt=altOf(e);
     var parts=[e.eu,e.es,e.fun,e.cat];
     if(e.t) e.t.forEach(function(r){ parts.push(r.join(' ')); });
     if(e.ex) e.ex.forEach(function(r){ parts.push(r[0].replace(/<[^>]+>/g,'')+' '+r[1]); });
+    if(e._alt) e._alt.rows.forEach(function(r){ parts.push(r[1]+' '+r[2]); });
     e._s=norm(parts.join(' '));
   });
 
@@ -249,11 +287,8 @@ var PAT=[
   });
 
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function cardHTML(e){
-    var pinned=!!fav[e._id];
-    var h='<button type="button" class="pin'+(pinned?' on':'')+'" data-id="'+e._id+'" aria-label="Fijar" title="Fijar como favorito">'+(pinned?'★':'☆')+'</button>';
-    h+='<div class="eu">'+esc(e.eu)+'</div>';
-    if(e.es) h+='<div class="es">'+esc(e.es)+'</div>';
+  function baseBodyHTML(e){
+    var h='';
     if(e.fun) h+='<div class="fun">'+e.fun+'</div>';
     if(e.t){
       h+='<table><thead><tr>';
@@ -269,9 +304,27 @@ var PAT=[
     }
     return h;
   }
+  function altBodyHTML(alt){
+    var h='<div class="alt-sub">Deklinatuta · '+esc(alt.sub)+'</div>';
+    h+='<table class="alt-t"><thead><tr><th></th><th>euskara</th><th>castellano</th></tr></thead><tbody>';
+    alt.rows.forEach(function(r){ h+='<tr><td class="n">'+esc(r[0])+'</td><td class="f">'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>'; });
+    h+='</tbody></table>';
+    return h;
+  }
+  function cardHTML(e){
+    var pinned=!!fav[e._id], alt=e._alt;
+    var h='<div class="card-tr">';
+    if(alt) h+='<button type="button" class="vtog" title="Ver la declinación aplicada y comparada al castellano">es↔eu ⇄</button>';
+    h+='<button type="button" class="pin'+(pinned?' on':'')+'" data-id="'+e._id+'" aria-label="Fijar" title="Fijar como favorito">'+(pinned?'★':'☆')+'</button></div>';
+    h+='<div class="eu">'+esc(e.eu)+'</div>';
+    if(e.es) h+='<div class="es">'+esc(e.es)+'</div>';
+    h+='<div class="cbody" data-v="a">'+baseBodyHTML(e)+'</div>';
+    if(alt) h+='<div class="cbody alt" data-v="b" hidden>'+altBodyHTML(alt)+'</div>';
+    return h;
+  }
   function makeCard(e){
     var d=document.createElement('div');
-    d.className='card'+(e._cat===PATKEY?' pat':'')+(e.w?' warned':'');
+    d.className='card'+(e._cat===PATKEY?' pat':'')+(e.w?' warned':'')+(e._alt?' hasalt':'');
     d.setAttribute('data-id', e._id);
     d.innerHTML=cardHTML(e);
     return d;
@@ -311,8 +364,15 @@ var PAT=[
   }
 
   resEl.addEventListener('click', function(e){
-    var b=e.target.closest('.pin'); if(!b) return;
-    var id=b.getAttribute('data-id');
+    var tg=e.target.closest('.vtog');
+    if(tg){
+      var card=tg.closest('.card'); if(!card) return;
+      var a=card.querySelector('.cbody[data-v="a"]'), b=card.querySelector('.cbody[data-v="b"]');
+      if(a&&b){ var toB=!a.hidden; a.hidden=toB; b.hidden=!toB; tg.textContent=toB?'⇄ atzera':'es↔eu ⇄'; card.classList.toggle('showalt', toB); }
+      return;
+    }
+    var p=e.target.closest('.pin'); if(!p) return;
+    var id=p.getAttribute('data-id');
     if(fav[id]) delete fav[id]; else fav[id]=1;
     saveFav(); render();
   });
