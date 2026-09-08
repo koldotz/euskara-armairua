@@ -420,6 +420,33 @@ section.cal{margin-top:34px}
 #app-egutegia .rev-cat h4{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin:0 0 11px; display:flex; align-items:center; gap:8px}
 #app-egutegia .rev-cat h4 .c{color:var(--muted); font-weight:400}
 #app-egutegia .rev-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(232px,1fr)); gap:10px; margin-bottom:6px}
+
+/* ── OREKA · balance de destrezas: qué estás dejando de lado ── */
+#app-egutegia .rev-oreka{margin:16px 22px 4px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); padding:16px 18px}
+.ork-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.ork-head h4{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin:0}
+.ork-def{font-family:var(--f-mono); font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums}
+.ork-def b{color:var(--iron); font-weight:500}
+.ork-def.ok b{color:var(--sea)}
+.ork-lede{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); line-height:1.5; margin:8px 0 13px; max-width:72ch}
+.ork-lede b{color:var(--ink)}
+.ork-rows{display:flex; flex-direction:column; gap:9px}
+.ork-row{display:grid; grid-template-columns:118px 1fr 86px; align-items:center; gap:12px}
+.ork-nm{font-family:var(--f-ui); font-size:13px; font-weight:600; color:var(--ink); display:flex; align-items:center; gap:7px}
+.ork-nm .ic{font-size:14px; flex:none}
+.ork-nm em{font-style:normal; font-weight:400; color:var(--muted); font-size:11px}
+.ork-bar{height:9px; border-radius:6px; background:var(--surface-2); overflow:hidden}
+.ork-bar i{display:block; height:100%; border-radius:6px; background:var(--sea); transition:width .5s}
+.ork-row.low .ork-bar i{background:var(--iron)}
+.ork-row.low .ork-nm{color:var(--iron)}
+.ork-pct{font-family:var(--f-mono); font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; text-align:right}
+.ork-row.low .ork-pct{color:var(--iron)}
+.ork-nudge{margin-top:13px; border-top:1px solid var(--line); padding-top:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.ork-nudge .txt{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); flex:1; min-width:220px; line-height:1.5}
+.ork-nudge .txt b{color:var(--iron)}
+.ork-nudge a.act{font-family:var(--f-ui); font-size:13px; font-weight:600; color:#fff; background:var(--iron); border:1px solid var(--iron); border-radius:var(--r); padding:8px 14px; text-decoration:none; white-space:nowrap}
+.ork-nudge a.act:hover{filter:brightness(1.07)}
+@media (max-width:560px){ .ork-row{grid-template-columns:104px 1fr} .ork-pct{grid-column:2; text-align:left} }
 #app-egutegia .ri{border:1px solid var(--line); border-radius:var(--r); background:var(--ground); padding:11px 13px; cursor:pointer; position:relative; transition:border-color .12s}
 #app-egutegia .ri:not(.ref){padding-right:34px}
 #app-egutegia .ri:hover{border-color:var(--line-strong)}
@@ -983,6 +1010,57 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .mat-t{display:block; font-family:var(--f-display); font-weight:600; font-size:19px; color:var(--ink); line-height:1.15}
 .mat-d{display:block; font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:4px; line-height:1.45}
 .mat-go{font-family:var(--f-mono); color:var(--sea); flex:none; font-size:16px}
+
+/* ── JOKOA · gamificación dentro de Entzumena ───────────────────────── */
+.ent-seg{display:inline-flex; gap:4px; background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:4px; margin-bottom:20px}
+.ent-seg .segbtn{font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:var(--ink-2); background:none; border:0; border-radius:999px; padding:7px 16px; cursor:pointer}
+.ent-seg .segbtn.on{background:var(--sea); color:#fff}
+.ent-seg .segbtn:not(.on):hover{color:var(--ink)}
+.jk-prog{display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; margin-bottom:16px}
+.jk-card{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:14px 16px}
+.jk-lbl{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.jk-maila{font-family:var(--f-display); font-weight:600; font-size:20px; color:var(--ink); margin-top:5px}
+.jk-maila small{font-family:var(--f-mono); font-size:11px; color:var(--sea); font-weight:400; margin-left:7px}
+.jk-xpbar{height:8px; background:var(--surface-2); border-radius:6px; overflow:hidden; margin-top:11px}
+.jk-xpbar i{display:block; height:100%; background:var(--sea); border-radius:6px; transition:width .5s}
+.jk-xpnum{font-family:var(--f-mono); font-size:10.5px; color:var(--muted); margin-top:6px}
+.jk-big{font-family:var(--f-display); font-weight:700; font-size:30px; line-height:1; color:var(--ink); margin-top:6px; font-variant-numeric:tabular-nums}
+.jk-streak .jk-big{color:var(--iron)}
+.jk-sub{font-family:var(--f-mono); font-size:10px; color:var(--muted); margin-top:6px}
+.jk-badges{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
+.jk-badge{display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:999px; padding:5px 13px 5px 6px; background:var(--surface)}
+.jk-badge .b-ic{width:26px; height:26px; display:grid; place-items:center; border-radius:50%; background:var(--gold-soft); font-size:14px; flex:none}
+.jk-badge .b-nm{font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--ink)}
+.jk-badge .b-ds{font-family:var(--f-ui); font-size:11px; color:var(--muted); margin-left:2px}
+.jk-badge.locked{opacity:.42; filter:grayscale(1)}
+.jk-games{display:grid; grid-template-columns:1fr; gap:16px}
+.jk-game{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:18px}
+.jk-g-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.jk-g-head h3{font-family:var(--f-display); font-weight:600; font-size:19px; color:var(--ink); margin:0}
+.jk-g-head h3 .ic{margin-right:8px}
+.jk-g-head .sc{font-family:var(--f-mono); font-size:12px; color:var(--sea); font-variant-numeric:tabular-nums}
+.jk-play{display:grid; place-items:center; width:78px; height:78px; margin:4px auto 16px; border-radius:50%; background:var(--sea); color:#fff; border:0; cursor:pointer; font-size:28px; box-shadow:0 4px 14px -4px var(--sea)}
+.jk-play:hover{filter:brightness(1.08)}
+.jk-play:disabled{opacity:.5; cursor:default}
+.jk-opts{display:grid; grid-template-columns:1fr 1fr; gap:9px}
+.jk-opt{font-family:var(--f-ui); font-size:14px; color:var(--ink); background:var(--ground); border:1px solid var(--line-strong); border-radius:var(--r); padding:12px 14px; cursor:pointer; text-align:center; transition:border-color .12s, background .12s}
+.jk-opt:hover:not(:disabled){border-color:var(--sea)}
+.jk-opt.ok{background:var(--sea-soft); border-color:var(--sea); color:var(--sea); font-weight:600}
+.jk-opt.no{background:var(--iron-soft); border-color:var(--iron); color:var(--iron)}
+.jk-opt:disabled{cursor:default}
+.jk-hint{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); text-align:center; margin-top:13px; min-height:1.2em}
+.jk-hint .jk-repeat{background:none; border:0; color:var(--sea); font-family:var(--f-ui); font-size:12.5px; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px; padding:0}
+.jk-lotu{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.jk-lcol{display:flex; flex-direction:column; gap:8px}
+.jk-tile{font-family:var(--f-ui); font-size:13.5px; color:var(--ink); background:var(--ground); border:1px solid var(--line-strong); border-radius:var(--r); padding:11px 12px; cursor:pointer; text-align:center; transition:border-color .12s, background .12s, opacity .2s}
+.jk-tile.eu{font-weight:600}
+.jk-tile.sel{border-color:var(--sea); background:var(--sea-soft)}
+.jk-tile.done{background:var(--sea-soft); border-color:var(--sea); color:var(--sea); cursor:default; opacity:.55}
+.jk-tile.bad{animation:jkShake .3s}
+@keyframes jkShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.jk-note{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); text-align:center; padding:6px 0 2px}
+@media (max-width:620px){ .jk-prog{grid-template-columns:1fr 1fr} .jk-prog .jk-xp{grid-column:1/-1} }
+@media (prefers-reduced-motion:reduce){ .jk-tile.bad{animation:none} }
 </style>
 
 <section class="mem" id="memoria">
@@ -1020,6 +1098,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     <div class="rev-prog" id="revProg"></div>
   </div>
   <div class="rev-reto" id="revReto" hidden></div>
+  <div class="rev-oreka" id="revOreka" hidden></div>
   <div id="revBody"></div>
 </section>
 
@@ -1101,6 +1180,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       cb.addEventListener('change', function(){
         if (cb.checked) st.done[key] = 1; else delete st.done[key];
         save(); renderDay(); renderGrid(); renderKpis(); renderHitos();
+        document.dispatchEvent(new CustomEvent('plana:change'));
       });
       var body = document.createElement('div'); body.className='body';
       body.innerHTML = '<span class="k">'+t.k+'</span><span class="x">'+t.x+'</span>';
@@ -1220,6 +1300,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     if (!confirm('¿Reiniciar el plan entero? Se borran las tareas marcadas, los retos y las notas.')) return;
     st = { done:{}, retos:{}, scores:{} }; save();
     renderDay(); renderGrid(); renderKpis(); renderHitos(); renderRetos(); renderPruebas();
+    document.dispatchEvent(new CustomEvent('plana:change'));
   });
 
   sel = todayIdx();
@@ -1228,7 +1309,18 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   HUB.bind('plana', KEY, function(v){
     st = v;
     renderDay(); renderGrid(); renderKpis(); renderHitos(); renderRetos(); renderPruebas();
+    document.dispatchEvent(new CustomEvent('plana:change'));
   }, function(){ return st; });
+
+  /* ── estado del plan compartido · recordatorio de destrezas y Jokoa ── */
+  window.PLANA = {
+    P: P,
+    todayIdx: todayIdx,
+    isDone: function(i,j){ return !!(st.done && st.done[i+'-'+j]); },
+    doneCount: function(){ var c=0; if(st.done) for(var k in st.done){ if(st.done[k]) c++; } return c; },
+    onChange: function(fn){ document.addEventListener('plana:change', fn); }
+  };
+  document.dispatchEvent(new CustomEvent('plana:ready'));
 })();
 </script>
 
@@ -1409,6 +1501,82 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 </script>
 
 <script>
+/* ── OREKA · balance de destrezas del recordatorio (lee window.PLANA) ──
+   Con los minutos por destreza planificados vs. hechos hasta hoy, señala
+   qué estás dejando de lado (sobre todo oído, habla y escritura, lo que
+   se cae al recortar tiempo) y sugiere una acción de recuperación.     */
+(function(){
+  function init(){
+    var PL = window.PLANA; if(!PL) return;
+    var box = document.getElementById('revOreka'); if(!box) return;
+    var P = PL.P;
+
+    var SKILLS = [
+      { id:'entzun', nm:'Entzumena',  es:'oído',        ic:'👂', ks:['entzun'],                              perc:1, href:'#entzumena', act:'Ponte oído',        nudge:'15 minutos de radio en euskera o una vuelta al bucle de Entzumena.' },
+      { id:'mintza', nm:'Mintzamena', es:'habla',       ic:'🗣️', ks:['ahoskera','ahots'],                    perc:1, href:'#memoria',    act:'Recita en voz alta', nudge:'Recita los paradigmas en voz alta o grábate un minuto.' },
+      { id:'idatzi', nm:'Idazmena',   es:'escritura',   ic:'✍️', ks:['idatzi'],                              perc:1, href:null,          act:null,                nudge:'Escribe 8–10 frases con lo de esta semana; corrige después.' },
+      { id:'grama',  nm:'Gramatika',  es:'práctica',    ic:'📐', ks:['teoria','ariketa','errepaso','proba'], perc:0, href:'#koadernoa',  act:'Al koadernoa',      nudge:'Un ejercicio del koadernoa afianza lo visto.' },
+      { id:'hiztg',  nm:'Hiztegia',   es:'vocabulario', ic:'🗃️', ks:['hiztegia'],                            perc:0, href:'#hiztegia',   act:'A las flashcards',  nudge:'Un repaso de flashcards mantiene el léxico fresco.' }
+    ];
+    var K2S = {}; SKILLS.forEach(function(s){ s.ks.forEach(function(k){ K2S[k]=s.id; }); });
+    function fmt(m){ m=Math.round(m); var h=Math.floor(m/60), r=m%60; return h ? (h+' h'+(r?' '+r+'m':'')) : (r+' m'); }
+
+    function render(){
+      var ti = PL.todayIdx();
+      var plan={}, done={}; SKILLS.forEach(function(s){ plan[s.id]=0; done[s.id]=0; });
+      var totPlan=0, totDone=0;
+      for(var i=0;i<=ti && i<P.days.length;i++){
+        P.days[i].tasks.forEach(function(t,j){
+          var sid=K2S[t.k]; if(!sid) return;
+          plan[sid]+=t.m; totPlan+=t.m;
+          if(PL.isDone(i,j)){ done[sid]+=t.m; totDone+=t.m; }
+        });
+      }
+      var rows = SKILLS.map(function(s){
+        var p=plan[s.id], d=done[s.id];
+        return { s:s, plan:p, done:d, ratio:p?d/p:1 };
+      }).filter(function(x){ return x.plan>0; });
+      if(!rows.length){ box.hidden=true; return; }
+      box.hidden=false;
+
+      var sorted = rows.slice().sort(function(a,b){ return (a.ratio-b.ratio) || (b.s.perc-a.s.perc); });
+      var lowId = sorted[0].s.id, deficit = totPlan-totDone, days = ti+1;
+
+      var defHtml = deficit>0
+        ? '<span class="ork-def">Acumulas <b>'+fmt(deficit)+'</b> sin practicar · ~'+fmt(deficit/days)+'/día</span>'
+        : '<span class="ork-def ok">Vas al día · <b>0</b> pendiente ✓</span>';
+      var lede = deficit>0
+        ? 'Cuando falta tiempo, lo primero que se cae suele ser el <b>oído, el habla y la escritura</b> — justo lo que sostiene el euskera fuera del papel. Esto es lo que llevas practicado de cada destreza hasta el <b>día '+days+'</b>:'
+        : 'Estás cubriendo todas las destrezas al día. Mantén el equilibrio: el oído y el habla son los que más cuesta recuperar si se abandonan.';
+
+      var rowsHtml = sorted.map(function(x){
+        var pct=Math.round(x.ratio*100), low = x.s.id===lowId && x.ratio<0.85;
+        return '<div class="ork-row'+(low?' low':'')+'">'+
+          '<span class="ork-nm"><span class="ic">'+x.s.ic+'</span>'+x.s.nm+' <em>'+x.s.es+'</em></span>'+
+          '<span class="ork-bar"><i style="width:'+Math.min(100,pct)+'%"></i></span>'+
+          '<span class="ork-pct">'+fmt(x.done)+' / '+fmt(x.plan)+'</span></div>';
+      }).join('');
+
+      var low = sorted[0].s;
+      var nudge = '<div class="ork-nudge"><span class="txt">Lo que más estás dejando de lado ahora es <b>'+low.nm+' · '+low.es+'</b>. '+low.nudge+'</span>'+
+        (low.href ? '<a class="act" href="'+low.href+'">'+low.act+' →</a>' : '')+'</div>';
+
+      box.innerHTML =
+        '<div class="ork-head"><h4>Oreka · ¿qué estás dejando de lado?</h4>'+defHtml+'</div>'+
+        '<p class="ork-lede">'+lede+'</p>'+
+        '<div class="ork-rows">'+rowsHtml+'</div>'+
+        (deficit>0 ? nudge : '');
+    }
+
+    render();
+    PL.onChange(render);
+  }
+  if(window.PLANA) init();
+  else document.addEventListener('plana:ready', init);
+})();
+</script>
+
+<script>
 /* ── MEMORIA GRAMATIKALA · recitados de memoria; crecen con el plan ── */
 (function(){
   var P = JSON.parse(document.getElementById('plan').textContent);
@@ -1532,11 +1700,17 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <section class="app" id="app-entzumena" role="tabpanel" aria-labelledby="tab-entzumena" hidden>
   <div class="wrap ent">
     <header class="ent-hero">
-      <div class="eyebrow">Entzumena · escucha en bucle</div>
-      <h1>Ikasi <em>belarriz</em></h1>
-      <p class="ent-lede">Pon a sonar en bucle los paradigmas que tienes que saber de memoria y déjalo puesto mientras haces otra cosa: la repetición constante los fija sin esfuerzo. Suena la misma lista que «Memoria gramatikala», y crece con el plan.</p>
+      <div class="eyebrow">Entzumena · escucha y juega</div>
+      <h1>Ikasi belarriz eta <em>jolasean</em></h1>
+      <p class="ent-lede">Pon los recitados a sonar en bucle y refuérzalos jugando: retos de oído, parejas y progreso. La repetición y el juego fijan lo que tienes que saber de memoria.</p>
     </header>
 
+    <div class="ent-seg" role="tablist" aria-label="Entzumena edo Jokoa">
+      <button type="button" class="segbtn on" id="segLoop" role="tab" aria-selected="true">🔁 Entzun bukle</button>
+      <button type="button" class="segbtn" id="segJoko" role="tab" aria-selected="false">🎮 Jokoa</button>
+    </div>
+
+    <div id="entViewLoop">
     <div class="ent-player" id="entPlayer" hidden>
       <div class="epl-now">
         <div class="epl-badge" id="eplBadge">—</div>
@@ -1580,6 +1754,16 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
     <div class="ent-unsupported" id="entUnsupported" hidden>
       <p>Tu navegador no puede generar voz (la Web Speech API no está disponible). Prueba con Chrome, Edge o Safari actualizados. Mientras tanto, usa <a href="#egutegia">Memoria gramatikala</a> para recitar en voz alta y comprobar.</p>
+    </div>
+    </div><!-- /entViewLoop -->
+
+    <div id="entViewJoko" hidden>
+      <div class="jk-prog" id="jkProg"></div>
+      <div class="jk-badges" id="jkBadges"></div>
+      <div class="jk-games">
+        <div class="jk-game" id="jkEntzun"></div>
+        <div class="jk-game" id="jkLotu"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1839,12 +2023,182 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     /* ── por si Chrome pausa la síntesis al volver a la pestaña ── */
     document.addEventListener('visibilitychange', function(){ if(!document.hidden && playing){ try{ synth.resume(); }catch(e){} } });
 
+    /* ── API mínima para el Jokoa (reutiliza voz elegida + esPhon) ── */
+    window.ENTZUN = {
+      ready: true,
+      say: function(text, done){
+        try{
+          synth.cancel();
+          var v = euVoice || curVoice;
+          var t = (v && /^es/i.test(v.lang)) ? esPhon(String(text)) : String(text);
+          var u = new SpeechSynthesisUtterance(t);
+          u.lang = v ? v.lang : 'eu-ES'; if(v) u.voice = v; u.rate = cfg.rate || 0.9; u.pitch = 1;
+          if(done){ u.onend = done; u.onerror = done; }
+          synth.speak(u);
+        }catch(e){ if(done) done(); }
+      },
+      pause: function(){ try{ pause(); }catch(e){} }
+    };
+
     buildPlan(); renderList();
     if(!player.hidden && plan.length) previewAt(0);
   }
 
   if(window.MEMORIA) init();
   else document.addEventListener('memoria:ready', init);
+})();
+</script>
+
+<script>
+/* ── JOKOA · gamificación dentro de Entzumena ───────────────────────────
+   Sub-vista «Jokoa» del panel Entzumena. Progreso (XP/maila/racha) derivado
+   del avance real (plan + memoria) más la actividad de los juegos, y dos
+   dinámicas: «Entzun eta asmatu» (oído, reusa la voz de Entzumena) y
+   «Lotu» (parejas eu↔es). Estado propio en euskara-jokoa-v1 (sync HUB).  */
+(function(){
+  function start(){
+    var loop=document.getElementById('entViewLoop'), joko=document.getElementById('entViewJoko'),
+        segL=document.getElementById('segLoop'), segJ=document.getElementById('segJoko');
+    if(!joko || !segL || !segJ) return;
+
+    var WORDS=[];
+    try{ var D=JSON.parse(document.getElementById('data').textContent);
+      WORDS=(D.w||[]).filter(function(w){ return w.eu && w.es && w.eu.indexOf('/')<0 && w.es.indexOf('/')<0; });
+    }catch(e){}
+
+    var KEY='euskara-jokoa-v1', st=load();
+    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0}; }
+    function save(){ if(window.HUB && HUB.save) HUB.save('jokoa', KEY, st); else try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
+
+    /* racha por fecha real */
+    function ymd(d){ return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+    (function(){ var today=ymd(new Date());
+      if(st.last!==today){ var y=new Date(); y.setDate(y.getDate()-1);
+        st.streak=(st.last===ymd(y))?(st.streak||0)+1:1; st.last=today;
+        if(st.streak>(st.best||0)) st.best=st.streak; save();
+      }
+    })();
+
+    var LV=[{xp:0,nm:'Hastapena'},{xp:120,nm:'Oinarrian'},{xp:300,nm:'Bidean'},{xp:550,nm:'Trebatzen'},{xp:900,nm:'Trebea'},{xp:1400,nm:'Iaioa'},{xp:2100,nm:'Maisua'}];
+    function memKnown(){ var n=0; if(window.MEMORIA) MEMORIA.items().forEach(function(it){ if(MEMORIA.isKnown(it._id)) n++; }); return n; }
+    function planDone(){ return window.PLANA?PLANA.doneCount():0; }
+    function totalXP(){ return (st.xp||0)+planDone()*12+memKnown()*20; }
+
+    var elProg=document.getElementById('jkProg'), elBadges=document.getElementById('jkBadges'),
+        elEntzun=document.getElementById('jkEntzun'), elLotu=document.getElementById('jkLotu');
+
+    function renderProg(){
+      var xp=totalXP(), i=0; for(var k=0;k<LV.length;k++){ if(xp>=LV[k].xp) i=k; }
+      var base=LV[i].xp, next=LV[i+1]?LV[i+1].xp:null, pct=next?Math.round((xp-base)/(next-base)*100):100;
+      elProg.innerHTML=
+        '<div class="jk-card jk-xp"><div class="jk-lbl">Maila · nivel</div>'+
+          '<div class="jk-maila">'+LV[i].nm+' <small>'+xp+' XP</small></div>'+
+          '<div class="jk-xpbar"><i style="width:'+pct+'%"></i></div>'+
+          '<div class="jk-xpnum">'+(next?('faltan '+(next-xp)+' XP para '+LV[i+1].nm):'nivel máximo')+'</div></div>'+
+        '<div class="jk-card jk-streak"><div class="jk-lbl">Katea · racha</div>'+
+          '<div class="jk-big">'+(st.streak||0)+'🔥</div><div class="jk-sub">récord '+(st.best||0)+' · días seguidos</div></div>'+
+        '<div class="jk-card"><div class="jk-lbl">Asmatuak · oído</div>'+
+          '<div class="jk-big">'+(st.eok||0)+'</div><div class="jk-sub">'+(st.lotu||0)+' rondas de Lotu</div></div>';
+    }
+    function renderBadges(){
+      var mk=memKnown(), pd=planDone();
+      var B=[
+        {ic:'🔥',nm:'Su txikia',ds:'· 3 días',on:(st.best||0)>=3||(st.streak||0)>=3},
+        {ic:'🔥',nm:'Sugarra',ds:'· 7 días',on:(st.best||0)>=7},
+        {ic:'👂',nm:'Belarri ona',ds:'· 20 oído',on:(st.eok||0)>=20},
+        {ic:'🃏',nm:'Lotzailea',ds:'· 5 Lotu',on:(st.lotu||0)>=5},
+        {ic:'🧠',nm:'Buruz',ds:'· 5 paradigmas',on:mk>=5},
+        {ic:'📅',nm:'Lehen astea',ds:'· 20 tareas',on:pd>=20}
+      ];
+      elBadges.innerHTML=B.map(function(b){ return '<div class="jk-badge'+(b.on?'':' locked')+'"><span class="b-ic">'+b.ic+'</span><span class="b-nm">'+b.nm+'</span><span class="b-ds">'+b.ds+'</span></div>'; }).join('');
+    }
+    function refresh(){ renderProg(); renderBadges(); }
+
+    function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function sample(arr,n){ return shuffle(arr).slice(0,n); }
+
+    /* ── Entzun eta asmatu ── */
+    var eCur=null, eLock=false;
+    function ePlay(){ if(eCur && window.ENTZUN && ENTZUN.say) ENTZUN.say(eCur.eu); }
+    function newEntzun(autoplay){
+      eLock=false;
+      if(WORDS.length<4){ elEntzun.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; eCur=null; return; }
+      var pick=sample(WORDS,4); eCur=pick[0];
+      var opts=shuffle(pick), canSay=!!(window.ENTZUN && ENTZUN.say);
+      elEntzun.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">👂</span>Entzun eta asmatu</h3><span class="sc">'+(st.eok||0)+' asmatuta</span></div>'+
+        (canSay
+          ? '<button type="button" class="jk-play" id="ePlay" aria-label="Escuchar">🔊</button>'+
+            '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-i="'+o.i+'">'+o.es+'</button>'; }).join('')+'</div>'+
+            '<div class="jk-hint" id="eHint"><button type="button" class="jk-repeat" id="eRep">🔊 Repetir</button></div>'
+          : '<div class="jk-note">Para este reto de oído hace falta voz del navegador (Web Speech API). Ábrelo en Chrome, Edge o Safari.</div>');
+      if(canSay){ document.getElementById('ePlay').onclick=ePlay; document.getElementById('eRep').onclick=ePlay; if(autoplay) setTimeout(ePlay,200); }
+    }
+    elEntzun.addEventListener('click', function(e){
+      var b=e.target.closest('.jk-opt'); if(!b || eLock || !eCur) return;
+      eLock=true;
+      var ok=(+b.getAttribute('data-i'))===eCur.i;
+      st.etot=(st.etot||0)+1;
+      Array.prototype.forEach.call(elEntzun.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-i'))===eCur.i) o.classList.add('ok'); });
+      var hint=document.getElementById('eHint');
+      if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
+      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
+      save(); refresh();
+      setTimeout(function(){ newEntzun(true); }, 1500);
+    });
+
+    /* ── Lotu · parejas ── */
+    var lSel=null, lLeft=0;
+    function newLotu(){
+      if(WORDS.length<5){ elLotu.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
+      var pairs=sample(WORDS,5); lLeft=pairs.length; lSel=null;
+      function col(arr,lang){ return arr.map(function(w){ return '<button type="button" class="jk-tile '+lang+'" data-i="'+w.i+'" data-l="'+lang+'">'+(lang==='eu'?w.eu:w.es)+'</button>'; }).join(''); }
+      elLotu.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">🃏</span>Lotu · empareja</h3><span class="sc">'+(st.lotu||0)+' rondas</span></div>'+
+        '<div class="jk-lotu"><div class="jk-lcol">'+col(shuffle(pairs),'eu')+'</div><div class="jk-lcol">'+col(shuffle(pairs),'es')+'</div></div>'+
+        '<div class="jk-note" id="lNote">Toca una palabra en euskera y su pareja en castellano.</div>';
+    }
+    elLotu.addEventListener('click', function(e){
+      var t=e.target.closest('.jk-tile'); if(!t || t.classList.contains('done')) return;
+      if(!lSel){ lSel=t; t.classList.add('sel'); return; }
+      if(t===lSel){ t.classList.remove('sel'); lSel=null; return; }
+      if(t.getAttribute('data-l')===lSel.getAttribute('data-l')){ lSel.classList.remove('sel'); lSel=t; t.classList.add('sel'); return; }
+      if(t.getAttribute('data-i')===lSel.getAttribute('data-i')){
+        t.classList.add('done'); lSel.classList.remove('sel'); lSel.classList.add('done'); lSel=null; lLeft--;
+        if(lLeft===0){
+          st.lotu=(st.lotu||0)+1; st.xp=(st.xp||0)+10; save(); refresh();
+          var n=document.getElementById('lNote'); if(n){ n.innerHTML='<b style="color:var(--sea)">Osatuta! ✓</b> +10 XP · <button type="button" class="jk-repeat" id="lNew">Beste bat →</button>'; var nb=document.getElementById('lNew'); if(nb) nb.onclick=newLotu; }
+        }
+      } else {
+        var a=lSel, b=t; a.classList.add('bad'); b.classList.add('bad');
+        setTimeout(function(){ a.classList.remove('bad','sel'); b.classList.remove('bad'); }, 350);
+        lSel=null;
+      }
+    });
+
+    /* ── conmutador de sub-vista Bukle / Jokoa ── */
+    var VK='euskara-ent-view';
+    function showView(v){
+      var jk=v==='joko';
+      loop.hidden=jk; joko.hidden=!jk;
+      segL.classList.toggle('on',!jk); segJ.classList.toggle('on',jk);
+      segL.setAttribute('aria-selected',String(!jk)); segJ.setAttribute('aria-selected',String(jk));
+      try{ localStorage.setItem(VK,v); }catch(e){}
+      if(jk){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); refresh(); ePlay(); }
+    }
+    segL.addEventListener('click', function(){ showView('loop'); });
+    segJ.addEventListener('click', function(){ showView('joko'); });
+
+    refresh(); newEntzun(false); newLotu();
+    if(window.PLANA) PLANA.onChange(refresh);
+    if(window.MEMORIA) MEMORIA.onChange(refresh);
+    if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ st=v; refresh(); } }, function(){ return st; });
+
+    var last=''; try{ last=localStorage.getItem(VK)||''; }catch(e){}
+    if(last==='joko') showView('joko');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 
