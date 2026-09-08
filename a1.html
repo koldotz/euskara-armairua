@@ -2123,7 +2123,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
     /* tiempo que la solución queda visible antes de pasar a la siguiente:
        generoso al acertar y aún más largo al fallar, para leer la correcta */
-    function advMs(ok){ return ok ? 2600 : 4200; }
+    function advMs(ok){ return ok ? 5000 : 4200; }
 
     var KEY='euskara-jokoa-v1', st=load();
     function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0,egia:0,sailkatu:0}; }
