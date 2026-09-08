@@ -646,6 +646,15 @@ section.cal{margin-top:34px}
 #app-koadernoa .txt p + p{margin-top:9px}
 #app-koadernoa .txt .ttl{font-family:var(--f-display); font-size:17px; font-weight:600; color:var(--sea); margin-bottom:8px}
 #app-koadernoa .gloss{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:11px; border-top:1px solid rgba(0,0,0,.08); padding-top:8px}
+/* ── Irakurmena · análisis resuelto (morfemas) ── */
+#app-koadernoa .anal .anal-s{border-top:1px solid var(--line); padding:12px 0}
+#app-koadernoa .anal .anal-s:first-child{border-top:0; padding-top:4px}
+#app-koadernoa .anal .anal-s .eu{font-family:var(--f-body); font-size:15.5px; color:var(--ink); line-height:1.5}
+#app-koadernoa .anal .anal-s .eu .es{font-family:var(--f-ui); font-size:13px; color:var(--muted)}
+#app-koadernoa .anal .anal-s .mor{font-family:var(--f-mono); font-size:13px; color:var(--ink-2); margin-top:5px; line-height:1.65}
+#app-koadernoa .anal .anal-s .mor b{color:var(--sea); font-weight:500}
+#app-koadernoa .anal .anal-s .mor i{color:var(--iron); font-style:normal}
+#app-koadernoa .anal .anal-s .gr{font-family:var(--f-ui); font-size:13px; color:var(--muted); margin-top:5px; line-height:1.55}
 
 #app-koadernoa .exam{border:2px solid var(--ink); border-radius:var(--r); overflow:hidden; margin-top:30px}
 #app-koadernoa .exam .eh{background:var(--ink); color:var(--ground); padding:14px 18px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px}
@@ -2827,7 +2836,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <div class="shell">
 <nav class="toc"><div class="inner">
   <div class="brand">Ariketen<br><span>Koadernoa</span></div>
-  <div class="sub">A1 · 8 koaderno + 3 azterketa</div>
+  <div class="sub">A1 · 8 koaderno · irakurmena · 3 azterketa</div>
   <div class="grp">Koadernoak</div>
   <ol>
     <li><a href="#k1"><span class="n">1</span>Izan, -a/-ak, erakusleak</a></li>
@@ -2838,6 +2847,12 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     <li><a href="#k6"><span class="n">6</span>NORI eta nor-nori-nork</a></li>
     <li><a href="#k7"><span class="n">7</span>NOREKIN, -Z, menderakuntza</a></li>
     <li><a href="#k8"><span class="n">8</span>Errepaso orokorra</a></li>
+  </ol>
+  <div class="grp">Irakurmena</div>
+  <ol>
+    <li><a href="#kir1"><span class="n">I</span>Nor naiz · NOR</a></li>
+    <li><a href="#kir2"><span class="n">II</span>Nire familia · NORK</a></li>
+    <li><a href="#kir3"><span class="n">III</span>Lagunei · NOR-NORI-NORK</a></li>
   </ol>
   <div class="grp">Azterketak</div>
   <ol>
@@ -3706,6 +3721,118 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     </ol></div></details>
   </div>
 </div></section>
+<section class="unit" id="kir1"><div class="wrap">
+  <div class="uhead"><span class="n">I</span><h2>Irakurmena · Nor naiz</h2><span class="tag">NOR · bloque 1</span></div>
+  <p class="uintro">Comprensión lectora adaptada a tu nivel: textos cortos (un minuto de lectura) hechos con las mismas frases de los cuadernos. Lee primero el <b>caso práctico</b>, entiéndelo, y abre después el <b>análisis resuelto</b>, donde cada frase se desmenuza morfema a morfema.</p>
+
+  <div class="txt">
+    <div class="ttl">1. kasua · Aurkezpena</div>
+    <p>— Kaixo! Zer moduz zaude? — Ondo, eskerrik asko. Ni Maialen naiz, eta Donostiakoa naiz.</p>
+    <p>Hau nire etxea da. Nire lagunak Ane du izena. Gu ikasleak gara. Zu ez zara irakaslea, ezta? Liburu haiek berriak dira. — Nor da gizon hori? — Nire irakaslea da.</p>
+    <p class="gloss"><b>ezta?</b> ¿verdad? · <b>gizon</b> hombre · <b>irakasle</b> profesor/a · <b>ikasle</b> estudiante</p>
+  </div>
+  <details class="sol"><summary>Análisis resuelto · morfemak</summary><div class="in anal">
+    <div class="anal-s"><p class="eu"><b>Zer moduz zaude?</b> <span class="es">— ¿Qué tal estás?</span></p>
+      <p class="mor"><b>Zer moduz</b> = qué tal · <b>zaude</b> = estás (EGON sintético · zu)</p>
+      <p class="gr">Saludo fijo. «zaude» es el presente sintético de EGON para «zu».</p></div>
+    <div class="anal-s"><p class="eu"><b>Ni Donostiakoa naiz.</b> <span class="es">— Yo soy de Donostia.</span></p>
+      <p class="mor"><b>Donostia</b> + <b>-ko</b> (de dónde · NONGO) + <b>-a</b> (art.) · <b>naiz</b> = soy (IZAN · NOR: ni)</p>
+      <p class="gr">NONGO (-ko) responde a «¿de dónde eres?». Se pega -ko y detrás el artículo -a: Donostia → Donostiako → Donostiakoa.</p></div>
+    <div class="anal-s"><p class="eu"><b>Hau nire etxea da.</b> <span class="es">— Esta es mi casa.</span></p>
+      <p class="mor"><b>hau</b> = este/esto · <b>nire</b> = mi (NOREN) · <b>etxe</b> + <b>-a</b> (art.) · <b>da</b> = es (IZAN · hura)</p>
+      <p class="gr">El demostrativo «hau» va delante y el núcleo toma el artículo -a: etxe → etxea.</p></div>
+    <div class="anal-s"><p class="eu"><b>Nire lagunak Ane du izena.</b> <span class="es">— Mi amiga se llama Ane.</span></p>
+      <p class="mor"><b>lagun</b> + <b>-ak</b> (NORK · sujeto ergativo sing.) · <b>Ane</b> · <b>du</b> = ha/tiene (UKAN · hark) · <b>izena</b> = el nombre</p>
+      <p class="gr">Fórmula «X-(e)k Y du izena» = «X se llama Y». Ojo: aquí -ak es el ergativo singular (NORK), no el plural.</p></div>
+    <div class="anal-s"><p class="eu"><b>Gu ikasleak gara.</b> <span class="es">— Nosotros somos estudiantes.</span></p>
+      <p class="mor"><b>gu</b> = nosotros · <b>ikasle</b> + <b>-ak</b> (art. plural) · <b>gara</b> = somos (IZAN · gu)</p>
+      <p class="gr">El atributo concuerda en plural: «ikasleak». -ak = plural determinado.</p></div>
+    <div class="anal-s"><p class="eu"><b>Zu ez zara irakaslea.</b> <span class="es">— Tú no eres profesora.</span></p>
+      <p class="mor"><b>ez</b> (neg.) · <b>zara</b> = eres (IZAN · zu) · <b>irakasle</b> + <b>-a</b> (art.)</p>
+      <p class="gr">La negación «ez» va delante del verbo: ez + zara.</p></div>
+    <div class="anal-s"><p class="eu"><b>Liburu haiek berriak dira.</b> <span class="es">— Aquellos libros son nuevos.</span></p>
+      <p class="mor"><b>liburu</b> · <b>haiek</b> = aquellos (dem. pl.) · <b>berri</b> + <b>-ak</b> (adj. + art. pl.) · <b>dira</b> = son (IZAN · haiek)</p>
+      <p class="gr">El adjetivo va tras el núcleo y toma el plural: berri → berriak. Con «haiek», todo en plural.</p></div>
+    <div class="anal-s"><p class="eu"><b>Nor da gizon hori?</b> <span class="es">— ¿Quién es ese hombre?</span></p>
+      <p class="mor"><b>Nor</b> = quién · <b>da</b> = es · <b>gizon</b> + <b>hori</b> = ese hombre</p>
+      <p class="gr">Orden del sintagma: núcleo + demostrativo (gizon hori). «Nor» pregunta por personas.</p></div>
+  </div></details>
+</div></section>
+
+<section class="unit" id="kir2"><div class="wrap">
+  <div class="uhead"><span class="n">II</span><h2>Irakurmena · Nire familia eta gaurko eguna</h2><span class="tag">NORK · bloque 3</span></div>
+
+  <div class="txt">
+    <div class="ttl">2. kasua · Familia eta eguna</div>
+    <p>Bi anaia eta arreba bat ditut. — Zenbat urte dituzu? — Hogeita hamar ditut. Gaur amak ogia erosi du, eta haurrek ura edan dute.</p>
+    <p>Nik gaur ez daukat denborarik. — Kotxerik ba al duzu? — Ez, ez dut. Egia esan, ez dut ezer ikusi. Guk ez dakigu euskaraz oso ondo, baina ikasten ari gara.</p>
+    <p class="gloss"><b>gaur</b> hoy · <b>egia esan</b> la verdad · <b>baina</b> pero · <b>ari gara</b> estamos (haciendo)</p>
+  </div>
+  <details class="sol"><summary>Análisis resuelto · morfemak</summary><div class="in anal">
+    <div class="anal-s"><p class="eu"><b>Bi anaia eta arreba bat ditut.</b> <span class="es">— Tengo dos hermanos y una hermana.</span></p>
+      <p class="mor"><b>bi anaia</b> = dos hermanos · <b>arreba bat</b> = una hermana · <b>ditut</b> = tengo (UKAN · nik · objeto plural)</p>
+      <p class="gr">Tras un número, el nombre va en singular y sin artículo: «bi anaia». Como el objeto es «varios», el verbo es «ditut».</p></div>
+    <div class="anal-s"><p class="eu"><b>Zenbat urte dituzu? — Hogeita hamar ditut.</b> <span class="es">— ¿Cuántos años tienes? — Tengo treinta.</span></p>
+      <p class="mor"><b>zenbat urte</b> = cuántos años · <b>dituzu</b> = tienes (UKAN · zuk · obj. pl.) · <b>hogeita hamar</b> = treinta · <b>ditut</b> = tengo</p>
+      <p class="gr">La edad se dice con UKAN: «...urte ditut». «zenbat» pide el nombre en singular.</p></div>
+    <div class="anal-s"><p class="eu"><b>Amak ogia erosi du.</b> <span class="es">— Mi madre ha comprado el pan.</span></p>
+      <p class="mor"><b>ama</b> + <b>-k</b> (NORK · ergativo) · <b>ogi</b> + <b>-a</b> (objeto) · <b>erosi</b> (part.) · <b>du</b> = ha (UKAN · hark)</p>
+      <p class="gr">El sujeto de un verbo con objeto lleva -k (ergativo): ama → amak. Es el giro clave del euskera.</p></div>
+    <div class="anal-s"><p class="eu"><b>Haurrek ura edan dute.</b> <span class="es">— Los niños han bebido agua.</span></p>
+      <p class="mor"><b>haur</b> + <b>-ek</b> (NORK plural) · <b>ur</b> + <b>-a</b> (objeto) · <b>edan</b> · <b>dute</b> = han (UKAN · haiek)</p>
+      <p class="gr">Ergativo plural: haur → haurrek. «dute» = ellos/ellas han.</p></div>
+    <div class="anal-s"><p class="eu"><b>Gaur ez daukat denborarik.</b> <span class="es">— No tengo tiempo hoy.</span></p>
+      <p class="mor"><b>ez</b> · <b>daukat</b> = tengo (EDUKI sintético · nik) · <b>denbora</b> + <b>-rik</b> (partitivo)</p>
+      <p class="gr">En negativa el objeto toma el partitivo -rik: denbora → denborarik.</p></div>
+    <div class="anal-s"><p class="eu"><b>Kotxerik ba al duzu? — Ez, ez dut.</b> <span class="es">— ¿Tienes coche? — No, no tengo.</span></p>
+      <p class="mor"><b>kotxe</b> + <b>-rik</b> (partitivo) · <b>ba al duzu?</b> = ¿tienes? · <b>ez dut</b> = no (tengo)</p>
+      <p class="gr">Pregunta de sí/no con «ba al...?». En pregunta y en negación, el objeto va en partitivo -rik.</p></div>
+    <div class="anal-s"><p class="eu"><b>Ez dut ezer ikusi.</b> <span class="es">— No he visto nada.</span></p>
+      <p class="mor"><b>ez</b> · <b>dut</b> (UKAN · nik) · <b>ezer</b> = nada · <b>ikusi</b> (part.)</p>
+      <p class="gr">«ezer» (nada) exige el verbo en negativa: ez dut ... ikusi.</p></div>
+    <div class="anal-s"><p class="eu"><b>Guk ez dakigu euskaraz.</b> <span class="es">— Nosotros no sabemos euskera.</span></p>
+      <p class="mor"><b>gu</b> + <b>-k</b> (NORK) · <b>ez</b> · <b>dakigu</b> = sabemos (JAKIN sintético · guk) · <b>euskara</b> + <b>-z</b> (medio)</p>
+      <p class="gr">«euskaraz» = en euskera (sufijo -z). «dakigu» es la forma sintética de JAKIN.</p></div>
+  </div></details>
+</div></section>
+
+<section class="unit" id="kir3"><div class="wrap">
+  <div class="uhead"><span class="n">III</span><h2>Irakurmena · Lagunen artean</h2><span class="tag">NOR-NORI-NORK · bloque 6</span></div>
+
+  <div class="txt">
+    <div class="ttl">3. kasua · Lagunen artean</div>
+    <p>Niri euskara asko gustatzen zait. Aneri liburua eman diot. — Zer esan diozu Mikeli? — Amak kamiseta bat erosi dit.</p>
+    <p>Haurrei ez zaizkie barazkiak gustatzen. Bihar nire etxea erakutsiko dizut. Giltzak bidali dizkigute. — Lagunduko didazu?</p>
+    <p class="gloss"><b>barazki</b> verdura · <b>giltza</b> llave · <b>bihar</b> mañana · <b>artean</b> entre</p>
+  </div>
+  <details class="sol"><summary>Análisis resuelto · morfemak</summary><div class="in anal">
+    <div class="anal-s"><p class="eu"><b>Niri euskara asko gustatzen zait.</b> <span class="es">— A mí me gusta mucho el euskera.</span></p>
+      <p class="mor"><b>ni</b> + <b>-ri</b> (NORI · dativo) · <b>euskara</b> (sujeto) · <b>gustatzen</b> · <b>zait</b> = me (gusta) (NOR-NORI: hura→niri)</p>
+      <p class="gr">Verbos tipo «gustatu»: lo que gusta es el sujeto (euskara) y la persona va en dativo: niri ... zait.</p></div>
+    <div class="anal-s"><p class="eu"><b>Aneri liburua eman diot.</b> <span class="es">— Le he dado el libro a Ane.</span></p>
+      <p class="mor"><b>Ane</b> + <b>-ri</b> (NORI) · <b>liburu</b> + <b>-a</b> (NOR · objeto) · <b>eman</b> · <b>diot</b> = se lo he (nik → hari)</p>
+      <p class="gr">NOR-NORI-NORK: el verbo lleva quién (yo), a quién (a él/ella) y qué (una cosa). «diot» = yo... a él/ella.</p></div>
+    <div class="anal-s"><p class="eu"><b>Zer esan diozu Mikeli?</b> <span class="es">— ¿Qué le has dicho a Mikel?</span></p>
+      <p class="mor"><b>zer</b> · <b>esan</b> · <b>diozu</b> = le has (zuk → hari) · <b>Mikel</b> + <b>-i</b> (NORI)</p>
+      <p class="gr">«diozu» = tú... a él/ella. El dativo sobre nombre propio: Mikel → Mikeli.</p></div>
+    <div class="anal-s"><p class="eu"><b>Amak kamiseta bat erosi dit.</b> <span class="es">— Mi madre me ha comprado una camiseta.</span></p>
+      <p class="mor"><b>ama</b> + <b>-k</b> (NORK) · <b>kamiseta bat</b> (objeto) · <b>erosi</b> · <b>dit</b> = me lo ha (hark → niri)</p>
+      <p class="gr">«dit» = él/ella... a mí. El sujeto es ergativo (amak) y el receptor «a mí» va dentro del verbo.</p></div>
+    <div class="anal-s"><p class="eu"><b>Haurrei ez zaizkie barazkiak gustatzen.</b> <span class="es">— A los niños no les gustan las verduras.</span></p>
+      <p class="mor"><b>haur</b> + <b>-ei</b> (NORI plural) · <b>ez</b> · <b>zaizkie</b> = (no) les (gustan) · <b>barazki</b> + <b>-ak</b> (sujeto plural)</p>
+      <p class="gr">El sujeto plural (barazkiak) obliga al verbo plural «zaizkie»: a ellos (haurrei) no les gustan.</p></div>
+    <div class="anal-s"><p class="eu"><b>Nire etxea erakutsiko dizut.</b> <span class="es">— Te voy a enseñar mi casa.</span></p>
+      <p class="mor"><b>nire etxea</b> (objeto) · <b>erakutsi</b> + <b>-ko</b> (futuro) · <b>dizut</b> = te lo (nik → zuri)</p>
+      <p class="gr">Futuro con -ko: erakutsi → erakutsiko. «dizut» = yo... a ti.</p></div>
+    <div class="anal-s"><p class="eu"><b>Giltzak bidali dizkigute.</b> <span class="es">— Nos han enviado las llaves.</span></p>
+      <p class="mor"><b>giltza</b> + <b>-k</b> (objeto plural) · <b>bidali</b> · <b>dizkigute</b> = nos las han (haiek → guri · obj. pl.)</p>
+      <p class="gr">Objeto plural + «a nosotros»: «dizkigute» (ellos... a nosotros... varias cosas).</p></div>
+    <div class="anal-s"><p class="eu"><b>Lagunduko didazu?</b> <span class="es">— ¿Me puedes ayudar?</span></p>
+      <p class="mor"><b>lagundu</b> + <b>-ko</b> (futuro) · <b>didazu</b> = me (zuk → niri)</p>
+      <p class="gr">«didazu» = tú... a mí. Petición cortés en futuro: «¿me ayudarás/ayudas?».</p></div>
+  </div></details>
+</div></section>
+
 <section class="unit" id="a1"><div class="wrap">
   <div class="uhead"><span class="n">A</span><h2>1. simulazioa</h2><span class="tag">Eguna 24 · 75 min</span></div>
   <p class="uintro">Formato de la evaluación A1: cuatro destrezas, 100 puntos. Hazlo cronometrado y de una sentada.</p>
