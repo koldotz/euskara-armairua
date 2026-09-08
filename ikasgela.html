@@ -114,6 +114,10 @@ main{padding-bottom:70px}
 .alt-t td.n{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
 .alt-t tr.sep td{border-top:2px solid var(--line-strong)}
 .alt-sub b{color:var(--ink); font-weight:600}
+.tscroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+.card .tscroll table{margin-top:0}
+.alt-t td{white-space:nowrap}
+.alt-t td:last-child{white-space:normal; padding-left:10px}
 .card.warned{border-left:3px solid var(--gold)}
 .card.warned .eu::after{content:" ⚠️"; font-size:12px}
 .empty{text-align:center; padding:50px 20px; color:var(--muted); font-family:var(--f-ui)}
@@ -241,9 +245,9 @@ var PAT=[
     NORK:     [['etxe · sg','etxeak','la casa'],['etxe · pl','etxeek','las casas'],['lan · sg','lanak','el trabajo'],['lan · pl','lanek','los trabajos']],
     NORI:     [['etxe · sg','etxeari','a la casa'],['etxe · pl','etxeei','a las casas'],['lan · sg','lanari','al trabajo'],['lan · pl','lanei','a los trabajos']],
     NOREN:    [['etxe · sg','etxearen','de la casa'],['etxe · pl','etxeen','de las casas'],['lan · sg','lanaren','del trabajo'],['lan · pl','lanen','de los trabajos']],
-    NON:      [['etxe · sg','etxean','en la casa'],['etxe · pl','etxeetan','en las casas'],['lan · sg','lanean','en el trabajo'],['lan · pl','lanetan','en los trabajos']],
-    NORA:     [['etxe · sg','etxera','a (la) casa'],['etxe · pl','etxeetara','a las casas'],['lan · sg','lanera','al trabajo'],['lan · pl','lanetara','a los trabajos']],
-    NONDIK:   [['etxe · sg','etxetik','desde (la) casa'],['etxe · pl','etxeetatik','desde las casas'],['lan · sg','lanetik','del trabajo'],['lan · pl','lanetatik','de los trabajos']],
+    NON:      [['etxe · sg','etxean','en la casa'],['etxe · pl','etxeetan','en las casas'],['lan · sg','lanean','en el trabajo'],['lan · pl','lanetan','en los trabajos'],['lagun · sg','lagunarengan','en el amigo'],['lagun · pl','lagunengan','en los amigos']],
+    NORA:     [['etxe · sg','etxera','a (la) casa'],['etxe · pl','etxeetara','a las casas'],['lan · sg','lanera','al trabajo'],['lan · pl','lanetara','a los trabajos'],['lagun · sg','lagunarengana','hacia el amigo'],['lagun · pl','lagunengana','hacia los amigos']],
+    NONDIK:   [['etxe · sg','etxetik','desde (la) casa'],['etxe · pl','etxeetatik','desde las casas'],['lan · sg','lanetik','del trabajo'],['lan · pl','lanetatik','de los trabajos'],['lagun · sg','lagunarengandik','del amigo'],['lagun · pl','lagunengandik','de los amigos']],
     NOREKIN:  [['etxe · sg','etxearekin','con la casa'],['etxe · pl','etxeekin','con las casas'],['lan · sg','lanarekin','con el trabajo'],['lan · pl','lanekin','con los trabajos']],
     NORENTZAT:[['etxe · sg','etxearentzat','para la casa'],['etxe · pl','etxeentzat','para las casas'],['lan · sg','lanarentzat','para el trabajo'],['lan · pl','lanentzat','para los trabajos']],
     NONGO:    [['etxe · sg','etxeko','de (la) casa'],['etxe · pl','etxeetako','de las casas'],['lan · sg','laneko','del trabajo'],['lan · pl','lanetako','de los trabajos']],
@@ -293,11 +297,11 @@ var PAT=[
     var h='';
     if(e.fun) h+='<div class="fun">'+e.fun+'</div>';
     if(e.t){
-      h+='<table><thead><tr>';
+      h+='<div class="tscroll"><table><thead><tr>';
       (e.head||[]).forEach(function(c){ h+='<th>'+esc(c)+'</th>'; });
       h+='</tr></thead><tbody>';
       e.t.forEach(function(r){ h+='<tr>'; r.forEach(function(c,i){ var f=(e.head&&e.head.length>2&&i>0)||(e.head&&e.head.length===2&&i===1); h+='<td'+(f?' class="f"':'')+'>'+esc(c)+'</td>'; }); h+='</tr>'; });
-      h+='</tbody></table>';
+      h+='</tbody></table></div>';
     }
     if(e.ex){
       h+='<div class="ex">';
@@ -306,15 +310,18 @@ var PAT=[
     }
     return h;
   }
+  var WDESC={etxe:'etxe (casa, vocal)', lan:'lan (trabajo, cons.)', lagun:'lagun (amigo, animado)'};
   function altBodyHTML(rows){
-    var h='<div class="alt-sub">Deklinatuta · <b>etxe</b> (casa, vocal) / <b>lan</b> (trabajo, cons.)</div>';
-    h+='<table class="alt-t"><thead><tr><th></th><th>euskara</th><th>castellano</th></tr></thead><tbody>';
+    var words=[], seen={};
+    rows.forEach(function(r){ var w=String(r[0]).split(' ')[0]; if(!seen[w]){ seen[w]=1; words.push(WDESC[w]||w); } });
+    var h='<div class="alt-sub">Deklinatuta · '+esc(words.join(' / '))+'</div>';
+    h+='<div class="tscroll"><table class="alt-t"><thead><tr><th></th><th>euskara</th><th>castellano</th></tr></thead><tbody>';
     var prev='';
     rows.forEach(function(r){
       var w=String(r[0]).split(' ')[0], sep=(prev && w!==prev)?' class="sep"':''; prev=w;
       h+='<tr'+sep+'><td class="n">'+esc(r[0])+'</td><td class="f">'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>';
     });
-    h+='</tbody></table>';
+    h+='</tbody></table></div>';
     return h;
   }
   function cardHTML(e){

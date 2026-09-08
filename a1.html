@@ -1082,6 +1082,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .jk-tok{font-family:var(--f-mono); font-size:14px; color:var(--ink); background:var(--ground); border:1px solid var(--line-strong); border-radius:var(--r); padding:9px 13px; cursor:pointer}
 .jk-tok:hover:not(:disabled){border-color:var(--sea)}
 .jk-tok.used{opacity:.3; cursor:default}
+.jk-tf .jk-opt{font-weight:600; font-size:15px; padding:14px}
 </style>
 
 <section class="mem" id="memoria">
@@ -1787,6 +1788,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
         <div class="jk-game" id="jkOsatu"></div>
         <div class="jk-game" id="jkAukeratu"></div>
         <div class="jk-game" id="jkOrdena"></div>
+        <div class="jk-game" id="jkEgia"></div>
+        <div class="jk-game" id="jkSailkatu"></div>
       </div>
     </div>
   </div>
@@ -2091,7 +2094,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     }catch(e){}
 
     var KEY='euskara-jokoa-v1', st=load();
-    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0}; }
+    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0,egia:0,sailkatu:0}; }
     function save(){ if(window.HUB && HUB.save) HUB.save('jokoa', KEY, st); else try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
     /* racha por fecha real */
@@ -2111,7 +2114,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     var elProg=document.getElementById('jkProg'), elBadges=document.getElementById('jkBadges'),
         elEntzun=document.getElementById('jkEntzun'), elLotu=document.getElementById('jkLotu'),
         elOsatu=document.getElementById('jkOsatu'), elAukeratu=document.getElementById('jkAukeratu'),
-        elOrdena=document.getElementById('jkOrdena');
+        elOrdena=document.getElementById('jkOrdena'),
+        elEgia=document.getElementById('jkEgia'), elSailkatu=document.getElementById('jkSailkatu');
 
     function renderProg(){
       var xp=totalXP(), i=0; for(var k=0;k<LV.length;k++){ if(xp>=LV[k].xp) i=k; }
@@ -2194,7 +2198,22 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       { nm:'N5', t:'Aditz-atzizkiak', es:'aspecto: -tu / -tzen / -ko', teoria:'geruzak.html#s11', items:[
         ['jan','comer / comido'],['jaten','como (habitual)'],['jango','comeré'],
         ['etorri','venir'],['etortzen','vengo (habitual)'],['etorriko','vendré'],
-        ['ikasten','estudio (habitual)'],['ikasiko','estudiaré'],['egiten','hago'],['egingo','haré'] ]}
+        ['ikasten','estudio (habitual)'],['ikasiko','estudiaré'],['egiten','hago'],['egingo','haré'] ]},
+      { nm:'N6', t:'Posposizioak', es:'posposiciones de lugar', teoria:'geruzak.html#s16', items:[
+        ['gainean','encima'],['azpian','debajo'],['ondoan','al lado'],['aurrean','delante'],['atzean','detrás'],
+        ['artean','entre'],['inguruan','alrededor'],['barruan','dentro'],['kanpoan','fuera'],['parean','enfrente'] ]},
+      { nm:'N7', t:'IZAN · NOR', es:'ser/estar (presente)', teoria:'geruzak.html#s9', items:[
+        ['ni naiz','yo soy'],['zu zara','tú eres'],['hura da','él/ella es'],['gu gara','nosotros somos'],
+        ['zuek zarete','vosotros sois'],['haiek dira','ellos son'],['ez naiz','no soy'],['non zaude','dónde estás'] ]},
+      { nm:'N8', t:'UKAN · NOR-NORK', es:'haber/tener (presente)', teoria:'geruzak.html#s10', items:[
+        ['nik dut','yo (lo) tengo'],['zuk duzu','tú tienes'],['hark du','él tiene'],['guk dugu','nosotros tenemos'],
+        ['zuek duzue','vosotros tenéis'],['haiek dute','ellos tienen'],['nik ditut','yo (los) tengo'],['ez dut','no tengo'] ]},
+      { nm:'N9', t:'Aditz trinkoak', es:'verbos sintéticos', teoria:'geruzak.html#s12', items:[
+        ['nago','estoy'],['dago','está'],['noa','voy'],['doa','va'],['nator','vengo'],['dator','viene'],
+        ['daukat','tengo'],['dakit','sé'],['dabil','anda'],['zaude','estás'] ]},
+      { nm:'N10', t:'Galdetzaileak eta lokailuak', es:'interrogativos y conectores', teoria:'geruzak.html#s19', items:[
+        ['nor','quién'],['zer','qué'],['non','dónde'],['nora','adónde'],['noiz','cuándo'],['nola','cómo'],
+        ['zenbat','cuánto'],['zergatik','por qué'],['baina','pero'],['edo','o'],['ere','también'],['beraz','así que'] ]}
     ];
     var OSATU=[
       {q:'Bilbo___ bizi naiz.', opts:['-n','-ko','-ra'], a:0, es:'Vivo en Bilbao.'},
@@ -2342,6 +2361,62 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       }
     });
 
+    /* ── Egia ala gezurra? · ¿verdadero o falso? ── */
+    var gCur=null, gTrue=false, gLock=false;
+    function newEgia(){
+      gLock=false;
+      if(WORDS.length<2){ elEgia.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
+      var pick=sample(WORDS,2), w=pick[0];
+      gTrue=Math.random()<0.5;
+      var shown=gTrue?w.es:pick[1].es;
+      gCur=w;
+      elEgia.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">⚖️</span>Egia ala gezurra?</h3><span class="sc">'+(st.egia||0)+' ondo</span></div>'+
+        '<div class="jk-prompt"><b>'+w.eu+'</b> = '+shown+'</div>'+
+        '<div class="jk-opts jk-tf"><button type="button" class="jk-opt" data-v="1">✓ Egia</button><button type="button" class="jk-opt" data-v="0">✗ Gezurra</button></div>'+
+        '<div class="jk-hint" id="gHint">¿La traducción es correcta?</div>';
+    }
+    elEgia.addEventListener('click', function(e){
+      var b=e.target.closest('.jk-opt'); if(!b || gLock || !gCur) return;
+      gLock=true; var said=b.getAttribute('data-v')==='1', ok=(said===gTrue);
+      Array.prototype.forEach.call(elEgia.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; });
+      b.classList.add(ok?'ok':'no');
+      var hint=document.getElementById('gHint');
+      if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
+      else { if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+gCur.eu+' = '+gCur.es; }
+      save(); refresh(); setTimeout(newEgia, 1300);
+    });
+
+    /* ── Sailkatu · ¿qué caso es? (reconocer la declinación) ── */
+    var SAILKA=[
+      ['etxean','NON'],['etxera','NORA'],['etxetik','NONDIK'],['etxeko','NONGO'],['etxearekin','NOREKIN'],
+      ['lanean','NON'],['lanera','NORA'],['lanetik','NONDIK'],['laneko','NONGO'],['lanarekin','NOREKIN'],
+      ['Bilbon','NON'],['Bilbora','NORA'],['Bilbotik','NONDIK'],['Bilboko','NONGO'],
+      ['etxeari','NORI'],['etxearen','NOREN'],['etxearentzat','NORENTZAT'],['autoz','-Z']
+    ];
+    var SCASE=['NOR','NORK','NORI','NOREN','NON','NORA','NONDIK','NONGO','NOREKIN','NORENTZAT','-Z'];
+    var sCur=null, sLock=false;
+    function newSailkatu(){
+      sLock=false;
+      var it=SAILKA[Math.floor(Math.random()*SAILKA.length)]; sCur=it;
+      var opts=[it[1]]; while(opts.length<4){ var c=SCASE[Math.floor(Math.random()*SCASE.length)]; if(opts.indexOf(c)<0) opts.push(c); }
+      opts=shuffle(opts);
+      elSailkatu.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">🗂️</span>Sailkatu · ¿qué caso?</h3><span class="sc">'+(st.sailkatu||0)+' ondo</span></div>'+
+        '<div class="jk-prompt"><b>'+it[0]+'</b></div>'+
+        '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-c="'+o+'">'+o+'</button>'; }).join('')+'</div>'+
+        '<div class="jk-hint" id="sHint">¿En qué caso está esta forma?</div>';
+    }
+    elSailkatu.addEventListener('click', function(e){
+      var b=e.target.closest('.jk-opt'); if(!b || sLock || !sCur) return;
+      sLock=true; var ok=b.getAttribute('data-c')===sCur[1];
+      Array.prototype.forEach.call(elSailkatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(o.getAttribute('data-c')===sCur[1]) o.classList.add('ok'); });
+      var hint=document.getElementById('sHint');
+      if(ok){ st.sailkatu=(st.sailkatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+sCur[0]+' → '+sCur[1]; }
+      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+sCur[0]+' → <b>'+sCur[1]+'</b>'; }
+      save(); refresh(); setTimeout(newSailkatu, 1500);
+    });
+
     /* ── conmutador de sub-vista Bukle / Jokoa ── */
     var VK='euskara-ent-view';
     function showView(v){
@@ -2355,7 +2430,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     segL.addEventListener('click', function(){ showView('loop'); });
     segJ.addEventListener('click', function(){ showView('joko'); });
 
-    refresh(); newEntzun(false); newLotu(); newOsatu(); newAukeratu(); newOrdena();
+    refresh(); newEntzun(false); newLotu(); newOsatu(); newAukeratu(); newOrdena(); newEgia(); newSailkatu();
     if(window.PLANA) PLANA.onChange(refresh);
     if(window.MEMORIA) MEMORIA.onChange(refresh);
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ st=v; refresh(); } }, function(){ return st; });
