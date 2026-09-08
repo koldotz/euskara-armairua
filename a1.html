@@ -707,7 +707,7 @@ section.cal{margin-top:34px}
   <button type="button" id="tab-egutegia" role="tab" aria-selected="false" aria-controls="app-egutegia"><span class="t"><i>📅</i>Egutegia</span><span class="c">Plan de 28 días</span></button>
   <button type="button" id="tab-hiztegia" role="tab" aria-selected="false" aria-controls="app-hiztegia"><span class="t"><i>🗃️</i>Hiztegia</span><span class="c">796 palabras</span></button>
   <button type="button" id="tab-koadernoa" role="tab" aria-selected="false" aria-controls="app-koadernoa"><span class="t"><i>✏️</i>Koadernoa</span><span class="c">Ariketak eta erantzunak</span></button>
-  <button type="button" id="tab-entzumena" role="tab" aria-selected="false" aria-controls="app-entzumena"><span class="t"><i>🎮</i>Jokoa</span><span class="c">Juegos y retos</span></button>
+  <button type="button" id="tab-jokoa" role="tab" aria-selected="false" aria-controls="app-jokoa"><span class="t"><i>🎮</i>Jokoa</span><span class="c">Juegos y retos</span></button>
   </nav>
   <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
   <a class="guide" href="gramatika.html">Gramatika <span>bilatu</span></a>
@@ -866,7 +866,7 @@ window.HUB = (function(){
       <a class="mat" href="#egutegia"><span class="mat-ic">📅</span><span class="mat-b"><span class="mat-t">Egutegia</span><span class="mat-d">Plan de 28 días, memoria gramatical y repaso</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#hiztegia"><span class="mat-ic">🗃️</span><span class="mat-b"><span class="mat-t">Hiztegia</span><span class="mat-d">796 palabras en flashcards, por temas</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#koadernoa"><span class="mat-ic">✏️</span><span class="mat-b"><span class="mat-t">Koadernoa</span><span class="mat-d">Ariketak eta erantzunak · 8 cuadernos + 3 simulacros</span></span><span class="mat-go">→</span></a>
-      <a class="mat" href="#entzumena"><span class="mat-ic">🎮</span><span class="mat-b"><span class="mat-t">Jokoa</span><span class="mat-d">Juegos de repaso y escucha en bucle de los recitados</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#jokoa"><span class="mat-ic">🎮</span><span class="mat-b"><span class="mat-t">Jokoa</span><span class="mat-d">Juegos de repaso y escucha en bucle de los recitados</span></span><span class="mat-go">→</span></a>
     </div>
   </div>
 </section>
@@ -955,7 +955,7 @@ window.HUB = (function(){
 .mi-know input{width:15px; height:15px; cursor:pointer; accent-color:var(--sea)}
 
 /* ── ENTZUMENA · reproductor de escucha en bucle ───────────────────── */
-#app-entzumena .wrap.ent{max-width:900px; margin:0 auto; padding:40px 24px 80px}
+#app-jokoa .wrap.ent{max-width:900px; margin:0 auto; padding:40px 24px 80px}
 .ent-hero{margin-bottom:24px}
 .ent-hero h1{font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; margin-top:6px}
 .ent-hero h1 em{font-style:normal; color:var(--sea)}
@@ -999,7 +999,7 @@ window.HUB = (function(){
 .ent-row .er-know{flex:none; background:none; border:1px solid var(--line-strong); border-radius:20px; padding:3px 11px; font-family:var(--f-ui); font-size:11.5px; font-weight:600; color:var(--muted); cursor:pointer; white-space:nowrap}
 .ent-row .er-know:hover{border-color:var(--sea); color:var(--sea)}
 .ent-row .er-know.on{background:var(--sea-soft); border-color:var(--sea); color:var(--sea)}
-@media (max-width:560px){ .ent-row .er-note{display:none} .epl-opts{gap:9px 12px} #app-entzumena .wrap.ent{padding:28px 16px 70px} }
+@media (max-width:560px){ .ent-row .er-note{display:none} .epl-opts{gap:9px 12px} #app-jokoa .wrap.ent{padding:28px 16px 70px} }
 @media (prefers-reduced-motion:reduce){ .epl-play.playing{animation:none} .ent-row{transition:none} }
 
 /* ── SELECTOR DE MATERIALES · al entrar en el nivel ───────────────── */
@@ -1556,7 +1556,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     var P = PL.P;
 
     var SKILLS = [
-      { id:'entzun', nm:'Entzumena',  es:'oído',        ic:'👂', ks:['entzun'],                              perc:1, href:'#entzumena', act:'Ponte oído',        nudge:'15 minutos de radio en euskera o una vuelta al bucle de Entzumena.' },
+      { id:'entzun', nm:'Entzumena',  es:'oído',        ic:'👂', ks:['entzun'],                              perc:1, href:'#jokoa', act:'Ponte oído',        nudge:'15 minutos de radio en euskera o una vuelta al bucle de Entzumena.' },
       { id:'mintza', nm:'Mintzamena', es:'habla',       ic:'🗣️', ks:['ahoskera','ahots'],                    perc:1, href:'#memoria',    act:'Recita en voz alta', nudge:'Recita los paradigmas en voz alta o grábate un minuto.' },
       { id:'idatzi', nm:'Idazmena',   es:'escritura',   ic:'✍️', ks:['idatzi'],                              perc:1, href:null,          act:null,                nudge:'Escribe 8–10 frases con lo de esta semana; corrige después.' },
       { id:'grama',  nm:'Gramatika',  es:'práctica',    ic:'📐', ks:['teoria','ariketa','errepaso','proba'], perc:0, href:'#koadernoa',  act:'Al koadernoa',      nudge:'Un ejercicio del koadernoa afianza lo visto.' },
@@ -1741,7 +1741,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 </script>
 </section>
 
-<section class="app" id="app-entzumena" role="tabpanel" aria-labelledby="tab-entzumena" hidden>
+<section class="app" id="app-jokoa" role="tabpanel" aria-labelledby="tab-jokoa" hidden>
   <div class="wrap ent">
     <header class="ent-hero">
       <div class="eyebrow">Jokoa · juega y escucha</div>
@@ -2175,7 +2175,14 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
     /* ── Entzun eta asmatu ── */
     var eCur=null, eLock=false;
-    function ePlay(){ if(eCur && window.ENTZUN && ENTZUN.say) ENTZUN.say(eCur.eu); }
+    function ePlay(){
+      if(!eCur || !window.ENTZUN || !ENTZUN.say) return;
+      /* no hablar si el panel Jokoa no está a la vista: evita que un temporizador
+         pendiente (auto-avance del reto de oído) suelte una voz al navegar por otras pestañas */
+      var panel=document.getElementById('app-jokoa');
+      if(!panel || panel.hidden || joko.hidden) return;
+      ENTZUN.say(eCur.eu);
+    }
     function newEntzun(autoplay){
       eLock=false;
       if(WORDS.length<4){ elEntzun.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; eCur=null; return; }
@@ -4168,7 +4175,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
 <script>
 (function(){
-  var TABS = ['egutegia','hiztegia','koadernoa','entzumena'];
+  var TABS = ['egutegia','hiztegia','koadernoa','jokoa'];
   var KEY = 'euskara-armairua-tab';
   var secs = {}, btns = {};
   TABS.forEach(function(t){
