@@ -885,6 +885,14 @@ window.HUB = (function(){
   </div>
 </header>
 
+<div class="saioa-cta">
+  <div class="saioa-txt">
+    <b>Saioa · sesión de estudio guiada</b>
+    <span id="saioaSub">Encadena, en un solo flujo, tu vocabulario pendiente, los recitados de memoria y el repaso del día.</span>
+  </div>
+  <button id="btnSaioa" type="button">▶ Empezar sesión</button>
+</div>
+
 <div class="alert">
   <h4>Antes de nada: cómo se saca el A1 de verdad</h4>
   <p>El A1 y el A2 <b>no tienen convocatoria abierta de examen</b> como el B1 o el C1. El certificado de A1 lo emite un <b>euskaltegi homologado por HABE</b> a partir de la evaluación que hacen sus propios profesores, y para acceder a ella hay que estar matriculada, haber cursado un mínimo de <b>50 horas lectivas</b> (30 en cursos de verano) y asistir al 75 % de las clases.</p>
@@ -1517,6 +1525,25 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     card.classList.toggle('known', cb.checked);
     save(); updateProg();
   });
+
+  /* ── API compartida para el modo sesión ── */
+  window.ERREPASOA = {
+    sessionItems: function(){
+      return unlocked(todayN()).filter(function(it){ return TEST[it.t]; }).map(function(it){
+        return {
+          id:  it._id,
+          cat: TLABEL[it.t],
+          q:   it.t === 'ariketa' ? it.q : it.eu,
+          a:   it.t === 'ariketa' ? it.a : it.es,
+          known: !!st.know[it._id]
+        };
+      });
+    },
+    mark: function(id, known){
+      if(known) st.know[id] = 1; else delete st.know[id];
+      save(); render();
+    }
+  };
 
   render();
   HUB.bind('errepasoa', KEY, function(v){ st=v||{know:{}}; render(); }, function(){ return st; });
@@ -2610,16 +2637,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   /* cola priorizada: primero lo más débil (caja baja), luego lo más
      atrasado y lo más fallado; azar solo para deshacer empates */
   function buildQueue(){
-    var q = pool().filter(function(w){ return due(w.i); }), t = today();
-    q.sort(function(a,b){
-      var ra = rec(a.i), rb = rec(b.i);
-      if (ra.b !== rb.b) return ra.b - rb.b;
-      var oa = t - ra.d, ob = t - rb.d;
-      if (ob !== oa) return ob - oa;
-      var la = ra.lp||0, lb = rb.lp||0;
-      if (lb !== la) return lb - la;
-      return Math.random() - 0.5;
-    });
+    var q = pool().filter(function(w){ return due(w.i); }).sort(bySort);
     queue = (sess > 0) ? q.slice(0, sess) : q;
     return queue;
   }
@@ -2771,10 +2789,29 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   refresh();
 
   /* ── API para el modo sesión y otros módulos ── */
+  function bySort(a, b){
+    var t = today(), ra = rec(a.i), rb = rec(b.i);
+    if (ra.b !== rb.b) return ra.b - rb.b;
+    var oa = t - ra.d, ob = t - rb.d;
+    if (ob !== oa) return ob - oa;
+    var la = ra.lp||0, lb = rb.lp||0;
+    if (lb !== la) return lb - la;
+    return Math.random() - 0.5;
+  }
   window.HIZTEGIA = {
     dueCount: function(){ return WORDS.filter(function(w){ return due(w.i); }).length; },
     total: function(){ return WORDS.length; },
-    focusReview: function(){ theme = -1; if (themeSel) themeSel.value = '-1'; setMode('study'); refresh(); }
+    focusReview: function(){ theme = -1; if (themeSel) themeSel.value = '-1'; setMode('study'); refresh(); },
+    // tarjetas pendientes priorizadas para el modo sesión (todos los temas)
+    sessionCards: function(limit){
+      var q = WORDS.filter(function(w){ return due(w.i); }).sort(bySort);
+      if (limit > 0) q = q.slice(0, limit);
+      return q.map(function(w){ return { i:w.i, eu:w.eu, es:w.es, tag:THEMES[w.t] }; });
+    },
+    // califica una palabra por índice (0 fallo · 1 cuesta · 2 bien); estado autoritativo aquí
+    grade: function(i, g){
+      var r = state[i] || fresh(); schedule(r, g); state[i] = r; save(); stats();
+    }
   };
 
   HUB.bind('hiztegia', KEY, function(v){ state = v; migrate(); refresh(); }, function(){ return state; });
@@ -4205,6 +4242,226 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 /* PWA · registra el service worker (offline en clase, instalable) */
 if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 </script>
+<!-- ═══ SAIOA · sesión de estudio transversal ═══ -->
+<style>
+.saioa-cta{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  margin:0 0 22px; padding:16px 18px; border:1px solid var(--line); border-radius:var(--r);
+  background:linear-gradient(180deg, var(--sea-soft), var(--surface));}
+.saioa-cta .saioa-txt{display:flex; flex-direction:column; gap:3px; min-width:min(100%,260px)}
+.saioa-cta .saioa-txt b{font-family:var(--f-ui); font-size:15px; color:var(--ink)}
+.saioa-cta .saioa-txt span{font-family:var(--f-ui); font-size:13px; color:var(--muted)}
+#btnSaioa{font-family:var(--f-ui); font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;
+  color:#fff; background:var(--sea); border:1px solid var(--sea); border-radius:var(--r); padding:11px 20px}
+#btnSaioa:hover{filter:brightness(1.06)}
+
+.saioa{position:fixed; inset:0; z-index:200; background:var(--ground); display:flex; flex-direction:column}
+.saioa-head{display:flex; align-items:center; gap:14px; padding:14px 20px; border-bottom:1px solid var(--line); background:var(--surface)}
+.saioa-crumbs{font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.saioa-track{flex:1; height:6px; border-radius:99px; background:var(--surface-2); overflow:hidden}
+.saioa-track i{display:block; height:100%; width:0; background:var(--sea); transition:width .25s ease}
+.saioa-count{font-family:var(--f-mono); font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums}
+.saioa-x{border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:var(--r); width:34px; height:34px; cursor:pointer; font-size:15px; line-height:1}
+.saioa-x:hover{border-color:var(--crit); color:var(--crit)}
+.saioa-body{flex:1; overflow:auto; display:flex; align-items:center; justify-content:center; padding:24px}
+.saioa-card{width:100%; max-width:520px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:30px 26px; text-align:center}
+.saioa-tag{font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sea); margin-bottom:16px}
+.saioa-front{font-family:var(--f-display); font-size:40px; line-height:1.1; color:var(--ink); word-break:break-word}
+.saioa-front.sm{font-size:26px}
+.saioa-note{font-family:var(--f-ui); font-size:14px; color:var(--muted); margin-top:10px}
+.saioa-back{margin-top:18px; padding-top:18px; border-top:1px dashed var(--line-strong); font-family:var(--f-body); font-size:22px; color:var(--ink-2)}
+.saioa-back.forms{font-family:var(--f-ui); font-size:18px; line-height:1.7}
+.saioa-back.forms b{color:var(--sea)}
+.saioa-actions{margin-top:24px}
+.saioa-b{font-family:var(--f-ui); font-size:15px; font-weight:600; cursor:pointer; border-radius:var(--r); padding:12px 16px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink)}
+.saioa-b small{display:block; font-family:var(--f-mono); font-size:9px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:3px}
+.saioa-b.wide{width:100%}
+.saioa-b.prim{background:var(--sea); border-color:var(--sea); color:#fff}
+.saioa-grade{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.saioa-grade.two{grid-template-columns:repeat(2,1fr)}
+.saioa-b.no:hover{border-color:var(--crit); background:var(--iron-soft)}
+.saioa-b.mid:hover{border-color:var(--gold); background:var(--gold-soft)}
+.saioa-b.yes:hover{border-color:var(--sea); background:var(--sea-soft)}
+.saioa-skip{display:block; margin:20px auto 0; border:0; background:none; cursor:pointer; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.saioa-skip:hover{color:var(--ink)}
+.saioa-msg h2{font-family:var(--f-display); font-size:30px; color:var(--ink); margin:0 0 12px}
+.saioa-msg p{font-family:var(--f-body); font-size:16px; color:var(--ink-2); margin:0 0 16px}
+.saioa-sum{list-style:none; padding:0; margin:0 0 22px; display:flex; flex-direction:column; gap:8px; font-family:var(--f-ui); font-size:15px; color:var(--ink-2)}
+.saioa-sum b{font-family:var(--f-mono); color:var(--sea)}
+@media (max-width:520px){ .saioa-front{font-size:30px} .saioa-card{padding:24px 18px} }
+</style>
+
+<div id="saioa" class="saioa" hidden role="dialog" aria-modal="true" aria-label="Sesión de estudio">
+  <header class="saioa-head">
+    <span class="saioa-crumbs" id="saioaStage">Saioa</span>
+    <div class="saioa-track"><i id="saioaBar"></i></div>
+    <span class="saioa-count" id="saioaCount">0 / 0</span>
+    <button class="saioa-x" id="saioaClose" aria-label="Cerrar sesión">✕</button>
+  </header>
+  <div class="saioa-body" id="saioaBody"></div>
+</div>
+
+<script>
+/* ── SAIOA · sesión de estudio transversal ───────────────────────────────
+   Encadena en un solo flujo: vocabulario pendiente (Hitzen Kutxa · SM-2),
+   recitados de memoria (Memoria Gramatikala) y repaso del día (Errepasoa).
+   No reimplementa los motores: usa window.HIZTEGIA / MEMORIA / ERREPASOA,
+   que conservan su propio estado y sincronización. */
+(function(){
+  var VOCAB_CAP = 20, MEM_CAP = 10, REV_CAP = 12;
+  var el = document.getElementById('saioa'),
+      body = document.getElementById('saioaBody'),
+      elStage = document.getElementById('saioaStage'),
+      elBar = document.getElementById('saioaBar'),
+      elCount = document.getElementById('saioaCount'),
+      btnStart = document.getElementById('btnSaioa'),
+      btnClose = document.getElementById('saioaClose'),
+      sub = document.getElementById('saioaSub');
+  if(!el || !btnStart) return;
+
+  var plan = [], pos = 0, flipped = false, tally = { vocab:0, mem:0, rev:0 };
+  function has(api){ return typeof window[api] !== 'undefined' && window[api]; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+
+  function pendingMem(){
+    if(!has('MEMORIA')) return [];
+    return MEMORIA.unlocked(MEMORIA.todayN()).filter(function(it){ return !MEMORIA.isKnown(it._id); });
+  }
+  function pendingRev(){
+    if(!has('ERREPASOA')) return [];
+    return ERREPASOA.sessionItems().filter(function(it){ return !it.known; });
+  }
+
+  function build(){
+    plan = []; pos = 0; tally = { vocab:0, mem:0, rev:0 };
+    if(has('HIZTEGIA')) HIZTEGIA.sessionCards(VOCAB_CAP).forEach(function(c){
+      plan.push({ stage:'Hiztegia · vocabulario', kind:'flash', c:c }); });
+    pendingMem().slice(0, MEM_CAP).forEach(function(it){
+      plan.push({ stage:'Memoria · recitados', kind:'recite', it:it }); });
+    pendingRev().slice(0, REV_CAP).forEach(function(it){
+      plan.push({ stage:'Errepasoa · repaso', kind:'quiz', it:it }); });
+  }
+
+  function updateSub(){
+    if(!sub) return;
+    var parts = [];
+    if(has('HIZTEGIA')) parts.push(HIZTEGIA.dueCount() + ' palabras');
+    var m = pendingMem().length; if(has('MEMORIA')) parts.push(m + ' recitados');
+    var r = pendingRev().length; if(has('ERREPASOA')) parts.push(r + ' repasos');
+    var pend = (has('HIZTEGIA') ? HIZTEGIA.dueCount() : 0) + m + r;
+    sub.textContent = pend
+      ? ('Pendiente hoy: ' + parts.join(' · ') + '.')
+      : 'Encadena tu vocabulario, recitados y repaso en un solo flujo.';
+  }
+
+  function open(){ build(); el.hidden = false; document.body.style.overflow = 'hidden'; render(); }
+  function close(){ el.hidden = true; document.body.style.overflow = ''; updateSub(); }
+
+  function progress(){
+    var n = plan.length;
+    elBar.style.width = (n ? (pos/n*100) : 0) + '%';
+    elCount.textContent = Math.min(pos+1, n) + ' / ' + n;
+  }
+  function next(){ pos++; render(); }
+
+  function render(){
+    if(!plan.length) return renderMsg('Nada pendiente ahora mismo 🎉',
+      'No te quedan palabras por repasar, recitados sin marcar ni repasos del día pendientes. Vuelve más tarde: el vocabulario reaparece solo cuando toca.', true);
+    if(pos >= plan.length) return renderDone();
+    var step = plan[pos];
+    elStage.textContent = step.stage; progress(); flipped = false;
+    if(step.kind === 'flash') renderFlash(step.c);
+    else if(step.kind === 'recite') renderRecite(step.it);
+    else renderQuiz(step.it);
+  }
+
+  function renderMsg(title, text, empty){
+    elStage.textContent = empty ? 'Saioa' : 'Saioa · amaituta';
+    elBar.style.width = '100%'; elCount.textContent = empty ? '0 / 0' : (plan.length + ' / ' + plan.length);
+    body.innerHTML = '<div class="saioa-card saioa-msg"><h2>' + title + '</h2><p>' + text + '</p>' +
+      '<button class="saioa-b prim" data-act="close">Cerrar</button></div>';
+  }
+  function renderDone(){
+    elStage.textContent = 'Saioa · amaituta';
+    elBar.style.width = '100%'; elCount.textContent = plan.length + ' / ' + plan.length;
+    body.innerHTML = '<div class="saioa-card saioa-msg"><h2>Saio bikaina! 💪</h2>' +
+      '<p>Sesión terminada. Has trabajado:</p><ul class="saioa-sum">' +
+      '<li><b>' + tally.vocab + '</b> palabras repasadas</li>' +
+      '<li><b>' + tally.mem + '</b> recitados marcados</li>' +
+      '<li><b>' + tally.rev + '</b> repasos marcados</li></ul>' +
+      '<button class="saioa-b prim" data-act="close">Cerrar</button></div>';
+  }
+
+  function shell(tag, front, frontSm, extra, back, backCls, grade){
+    return '<div class="saioa-card">' +
+      '<div class="saioa-tag">' + tag + '</div>' +
+      '<div class="saioa-front' + (frontSm?' sm':'') + '">' + front + '</div>' + (extra||'') +
+      '<div class="saioa-back' + (backCls?' '+backCls:'') + '" hidden>' + back + '</div>' +
+      '<div class="saioa-actions">' +
+        '<button class="saioa-b wide" data-act="flip">' + grade.label + ' <small>espacio</small></button>' +
+        grade.buttons +
+      '</div>' +
+      '<button class="saioa-skip" data-act="skip">Saltar paso →</button>' +
+    '</div>';
+  }
+  var G3 = { label:'Ver traducción', buttons:'<div class="saioa-grade" hidden>' +
+    '<button class="saioa-b no" data-g="0">Ez dakit</button>' +
+    '<button class="saioa-b mid" data-g="1">Kosta zait</button>' +
+    '<button class="saioa-b yes" data-g="2">Badakit</button></div>' };
+  function G2(label, noTxt){ return { label:label, buttons:'<div class="saioa-grade two" hidden>' +
+    '<button class="saioa-b no" data-mark="0">' + noTxt + '</button>' +
+    '<button class="saioa-b yes" data-mark="1">Badakit</button></div>' }; }
+
+  function renderFlash(c){ body.innerHTML = shell(esc(c.tag), esc(c.eu), false, '', esc(c.es), '', G3); }
+  function renderRecite(it){ body.innerHTML = shell('Recitado · D' + it.d, esc(it.tit), true,
+    '<div class="saioa-note">' + it.note + '</div>', it.say, 'forms', G2('Recitar y comprobar', 'Oraindik ez')); }
+  function renderQuiz(it){ body.innerHTML = shell(esc(it.cat), esc(it.q), true, '', esc(it.a), '', G2('Comprobar', 'Repasar otra vez')); }
+
+  function doFlip(){
+    if(flipped) return; flipped = true;
+    var back = body.querySelector('.saioa-back'), grade = body.querySelector('.saioa-grade'),
+        flip = body.querySelector('[data-act="flip"]');
+    if(back) back.hidden = false;
+    if(flip) flip.hidden = true;
+    if(grade) grade.hidden = false;
+  }
+  function markCurrent(known){
+    var s = plan[pos]; if(!s) return;
+    if(s.kind === 'recite'){ if(known){ MEMORIA.setKnown(s.it._id, true); tally.mem++; } }
+    else if(s.kind === 'quiz'){ if(known){ ERREPASOA.mark(s.it.id, true); tally.rev++; } }
+  }
+
+  body.addEventListener('click', function(e){
+    var t = e.target.closest('button'); if(!t) return;
+    var act = t.getAttribute('data-act');
+    if(act === 'close') return close();
+    if(act === 'skip')  return next();
+    if(act === 'flip')  return doFlip();
+    var g = t.getAttribute('data-g');
+    if(g !== null){ var s = plan[pos]; if(s && s.kind==='flash'){ HIZTEGIA.grade(s.c.i, Number(g)); tally.vocab++; } return next(); }
+    var mk = t.getAttribute('data-mark');
+    if(mk !== null){ markCurrent(mk === '1'); return next(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(el.hidden) return;
+    if(e.key === 'Escape') return close();
+    var step = plan[pos];
+    if(!step){ if(e.key === 'Enter') close(); return; }
+    if(!flipped && (e.key === ' ' || e.key === 'Enter')){ e.preventDefault(); return doFlip(); }
+    if(!flipped) return;
+    if(step.kind === 'flash'){
+      if(e.key==='1'||e.key==='2'||e.key==='3'){ e.preventDefault(); HIZTEGIA.grade(step.c.i, Number(e.key)-1); tally.vocab++; next(); }
+    } else if(e.key==='1' || e.key==='2'){ e.preventDefault(); markCurrent(e.key === '2'); next(); }
+  });
+
+  btnStart.addEventListener('click', open);
+  btnClose.addEventListener('click', close);
+  document.addEventListener('plana:ready', updateSub);
+  document.addEventListener('memoria:change', function(){ if(el.hidden) updateSub(); });
+  setTimeout(updateSub, 300);
+})();
+</script>
+
 <script src="config.js"></script>
 <script src="armairua-cloud.js"></script>
 <script src="armairua-export.js"></script>
