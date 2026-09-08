@@ -707,7 +707,7 @@ section.cal{margin-top:34px}
   <button type="button" id="tab-egutegia" role="tab" aria-selected="false" aria-controls="app-egutegia"><span class="t"><i>📅</i>Egutegia</span><span class="c">Plan de 28 días</span></button>
   <button type="button" id="tab-hiztegia" role="tab" aria-selected="false" aria-controls="app-hiztegia"><span class="t"><i>🗃️</i>Hiztegia</span><span class="c">796 palabras</span></button>
   <button type="button" id="tab-koadernoa" role="tab" aria-selected="false" aria-controls="app-koadernoa"><span class="t"><i>✏️</i>Koadernoa</span><span class="c">Ariketak eta erantzunak</span></button>
-  <button type="button" id="tab-entzumena" role="tab" aria-selected="false" aria-controls="app-entzumena"><span class="t"><i>🎧</i>Entzumena</span><span class="c">Escucha en bucle</span></button>
+  <button type="button" id="tab-entzumena" role="tab" aria-selected="false" aria-controls="app-entzumena"><span class="t"><i>🎮</i>Jokoa</span><span class="c">Juegos y retos</span></button>
   </nav>
   <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
   <a class="guide" href="gramatika.html">Gramatika <span>bilatu</span></a>
@@ -866,7 +866,7 @@ window.HUB = (function(){
       <a class="mat" href="#egutegia"><span class="mat-ic">📅</span><span class="mat-b"><span class="mat-t">Egutegia</span><span class="mat-d">Plan de 28 días, memoria gramatical y repaso</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#hiztegia"><span class="mat-ic">🗃️</span><span class="mat-b"><span class="mat-t">Hiztegia</span><span class="mat-d">796 palabras en flashcards, por temas</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#koadernoa"><span class="mat-ic">✏️</span><span class="mat-b"><span class="mat-t">Koadernoa</span><span class="mat-d">Ariketak eta erantzunak · 8 cuadernos + 3 simulacros</span></span><span class="mat-go">→</span></a>
-      <a class="mat" href="#entzumena"><span class="mat-ic">🎧</span><span class="mat-b"><span class="mat-t">Entzumena</span><span class="mat-d">Escucha en bucle los recitados de memoria</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#entzumena"><span class="mat-ic">🎮</span><span class="mat-b"><span class="mat-t">Jokoa</span><span class="mat-d">Juegos de repaso y escucha en bucle de los recitados</span></span><span class="mat-go">→</span></a>
     </div>
   </div>
 </section>
@@ -1744,17 +1744,17 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <section class="app" id="app-entzumena" role="tabpanel" aria-labelledby="tab-entzumena" hidden>
   <div class="wrap ent">
     <header class="ent-hero">
-      <div class="eyebrow">Entzumena · escucha y juega</div>
-      <h1>Ikasi belarriz eta <em>jolasean</em></h1>
-      <p class="ent-lede">Pon los recitados a sonar en bucle y refuérzalos jugando: retos de oído, parejas y progreso. La repetición y el juego fijan lo que tienes que saber de memoria.</p>
+      <div class="eyebrow">Jokoa · juega y escucha</div>
+      <h1>Jolastu eta <em>ikasi</em></h1>
+      <p class="ent-lede">Refuerza lo que tienes que saber jugando —retos de oído, parejas, huecos y más— y pon los recitados a sonar en bucle cuando quieras. El juego y la repetición fijan la memoria.</p>
     </header>
 
-    <div class="ent-seg" role="tablist" aria-label="Entzumena edo Jokoa">
-      <button type="button" class="segbtn on" id="segLoop" role="tab" aria-selected="true">🔁 Entzun bukle</button>
-      <button type="button" class="segbtn" id="segJoko" role="tab" aria-selected="false">🎮 Jokoa</button>
+    <div class="ent-seg" role="tablist" aria-label="Jokoa edo Entzumena">
+      <button type="button" class="segbtn on" id="segJoko" role="tab" aria-selected="true">🎮 Jokoa</button>
+      <button type="button" class="segbtn" id="segLoop" role="tab" aria-selected="false">🔁 Entzun bukle</button>
     </div>
 
-    <div id="entViewLoop">
+    <div id="entViewLoop" hidden>
     <div class="ent-player" id="entPlayer" hidden>
       <div class="epl-now">
         <div class="epl-badge" id="eplBadge">—</div>
@@ -1801,7 +1801,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     </div>
     </div><!-- /entViewLoop -->
 
-    <div id="entViewJoko" hidden>
+    <div id="entViewJoko">
       <div class="jk-prog" id="jkProg"></div>
       <div class="jk-badges" id="jkBadges"></div>
       <div class="jk-games">
@@ -2462,7 +2462,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ st=v; refresh(); } }, function(){ return st; });
 
     var last=''; try{ last=localStorage.getItem(VK)||''; }catch(e){}
-    if(last==='joko') showView('joko');
+    if(last==='loop') showView('loop');   // por defecto Jokoa; recuerda «bucle» si se eligió
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start);
   else start();
