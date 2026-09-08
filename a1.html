@@ -1061,6 +1061,24 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .jk-note{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); text-align:center; padding:6px 0 2px}
 @media (max-width:620px){ .jk-prog{grid-template-columns:1fr 1fr} .jk-prog .jk-xp{grid-column:1/-1} }
 @media (prefers-reduced-motion:reduce){ .jk-tile.bad{animation:none} }
+.jk-lv-row{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap}
+.jk-lv{font-family:var(--f-mono); font-size:12px; font-weight:500; color:var(--ink-2); background:var(--ground); border:1px solid var(--line-strong); border-radius:20px; padding:5px 13px; cursor:pointer}
+.jk-lv.on{background:var(--sea); border-color:var(--sea); color:#fff}
+.jk-lv-t{font-family:var(--f-ui); font-size:13px; font-weight:600; color:var(--ink-2); margin-bottom:12px}
+.jk-lv-t em{font-style:normal; font-weight:400; color:var(--muted)}
+.jk-theory{margin-top:13px; border:1px solid var(--gold); background:var(--gold-soft); border-radius:var(--r); padding:10px 13px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); line-height:1.5}
+.jk-theory a{color:var(--gold); font-weight:600}
+.jk-q{font-family:var(--f-mono); font-size:16px; color:var(--ink); text-align:center; margin:6px 0 16px; line-height:1.7}
+.jk-q .blank{color:var(--sea); border-bottom:2px solid var(--sea); padding:0 10px; letter-spacing:2px}
+.jk-prompt{font-family:var(--f-display); font-weight:600; font-size:20px; color:var(--ink); text-align:center; margin:6px 0 16px; text-wrap:balance}
+.jk-answer{min-height:46px; display:flex; flex-wrap:wrap; gap:7px; align-items:center; justify-content:center; padding:10px; border:1px dashed var(--line-strong); border-radius:var(--r); margin-bottom:12px}
+.jk-answer.ok{border-color:var(--sea); background:var(--sea-soft)}
+.jk-answer.no{border-color:var(--iron); background:var(--iron-soft)}
+.jk-chip{font-family:var(--f-mono); font-size:14px; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:6px 11px}
+.jk-bank{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+.jk-tok{font-family:var(--f-mono); font-size:14px; color:var(--ink); background:var(--ground); border:1px solid var(--line-strong); border-radius:var(--r); padding:9px 13px; cursor:pointer}
+.jk-tok:hover:not(:disabled){border-color:var(--sea)}
+.jk-tok.used{opacity:.3; cursor:default}
 </style>
 
 <section class="mem" id="memoria">
@@ -1763,6 +1781,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       <div class="jk-games">
         <div class="jk-game" id="jkEntzun"></div>
         <div class="jk-game" id="jkLotu"></div>
+        <div class="jk-game" id="jkOsatu"></div>
+        <div class="jk-game" id="jkAukeratu"></div>
+        <div class="jk-game" id="jkOrdena"></div>
       </div>
     </div>
   </div>
@@ -2067,7 +2088,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     }catch(e){}
 
     var KEY='euskara-jokoa-v1', st=load();
-    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0}; }
+    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0}; }
     function save(){ if(window.HUB && HUB.save) HUB.save('jokoa', KEY, st); else try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
     /* racha por fecha real */
@@ -2085,7 +2106,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     function totalXP(){ return (st.xp||0)+planDone()*12+memKnown()*20; }
 
     var elProg=document.getElementById('jkProg'), elBadges=document.getElementById('jkBadges'),
-        elEntzun=document.getElementById('jkEntzun'), elLotu=document.getElementById('jkLotu');
+        elEntzun=document.getElementById('jkEntzun'), elLotu=document.getElementById('jkLotu'),
+        elOsatu=document.getElementById('jkOsatu'), elAukeratu=document.getElementById('jkAukeratu'),
+        elOrdena=document.getElementById('jkOrdena');
 
     function renderProg(){
       var xp=totalXP(), i=0; for(var k=0;k<LV.length;k++){ if(xp>=LV[k].xp) i=k; }
@@ -2147,18 +2170,80 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       setTimeout(function(){ newEntzun(true); }, 1500);
     });
 
-    /* ── Lotu · parejas ── */
-    var lSel=null, lLeft=0;
+    /* ── datos de gramática para los juegos ── */
+    var DEKL=[
+      { nm:'N1', t:'Artikulua eta erakusleak', es:'artículo y demostrativos', teoria:'geruzak.html#s4', items:[
+        ['etxea','la casa'],['etxeak','las casas'],['liburua','el libro'],['liburuak','los libros'],
+        ['mutila','el chico'],['mutilak','los chicos'],['neska','la chica'],['neskak','las chicas'],
+        ['hau','este / esto'],['hori','ese / eso'],['hura','aquel / aquello'],['hauek','estos'],['horiek','esos'],['haiek','aquellos'] ]},
+      { nm:'N2', t:'Kasu gramatikalak', es:'NOR · NORK · NORI · NOREN', teoria:'geruzak.html#s6', items:[
+        ['Jon','Jon (NOR, sujeto)'],['Jonek','Jon (NORK, hace algo)'],['Joni','a Jon (NORI)'],['Jonen','de Jon (NOREN)'],
+        ['laguna','el amigo (NOR)'],['lagunak','el amigo (NORK)'],['lagunari','al amigo (NORI)'],['lagunaren','del amigo (NOREN)'],
+        ['umeari','al niño'],['umearen','del niño'] ]},
+      { nm:'N3', t:'Leku-kasuak', es:'NON · NORA · NONDIK · NONGO · NOREKIN · -Z', teoria:'geruzak.html#s5', items:[
+        ['etxean','en casa (NON)'],['etxera','a casa (NORA)'],['etxetik','desde casa (NONDIK)'],['etxeko','de casa (NONGO)'],
+        ['Bilbon','en Bilbao'],['Bilbora','a Bilbao'],['Bilbotik','desde Bilbao'],['Bilboko','de Bilbao'],
+        ['lagunarekin','con el amigo (NOREKIN)'],['autoz','en coche (-Z)'] ]},
+      { nm:'N4', t:'Izenondoak eta graduak', es:'adjetivos y grados', teoria:'geruzak.html#s16', items:[
+        ['handia','grande'],['handiagoa','más grande'],['handiena','el más grande'],['handiegia','demasiado grande'],
+        ['txikia','pequeño'],['txikiagoa','más pequeño'],['politagoa','más bonito'],['onena','el mejor'],
+        ['merkeagoa','más barato'],['garestiegia','demasiado caro'] ]},
+      { nm:'N5', t:'Aditz-atzizkiak', es:'aspecto: -tu / -tzen / -ko', teoria:'geruzak.html#s11', items:[
+        ['jan','comer / comido'],['jaten','como (habitual)'],['jango','comeré'],
+        ['etorri','venir'],['etortzen','vengo (habitual)'],['etorriko','vendré'],
+        ['ikasten','estudio (habitual)'],['ikasiko','estudiaré'],['egiten','hago'],['egingo','haré'] ]}
+    ];
+    var OSATU=[
+      {q:'Bilbo___ bizi naiz.', opts:['-n','-ko','-ra'], a:0, es:'Vivo en Bilbao.'},
+      {q:'Donostia___ naiz.', opts:['-n','-koa','-ra'], a:1, es:'Soy de San Sebastián.'},
+      {q:'Etxe___ noa.', opts:['-an','-ra','-tik'], a:1, es:'Voy a casa.'},
+      {q:'Liburu___ ditut (varios).', opts:['-a','-ak','-rik'], a:1, es:'Tengo (unos) libros.'},
+      {q:'Ez dut diru___.', opts:['-a','-rik','-ak'], a:1, es:'No tengo dinero.'},
+      {q:'Lagun___ nago.', opts:['-arekin','-ari','-tik'], a:0, es:'Estoy con el amigo.'},
+      {q:'Bihar etor___ naiz.', opts:['-tzen','-riko','-tu'], a:1, es:'Vendré mañana.'},
+      {q:'Egunero euskara ikas___ dut.', opts:['-ten','-iko','-tu'], a:0, es:'Estudio euskera cada día.'},
+      {q:'Kafea gustatzen ___.', opts:['zait','zaizu','naiz'], a:0, es:'Me gusta el café.'},
+      {q:'Ni zu baino altu___ naiz.', opts:['-ena','-agoa','-egia'], a:1, es:'Soy más alto/a que tú.'},
+      {q:'Hau da onen___.', opts:['-a','-agoa','-egia'], a:0, es:'Este es el mejor.'},
+      {q:'Mahaia___ gainean dago.', opts:['-ren','-ari','-tik'], a:0, es:'Está encima de la mesa.'},
+      {q:'Nik liburua ___.', opts:['dut','ditut','naiz'], a:0, es:'Yo tengo el libro.'},
+      {q:'Autoz ___.', opts:['noa','nago','dut'], a:0, es:'Voy en coche.'}
+    ];
+    var ORDENA=[
+      {toks:['Ni','Maialen','naiz'], es:'Yo soy Maialen.'},
+      {toks:['Non','bizi','zara?'], es:'¿Dónde vives?'},
+      {toks:['Bilbon','bizi','naiz'], es:'Vivo en Bilbao.'},
+      {toks:['Kafea','gustatzen','zait'], es:'Me gusta el café.'},
+      {toks:['Bihar','etorriko','naiz'], es:'Vendré mañana.'},
+      {toks:['Ez','dut','dirurik'], es:'No tengo dinero.'},
+      {toks:['Bi','liburu','ditut'], es:'Tengo dos libros.'},
+      {toks:['Etxera','joan','nahi','dut'], es:'Quiero ir a casa.'},
+      {toks:['Lagunekin','nago'], es:'Estoy con los amigos.'},
+      {toks:['Nik','euskara','ikasten','dut'], es:'Yo estudio euskera.'}
+    ];
+
+    /* ── Lotu · deklinabidea (niveles N1–N5) ── */
+    var lSel=null, lLeft=0, lErr=0;
+    function lvl(){ var i=+(st.dlevel||0); return (i>=0 && i<DEKL.length)?i:0; }
+    function dfailN(i){ return (st.dfail && st.dfail[i])||0; }
     function newLotu(){
-      if(WORDS.length<5){ elLotu.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
-      var pairs=sample(WORDS,5); lLeft=pairs.length; lSel=null;
-      function col(arr,lang){ return arr.map(function(w){ return '<button type="button" class="jk-tile '+lang+'" data-i="'+w.i+'" data-l="'+lang+'">'+(lang==='eu'?w.eu:w.es)+'</button>'; }).join(''); }
+      var i=lvl(), L=DEKL[i];
+      var segs=DEKL.map(function(d,k){ return '<button type="button" class="jk-lv'+(k===i?' on':'')+'" data-lv="'+k+'">'+d.nm+'</button>'; }).join('');
+      var pairs=sample(L.items,5).map(function(p,k){ return {id:k, eu:p[0], es:p[1]}; });
+      lLeft=pairs.length; lSel=null; lErr=0;
+      function col(arr,lang){ return arr.map(function(w){ return '<button type="button" class="jk-tile '+lang+'" data-i="'+w.id+'" data-l="'+lang+'">'+(lang==='eu'?w.eu:w.es)+'</button>'; }).join(''); }
+      var theory = dfailN(i)>=3 ? '<div class="jk-theory">¿Se te resiste a pesar de la traducción? Repasa la teoría: <a href="'+L.teoria+'" target="_blank" rel="noopener">'+L.t+' ↗</a></div>' : '';
       elLotu.innerHTML=
-        '<div class="jk-g-head"><h3><span class="ic">🃏</span>Lotu · empareja</h3><span class="sc">'+(st.lotu||0)+' rondas</span></div>'+
+        '<div class="jk-g-head"><h3><span class="ic">🧩</span>Lotu · deklinabidea</h3><span class="sc">'+(st.lotu||0)+' rondas</span></div>'+
+        '<div class="jk-lv-row">'+segs+'</div>'+
+        '<div class="jk-lv-t">'+L.t+' <em>· '+L.es+'</em></div>'+
         '<div class="jk-lotu"><div class="jk-lcol">'+col(shuffle(pairs),'eu')+'</div><div class="jk-lcol">'+col(shuffle(pairs),'es')+'</div></div>'+
-        '<div class="jk-note" id="lNote">Toca una palabra en euskera y su pareja en castellano.</div>';
+        '<div class="jk-note" id="lNote">Empareja la forma en euskera con su significado.</div>'+
+        theory;
     }
     elLotu.addEventListener('click', function(e){
+      var lv=e.target.closest('.jk-lv');
+      if(lv){ st.dlevel=+lv.getAttribute('data-lv'); save(); newLotu(); return; }
       var t=e.target.closest('.jk-tile'); if(!t || t.classList.contains('done')) return;
       if(!lSel){ lSel=t; t.classList.add('sel'); return; }
       if(t===lSel){ t.classList.remove('sel'); lSel=null; return; }
@@ -2166,13 +2251,91 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       if(t.getAttribute('data-i')===lSel.getAttribute('data-i')){
         t.classList.add('done'); lSel.classList.remove('sel'); lSel.classList.add('done'); lSel=null; lLeft--;
         if(lLeft===0){
+          var i=lvl(); if(!st.dfail) st.dfail={};
+          if(lErr===0) st.dfail[i]=0;   // ronda limpia → quita el aviso de teoría
           st.lotu=(st.lotu||0)+1; st.xp=(st.xp||0)+10; save(); refresh();
           var n=document.getElementById('lNote'); if(n){ n.innerHTML='<b style="color:var(--sea)">Osatuta! ✓</b> +10 XP · <button type="button" class="jk-repeat" id="lNew">Beste bat →</button>'; var nb=document.getElementById('lNew'); if(nb) nb.onclick=newLotu; }
         }
       } else {
         var a=lSel, b=t; a.classList.add('bad'); b.classList.add('bad');
         setTimeout(function(){ a.classList.remove('bad','sel'); b.classList.remove('bad'); }, 350);
-        lSel=null;
+        lSel=null; lErr++;
+        var i=lvl(); if(!st.dfail) st.dfail={}; st.dfail[i]=(st.dfail[i]||0)+1; save();
+        if(st.dfail[i]>=3 && !elLotu.querySelector('.jk-theory')){
+          var L=DEKL[i], d=document.createElement('div'); d.className='jk-theory';
+          d.innerHTML='¿Se te resiste a pesar de la traducción? Repasa la teoría: <a href="'+L.teoria+'" target="_blank" rel="noopener">'+L.t+' ↗</a>';
+          elLotu.appendChild(d);
+        }
+      }
+    });
+
+    /* ── Osatu · rellenar el hueco (sufijos/formas) ── */
+    var oCur=null, oLock=false;
+    function newOsatu(){
+      oLock=false;
+      var it=OSATU[Math.floor(Math.random()*OSATU.length)]; oCur=it;
+      var opts=shuffle(it.opts.map(function(o,k){ return {o:o,k:k}; }));
+      elOsatu.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">✍️</span>Osatu · rellena</h3><span class="sc">'+(st.osatu||0)+' bete</span></div>'+
+        '<div class="jk-q">'+it.q.replace('___','<span class="blank">___</span>')+'</div>'+
+        '<div class="jk-opts">'+opts.map(function(x){ return '<button type="button" class="jk-opt" data-k="'+x.k+'">'+x.o+'</button>'; }).join('')+'</div>'+
+        '<div class="jk-hint" id="oHint">Elige el sufijo o la forma correcta.</div>';
+    }
+    elOsatu.addEventListener('click', function(e){
+      var b=e.target.closest('.jk-opt'); if(!b || oLock || !oCur) return;
+      oLock=true; var ok=(+b.getAttribute('data-k'))===oCur.a;
+      Array.prototype.forEach.call(elOsatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-k'))===oCur.a) o.classList.add('ok'); });
+      var hint=document.getElementById('oHint'), full=oCur.q.replace('___','<b>'+oCur.opts[oCur.a]+'</b>');
+      if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
+      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+full+' — '+oCur.es; }
+      save(); refresh(); setTimeout(newOsatu, 1700);
+    });
+
+    /* ── Zein da? · elegir la traducción (es → eu) ── */
+    var aCur=null, aLock=false;
+    function newAukeratu(){
+      aLock=false;
+      if(WORDS.length<4){ elAukeratu.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
+      var pick=sample(WORDS,4); aCur=pick[0]; var opts=shuffle(pick);
+      elAukeratu.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">🎯</span>Zein da? · elige</h3><span class="sc">'+(st.zein||0)+' asmatuta</span></div>'+
+        '<div class="jk-prompt">«'+aCur.es+'» euskaraz?</div>'+
+        '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-i="'+o.i+'">'+o.eu+'</button>'; }).join('')+'</div>'+
+        '<div class="jk-hint" id="aHint">&nbsp;</div>';
+    }
+    elAukeratu.addEventListener('click', function(e){
+      var b=e.target.closest('.jk-opt'); if(!b || aLock || !aCur) return;
+      aLock=true; var ok=(+b.getAttribute('data-i'))===aCur.i;
+      Array.prototype.forEach.call(elAukeratu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-i'))===aCur.i) o.classList.add('ok'); });
+      var hint=document.getElementById('aHint');
+      if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
+      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
+      save(); refresh(); setTimeout(newAukeratu, 1400);
+    });
+
+    /* ── Ordenatu · construir la frase ── */
+    var rCur=null, rBuilt=[];
+    function newOrdena(){
+      var it=ORDENA[Math.floor(Math.random()*ORDENA.length)]; rCur=it; rBuilt=[];
+      var toks=shuffle(it.toks.map(function(w,k){ return {w:w,k:k}; }));
+      elOrdena.innerHTML=
+        '<div class="jk-g-head"><h3><span class="ic">🔀</span>Ordenatu · ordena</h3><span class="sc">'+(st.ordena||0)+' osatuta</span></div>'+
+        '<div class="jk-prompt">'+it.es+'</div>'+
+        '<div class="jk-answer" id="rAns"></div>'+
+        '<div class="jk-bank" id="rBank">'+toks.map(function(x){ return '<button type="button" class="jk-tok" data-k="'+x.k+'">'+x.w+'</button>'; }).join('')+'</div>'+
+        '<div class="jk-hint" id="rHint">Toca las palabras en el orden correcto.</div>';
+    }
+    elOrdena.addEventListener('click', function(e){
+      var tok=e.target.closest('.jk-tok');
+      if(!tok || tok.disabled) return;
+      tok.disabled=true; tok.classList.add('used'); rBuilt.push(tok.textContent);
+      var ans=document.getElementById('rAns');
+      var chip=document.createElement('span'); chip.className='jk-chip'; chip.textContent=tok.textContent; ans.appendChild(chip);
+      if(rBuilt.length===rCur.toks.length){
+        var okk = rBuilt.join(' ')===rCur.toks.join(' '), hint=document.getElementById('rHint');
+        if(okk){ st.ordena=(st.ordena||0)+1; st.xp=(st.xp||0)+8; save(); refresh(); ans.classList.add('ok'); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bikain! ✓</b> +8 XP · <button type="button" class="jk-repeat" id="rNew">Beste bat →</button>'; }
+        else { ans.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez horrela.</span> → <b>'+rCur.toks.join(' ')+'</b> · <button type="button" class="jk-repeat" id="rNew">Berriz →</button>'; }
+        var nb=document.getElementById('rNew'); if(nb) nb.onclick=newOrdena;
       }
     });
 
@@ -2189,7 +2352,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     segL.addEventListener('click', function(){ showView('loop'); });
     segJ.addEventListener('click', function(){ showView('joko'); });
 
-    refresh(); newEntzun(false); newLotu();
+    refresh(); newEntzun(false); newLotu(); newOsatu(); newAukeratu(); newOrdena();
     if(window.PLANA) PLANA.onChange(refresh);
     if(window.MEMORIA) MEMORIA.onChange(refresh);
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ st=v; refresh(); } }, function(){ return st; });
