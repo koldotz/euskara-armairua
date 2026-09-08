@@ -1,0 +1,21 @@
+{
+  "name": "Euskara Armairua",
+  "short_name": "Armairua",
+  "description": "Aprender euskara por niveles: plan, vocabulario, gramática y referencia de clase (Ikasgela).",
+  "lang": "eu",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#131613",
+  "theme_color": "#171B18",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Ikasgela", "short_name": "Ikasgela", "url": "ikasgela.html" },
+    { "name": "Gramatika bilatu", "short_name": "Gramatika", "url": "gramatika.html" }
+  ]
+}

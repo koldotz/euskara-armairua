@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Euskara Armairua — recurso interactivo para aprender euskara. Elige tu nivel: A1, A2…">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Euskara Armairua</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
@@ -219,6 +222,28 @@ footer b{color:var(--ink-2)}
 
   </section>
 
+  <style>
+  .tools{margin:36px 0 0}
+  .tools-h{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--iron); margin:0 0 14px}
+  .tools-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+  a.tool{display:block; text-decoration:none; color:inherit; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); padding:14px 16px; transition:border-color .14s, transform .14s, box-shadow .14s}
+  a.tool:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(--shadow)}
+  a.tool.feat{border-color:var(--sea); background:linear-gradient(180deg,var(--sea-soft),transparent), var(--surface)}
+  a.tool .ic{font-size:20px}
+  a.tool b{display:block; font-family:var(--f-display); font-size:17px; margin-top:6px}
+  a.tool b em{font-style:normal; color:var(--sea)}
+  a.tool span{display:block; font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.4}
+  </style>
+  <section class="tools" aria-label="Tresnak">
+    <h2 class="tools-h">Tresnak · transversales (todos los niveles)</h2>
+    <div class="tools-grid">
+      <a class="tool feat" href="ikasgela.html"><span class="ic">📚</span><b>Ikasgela <em>· berria</em></b><span>Referencia de clase: todas las tablas y los patrones de oración, buscable y sin conexión.</span></a>
+      <a class="tool" href="gramatika.html"><span class="ic">🔎</span><b>Gramatika bilatu</b><span>Buscador eu↔es de conjugaciones, casos y posposiciones.</span></a>
+      <a class="tool" href="glosario.html"><span class="ic">📖</span><b>Glosarioa</b><span>Glosario de términos gramaticales.</span></a>
+      <a class="tool" href="geruzak.html"><span class="ic">🗺️</span><b>Geruzak</b><span>La guía de gramática completa, en prosa.</span></a>
+    </div>
+  </section>
+
   <footer>
     <p><b>Euskara Armairua</b> — mailaka antolatuta (A1, A2…), maila bakoitza bere blokean, nahastu gabe. Materiala HABE/Elhuyar-en <i>Ostalaritza</i> metodoan eta <i>Bakarka 1</i> sekuentzian oinarrituta.</p>
   </footer>
@@ -314,6 +339,10 @@ window.HUB = (function(){
 
   return { onChange:function(fn){ watchers.push(fn); fn(state, izena); }, name:function(){ return izena; }, open:openGate };
 })();
+</script>
+<script>
+/* PWA · registra el service worker para uso sin conexión (toda la app en scope) */
+if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 </script>
 <script src="config.js"></script>
 <script src="armairua-cloud.js"></script>

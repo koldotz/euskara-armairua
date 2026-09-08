@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Ikasgela — referencia de euskara para clase: tablas de gramática y patrones de construcción de oraciones, buscable y sin conexión.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Ikasgela · Euskara Armairua</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0; --ink:#171B18; --ink-2:#3E453F;
+  --muted:#6E756C; --line:#D2D6CC; --line-strong:#B6BCB1; --sea:#1F5E4C; --sea-soft:#DCE9E2;
+  --iron:#B0472B; --iron-soft:#F3DED6; --gold:#8A6A19; --gold-soft:#F0E6CC;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --f-display:"Zilla Slab",Georgia,serif; --f-body:"Source Serif 4",Georgia,serif;
+  --f-ui:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:4px; --topbar:60px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; line-height:1.15; margin:0}
+a{color:var(--sea)}
+.eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ── topbar ── */
+.hub{position:sticky; top:0; z-index:80; background:var(--surface); border-bottom:1px solid var(--line-strong)}
+.hub .in{max-width:1080px; margin:0 auto; padding:0 18px; display:flex; align-items:center; gap:14px; min-height:var(--topbar)}
+.hub .brand a{display:flex; align-items:center; gap:6px; text-decoration:none; color:inherit}
+.hub .brand .home{font-family:var(--f-mono); color:var(--muted); font-size:15px}
+.hub .brand b{font-family:var(--f-display); font-size:17px; font-weight:700}
+.hub .brand b em{font-style:normal; color:var(--iron)}
+.hub .brand span{display:block; font-family:var(--f-mono); font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-top:1px}
+.hub .spacer{flex:1}
+.hub .who{display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); border-radius:var(--r); padding:6px 11px; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--ink-2)}
+.hub .who:hover{border-color:var(--line-strong); background:var(--surface-2)}
+.hub .who .dot{width:7px; height:7px; border-radius:50%; background:var(--muted)}
+.hub .who[data-state="cloud"] .dot{background:var(--sea)}
+.hub .who .nm{font-weight:600; color:var(--ink)}
+.hub .who .st{font-family:var(--f-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.hub .who .stack{display:flex; flex-direction:column; align-items:flex-start; line-height:1.2}
+.hub .guide{display:flex; align-items:center; gap:6px; font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--sea); text-decoration:none; border:1px solid var(--line-strong); border-radius:var(--r); padding:6px 11px; background:var(--ground)}
+.hub .guide:hover{border-color:var(--sea); background:var(--sea-soft)}
+@media (max-width:700px){.hub .who .st,.hub .brand span{display:none}}
+
+.wrap{max-width:1080px; margin:0 auto; padding:0 18px}
+.hero{padding:30px 0 8px}
+.hero h1{font-size:clamp(28px,5vw,40px); letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--sea)}
+.hero .lede{font-family:var(--f-ui); font-size:15.5px; color:var(--ink-2); max-width:64ch; margin:10px 0 0; line-height:1.5}
+.hero .install{margin-top:14px; display:inline-flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:#fff; background:var(--sea); border:1px solid var(--sea); border-radius:var(--r); padding:9px 15px; cursor:pointer}
+.hero .install:hover{filter:brightness(1.07)}
+.hero .offnote{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin:10px 0 0}
+.hero .offnote b{color:var(--sea)}
+
+/* ── toolbar sticky ── */
+.toolbar{position:sticky; top:var(--topbar); z-index:70; background:var(--ground); padding:14px 0 10px; border-bottom:1px solid var(--line)}
+.searchbox{position:relative}
+.searchbox input{width:100%; font-family:var(--f-ui); font-size:16px; padding:13px 16px 13px 44px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); color:var(--ink)}
+.searchbox input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.searchbox .mag{position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:16px}
+.chips{display:flex; gap:7px; overflow-x:auto; padding:11px 0 2px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none; font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--ink-2); background:var(--surface); border:1px solid var(--line-strong); border-radius:20px; padding:6px 13px; cursor:pointer; white-space:nowrap}
+.chips button[aria-pressed="true"]{background:var(--sea); border-color:var(--sea); color:#fff}
+
+/* ── secciones/resultados ── */
+main{padding-bottom:70px}
+.grp{margin-top:22px}
+.grp > h2{font-family:var(--f-mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--iron); margin:0 0 12px; display:flex; align-items:center; gap:8px}
+.grp > h2 .n{color:var(--muted); font-weight:400}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; align-items:start}
+.card{position:relative; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); padding:14px 15px 13px; box-shadow:var(--shadow)}
+.card.pat{background:linear-gradient(180deg,var(--sea-soft),transparent) , var(--surface)}
+.card .eu{font-family:var(--f-display); font-weight:600; font-size:16.5px; color:var(--ink); line-height:1.2; padding-right:30px}
+.card .es{font-family:var(--f-ui); font-size:13px; color:var(--ink-2); margin-top:3px}
+.card .fun{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.5}
+.card table{width:100%; border-collapse:collapse; margin-top:11px; font-size:14px}
+.card th{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); text-align:left; font-weight:500; padding:0 8px 5px 0; border-bottom:1px solid var(--line)}
+.card td{padding:5px 8px 5px 0; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top; font-family:var(--f-mono); font-size:13px}
+.card td.f{color:var(--sea); font-weight:500}
+.card tr:last-child td{border-bottom:0}
+.card .ex{margin-top:11px; display:flex; flex-direction:column; gap:7px}
+.card .ex .row{display:grid; grid-template-columns:1fr; gap:1px; padding:8px 10px; background:var(--surface-2); border-radius:var(--r)}
+.card .ex .e{font-family:var(--f-mono); font-size:13.5px; color:var(--ink)}
+.card .ex .e b{color:var(--sea); font-weight:600}
+.card .ex .g{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+.card .pin{position:absolute; top:11px; right:11px; width:28px; height:28px; display:grid; place-items:center; border:0; background:none; cursor:pointer; font-size:16px; color:var(--line-strong); border-radius:6px; line-height:1}
+.card .pin:hover{background:var(--surface-2); color:var(--gold)}
+.card .pin.on{color:var(--gold)}
+.card.warned{border-left:3px solid var(--gold)}
+.card.warned .eu::after{content:" ⚠️"; font-size:12px}
+.empty{text-align:center; padding:50px 20px; color:var(--muted); font-family:var(--f-ui)}
+.empty b{display:block; color:var(--ink); font-size:18px; font-family:var(--f-display); margin-bottom:6px}
+footer{border-top:1px solid var(--line); margin-top:30px; padding:22px 0 50px; font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+
+/* ── gate ── */
+.gate{position:fixed; inset:0; z-index:200; background:rgba(12,15,12,.62); display:grid; place-items:center; padding:22px}
+.gate .gbox{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); box-shadow:var(--shadow); padding:28px; max-width:420px; width:100%}
+.gate h2{font-size:26px} .gate h2 em{font-style:normal; color:var(--iron)}
+.gate .lede{font-family:var(--f-ui); font-size:14px; color:var(--ink-2); margin-top:10px}
+.gate form{display:flex; gap:8px; margin-top:16px}
+.gate input{flex:1; min-width:0; font-family:var(--f-ui); font-size:15px; padding:9px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink)}
+.gate button[type="submit"]{font-family:var(--f-ui); font-size:14px; font-weight:600; padding:9px 18px; cursor:pointer; border:1px solid var(--sea); border-radius:var(--r); background:var(--sea); color:#fff}
+.gate .later{display:inline-block; margin-top:12px; background:none; border:0; padding:0; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--muted); text-decoration:underline}
+</style>
+
+<div class="hub"><div class="in">
+  <div class="brand"><a href="index.html" title="Mailak · Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b><span>Ikasgela</span></a></div>
+  <div class="spacer"></div>
+  <button type="button" class="who" id="who" data-state="local"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Toca para crear tu perfil</span></span></button>
+  <a class="guide" href="gramatika.html">Bilatzailea</a>
+</div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Ikasgela · referencia de clase</div>
+    <h1>Gramatika <em>eskura</em></h1>
+    <p class="lede">Todas las tablas de gramática y los patrones de construcción de oraciones, con su significado, en un solo sitio buscable. Pensado para consultar en clase: pincha ⭐ para fijar lo que más uses.</p>
+    <button type="button" class="install" id="installBtn" hidden>⬇︎ Instalar en el móvil</button>
+    <p class="offnote" id="offNote"><b>Funciona sin conexión</b> una vez que la abres con datos: guárdala en la pantalla de inicio y estará lista en clase aunque falle el wifi.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="searchbox"><span class="mag" aria-hidden="true">⌕</span>
+      <input type="search" id="q" placeholder="Bilatu: naiz, dut, gustatu, encima, futuro, ¿dónde?…" autocomplete="off" aria-label="Buscar en la referencia">
+    </div>
+    <div class="chips" id="chips" role="tablist" aria-label="Kategoriak"></div>
+  </div>
+
+  <section id="results" aria-live="polite"></section>
+
+  <footer><b>Ikasgela</b> — referencia transversal de Euskara Armairua. Las tablas comparten datos con el <a href="gramatika.html">buscador</a>; los patrones de oración son para construir frases de nivel A1. Crecerá contigo al subir de nivel.</footer>
+</main>
+
+<div class="gate" id="gate" hidden>
+  <div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="eyebrow">Euskara armairua</div>
+    <h2 id="gateTitle">Nor <em>zara</em>?</h2>
+    <p class="lede">Tu nombre guarda los favoritos y el progreso, y te sigue entre dispositivos.</p>
+    <form id="gateForm"><input id="gateName" type="text" autocomplete="off" placeholder="Maialen" maxlength="40" required aria-label="Tu nombre"><button type="submit">Sartu</button></form>
+    <button type="button" class="later" id="gateLater">Ahora no</button>
+  </div>
+</div>
+
+<script>
+/* ── perfil (compartido con el resto del sitio) ── */
+window.HUB=(function(){var NAMEK='euskara-izena',COL='aurrerapena',db=null,izena='';
+  function emit(){var c=document.getElementById('who');if(c){c.querySelector('.nm').textContent=izena||'Sin perfil';c.querySelector('.st').textContent=izena?'Zure profila':'Toca para crear tu perfil';c.setAttribute('data-state',izena&&db?'cloud':'local');}}
+  function save(n){izena=n;try{localStorage.setItem(NAMEK,n);}catch(e){}emit();if(db)db.doc(COL+'/profila').set({izena:n,t:Date.now()})['catch'](function(){});}
+  function open(){var g=document.getElementById('gate');if(!g)return;g.hidden=false;var i=document.getElementById('gateName');i.value=izena||'';setTimeout(function(){i.focus();i.select();},30);}
+  function close(){var g=document.getElementById('gate');if(g)g.hidden=true;}
+  try{izena=localStorage.getItem(NAMEK)||'';}catch(e){}
+  document.addEventListener('DOMContentLoaded',function(){
+    emit();
+    var f=document.getElementById('gateForm');if(f)f.addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('gateName').value.trim();if(v){save(v);close();}});
+    var l=document.getElementById('gateLater');if(l)l.addEventListener('click',close);
+    var c=document.getElementById('who');if(c)c.addEventListener('click',open);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    if(window.claude&&typeof claude.use==='function'){claude.use('db').then(function(d){if(d){db=d;emit();}})['catch'](function(){});}
+  });
+  return {name:function(){return izena;}};
+})();
+</script>
+
+<script src="armairua-gramatika-data.js"></script>
+
+<script>
+/* ══ IKASGELA · patrones de oración (esaldi-ereduak) ═══════════════════
+   Construcción de frases de nivel A1 con plantilla, ejemplo y significado.
+   Se buscan y agrupan junto a las tablas de gramática (KAT/CH/D).        */
+var PAT=[
+{cat:'Aurkezpena · presentarse', eu:'Ni ___ naiz', es:'Yo soy ___', fun:'Presentarte con el verbo izan (NOR). El nombre va sin artículo.', ex:[['Ni Maialen <b>naiz</b>.','Yo soy Maialen.'],['Zu irakaslea <b>zara</b>?','¿Tú eres profesor/a?']]},
+{cat:'Aurkezpena · presentarse', eu:'___-n bizi naiz', es:'Vivo en ___ (NON)', fun:'Lugar donde vives: caso inesivo -an/-n + bizi naiz.', ex:[['Bilbo<b>n</b> bizi naiz.','Vivo en Bilbao.'],['Herri txiki bate<b>an</b> bizi naiz.','Vivo en un pueblo pequeño.']]},
+{cat:'Aurkezpena · presentarse', eu:'___-koa naiz', es:'Soy de ___ (NONGO)', fun:'Origen: caso -ko/-koa. «¿De dónde eres?» = Nongoa zara?', ex:[['Donostia<b>koa</b> naiz.','Soy de San Sebastián.'],['Nongoa zara? — Hemen<b>goa</b> naiz.','¿De dónde eres? — Soy de aquí.']]},
+{cat:'Izatea · describir', eu:'Hau / hori / hura ___ da', es:'Esto/eso/aquello es ___', fun:'Señalar y describir con izan. El demostrativo va delante o detrás del nombre.', ex:[['Hau nire etxea <b>da</b>.','Esta es mi casa.'],['Kotxe hori berria <b>da</b>.','Ese coche es nuevo.']]},
+{cat:'Edukitzea · tener', eu:'___ dut / ditut', es:'Tengo ___ (1 / varios)', fun:'ukan (NOR-NORK): «dut» con 1 objeto, «ditut» con varios.', ex:[['Auto bat <b>dut</b>.','Tengo un coche.'],['Bi anaia <b>ditut</b>.','Tengo dos hermanos.']]},
+{cat:'Ezeztapena · negar', eu:'Ez dut ___-rik', es:'No tengo (nada de) ___', fun:'En negativo el objeto suele llevar partitivo -rik y el orden cambia (ez + verbo).', ex:[['<b>Ez dut</b> diru<b>rik</b>.','No tengo dinero.'],['<b>Ez naiz</b> nekatuta.','No estoy cansado/a.']]},
+{cat:'Galderak · preguntar', eu:'Nor / Zer / Non / Nora / Nondik ___?', es:'¿Quién/Qué/Dónde/A dónde/De dónde…?', fun:'La partícula interrogativa va justo antes del verbo (es el foco).', ex:[['<b>Nor</b> zara zu?','¿Quién eres tú?'],['<b>Nora</b> zoaz?','¿A dónde vas?'],['<b>Non</b> dago geltokia?','¿Dónde está la estación?']]},
+{cat:'Galderak · preguntar', eu:'Noiz / Zenbat / Zergatik / Nola ___?', es:'¿Cuándo/Cuánto/Por qué/Cómo…?', fun:'Más interrogativos frecuentes. «Zergatik…?» se responde con «…-lako».', ex:[['<b>Zenbat</b> balio du?','¿Cuánto cuesta?'],['<b>Zergatik</b> ez zara etorri?','¿Por qué no has venido?']]},
+{cat:'Gustuak · gustos', eu:'___ gustatzen zait', es:'Me gusta ___ (NOR-NORI)', fun:'Verbo tipo gustatu: lo que gusta es el sujeto; a quien le gusta va en dativo (zait/zaizu/zaio…).', ex:[['Kafea gustatzen <b>zait</b>.','Me gusta el café.'],['Ez <b>zaizkit</b> gustatzen tipulak.','No me gustan las cebollas.']]},
+{cat:'Ekintzak · aspecto', eu:'___-tzen dut', es:'(lo) hago / suelo hacer', fun:'Presente habitual: raíz + -tzen + auxiliar.', ex:[['Egunero euskara ika<b>sten</b> dut.','Estudio euskera todos los días.'],['Goizean kafea har<b>tzen</b> dut.','Por la mañana tomo café.']]},
+{cat:'Ekintzak · aspecto', eu:'___-ko / -go dut', es:'(lo) haré (futuro)', fun:'Futuro: participio + -ko/-go + auxiliar.', ex:[['Bihar joan<b>go</b> naiz.','Iré mañana.'],['Gero deitu<b>ko</b> dizut.','Luego te llamaré.']]},
+{cat:'Ekintzak · aspecto', eu:'___-tzen ari naiz', es:'estoy haciendo ___ (ahora)', fun:'Progresivo: raíz + -tzen + ari izan.', ex:[['Jaten <b>ari naiz</b>.','Estoy comiendo.'],['Zer egiten <b>ari zara</b>?','¿Qué estás haciendo?']]},
+{cat:'Nahi / behar', eu:'___-tu nahi / behar dut', es:'quiero / tengo que ___', fun:'Participio + nahi/behar + auxiliar. «nahi» = querer, «behar» = necesitar/deber.', ex:[['Etxera joan <b>nahi dut</b>.','Quiero ir a casa.'],['Orain ikasi <b>behar dut</b>.','Ahora tengo que estudiar.']]},
+{cat:'Lekua · posposiciones', eu:'___-ren gainean / azpian / ondoan / aurrean / atzean', es:'encima/debajo/al lado/delante/detrás de ___', fun:'Posposiciones de lugar: NOREN (-ren) + posposición.', ex:[['Mahaia<b>ren gainean</b> dago.','Está encima de la mesa.'],['Etxea<b>ren ondoan</b> bizi naiz.','Vivo al lado de la casa.']]},
+{cat:'Konparazioa · comparar', eu:'___ baino ___-agoa da', es:'es más ___ que ___', fun:'Comparativo: X baino + adjetivo-ago(a). Superlativo: -ena. «Demasiado» = -egi.', ex:[['Ni zu baino altu<b>agoa</b> naiz.','Soy más alto/a que tú.'],['Hau da onen<b>a</b>.','Este es el mejor.']]},
+{cat:'Ordua · la hora', eu:'___-ak dira · ___-etan', es:'son las ___ · a las ___', fun:'«La una» va en singular (ordu bata da); el resto en plural (-ak dira). «A las…» = -etan.', ex:[['Hirurak <b>dira</b>.','Son las tres.'],['Laur<b>etan</b> geratuko gara.','Quedamos a las cuatro.']]},
+{cat:'Norekin · compañía', eu:'___-(r)ekin', es:'con ___ (NOREKIN)', fun:'Compañía: -ekin (consonante) / -rekin (vocal).', ex:[['Lagun<b>ekin</b> nago.','Estoy con los amigos.'],['Nire<b>kin</b> zatoz?','¿Vienes conmigo?']]},
+{cat:'Bidea · medio', eu:'___-z / ___-an', es:'en/por ___ (medio, instrumental)', fun:'Medio o instrumento: -z (auto<b>z</b> = en coche). También «en euskera» = euskara<b>z</b>.', ex:[['Auto<b>z</b> noa.','Voy en coche.'],['Euskara<b>z</b> hitz egiten dugu.','Hablamos en euskera.']]},
+{cat:'Menderakuntza · unir frases', eu:'… ___-(e)la uste dut', es:'creo que … (completiva)', fun:'Subordinada completiva: verbo + -(e)la. «uste dut» = creo, «badakit» = sé.', ex:[['Berandu <b>dela</b> uste dut.','Creo que es tarde.'],['Etorriko <b>dela</b> esan du.','Ha dicho que vendrá.']]},
+{cat:'Menderakuntza · unir frases', eu:'…, ___-(e)lako', es:'…, porque … (causal)', fun:'Causa: verbo + -(e)lako. Responde a «zergatik?».', ex:[['Ez naiz etorri, berandu <b>zelako</b>.','No he venido porque era tarde.']]},
+{cat:'Menderakuntza · unir frases', eu:'___ ba-…', es:'si … (condicional)', fun:'Condición: prefijo ba- en el verbo.', ex:[['Denbora <b>ba</b>dut, joango naiz.','Si tengo tiempo, iré.'],['Nahi <b>ba</b>duzu, lagunduko dizut.','Si quieres, te ayudo.']]},
+{cat:'Galdegaia · el foco', eu:'[foco] + aditza', es:'lo importante va antes del verbo', fun:'El elemento que responde a la pregunta se coloca justo delante del verbo.', ex:[['Nork jan du? — <b>Jonek</b> jan du.','¿Quién ha comido? — Ha comido Jon.'],['Noiz? — <b>Bihar</b> etorriko da.','¿Cuándo? — Vendrá mañana.']]}
+];
+</script>
+
+<script>
+/* ══ IKASGELA · render + búsqueda + favoritos ═════════════════════════ */
+(function(){
+  var FK='euskara-ikasgela-fav';
+  var fav={}; try{ fav=JSON.parse(localStorage.getItem(FK)||'{}')||{}; }catch(e){}
+  function saveFav(){ try{ localStorage.setItem(FK, JSON.stringify(fav)); }catch(e){} if(window.HUB && HUB.name){} }
+
+  /* categorías: patrones primero, luego las 9 tablas */
+  if(typeof KAT==='undefined'){ document.getElementById('results').innerHTML='<div class="empty"><b>Ezin izan da kargatu</b>Recarga la página con conexión una vez.</div>'; return; }
+  var PATKEY='esaldi';
+  KAT[PATKEY]='Esaldi-ereduak · patrones';
+  var ORDER=[PATKEY].concat(CH);
+
+  /* ítems unificados con id estable y texto de búsqueda */
+  var ITEMS=[];
+  D.forEach(function(e,i){ e._id='d'+i; e._cat=e.k; ITEMS.push(e); });
+  PAT.forEach(function(p,i){ p._id='p'+i; p._cat=PATKEY; p.k=PATKEY; ITEMS.push(p); });
+  function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  ITEMS.forEach(function(e){
+    var parts=[e.eu,e.es,e.fun,e.cat];
+    if(e.t) e.t.forEach(function(r){ parts.push(r.join(' ')); });
+    if(e.ex) e.ex.forEach(function(r){ parts.push(r[0].replace(/<[^>]+>/g,'')+' '+r[1]); });
+    e._s=norm(parts.join(' '));
+  });
+
+  var q=document.getElementById('q'), chipsEl=document.getElementById('chips'), resEl=document.getElementById('results');
+  var active='all';
+
+  /* chips */
+  var chips=[{k:'all',l:'Denak'},{k:'fav',l:'⭐ Gogokoak'}].concat(ORDER.map(function(k){ return {k:k,l:KAT[k]}; }));
+  chips.forEach(function(c){
+    var b=document.createElement('button'); b.type='button'; b.dataset.k=c.k; b.textContent=c.l;
+    b.setAttribute('aria-pressed', c.k===active?'true':'false');
+    b.addEventListener('click', function(){ active=c.k; [].forEach.call(chipsEl.children,function(x){ x.setAttribute('aria-pressed', x.dataset.k===active?'true':'false'); }); render(); });
+    chipsEl.appendChild(b);
+  });
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function cardHTML(e){
+    var pinned=!!fav[e._id];
+    var h='<button type="button" class="pin'+(pinned?' on':'')+'" data-id="'+e._id+'" aria-label="Fijar" title="Fijar como favorito">'+(pinned?'★':'☆')+'</button>';
+    h+='<div class="eu">'+esc(e.eu)+'</div>';
+    if(e.es) h+='<div class="es">'+esc(e.es)+'</div>';
+    if(e.fun) h+='<div class="fun">'+e.fun+'</div>';
+    if(e.t){
+      h+='<table><thead><tr>';
+      (e.head||[]).forEach(function(c){ h+='<th>'+esc(c)+'</th>'; });
+      h+='</tr></thead><tbody>';
+      e.t.forEach(function(r){ h+='<tr>'; r.forEach(function(c,i){ var f=(e.head&&e.head.length>2&&i>0)||(e.head&&e.head.length===2&&i===1); h+='<td'+(f?' class="f"':'')+'>'+esc(c)+'</td>'; }); h+='</tr>'; });
+      h+='</tbody></table>';
+    }
+    if(e.ex){
+      h+='<div class="ex">';
+      e.ex.forEach(function(r){ h+='<div class="row"><span class="e">'+r[0]+'</span><span class="g">'+esc(r[1])+'</span></div>'; });
+      h+='</div>';
+    }
+    return h;
+  }
+  function makeCard(e){
+    var d=document.createElement('div');
+    d.className='card'+(e._cat===PATKEY?' pat':'')+(e.w?' warned':'');
+    d.setAttribute('data-id', e._id);
+    d.innerHTML=cardHTML(e);
+    return d;
+  }
+  function group(container, title, items){
+    if(!items.length) return;
+    var g=document.createElement('div'); g.className='grp';
+    var h=document.createElement('h2'); h.innerHTML=esc(title)+' <span class="n">· '+items.length+'</span>';
+    var cs=document.createElement('div'); cs.className='cards';
+    items.forEach(function(e){ cs.appendChild(makeCard(e)); });
+    g.appendChild(h); g.appendChild(cs); container.appendChild(g);
+  }
+
+  function render(){
+    var terms=norm(q.value).split(/\s+/).filter(Boolean);
+    function match(e){ return terms.every(function(t){ return e._s.indexOf(t)>=0; }); }
+    var pool=ITEMS.filter(match);
+    resEl.innerHTML='';
+
+    // favoritos arriba (salvo si el chip ya es una categoría concreta distinta de fav/all)
+    var favItems=pool.filter(function(e){ return fav[e._id]; });
+    if((active==='all'||active==='fav') && favItems.length) group(resEl, '⭐ Gogokoak · favoritos', favItems);
+    if(active==='fav'){
+      if(!favItems.length) resEl.innerHTML='<div class="empty"><b>Aún no hay favoritos</b>Pincha la ⭐ de una tabla o patrón para tenerlo siempre a mano.</div>';
+      return;
+    }
+
+    var cats = active==='all' ? ORDER : [active];
+    var any=favItems.length>0 && active==='all';
+    cats.forEach(function(k){
+      var items=pool.filter(function(e){ return e._cat===k; });
+      if(active==='all') items=items.filter(function(e){ return !fav[e._id]; }); // no duplicar los fijados
+      if(items.length) any=true;
+      group(resEl, KAT[k], items);
+    });
+    if(!any) resEl.innerHTML='<div class="empty"><b>Ez da ezer aurkitu</b>Prueba con otra palabra, en euskera o castellano: «naiz», «gustatu», «encima», «porque»…</div>';
+  }
+
+  resEl.addEventListener('click', function(e){
+    var b=e.target.closest('.pin'); if(!b) return;
+    var id=b.getAttribute('data-id');
+    if(fav[id]) delete fav[id]; else fav[id]=1;
+    saveFav(); render();
+  });
+  q.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<script>
+/* ── PWA · registro del service worker + botón de instalar ── */
+(function(){
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+  var deferred=null, btn=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred=e; if(btn) btn.hidden=false; });
+  if(btn) btn.addEventListener('click', function(){ if(!deferred) return; deferred.prompt(); deferred.userChoice.then(function(){ deferred=null; btn.hidden=true; }); });
+  window.addEventListener('appinstalled', function(){ if(btn) btn.hidden=true; });
+})();
+</script>
+
+<script src="config.js"></script>
+<script src="armairua-cloud.js"></script>
+<script src="armairua-export.js"></script>
+<script src="armairua-glosario.js"></script>
+</body>
+</html>
