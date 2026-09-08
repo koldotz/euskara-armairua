@@ -2121,6 +2121,10 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       WORDS=(D.w||[]).filter(function(w){ return w.eu && w.es && w.eu.indexOf('/')<0 && w.es.indexOf('/')<0; });
     }catch(e){}
 
+    /* tiempo que la solución queda visible antes de pasar a la siguiente:
+       generoso al acertar y aún más largo al fallar, para leer la correcta */
+    function advMs(ok){ return ok ? 2600 : 4200; }
+
     var KEY='euskara-jokoa-v1', st=load();
     function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0,egia:0,sailkatu:0}; }
     function save(){ if(window.HUB && HUB.save) HUB.save('jokoa', KEY, st); else try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
@@ -2202,7 +2206,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
       save(); refresh();
-      setTimeout(function(){ newEntzun(true); }, 1500);
+      setTimeout(function(){ newEntzun(true); }, advMs(ok));
     });
 
     /* ── datos de gramática para los juegos ── */
@@ -2338,7 +2342,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var hint=document.getElementById('oHint'), full=oCur.q.replace('___','<b>'+oCur.opts[oCur.a]+'</b>');
       if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+full+' — '+oCur.es; }
-      save(); refresh(); setTimeout(newOsatu, 1700);
+      save(); refresh(); setTimeout(newOsatu, advMs(ok));
     });
 
     /* ── Zein da? · elegir la traducción (es → eu) ── */
@@ -2360,7 +2364,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var hint=document.getElementById('aHint');
       if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
-      save(); refresh(); setTimeout(newAukeratu, 1400);
+      save(); refresh(); setTimeout(newAukeratu, advMs(ok));
     });
 
     /* ── Ordenatu · construir la frase ── */
@@ -2412,7 +2416,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var hint=document.getElementById('gHint');
       if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
       else { if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+gCur.eu+' = '+gCur.es; }
-      save(); refresh(); setTimeout(newEgia, 1300);
+      save(); refresh(); setTimeout(newEgia, advMs(ok));
     });
 
     /* ── Sailkatu · ¿qué caso es? (reconocer la declinación) ── */
@@ -2442,7 +2446,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var hint=document.getElementById('sHint');
       if(ok){ st.sailkatu=(st.sailkatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+sCur[0]+' → '+sCur[1]; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+sCur[0]+' → <b>'+sCur[1]+'</b>'; }
-      save(); refresh(); setTimeout(newSailkatu, 1500);
+      save(); refresh(); setTimeout(newSailkatu, advMs(ok));
     });
 
     /* ── conmutador de sub-vista Bukle / Jokoa ── */
