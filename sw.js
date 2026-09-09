@@ -2,12 +2,12 @@
    Cachea las páginas y datos del sitio para que funcione sin conexión
    (uso en clase). Estrategia: stale-while-revalidate para el mismo origen;
    las fuentes/CDN y Supabase van siempre a la red (fuera de scope).      */
-var CACHE = 'armairua-v5';
+var CACHE = 'armairua-v6';
 var ASSETS = [
   'index.html', 'ikasgela.html', 'gramatika.html', 'glosario.html', 'geruzak.html',
   'a1.html', 'a2.html',
   'armairua-gramatika-data.js', 'armairua-glosario.js', 'armairua-export.js',
-  'armairua-a1-plan.js', 'armairua-a1-data.js',
+  'armairua-a1-plan.js', 'armairua-a1-data.js', 'armairua-esaldiak-data.js',
   'armairua-cloud.js', 'config.js',
   'manifest.webmanifest', 'icon-192.png', 'icon-512.png'
 ];

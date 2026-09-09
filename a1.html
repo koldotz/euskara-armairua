@@ -1033,6 +1033,50 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .ent-seg .segbtn{font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:var(--ink-2); background:none; border:0; border-radius:999px; padding:7px 16px; cursor:pointer}
 .ent-seg .segbtn.on{background:var(--sea); color:#fff}
 .ent-seg .segbtn:not(.on):hover{color:var(--ink)}
+
+/* ── ESALDIAK · buscador de frases castellano → euskera ────────────── */
+.esa{max-width:760px}
+.esa-search{display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:0 12px; box-shadow:var(--shadow)}
+.esa-search:focus-within{border-color:var(--sea)}
+.esa-ic{font-size:15px; color:var(--muted); flex:none}
+.esa-search input{flex:1; min-width:0; border:0; background:none; outline:none; font-family:var(--f-ui); font-size:16px; color:var(--ink); padding:14px 0}
+.esa-search input::placeholder{color:var(--muted)}
+.esa-clear{flex:none; border:0; background:none; color:var(--muted); font-size:15px; cursor:pointer; padding:6px}
+.esa-clear:hover{color:var(--ink)}
+.esa-chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
+.esa-chip{font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--ink-2); background:var(--surface); border:1px solid var(--line-strong); border-radius:999px; padding:5px 13px; cursor:pointer; white-space:nowrap}
+.esa-chip:hover{border-color:var(--sea); color:var(--sea)}
+.esa-chip.on{background:var(--sea); border-color:var(--sea); color:#fff}
+.esa-note{font-family:var(--f-ui); font-size:12px; color:var(--gold); background:var(--gold-soft); border:1px solid var(--gold); border-radius:var(--r); padding:8px 11px; margin:16px 0 0; line-height:1.5}
+.esa-count{font-family:var(--f-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin:16px 0 8px}
+.esa-list{display:flex; flex-direction:column; gap:10px}
+.esa-empty{font-family:var(--f-ui); font-size:14.5px; color:var(--ink-2); background:var(--surface); border:1px dashed var(--line-strong); border-radius:var(--r); padding:22px; line-height:1.6}
+.esa-card{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden}
+.esa-card .esa-top{display:flex; align-items:flex-start; gap:12px; padding:13px 15px}
+.esa-card .esa-txt{flex:1; min-width:0}
+.esa-card .esa-es{font-family:var(--f-ui); font-size:13px; color:var(--muted); line-height:1.4}
+.esa-card .esa-eu{font-family:var(--f-display); font-weight:600; font-size:17px; color:var(--ink); line-height:1.35; margin-top:3px; text-wrap:balance}
+.esa-card .esa-eu mark{background:var(--sea-soft); color:inherit; border-radius:2px; padding:0 1px}
+.esa-card .esa-es mark{background:var(--sea-soft); color:inherit; border-radius:2px; padding:0 1px}
+.esa-card .esa-meta{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; align-items:center}
+.esa-tag{font-family:var(--f-mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--sea); background:var(--sea-soft); border:1px solid var(--sea); border-radius:2px; padding:2px 7px}
+.esa-src{font-family:var(--f-mono); font-size:9px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.esa-say{flex:none; width:38px; height:38px; border-radius:50%; border:1px solid var(--line-strong); background:var(--ground); color:var(--ink-2); font-size:15px; cursor:pointer; display:grid; place-items:center}
+.esa-say:hover{border-color:var(--sea); color:var(--sea)}
+.esa-say.playing{background:var(--sea); border-color:var(--sea); color:#fff}
+.esa-card details{border-top:1px solid var(--line)}
+.esa-card details summary{list-style:none; cursor:pointer; font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--ink-2); padding:10px 15px; display:flex; align-items:center; gap:7px; user-select:none}
+.esa-card details summary::-webkit-details-marker{display:none}
+.esa-card details summary::before{content:"▸"; color:var(--muted); font-size:11px; transition:transform .12s}
+.esa-card details[open] summary::before{transform:rotate(90deg)}
+.esa-card details summary:hover{color:var(--sea)}
+.esa-anal{padding:0 15px 14px; border-top:1px solid var(--line)}
+.esa-mor{font-family:var(--f-mono); font-size:12.5px; color:var(--ink-2); line-height:1.75; margin:12px 0 0}
+.esa-mor b{color:var(--sea); font-weight:500}
+.esa-mor i{color:var(--iron); font-style:normal}
+.esa-gr{font-family:var(--f-ui); font-size:13px; color:var(--muted); line-height:1.55; margin:8px 0 0}
+@media (max-width:560px){ .esa-card .esa-eu{font-size:15.5px} }
+@media (prefers-reduced-motion:reduce){ .esa-card details summary::before{transition:none} }
 .jk-prog{display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:12px; margin-bottom:16px}
 .jk-card{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:14px 16px}
 .jk-lbl{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
@@ -1762,6 +1806,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
     <div class="ent-seg" role="tablist" aria-label="Jokoa edo Entzumena">
       <button type="button" class="segbtn on" id="segJoko" role="tab" aria-selected="true">🎮 Jokoa</button>
+      <button type="button" class="segbtn" id="segEsaldi" role="tab" aria-selected="false">🔎 Esaldiak</button>
       <button type="button" class="segbtn" id="segLoop" role="tab" aria-selected="false">🔁 Entzun bukle</button>
     </div>
 
@@ -1823,6 +1868,22 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
         <div class="jk-game" id="jkOrdena"></div>
         <div class="jk-game" id="jkEgia"></div>
         <div class="jk-game" id="jkSailkatu"></div>
+      </div>
+    </div>
+
+    <div id="entViewEsaldi" hidden>
+      <div class="esa">
+        <div class="esa-search">
+          <span class="esa-ic" aria-hidden="true">🔎</span>
+          <input type="search" id="esaQ" autocomplete="off" spellcheck="false"
+                 placeholder="Busca en castellano… (p. ej. «me gusta», «voy a casa», «cuánto cuesta»)"
+                 aria-label="Buscar una frase en castellano">
+          <button type="button" id="esaClear" class="esa-clear" aria-label="Limpiar" hidden>✕</button>
+        </div>
+        <div class="esa-chips" id="esaChips" role="tablist" aria-label="Filtrar por estructura"></div>
+        <p class="esa-note">&#9888; Solo frases del curso A1 (koadernos, Irakurmena, Esapideak y simulacros). El desglose de morfemas y las notas gramaticales los ha añadido Claude: conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
+        <div class="esa-count" id="esaCount"></div>
+        <div class="esa-list" id="esaList"></div>
       </div>
     </div>
   </div>
@@ -2461,18 +2522,20 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       save(); refresh(); setTimeout(newSailkatu, advMs(ok));
     });
 
-    /* ── conmutador de sub-vista Bukle / Jokoa ── */
+    /* ── conmutador de sub-vista Jokoa / Esaldiak / Bukle ── */
+    var esaldi=document.getElementById('entViewEsaldi'), segE=document.getElementById('segEsaldi');
     var VK='euskara-ent-view';
     function showView(v){
-      var jk=v==='joko';
-      loop.hidden=jk; joko.hidden=!jk;
-      segL.classList.toggle('on',!jk); segJ.classList.toggle('on',jk);
-      segL.setAttribute('aria-selected',String(!jk)); segJ.setAttribute('aria-selected',String(jk));
+      loop.hidden=(v!=='loop'); joko.hidden=(v!=='joko'); if(esaldi) esaldi.hidden=(v!=='esaldi');
+      segL.classList.toggle('on',v==='loop'); segJ.classList.toggle('on',v==='joko'); if(segE) segE.classList.toggle('on',v==='esaldi');
+      segL.setAttribute('aria-selected',String(v==='loop')); segJ.setAttribute('aria-selected',String(v==='joko')); if(segE) segE.setAttribute('aria-selected',String(v==='esaldi'));
       try{ localStorage.setItem(VK,v); }catch(e){}
-      if(jk){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); refresh(); ePlay(); }
+      if(v==='joko'){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); refresh(); ePlay(); }
+      else if(v==='esaldi'){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); if(window.ESALDIAK && ESALDIAK.enter) ESALDIAK.enter(); }
     }
     segL.addEventListener('click', function(){ showView('loop'); });
     segJ.addEventListener('click', function(){ showView('joko'); });
+    if(segE) segE.addEventListener('click', function(){ showView('esaldi'); });
 
     refresh(); newEntzun(false); newLotu(); newOsatu(); newAukeratu(); newOrdena(); newEgia(); newSailkatu();
     if(window.PLANA) PLANA.onChange(refresh);
@@ -2480,7 +2543,126 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ st=v; refresh(); } }, function(){ return st; });
 
     var last=''; try{ last=localStorage.getItem(VK)||''; }catch(e){}
-    if(last==='loop') showView('loop');   // por defecto Jokoa; recuerda «bucle» si se eligió
+    if(last==='loop') showView('loop');        // por defecto Jokoa;
+    else if(last==='esaldi') showView('esaldi'); // recuerda la última sub-vista elegida
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+
+<script>
+/* ── ESALDIAK · buscador de frases castellano → euskera ─────────────────
+   Sub-vista «Esaldiak» del panel Jokoa. Tira de window.A1_ESALDIAK (fuente
+   única). Búsqueda por castellano (y de propina por euskera), filtro por
+   estructura gramatical y análisis morfema a morfema plegable. La voz
+   reutiliza window.ENTZUN.say (misma voz elegida en el bucle).            */
+(function(){
+  function start(){
+    var DATA = window.A1_ESALDIAK; if(!DATA || !DATA.length) return;
+    var q=document.getElementById('esaQ'), clr=document.getElementById('esaClear'),
+        chips=document.getElementById('esaChips'), list=document.getElementById('esaList'),
+        count=document.getElementById('esaCount');
+    if(!q || !chips || !list) return;
+
+    /* quita tildes y baja a minúsculas para buscar sin acentos */
+    function norm(s){ return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+    DATA.forEach(function(d){ d._es=norm(d.es); d._eu=norm(d.eu); });
+
+    /* orden fijo de las etiquetas para los chips */
+    var ORDER=['NOR','NORK','NORI','Lekua','Aspektua','Lokailuak','Ordua','Esapideak'];
+    var present={}; DATA.forEach(function(d){ present[d.k]=true; });
+    var TAGS=ORDER.filter(function(k){ return present[k]; });
+
+    var active='', query='';   // '' = todas
+
+    /* chips: «Denak» + una por estructura */
+    function chip(label, val){
+      var b=document.createElement('button');
+      b.type='button'; b.className='esa-chip'+(val===active?' on':'');
+      b.textContent=label; b.setAttribute('role','tab');
+      b.addEventListener('click', function(){ active=val; syncChips(); render(); });
+      return b;
+    }
+    function buildChips(){
+      chips.appendChild(chip('Denak', ''));
+      TAGS.forEach(function(k){ chips.appendChild(chip(k, k)); });
+    }
+    function syncChips(){
+      var bs=chips.querySelectorAll('.esa-chip');
+      for(var i=0;i<bs.length;i++){
+        var v = i===0 ? '' : TAGS[i-1];
+        bs[i].classList.toggle('on', v===active);
+      }
+    }
+
+    /* resalta las apariciones del término buscado */
+    function mark(text, nq){
+      if(!nq) return esc(text);
+      var nt=norm(text), out='', last=0, i=nt.indexOf(nq);
+      while(i>=0){
+        out += esc(text.slice(last, i)) + '<mark>' + esc(text.slice(i, i+nq.length)) + '</mark>';
+        last=i+nq.length; i=nt.indexOf(nq, last);
+      }
+      return out + esc(text.slice(last));
+    }
+    function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function analHTML(d){
+      var mor = d.m.map(function(p){ return '<b>'+esc(p[0])+'</b> <i>'+esc(p[1])+'</i>'; }).join(' · ');
+      return '<div class="esa-anal"><p class="esa-mor">'+mor+'</p><p class="esa-gr">'+esc(d.g)+'</p></div>';
+    }
+
+    function render(){
+      var nq=norm(query.trim());
+      var rows=DATA.filter(function(d){
+        if(active && d.k!==active) return false;
+        if(!nq) return true;
+        return d._es.indexOf(nq)>=0 || d._eu.indexOf(nq)>=0;
+      });
+      count.textContent = rows.length + (rows.length===1?' esaldi':' esaldi') + (active?' · '+active:'') ;
+      if(!rows.length){
+        list.innerHTML='<div class="esa-empty">Ez dago emaitzarik. No hay frases del A1 con «'+esc(query.trim())+'»'+(active?' en '+esc(active):'')+'. Prueba con otra palabra en castellano o quita el filtro.</div>';
+        return;
+      }
+      var html='';
+      rows.forEach(function(d, idx){
+        html += '<div class="esa-card">'
+          + '<div class="esa-top">'
+          +   '<div class="esa-txt">'
+          +     '<div class="esa-es">'+mark(d.es, nq)+'</div>'
+          +     '<div class="esa-eu">'+mark(d.eu, nq)+'</div>'
+          +     '<div class="esa-meta"><span class="esa-tag">'+esc(d.k)+'</span><span class="esa-src">'+esc(d.src)+'</span></div>'
+          +   '</div>'
+          +   '<button type="button" class="esa-say" data-eu="'+esc(d.eu)+'" aria-label="Escuchar en euskera">🔊</button>'
+          + '</div>'
+          + '<details><summary>Análisis · morfemak</summary>'+analHTML(d)+'</details>'
+          + '</div>';
+      });
+      list.innerHTML=html;
+    }
+
+    /* voz: reutiliza la del bucle (window.ENTZUN.say) */
+    list.addEventListener('click', function(e){
+      var btn=e.target.closest ? e.target.closest('.esa-say') : null;
+      if(!btn) return;
+      var txt=btn.getAttribute('data-eu');
+      if(window.ENTZUN && ENTZUN.say){
+        var prev=list.querySelector('.esa-say.playing'); if(prev) prev.classList.remove('playing');
+        btn.classList.add('playing');
+        ENTZUN.say(txt, function(){ btn.classList.remove('playing'); });
+      }
+    });
+
+    q.addEventListener('input', function(){
+      query=q.value; clr.hidden=!query; render();
+    });
+    clr.addEventListener('click', function(){ q.value=''; query=''; clr.hidden=true; render(); q.focus(); });
+
+    buildChips(); render();
+
+    /* al abrir la sub-vista, enfoca el buscador (en móvil no fuerza teclado) */
+    window.ESALDIAK = { enter: function(){ try{ if(!('ontouchstart' in window)) q.focus(); }catch(e){} } };
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start);
   else start();
@@ -2566,6 +2748,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 </div>
 
 <script src="armairua-a1-data.js"></script>
+<script src="armairua-esaldiak-data.js"></script>
 <script>
 (function(){
   var D = A1_DATA;
