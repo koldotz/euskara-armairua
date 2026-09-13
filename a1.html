@@ -1132,6 +1132,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .jk-q{font-family:var(--f-mono); font-size:16px; color:var(--ink); text-align:center; margin:6px 0 16px; line-height:1.7}
 .jk-q .blank{color:var(--sea); border-bottom:2px solid var(--sea); padding:0 10px; letter-spacing:2px}
 .jk-prompt{font-family:var(--f-display); font-weight:600; font-size:20px; color:var(--ink); text-align:center; margin:6px 0 16px; text-wrap:balance}
+.jk-prompt mark{background:transparent; color:var(--sea); font-weight:700; text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:2px}
 .jk-answer{min-height:46px; display:flex; flex-wrap:wrap; gap:7px; align-items:center; justify-content:center; padding:10px; border:1px dashed var(--line-strong); border-radius:var(--r); margin-bottom:12px}
 .jk-answer.ok{border-color:var(--sea); background:var(--sea-soft)}
 .jk-answer.no{border-color:var(--iron); background:var(--iron-soft)}
@@ -2191,8 +2192,32 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
        generoso al acertar y aún más largo al fallar, para leer la correcta */
     function advMs(ok){ return ok ? 5000 : 6000; }
 
+    /* ── banco de frases verificadas (Esaldiak) como fuente de dificultad ──
+       Cada juego con niveles seleccionables sube la LONGITUD de la frase
+       tirando de A1_ESALDIAK (frases del temario, ya verificadas). Sin él,
+       los juegos de frase caen a su nivel más corto. */
+    var ESA=[]; try{ ESA=(window.A1_ESALDIAK||[]).filter(function(e){ return e.es && e.eu; }); }catch(e){}
+    function euTok(e){ return e.eu.split(/\s+/).filter(Boolean); }
+    /* pool {eu,es} por nivel para los juegos de traducción/oído:
+       0 = palabras sueltas (vocabulario) · 1 = frases cortas · 2 = frases largas */
+    function poolLv(lv){
+      if(lv<=0) return WORDS.map(function(w){ return {eu:w.eu, es:w.es}; });
+      var lo = lv===1?2:5, hi = lv===1?4:99;
+      var p = ESA.filter(function(e){ if(e.eu.indexOf('—')>=0||e.eu.indexOf('...')>=0) return false; var n=euTok(e).length; return n>=lo && n<=hi; })
+                 .map(function(e){ return {eu:e.eu, es:e.es}; });
+      return p.length>=4 ? p : WORDS.map(function(w){ return {eu:w.eu, es:w.es}; });
+    }
+    /* fila de botones de nivel reutilizable (mismo estilo que Lotu) */
+    var LVNM=['Erraza','Ertaina','Zaila'];
+    function lvRow(cls, cur, tips){
+      return '<div class="jk-lv-row">'+LVNM.map(function(nm,k){
+        return '<button type="button" class="jk-lv'+(k===cur?' on':'')+'" data-'+cls+'="'+k+'" title="'+(tips&&tips[k]||'')+'">'+nm+'</button>';
+      }).join('')+'</div>';
+    }
+    function clampLv(v){ v=+v||0; return v<0?0:(v>2?2:v); }
+
     var KEY='euskara-jokoa-v1', st=load();
-    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0,egia:0,sailkatu:0}; }
+    function load(){ try{ var r=localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return {xp:0,streak:0,best:0,last:'',eok:0,etot:0,lotu:0,dlevel:0,dfail:{},osatu:0,zein:0,ordena:0,egia:0,sailkatu:0,lvEntzun:0,lvZein:0,lvEgia:0,lvOrdena:0,lvOsatu:0,lvSailka:0}; }
     function save(){ if(window.HUB && HUB.save) HUB.save('jokoa', KEY, st); else try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
     /* racha por fecha real */
@@ -2245,8 +2270,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
     function sample(arr,n){ return shuffle(arr).slice(0,n); }
 
-    /* ── Entzun eta asmatu ── */
-    var eCur=null, eLock=false;
+    /* ── Entzun eta asmatu (niveles: palabras → frases cortas → frases largas) ── */
+    var ENTZUN_TIPS=['Palabras sueltas','Frases cortas (Esaldiak)','Frases largas (Esaldiak)'];
+    var eCur=null, eLock=false, eOpts=[];
     function ePlay(){
       if(!eCur || !window.ENTZUN || !ENTZUN.say) return;
       /* no hablar si el panel Jokoa no está a la vista: evita que un temporizador
@@ -2257,24 +2283,28 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     }
     function newEntzun(autoplay){
       eLock=false;
-      if(WORDS.length<4){ elEntzun.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; eCur=null; return; }
-      var pick=sample(WORDS,4); eCur=pick[0];
-      var opts=shuffle(pick), canSay=!!(window.ENTZUN && ENTZUN.say);
-      elEntzun.innerHTML=
-        '<div class="jk-g-head"><h3><span class="ic">👂</span>Entzun eta asmatu</h3><span class="sc">'+(st.eok||0)+' asmatuta</span></div>'+
+      var lv=clampLv(st.lvEntzun), pool=poolLv(lv);
+      var head='<div class="jk-g-head"><h3><span class="ic">👂</span>Entzun eta asmatu</h3><span class="sc">'+(st.eok||0)+' asmatuta</span></div>'+
+        lvRow('lentzun', lv, ENTZUN_TIPS);
+      if(pool.length<4){ elEntzun.innerHTML=head+'<div class="jk-note">No hay suficiente contenido para este nivel.</div>'; eCur=null; return; }
+      var pick=sample(pool,4); eCur=pick[0]; eOpts=shuffle(pick);
+      var canSay=!!(window.ENTZUN && ENTZUN.say);
+      elEntzun.innerHTML=head+
         (canSay
           ? '<button type="button" class="jk-play" id="ePlay" aria-label="Escuchar">🔊</button>'+
-            '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-i="'+o.i+'">'+o.es+'</button>'; }).join('')+'</div>'+
+            '<div class="jk-opts">'+eOpts.map(function(o,k){ return '<button type="button" class="jk-opt" data-k="'+k+'">'+o.es+'</button>'; }).join('')+'</div>'+
             '<div class="jk-hint" id="eHint"><button type="button" class="jk-repeat" id="eRep">🔊 Repetir</button></div>'
           : '<div class="jk-note">Para este reto de oído hace falta voz del navegador (Web Speech API). Ábrelo en Chrome, Edge o Safari.</div>');
       if(canSay){ document.getElementById('ePlay').onclick=ePlay; document.getElementById('eRep').onclick=ePlay; if(autoplay) setTimeout(ePlay,200); }
     }
     elEntzun.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvEntzun=clampLv(lb.getAttribute('data-lentzun')); save(); newEntzun(false); return; }
       var b=e.target.closest('.jk-opt'); if(!b || eLock || !eCur) return;
       eLock=true;
-      var ok=(+b.getAttribute('data-i'))===eCur.i;
+      var ok=(eOpts[+b.getAttribute('data-k')]===eCur);
       st.etot=(st.etot||0)+1;
-      Array.prototype.forEach.call(elEntzun.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-i'))===eCur.i) o.classList.add('ok'); });
+      Array.prototype.forEach.call(elEntzun.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(eOpts[+o.getAttribute('data-k')]===eCur) o.classList.add('ok'); });
       var hint=document.getElementById('eHint');
       if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
@@ -2336,6 +2366,32 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       {q:'Nik liburua ___.', opts:['dut','ditut','naiz'], a:0, es:'Yo tengo el libro.'},
       {q:'Autoz ___.', opts:['noa','nago','dut'], a:0, es:'Voy en coche.'}
     ];
+    /* Osatu · nivel medio (frases un poco más largas, del temario) */
+    var OSATU1=[
+      {q:'Bihar mendi___ joango naiz.', opts:['-ra','-n','-tik'], a:0, es:'Mañana iré al monte.'},
+      {q:'Niri kafea gustatzen ___.', opts:['zait','zaizu','dut'], a:0, es:'A mí me gusta el café.'},
+      {q:'Amak kamiseta bat erosi ___.', opts:['dit','dut','du'], a:0, es:'Mi madre me ha comprado una camiseta.'},
+      {q:'Lagun___ nago mendian.', opts:['-ekin','-ei','-en'], a:0, es:'Estoy con los amigos en el monte.'},
+      {q:'Ez dut ezer ___.', opts:['ikusi','ikusten','ikusiko'], a:0, es:'No he visto nada.'},
+      {q:'Zarautz___ bizi da.', opts:['-en','-eko','-era'], a:0, es:'Vive en Zarautz.'},
+      {q:'Hogeita hamabi urte ___.', opts:['ditu','du','dira'], a:0, es:'Tiene treinta y dos años.'},
+      {q:'Aneri liburua eman ___.', opts:['diot','dut','dizut'], a:0, es:'Le he dado el libro a Ane.'},
+      {q:'Mikelekin hitz egin ___.', opts:['dut','naiz','diot'], a:0, es:'He hablado con Mikel.'},
+      {q:'Haurrak parke___ daude.', opts:['-an','-ra','-ko'], a:0, es:'Los niños están en el parque.'}
+    ];
+    /* Osatu · nivel alto (subordinadas y aspecto A1) */
+    var OSATU2=[
+      {q:'Euskara ikasten ari naiz, gustatzen ___.', opts:['zaidalako','zait','zaizu'], a:0, es:'Estoy aprendiendo euskera porque me gusta.'},
+      {q:'Gaur euria egingo ___ uste dut.', opts:['duela','du','dela'], a:0, es:'Creo que hoy va a llover.'},
+      {q:'Ez dakit non ___ nire liburua.', opts:['dagoen','dago','dagoena'], a:0, es:'No sé dónde está mi libro.'},
+      {q:'Nahi ___, elkarrekin bazkalduko dugu.', opts:['baduzu','duzu','duzun'], a:0, es:'Si quieres, comemos juntos.'},
+      {q:'Etortzen naiz___ deituko dizut.', opts:['-enean','-ela','-en'], a:0, es:'Cuando vengo, te llamaré.'},
+      {q:'Nekatuta nago___ ez naiz joango.', opts:['-elako','-enean','-ela'], a:0, es:'Como estoy cansado, no iré.'},
+      {q:'Ikas___ liburu bat da.', opts:['-teko','-ten','-tu'], a:0, es:'Es un libro para estudiar.'},
+      {q:'Herriko jaiak abuztuaren hamabost___ hasten dira.', opts:['-ean','-a','-eko'], a:0, es:'Las fiestas empiezan el 15 de agosto.'},
+      {q:'Berandu ___ uste dut.', opts:['dela','da','duela'], a:0, es:'Creo que es tarde.'},
+      {q:'Medikuarengana joan behar ___ hamaiketan.', opts:['dut','naiz','diot'], a:0, es:'Tengo que ir al médico a las once.'}
+    ];
     var ORDENA=[
       {toks:['Ni','Maialen','naiz'], es:'Yo soy Maialen.'},
       {toks:['Non','bizi','zara?'], es:'¿Dónde vives?'},
@@ -2396,19 +2452,24 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       }
     });
 
-    /* ── Osatu · rellenar el hueco (sufijos/formas) ── */
+    /* ── Osatu · rellenar el hueco (niveles por longitud de frase) ── */
+    var OSATU_TIPS=['Frases cortas','Frases medias','Frases largas (subordinadas)'];
     var oCur=null, oLock=false;
     function newOsatu(){
       oLock=false;
-      var it=OSATU[Math.floor(Math.random()*OSATU.length)]; oCur=it;
+      var lv=clampLv(st.lvOsatu), bank=lv<=0?OSATU:(lv===1?OSATU1:OSATU2);
+      var it=bank[Math.floor(Math.random()*bank.length)]; oCur=it;
       var opts=shuffle(it.opts.map(function(o,k){ return {o:o,k:k}; }));
       elOsatu.innerHTML=
         '<div class="jk-g-head"><h3><span class="ic">✍️</span>Osatu · rellena</h3><span class="sc">'+(st.osatu||0)+' bete</span></div>'+
+        lvRow('losatu', lv, OSATU_TIPS)+
         '<div class="jk-q">'+it.q.replace('___','<span class="blank">___</span>')+'</div>'+
         '<div class="jk-opts">'+opts.map(function(x){ return '<button type="button" class="jk-opt" data-k="'+x.k+'">'+x.o+'</button>'; }).join('')+'</div>'+
         '<div class="jk-hint" id="oHint">Elige el sufijo o la forma correcta.</div>';
     }
     elOsatu.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvOsatu=clampLv(lb.getAttribute('data-losatu')); save(); newOsatu(); return; }
       var b=e.target.closest('.jk-opt'); if(!b || oLock || !oCur) return;
       oLock=true; var ok=(+b.getAttribute('data-k'))===oCur.a;
       Array.prototype.forEach.call(elOsatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-k'))===oCur.a) o.classList.add('ok'); });
@@ -2418,43 +2479,64 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       save(); refresh(); setTimeout(newOsatu, advMs(ok));
     });
 
-    /* ── Zein da? · elegir la traducción (es → eu) ── */
-    var aCur=null, aLock=false;
+    /* ── Zein da? · elegir la traducción (es → eu), con niveles ── */
+    var ZEIN_TIPS=['Palabras sueltas','Frases cortas (Esaldiak)','Frases largas (Esaldiak)'];
+    var aCur=null, aLock=false, aOpts=[];
     function newAukeratu(){
       aLock=false;
-      if(WORDS.length<4){ elAukeratu.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
-      var pick=sample(WORDS,4); aCur=pick[0]; var opts=shuffle(pick);
-      elAukeratu.innerHTML=
-        '<div class="jk-g-head"><h3><span class="ic">🎯</span>Zein da? · elige</h3><span class="sc">'+(st.zein||0)+' asmatuta</span></div>'+
+      var lv=clampLv(st.lvZein), pool=poolLv(lv);
+      var head='<div class="jk-g-head"><h3><span class="ic">🎯</span>Zein da? · elige</h3><span class="sc">'+(st.zein||0)+' asmatuta</span></div>'+
+        lvRow('lzein', lv, ZEIN_TIPS);
+      if(pool.length<4){ elAukeratu.innerHTML=head+'<div class="jk-note">No hay suficiente contenido para este nivel.</div>'; aCur=null; return; }
+      var pick=sample(pool,4); aCur=pick[0]; aOpts=shuffle(pick);
+      elAukeratu.innerHTML=head+
         '<div class="jk-prompt">«'+aCur.es+'» euskaraz?</div>'+
-        '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-i="'+o.i+'">'+o.eu+'</button>'; }).join('')+'</div>'+
+        '<div class="jk-opts">'+aOpts.map(function(o,k){ return '<button type="button" class="jk-opt" data-k="'+k+'">'+o.eu+'</button>'; }).join('')+'</div>'+
         '<div class="jk-hint" id="aHint">&nbsp;</div>';
     }
     elAukeratu.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvZein=clampLv(lb.getAttribute('data-lzein')); save(); newAukeratu(); return; }
       var b=e.target.closest('.jk-opt'); if(!b || aLock || !aCur) return;
-      aLock=true; var ok=(+b.getAttribute('data-i'))===aCur.i;
-      Array.prototype.forEach.call(elAukeratu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-i'))===aCur.i) o.classList.add('ok'); });
+      aLock=true; var ok=(aOpts[+b.getAttribute('data-k')]===aCur);
+      Array.prototype.forEach.call(elAukeratu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(aOpts[+o.getAttribute('data-k')]===aCur) o.classList.add('ok'); });
       var hint=document.getElementById('aHint');
       if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
       save(); refresh(); setTimeout(newAukeratu, advMs(ok));
     });
 
-    /* ── Ordenatu · construir la frase ── */
+    /* ── Ordenatu · construir la frase (niveles por longitud · banco Esaldiak) ── */
+    var ORDENA_TIPS=['3 palabras','4–5 palabras','6+ palabras (Esaldiak)'];
+    function ordCandidates(lv){
+      var lo = lv<=0?3:(lv===1?4:6), hi = lv<=0?3:(lv===1?5:99), out=[];
+      ESA.forEach(function(e){
+        var s=e.eu;
+        if(s.indexOf(',')>=0||s.indexOf('—')>=0||s.indexOf('...')>=0||/[.?!]\s/.test(s)) return;
+        var t=euTok(e); if(t.length>=lo && t.length<=hi) out.push({toks:t, es:e.es});
+      });
+      ORDENA.forEach(function(o){ if(o.toks.length>=lo && o.toks.length<=hi) out.push({toks:o.toks, es:o.es}); });
+      return out;
+    }
     var rCur=null, rBuilt=[];
     function newOrdena(){
-      var it=ORDENA[Math.floor(Math.random()*ORDENA.length)]; rCur=it; rBuilt=[];
+      var lv=clampLv(st.lvOrdena), pool=ordCandidates(lv);
+      var head='<div class="jk-g-head"><h3><span class="ic">🔀</span>Ordenatu · ordena</h3><span class="sc">'+(st.ordena||0)+' osatuta</span></div>'+
+        lvRow('lordena', lv, ORDENA_TIPS);
+      if(!pool.length){ elOrdena.innerHTML=head+'<div class="jk-note">No hay frases para este nivel.</div>'; rCur=null; return; }
+      var it=pool[Math.floor(Math.random()*pool.length)]; rCur=it; rBuilt=[];
       var toks=shuffle(it.toks.map(function(w,k){ return {w:w,k:k}; }));
-      elOrdena.innerHTML=
-        '<div class="jk-g-head"><h3><span class="ic">🔀</span>Ordenatu · ordena</h3><span class="sc">'+(st.ordena||0)+' osatuta</span></div>'+
+      elOrdena.innerHTML=head+
         '<div class="jk-prompt">'+it.es+'</div>'+
         '<div class="jk-answer" id="rAns"></div>'+
         '<div class="jk-bank" id="rBank">'+toks.map(function(x){ return '<button type="button" class="jk-tok" data-k="'+x.k+'">'+x.w+'</button>'; }).join('')+'</div>'+
         '<div class="jk-hint" id="rHint">Toca las palabras en el orden correcto.</div>';
     }
     elOrdena.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvOrdena=clampLv(lb.getAttribute('data-lordena')); save(); newOrdena(); return; }
       var tok=e.target.closest('.jk-tok');
-      if(!tok || tok.disabled) return;
+      if(!tok || tok.disabled || !rCur) return;
       tok.disabled=true; tok.classList.add('used'); rBuilt.push(tok.textContent);
       var ans=document.getElementById('rAns');
       var chip=document.createElement('span'); chip.className='jk-chip'; chip.textContent=tok.textContent; ans.appendChild(chip);
@@ -2466,22 +2548,27 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       }
     });
 
-    /* ── Egia ala gezurra? · ¿verdadero o falso? ── */
+    /* ── Egia ala gezurra? · ¿verdadero o falso? (niveles) ── */
+    var EGIA_TIPS=['Palabras sueltas','Frases cortas (Esaldiak)','Frases largas (Esaldiak)'];
     var gCur=null, gTrue=false, gLock=false;
     function newEgia(){
       gLock=false;
-      if(WORDS.length<2){ elEgia.innerHTML='<div class="jk-note">No hay suficiente vocabulario.</div>'; return; }
-      var pick=sample(WORDS,2), w=pick[0];
+      var lv=clampLv(st.lvEgia), pool=poolLv(lv);
+      var head='<div class="jk-g-head"><h3><span class="ic">⚖️</span>Egia ala gezurra?</h3><span class="sc">'+(st.egia||0)+' ondo</span></div>'+
+        lvRow('legia', lv, EGIA_TIPS);
+      if(pool.length<2){ elEgia.innerHTML=head+'<div class="jk-note">No hay suficiente contenido para este nivel.</div>'; gCur=null; return; }
+      var pick=sample(pool,2), w=pick[0];
       gTrue=Math.random()<0.5;
       var shown=gTrue?w.es:pick[1].es;
       gCur=w;
-      elEgia.innerHTML=
-        '<div class="jk-g-head"><h3><span class="ic">⚖️</span>Egia ala gezurra?</h3><span class="sc">'+(st.egia||0)+' ondo</span></div>'+
+      elEgia.innerHTML=head+
         '<div class="jk-prompt"><b>'+w.eu+'</b> = '+shown+'</div>'+
         '<div class="jk-opts jk-tf"><button type="button" class="jk-opt" data-v="1">✓ Egia</button><button type="button" class="jk-opt" data-v="0">✗ Gezurra</button></div>'+
         '<div class="jk-hint" id="gHint">¿La traducción es correcta?</div>';
     }
     elEgia.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvEgia=clampLv(lb.getAttribute('data-legia')); save(); newEgia(); return; }
       var b=e.target.closest('.jk-opt'); if(!b || gLock || !gCur) return;
       gLock=true; var said=b.getAttribute('data-v')==='1', ok=(said===gTrue);
       Array.prototype.forEach.call(elEgia.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; });
@@ -2492,7 +2579,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       save(); refresh(); setTimeout(newEgia, advMs(ok));
     });
 
-    /* ── Sailkatu · ¿qué caso es? (reconocer la declinación) ── */
+    /* ── Sailkatu · ¿qué caso? (niveles: forma suelta → dentro de frase) ── */
     var SAILKA=[
       ['etxean','NON'],['etxera','NORA'],['etxetik','NONDIK'],['etxeko','NONGO'],['etxearekin','NOREKIN'],
       ['lanean','NON'],['lanera','NORA'],['lanetik','NONDIK'],['laneko','NONGO'],['lanarekin','NOREKIN'],
@@ -2500,25 +2587,57 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       ['etxeari','NORI'],['etxearen','NOREN'],['etxearentzat','NORENTZAT'],['autoz','-Z']
     ];
     var SCASE=['NOR','NORK','NORI','NOREN','NON','NORA','NONDIK','NONGO','NOREKIN','NORENTZAT','-Z'];
+    /* nivel 1 · la forma dentro de una frase corta (se marca la palabra) */
+    var SAILKA_CTX1=[
+      ['Etxean nago.','Etxean','NON'],['Etxera noa.','Etxera','NORA'],['Etxetik nator.','Etxetik','NONDIK'],
+      ['Bilbon bizi da.','Bilbon','NON'],['Donostiara joango gara.','Donostiara','NORA'],
+      ['Autobusez etorri naiz.','Autobusez','-Z'],['Herriko jaiak.','Herriko','NONGO'],
+      ['Mikelen autoa.','Mikelen','NOREN'],['Gaurko egunkaria.','Gaurko','NONGO'],
+      ['Nik liburua irakurri dut.','Nik','NORK'],['Mikelek afaria prestatu du.','Mikelek','NORK'],
+      ['Aneri liburua eman diot.','Aneri','NORI']
+    ];
+    /* nivel 2 · la forma dentro de una frase larga */
+    var SAILKA_CTX2=[
+      ['Asteburuetan mendira joaten naiz lagunekin.','mendira','NORA'],
+      ['Asteburuetan mendira joaten naiz lagunekin.','lagunekin','NOREKIN'],
+      ['Egunero autobusez joaten naiz lanera.','lanera','NORA'],
+      ['Egunero autobusez joaten naiz lanera.','autobusez','-Z'],
+      ['Medikuarengana joan behar dut hamaiketan.','hamaiketan','NON'],
+      ['Amak kamiseta bat erosi dit.','Amak','NORK'],
+      ['Haurrek ura edan dute.','Haurrek','NORK'],
+      ['Niri euskara asko gustatzen zait.','Niri','NORI'],
+      ['Liburua mahaiaren gainean dago.','mahaiaren','NOREN'],
+      ['Kotxea etxearen aurrean dago.','etxearen','NOREN'],
+      ['Jon Zarautzen bizi da, baina Iruñekoa da.','Zarautzen','NON'],
+      ['Bihar mendira joango naiz lagunekin.','lagunekin','NOREKIN']
+    ];
+    var SAILKA_TIPS=['Forma suelta','En una frase corta','En una frase larga'];
+    function skMark(s,w){ return s.split(/\s+/).map(function(t){ var bare=t.replace(/[.,;?!¿¡—]/g,''); return bare===w?'<mark>'+t+'</mark>':t; }).join(' '); }
     var sCur=null, sLock=false;
     function newSailkatu(){
       sLock=false;
-      var it=SAILKA[Math.floor(Math.random()*SAILKA.length)]; sCur=it;
-      var opts=[it[1]]; while(opts.length<4){ var c=SCASE[Math.floor(Math.random()*SCASE.length)]; if(opts.indexOf(c)<0) opts.push(c); }
+      var lv=clampLv(st.lvSailka), disp, tag, cas;
+      if(lv<=0){ var it=SAILKA[Math.floor(Math.random()*SAILKA.length)]; disp='<b>'+it[0]+'</b>'; tag=it[0]; cas=it[1]; }
+      else { var bank=lv===1?SAILKA_CTX1:SAILKA_CTX2, r=bank[Math.floor(Math.random()*bank.length)]; disp=skMark(r[0],r[1]); tag=r[1]; cas=r[2]; }
+      sCur={tag:tag, c:cas};
+      var opts=[cas]; while(opts.length<4){ var c=SCASE[Math.floor(Math.random()*SCASE.length)]; if(opts.indexOf(c)<0) opts.push(c); }
       opts=shuffle(opts);
       elSailkatu.innerHTML=
         '<div class="jk-g-head"><h3><span class="ic">🗂️</span>Sailkatu · ¿qué caso?</h3><span class="sc">'+(st.sailkatu||0)+' ondo</span></div>'+
-        '<div class="jk-prompt"><b>'+it[0]+'</b></div>'+
+        lvRow('lsailka', lv, SAILKA_TIPS)+
+        '<div class="jk-prompt">'+disp+'</div>'+
         '<div class="jk-opts">'+opts.map(function(o){ return '<button type="button" class="jk-opt" data-c="'+o+'">'+o+'</button>'; }).join('')+'</div>'+
-        '<div class="jk-hint" id="sHint">¿En qué caso está esta forma?</div>';
+        '<div class="jk-hint" id="sHint">'+(lv<=0?'¿En qué caso está esta forma?':'¿En qué caso está la palabra marcada?')+'</div>';
     }
     elSailkatu.addEventListener('click', function(e){
+      var lb=e.target.closest('.jk-lv');
+      if(lb){ st.lvSailka=clampLv(lb.getAttribute('data-lsailka')); save(); newSailkatu(); return; }
       var b=e.target.closest('.jk-opt'); if(!b || sLock || !sCur) return;
-      sLock=true; var ok=b.getAttribute('data-c')===sCur[1];
-      Array.prototype.forEach.call(elSailkatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(o.getAttribute('data-c')===sCur[1]) o.classList.add('ok'); });
+      sLock=true; var ok=b.getAttribute('data-c')===sCur.c;
+      Array.prototype.forEach.call(elSailkatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(o.getAttribute('data-c')===sCur.c) o.classList.add('ok'); });
       var hint=document.getElementById('sHint');
-      if(ok){ st.sailkatu=(st.sailkatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+sCur[0]+' → '+sCur[1]; }
-      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+sCur[0]+' → <b>'+sCur[1]+'</b>'; }
+      if(ok){ st.sailkatu=(st.sailkatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+sCur.tag+' → '+sCur.c; }
+      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+sCur.tag+' → <b>'+sCur.c+'</b>'; }
       save(); refresh(); setTimeout(newSailkatu, advMs(ok));
     });
 

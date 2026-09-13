@@ -199,9 +199,9 @@ window.A1_ESALDIAK = [
   g:"Números clave: hamar 10 · hogei 20 · ehun 100 · mila 1000." },
 
 /* ── Aspecto: habitual, futuro, progresivo (koaderno 5) ── */
-{ es:"Me levanto a las siete y media.", eu:"Zazpi t'erdietan esnatzen naiz.", k:"Aspektua", src:"Koaderno 5",
-  m:[["zazpi t'erdi-etan","a las siete y media (NON)"],["esna-tzen","levantándome (habitual -tzen)"],["naiz","(IZAN · ni)"]],
-  g:"El presente habitual usa -t(z)en + auxiliar: «esnatzen naiz» = me levanto (todos los días)." },
+{ es:"Me levanto a las siete y media.", eu:"Zazpiak eta erdietan esnatzen naiz.", k:"Aspektua", src:"Koaderno 5",
+  m:[["zazpiak eta","las siete y"],["erdi-etan","media (NON)"],["esna-tzen","levantándome (habitual -tzen)"],["naiz","(IZAN · ni)"]],
+  g:"El presente habitual usa -t(z)en + auxiliar: «esnatzen naiz» = me levanto (todos los días). La hora sigue el patrón «[hora]ak eta erdietan», como «bostak eta erdietan»." },
 { es:"Voy a pie porque está cerca de casa.", eu:"Oinez joaten naiz, etxetik gertu dagoelako.", k:"Aspektua", src:"Koaderno 5",
   m:[["oin-ez","a pie (-z, medio)"],["joa-ten naiz","voy (habitual)"],["etxe-tik gertu","cerca de casa"],["dago-elako","porque está (-elako)"]],
   g:"«-elako» = porque. «gertu» (cerca) rige NONDIK: etxetik gertu." },
