@@ -176,12 +176,171 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 .gate button[type="submit"]:hover{filter:brightness(1.08)}
 .gate .fine{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:16px; border-top:1px solid var(--line); padding-top:14px}
 .gate .later{display:inline-block; margin-top:12px; background:none; border:0; padding:0; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--muted); text-decoration:underline; text-underline-offset:3px}
+
+/* ── pestañas del hub (mismo patrón que A1) ── */
+.hub nav{display:flex; gap:0; flex:1; min-width:0; align-self:stretch; overflow-x:auto; scrollbar-width:none}
+.hub nav::-webkit-scrollbar{display:none}
+.hub nav button{appearance:none; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:0 18px; text-align:left; white-space:nowrap; border-bottom:2px solid transparent; color:var(--ink-2)}
+.hub nav button i{font-style:normal; font-size:13px; opacity:.75; margin-right:7px}
+.hub nav button .t{font-family:var(--f-ui); font-size:14.5px; font-weight:600; letter-spacing:.01em}
+.hub nav button .c{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+.hub nav button:hover{background:var(--surface-2); color:var(--ink)}
+.hub nav button[aria-selected="true"]{border-bottom-color:var(--iron); color:var(--ink)}
+.hub nav button[aria-selected="true"] .c{color:var(--iron)}
+@media (max-width:1100px){.hub nav button{padding:0 12px} .hub nav button .c{display:none}}
+/* móvil: las pestañas bajan a una segunda fila a lo ancho (si no, el nav se queda en 0 px) */
+@media (max-width:600px){
+  :root{--topbar:103px}
+  .hub .in{flex-wrap:wrap; min-height:0; row-gap:0}
+  .hub .in::after{content:""; order:9; flex:1 0 100%; height:0; border-top:1px solid var(--line)}
+  .hub .brand{height:56px}
+  .hub .who{margin-left:auto}
+  .hub nav{order:10; flex:1 1 0; height:46px}
+  .hub nav button{flex:1; align-items:center}
+  .hub .guide{order:11; padding:6px 10px}
+}
+@media (max-width:400px){
+  .hub nav button i{display:none}
+  .hub nav button{padding:0 8px}
+}
+#app-koadernoa a.tag{text-decoration:none; color:var(--sea)}
+#app-koadernoa a.tag:hover{text-decoration:underline}
+
+/* ══ Materialak › Ostalaritza ═════════════════════════════════════ */
+#app-materialak .shell{display:grid; grid-template-columns:260px minmax(0,1fr)}
+#app-materialak nav.toc{border-right:1px solid var(--line); background:var(--surface)}
+#app-materialak nav.toc .inner{padding:24px 16px 60px; position:sticky; top:var(--topbar); max-height:calc(100vh - var(--topbar)); overflow-y:auto}
+#app-materialak nav.toc .brand{font-family:var(--f-display); font-weight:700; font-size:19px; line-height:1.1}
+#app-materialak nav.toc .brand span{color:var(--iron)}
+#app-materialak nav.toc .sub{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:3px 0 14px}
+#app-materialak .atala{display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:var(--ink); background:var(--sea-soft); border:1px solid var(--sea); border-radius:var(--r); padding:7px 10px; text-decoration:none}
+#app-materialak .atala small{margin-left:auto; font-family:var(--f-mono); font-size:10px; font-weight:500; color:var(--sea)}
+#app-materialak nav.toc .grp{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin:16px 0 6px 7px}
+#app-materialak nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px}
+#app-materialak nav.toc a.it{display:flex; gap:8px; align-items:baseline; font-family:var(--f-ui); font-size:13px; line-height:1.35; color:var(--ink-2); text-decoration:none; padding:5px 7px; border-radius:3px}
+#app-materialak nav.toc a.it:hover{background:var(--surface-2); color:var(--ink)}
+#app-materialak nav.toc a.it[aria-current="page"]{background:var(--surface-2); color:var(--ink); box-shadow:inset 2px 0 0 var(--iron)}
+#app-materialak nav.toc a.it .n{font-family:var(--f-mono); font-size:11px; color:var(--muted); width:1.7em; flex:none}
+#app-materialak nav.toc a.it .ok{margin-left:auto; color:var(--ok); font-size:12px}
+#app-materialak .mnav{display:none}
+@media (max-width:900px){
+  #app-materialak .shell{grid-template-columns:1fr}
+  #app-materialak nav.toc{display:none}
+  #app-materialak .mnav{display:flex; gap:8px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface); position:sticky; top:var(--topbar); z-index:5}
+  #app-materialak .mnav select{flex:1; min-width:0; font-family:var(--f-ui); font-size:14px; padding:7px 8px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink)}
+}
+#app-materialak main{padding:0 0 96px; min-width:0}
+#app-materialak .wrap{max-width:80ch; margin:0 auto; padding:0 30px}
+@media (max-width:600px){#app-materialak .wrap{padding:0 16px}}
+#app-materialak .crumb{font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); padding-top:34px}
+#app-materialak .crumb a{color:var(--muted); text-decoration:none}
+#app-materialak .crumb a:hover{color:var(--sea)}
+#app-materialak h1{font-size:clamp(32px,5vw,48px); font-weight:700; letter-spacing:-.02em; margin-top:8px}
+#app-materialak h1 em{font-style:normal; color:var(--iron)}
+#app-materialak h1 small{display:block; font-family:var(--f-body); font-size:18px; font-weight:400; color:var(--muted); letter-spacing:0; margin-top:6px}
+#app-materialak .lede{font-size:17px; color:var(--ink-2); margin-top:14px; max-width:64ch}
+#app-materialak .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+#app-materialak .pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); border:1px solid var(--line-strong); border-radius:999px; padding:4px 11px; background:var(--surface); text-decoration:none}
+#app-materialak a.pill:hover{border-color:var(--sea); color:var(--sea)}
+#app-materialak button.pill{cursor:pointer}
+#app-materialak button.pill[aria-pressed="true"]{border-color:var(--ok); color:var(--ok); background:var(--sea-soft)}
+#app-materialak .helb{margin-top:22px; border-left:3px solid var(--iron); background:var(--surface); padding:12px 16px; border-radius:0 var(--r) var(--r) 0}
+#app-materialak .helb b{display:block; font-family:var(--f-mono); font-size:10.5px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--iron); margin-bottom:4px}
+#app-materialak .helb .es{color:var(--muted); font-size:15px}
+#app-materialak .oh{margin-top:12px; font-family:var(--f-ui); font-size:13px; color:var(--warn); background:var(--gold-soft); border-radius:var(--r); padding:8px 12px; line-height:1.5}
+#app-materialak .jump{display:flex; flex-wrap:wrap; gap:6px; margin-top:22px; padding-bottom:18px; border-bottom:1px solid var(--line)}
+#app-materialak .jump a{font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:3px 9px; background:var(--surface)}
+#app-materialak .jump a:hover{border-color:var(--sea); color:var(--sea)}
+#app-materialak h2.sec{display:flex; align-items:baseline; gap:10px; font-size:24px; margin-top:44px; padding-bottom:8px; border-bottom:2px solid var(--ink); scroll-margin-top:calc(var(--topbar) + 60px)}
+#app-materialak h2.sec .k{font-family:var(--f-mono); font-size:12px; font-weight:500; color:var(--surface); background:var(--ink); padding:2px 7px; border-radius:2px}
+#app-materialak h2.sec .es{font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--muted); margin-left:auto}
+#app-materialak .scene{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); border-left:3px solid var(--iron); padding:6px 12px; margin:16px 0 4px}
+#app-materialak .scene .es{display:block; text-transform:none; letter-spacing:0; font-family:var(--f-ui); color:var(--muted); margin-top:3px}
+#app-materialak .tools{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:12px; font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+#app-materialak .dial{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:10px}
+#app-materialak .dial li{display:grid; grid-template-columns:118px minmax(0,1fr); gap:12px; align-items:baseline}
+#app-materialak .dial li.sc{grid-template-columns:1fr}
+#app-materialak .dial .who{font-family:var(--f-ui); font-size:13px; font-weight:600; color:var(--iron); text-align:right}
+#app-materialak .dial .eu{font-size:17px; line-height:1.5}
+#app-materialak .dial .es{display:block; font-family:var(--f-ui); font-size:13.5px; color:var(--muted); margin-top:2px}
+#app-materialak .hide-es .dial .es{display:none}
+@media (max-width:600px){#app-materialak .dial li{grid-template-columns:1fr; gap:0} #app-materialak .dial .who{text-align:left}}
+#app-materialak .ar{margin-top:22px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden}
+#app-materialak .ar > .h{display:flex; gap:11px; align-items:baseline; padding:13px 16px 10px; border-bottom:1px solid var(--line)}
+#app-materialak .ar > .h .k{font-family:var(--f-mono); font-size:12px; font-weight:500; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; flex:none}
+#app-materialak .ar > .h h3{font-family:var(--f-ui); font-size:15px; font-weight:600; margin:0; line-height:1.4}
+#app-materialak .ar > .h h3 .es{display:block; font-weight:400; font-size:13.5px; color:var(--muted); margin-top:2px}
+#app-materialak .ar > .b{padding:12px 16px 16px}
+#app-materialak .tag2{display:inline-flex; gap:5px; align-items:center; font-family:var(--f-mono); font-size:11px; color:var(--warn); border:1px solid var(--line-strong); border-radius:3px; padding:1px 7px; margin:0 6px 10px 0; text-decoration:none}
+#app-materialak a.tag2:hover{border-color:var(--sea); color:var(--sea)}
+#app-materialak .ar .nota{font-family:var(--f-ui); font-size:13px; color:var(--muted); margin-bottom:10px}
+#app-materialak .cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:18px}
+@media (max-width:640px){#app-materialak .cols{grid-template-columns:1fr}}
+#app-materialak .cols .lbl{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+#app-materialak ol.items{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px; font-size:16px; line-height:1.45}
+#app-materialak ol.items li::marker{font-family:var(--f-mono); font-size:12px; color:var(--muted)}
+#app-materialak ol.opts{list-style:lower-alpha; margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px; font-size:15.5px; color:var(--ink-2)}
+#app-materialak pre.grid{font-family:var(--f-mono); font-size:15px; line-height:1.45; letter-spacing:.35em; background:var(--ground); border:1px solid var(--line); border-radius:var(--r); padding:10px 12px; margin:0 0 12px; overflow-x:auto}
+#app-materialak details.sol{border-top:1px dashed var(--line-strong); background:var(--surface-2)}
+#app-materialak details.sol summary{list-style:none; cursor:pointer; padding:9px 16px; font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sea); display:flex; gap:8px}
+#app-materialak details.sol summary::-webkit-details-marker{display:none}
+#app-materialak details.sol summary::before{content:"▸"}
+#app-materialak details.sol[open] summary::before{content:"▾"}
+#app-materialak details.sol .in{padding:2px 16px 14px}
+#app-materialak details.sol ol{margin:0; padding-left:24px; font-family:var(--f-mono); font-size:13.5px; line-height:1.7; color:var(--sea)}
+#app-materialak details.sol p{font-family:var(--f-mono); font-size:13.5px; line-height:1.7; color:var(--sea)}
+#app-materialak .az{margin-top:18px; border:1px solid var(--line); border-left:3px solid var(--sea); border-radius:0 var(--r) var(--r) 0; background:var(--surface); padding:14px 18px}
+#app-materialak .az h3{font-family:var(--f-ui); font-size:15px; font-weight:600; margin-bottom:8px; display:flex; gap:10px; align-items:baseline}
+#app-materialak .az h3 .k{font-family:var(--f-mono); font-size:12px; color:var(--sea)}
+#app-materialak .az p, #app-materialak .az li{font-size:16px; line-height:1.6}
+#app-materialak .az p + p, #app-materialak .az ul + p, #app-materialak .az p + ul{margin-top:8px}
+#app-materialak .az ul{margin:4px 0 0; padding-left:20px}
+#app-materialak .hz{margin-top:18px}
+#app-materialak .hz h3{font-family:var(--f-ui); font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--iron); margin-bottom:6px}
+#app-materialak .hz h3 span{color:var(--muted); font-weight:500}
+#app-materialak table.w{width:100%; border-collapse:collapse; font-size:15.5px}
+#app-materialak table.w td{padding:4px 8px; border-bottom:1px solid var(--line); vertical-align:top}
+#app-materialak table.w td:first-child{font-weight:600; width:48%}
+#app-materialak table.w td:last-child{color:var(--ink-2)}
+#app-materialak table.w td .u{font-family:var(--f-mono); font-size:11px; color:var(--muted); text-decoration:none; white-space:nowrap}
+#app-materialak table.w td a.u:hover{color:var(--sea)}
+#app-materialak .bad{margin-top:18px}
+#app-materialak .bad h3{font-family:var(--f-display); font-size:21px}
+#app-materialak .bad h3 small{font-family:var(--f-ui); font-size:13px; font-weight:400; color:var(--muted); margin-left:8px}
+#app-materialak .bad p{margin-top:10px; font-size:16.5px}
+#app-materialak .bad details{margin-top:12px; border-top:1px dashed var(--line-strong); padding-top:8px}
+#app-materialak .bad details summary{cursor:pointer; font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sea)}
+#app-materialak .bad details p{color:var(--ink-2); font-size:15.5px}
+#app-materialak .pager{display:flex; justify-content:space-between; gap:12px; margin-top:52px; padding-top:18px; border-top:1px solid var(--line)}
+#app-materialak .pager a{font-family:var(--f-ui); font-size:14px; color:var(--sea); text-decoration:none}
+#app-materialak .pager a:hover{text-decoration:underline}
+#app-materialak .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin-top:12px}
+#app-materialak .card{display:block; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:12px 14px; text-decoration:none; color:inherit}
+#app-materialak .card:hover{border-color:var(--sea); box-shadow:var(--shadow)}
+#app-materialak .card .n{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+#app-materialak .card .n .ok{color:var(--ok); float:right}
+#app-materialak .card b{display:block; font-family:var(--f-display); font-size:19px; font-weight:600; margin-top:2px}
+#app-materialak .card span{display:block; font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.4; margin-top:3px}
+#app-materialak h2.grp2{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--iron); margin-top:34px}
+#app-materialak .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:22px}
+#app-materialak .howto div{border-left:2px solid var(--line-strong); padding-left:12px; font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); line-height:1.5}
+#app-materialak .howto b{display:block; font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--iron); margin-bottom:3px}
+#app-materialak .search{width:100%; font-family:var(--f-ui); font-size:16px; padding:10px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); color:var(--ink); margin-top:18px}
+#app-materialak .search:focus{outline:2px solid var(--sea); outline-offset:1px}
+#app-materialak .count{font-family:var(--f-mono); font-size:11px; color:var(--muted); margin-top:8px}
+#app-materialak .kgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:6px; margin-top:10px}
+#app-materialak .kgrid div{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:7px 10px}
+#app-materialak .kgrid b{display:block; font-size:16px}
+#app-materialak .kgrid span{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+#app-materialak footer{border-top:1px solid var(--line); margin-top:60px; padding:22px 0; font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
 </style>
 
 <div class="hub"><div class="in">
   <div class="brand"><a href="index.html" title="Mailak · Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b></a><span>A2 · Jatetxean</span></div>
-  <div class="ctx"><i>✏️</i>Koadernoa</div>
-  <div class="spacer"></div>
+  <nav role="tablist" aria-label="A2 · atalak">
+  <button type="button" id="tab-koadernoa" role="tab" aria-selected="true" aria-controls="app-koadernoa"><span class="t"><i>✏️</i>Koadernoa</span><span class="c">Ariketak eta erantzunak</span></button>
+  <button type="button" id="tab-materialak" role="tab" aria-selected="false" aria-controls="app-materialak"><span class="t"><i>📚</i>Materialak</span><span class="c">Ostalaritza · 20 unitate</span></button>
+  </nav>
   <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
   <a class="guide" href="gramatika.html">Gramatika <span>bilatu</span></a>
 </div></div>
@@ -219,7 +378,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></header>
 
 <section class="unit" id="j1"><div class="wrap">
-  <div class="uhead"><span class="n">1</span><h2>Menua: <i>eduki</i>, partitiboa eta <span class="mono">-(r)ekin</span></h2><span class="tag">Ostalaritza 11</span></div>
+  <div class="uhead"><span class="n">1</span><h2>Menua: <i>eduki</i>, partitiboa eta <span class="mono">-(r)ekin</span></h2><a class="tag" href="#ost-11" title="Ireki unitatea Materialak atalean">Ostalaritza 11 ›</a></div>
   <p class="uintro">Pedir y ofrecer en el restaurante: qué hay, qué tenemos, con qué se acompaña.</p>
 
   <div class="ar">
@@ -299,7 +458,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j2"><div class="wrap">
-  <div class="uhead"><span class="n">2</span><h2>Eskaera: <i>falta zaio</i> eta barkamena</h2><span class="tag">Ostalaritza 12</span></div>
+  <div class="uhead"><span class="n">2</span><h2>Eskaera: <i>falta zaio</i> eta barkamena</h2><a class="tag" href="#ost-12" title="Ireki unitatea Materialak atalean">Ostalaritza 12 ›</a></div>
   <p class="uintro">Cuando falta algo en la mesa: pedirlo, y disculparse si te has olvidado.</p>
 
   <div class="ar">
@@ -361,7 +520,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j3"><div class="wrap">
-  <div class="uhead"><span class="n">3</span><h2>Kexa: <i>nolakoa da</i> / <i>nola dago</i> eta gradazioa</h2><span class="tag">Ostalaritza 13</span></div>
+  <div class="uhead"><span class="n">3</span><h2>Kexa: <i>nolakoa da</i> / <i>nola dago</i> eta gradazioa</h2><a class="tag" href="#ost-13" title="Ireki unitatea Materialak atalean">Ostalaritza 13 ›</a></div>
   <p class="uintro">Quejarse con criterio: distinguir la cualidad (izan) del estado (egon), y graduarla.</p>
 
   <div class="ar">
@@ -433,7 +592,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j4"><div class="wrap">
-  <div class="uhead"><span class="n">4</span><h2>Argibideak: kokapena eta <span class="mono">NON/NORA/NONDIK</span></h2><span class="tag">Ostalaritza 14</span></div>
+  <div class="uhead"><span class="n">4</span><h2>Argibideak: kokapena eta <span class="mono">NON/NORA/NONDIK</span></h2><a class="tag" href="#ost-14" title="Ireki unitatea Materialak atalean">Ostalaritza 14 ›</a></div>
   <p class="uintro">Decir dónde está algo y dar indicaciones para llegar.</p>
 
   <div class="ar">
@@ -488,7 +647,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j5"><div class="wrap">
-  <div class="uhead"><span class="n">5</span><h2>Erreserba: <span class="mono">noiz</span> / <span class="mono">noizko</span></h2><span class="tag">Ostalaritza 15</span></div>
+  <div class="uhead"><span class="n">5</span><h2>Erreserba: <span class="mono">noiz</span> / <span class="mono">noizko</span></h2><a class="tag" href="#ost-15" title="Ireki unitatea Materialak atalean">Ostalaritza 15 ›</a></div>
   <p class="uintro">Reservar por teléfono: para cuándo, para cuántos y a qué hora.</p>
 
   <div class="ar">
@@ -542,7 +701,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j6"><div class="wrap">
-  <div class="uhead"><span class="n">6</span><h2>Koktela: <i>zer da hau?</i> / <i>zer dira hauek?</i></h2><span class="tag">Ostalaritza 16</span></div>
+  <div class="uhead"><span class="n">6</span><h2>Koktela: <i>zer da hau?</i> / <i>zer dira hauek?</i></h2><a class="tag" href="#ost-16" title="Ireki unitatea Materialak atalean">Ostalaritza 16 ›</a></div>
   <p class="uintro">Ofrecer canapés y explicar qué es cada cosa, en singular y plural.</p>
 
   <div class="ar">
@@ -599,7 +758,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j7"><div class="wrap">
-  <div class="uhead"><span class="n">7</span><h2>Eguneko menua: geroaldia (<span class="mono">-ko/-go</span>)</h2><span class="tag">Ostalaritza 17</span></div>
+  <div class="uhead"><span class="n">7</span><h2>Eguneko menua: geroaldia (<span class="mono">-ko/-go</span>)</h2><a class="tag" href="#ost-17" title="Ireki unitatea Materialak atalean">Ostalaritza 17 ›</a></div>
   <p class="uintro">El futuro para tomar el pedido, y las formas de preparación de la comida.</p>
 
   <div class="ar">
@@ -670,7 +829,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j8"><div class="wrap">
-  <div class="uhead"><span class="n">8</span><h2>Sukaldean: denborazkoak eta <span class="mono">-tan</span></h2><span class="tag">Ostalaritza 18</span></div>
+  <div class="uhead"><span class="n">8</span><h2>Sukaldean: denborazkoak eta <span class="mono">-tan</span></h2><a class="tag" href="#ost-18" title="Ireki unitatea Materialak atalean">Ostalaritza 18 ›</a></div>
   <p class="uintro">Ordenar los pasos de una receta: antes, mientras, después; y «en el fuego / en agua».</p>
 
   <div class="ar">
@@ -723,7 +882,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <section class="unit" id="j9"><div class="wrap">
-  <div class="uhead"><span class="n">9</span><h2>Hornitzailea: eskaerak egitea</h2><span class="tag">Ostalaritza 19</span></div>
+  <div class="uhead"><span class="n">9</span><h2>Hornitzailea: eskaerak egitea</h2><a class="tag" href="#ost-19" title="Ireki unitatea Materialak atalean">Ostalaritza 19 ›</a></div>
   <p class="uintro">Hacer un pedido a un proveedor por teléfono: presentarse, cantidades y cuándo.</p>
 
   <div class="ar">
@@ -792,6 +951,16 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 <div class="wrap">
   <footer><p><b>Ariketen Koadernoa · A2</b> — 9 cuadernos de nivel A2 basados en <i>Ostalaritza · Jatetxean</i> (HABE/Elhuyar). Las respuestas se guardan en tu perfil, separadas de A1.</p></footer>
 </div>
+</main>
+</div>
+</section>
+
+<section class="app" id="app-materialak" hidden aria-label="Materialak · Ostalaritza">
+<div class="shell">
+<nav class="toc" aria-label="Ostalaritza · unitateak"><div class="inner" id="ostToc"></div></nav>
+<main>
+  <div class="mnav"><label for="ostSel" class="eyebrow">Joan</label><select id="ostSel" aria-label="Unitatea aukeratu"></select></div>
+  <div id="ostView"></div>
 </main>
 </div>
 </section>
@@ -942,6 +1111,268 @@ window.HUB = (function(){
   });
 
   window.addEventListener('load', function(){ textareas.forEach(grow); });
+  // si el cuaderno estaba oculto al cargar, los textarea no se pudieron medir
+  window.addEventListener('a2:tab', function(e){ if (e.detail === 'koadernoa') textareas.forEach(grow); });
+})();
+</script>
+<script src="armairua-a2-ostalaritza-data.js"></script>
+<script>
+/* ── Materialak › Ostalaritza · lector de las 20 unidades + cartel + buscador ──
+   Vistas por hash: #materialak (portada), #ost-N (unidad), #ost-kartela,
+   #ost-bilatu. Progreso («eginda») en HUB bajo materialak-a2:ostalaritza. */
+(function(){
+  var O = window.A2_OSTALARITZA;
+  var root = document.getElementById('app-materialak');
+  var view = document.getElementById('ostView'), toc = document.getElementById('ostToc'), sel = document.getElementById('ostSel');
+  if (!O || !root || !view) return;
+
+  var U = {}; O.units.forEach(function(u){ U[u.n] = u; });
+  var LS = 'materialak-a2:ostalaritza', DOC = 'matA2-ostalaritza', LASTK = 'euskara-a2-mat-last';
+  var st = { done:{}, es:false };
+  try { var raw = localStorage.getItem(LS); if (raw){ var v = JSON.parse(raw); if (v && typeof v === 'object') st = v; } } catch(e){}
+  st.done = st.done || {};
+  var cur = null;
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function para(s){ return String(s).split('\n\n').map(function(p){ return '<p>' + esc(p).replace(/\n/g,'<br>') + '</p>'; }).join(''); }
+  function norm(s){ return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  function pdf(u, page){ return O.dir + u.pdf + '#page=' + (page ? (page - u.orr + 1 + u.off) : (u.off + 1)); }
+  function tomo(u){ return u.tomo === 1 ? '1. liburukia · Tabernan' : '2. liburukia · Jatetxean'; }
+  function save(){ if (window.HUB) HUB.save(DOC, LS, st); else { try { localStorage.setItem(LS, JSON.stringify(st)); } catch(e){} } }
+  function nDone(){ var c = 0; for (var i = 1; i <= 19; i++) if (st.done[i]) c++; return c; }
+
+  var VIEWS = [['materialak','Ostalaritza · aurkezpena']];
+  O.units.forEach(function(u){ VIEWS.push(['ost-' + u.n, u.n + '. ' + u.eu + ' · ' + u.es]); });
+  VIEWS.push(['ost-kartela','Frutak eta barazkiak (kartela)'], ['ost-bilatu','🔎 Bilatu hiztegian']);
+
+  function drawToc(){
+    function li(v, n, label){
+      var ok = (/^\d+$/.test(n) && st.done[n]) ? '<span class="ok" title="Eginda">✓</span>' : '';
+      return '<li><a class="it" href="#' + v + '"' + (cur === v ? ' aria-current="page"' : '') + '><span class="n">' + n + '</span>' + esc(label) + ok + '</a></li>';
+    }
+    var h = '<div class="brand">Mate<span>rialak</span></div><div class="sub">A2 · liburutegia</div>'
+      + '<a class="atala" href="#materialak">🍽️ Ostalaritza <small>' + nDone() + '/19</small></a>'
+      + '<div class="grp">1. liburukia · Tabernan</div><ol>';
+    O.units.forEach(function(u){
+      if (u.n === 11) h += '</ol><div class="grp">2. liburukia · Jatetxean</div><ol>';
+      if (u.n === 20) h += '</ol><div class="grp">Hiztegiak</div><ol>';
+      h += li('ost-' + u.n, String(u.n), u.eu);
+    });
+    h += li('ost-kartela', '🍎', 'Frutak eta barazkiak') + li('ost-bilatu', '🔎', 'Bilatu hiztegian') + '</ol>';
+    toc.innerHTML = h;
+    sel.innerHTML = VIEWS.map(function(v){ return '<option value="' + v[0] + '"' + (v[0] === cur ? ' selected' : '') + '>' + esc(v[1]) + '</option>'; }).join('');
+  }
+  sel.addEventListener('change', function(){ location.hash = sel.value; });
+
+  /* ── piezas ── */
+  function exercise(u, a){
+    var h = '<div class="ar"><div class="h"><span class="k">' + esc(a.k) + '</span><h3>' + esc(a.eu) + '<span class="es">' + esc(a.es) + '</span></h3></div><div class="b">';
+    if (a.m === 'irudia') h += '<a class="tag2" href="' + pdf(u, a.o) + '" target="_blank" rel="noopener">🖼 Irudiekin · PDFa, ' + a.o + '. or.</a>';
+    if (a.m === 'cd') h += '<span class="tag2" title="El audio del CD no está incluido">🎧 CDa · ' + a.cdp + '. pista</span>';
+    if (a.nota) h += '<p class="nota">' + esc(a.nota) + '</p>';
+    if (a.grid) h += '<pre class="grid">' + esc(a.grid.join('\n')) + '</pre>';
+    var items = '<ol class="items">' + a.it.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>';
+    if (a.op) h += '<div class="cols"><div><div class="lbl">Lotu hauek…</div>' + items + '</div><div><div class="lbl">…hauekin</div><ol class="opts">' + a.op.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ol></div></div>';
+    else h += items;
+    h += '</div><details class="sol"><summary>Erantzunak</summary><div class="in">';
+    h += Array.isArray(a.sol) ? '<ol>' + a.sol.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : '<p>' + esc(a.sol) + '</p>';
+    return h + '</div></details></div>';
+  }
+  function words(cats, withFilter){
+    var h = withFilter ? '<input type="search" class="search" id="ostHzFilter" placeholder="Iragazi · filtra (euskara o castellano)…" autocomplete="off"><div class="count" id="ostHzCount"></div>' : '';
+    cats.forEach(function(c){
+      h += '<div class="hz"><h3>' + esc(c[0]) + ' <span>· ' + esc(c[1]) + '</span></h3><table class="w"><tbody>'
+        + c[2].map(function(w){ return '<tr data-k="' + esc(norm(w[0] + ' ' + w[1])) + '"><td>' + esc(w[0]) + '</td><td>' + esc(w[1]) + '</td></tr>'; }).join('')
+        + '</tbody></table></div>';
+    });
+    return h;
+  }
+  function sec(id, k, eu, es){ return '<h2 class="sec" id="' + id + '"><span class="k">' + k + '</span>' + eu + '<span class="es">' + es + '</span></h2>'; }
+  function crumb(extra){ return '<div class="crumb"><a href="#materialak">Materialak</a> › <a href="#materialak">Ostalaritza</a>' + (extra ? ' › ' + extra : '') + '</div>'; }
+  function foot(){ return '<footer>' + esc(O.src) + ' Transcripción para estudio personal; los PDF originales están enlazados en cada unidad. Lo que no viene del libro va marcado con ⚠.</footer>'; }
+
+  function renderHome(){
+    var h = crumb('') + '<h1>Ostalaritza <em>· tabernan eta jatetxean</em><small>Ostalaritzan euskara erabiltzeko gida — HABE · Elhuyar</small></h1>'
+      + '<p class="lede">El método completo de hostelería: las 19 unidades con su diálogo, ejercicios, explicaciones, vocabulario, repaso y «Badakizu?», el glosario final y el cartel de frutas y verduras. Todo transcrito para leerlo y buscarlo aquí; cada unidad enlaza también a su PDF original.</p>'
+      + '<div class="meta"><span class="pill">Maila 0 · hastapena</span><span class="pill">~100 ordu · 20 unitate</span><span class="pill">Eginda: ' + nDone() + ' / 19</span>'
+      + '<a class="pill" href="' + O.dir + '01-edariak.pdf#page=6" target="_blank" rel="noopener">📄 Aurkezpena (PDF)</a></div>'
+      + '<div class="howto">'
+      + '<div><b>Elkarrizketa, ozenki</b>Lee el diálogo en voz alta y apréndetelo. El audio del CD no está incluido: las pistas se indican para quien tenga el disco.</div>'
+      + '<div><b>Itzulpena, ezkutuan</b>La traducción del diálogo está oculta por defecto. Intenta entenderlo antes de mostrarla.</div>'
+      + '<div><b>Idatzi, gero begiratu</b>Haz el ejercicio antes de abrir «Erantzunak». Los que necesitan dibujos o fotos enlazan a su página del PDF.</div>'
+      + '<div><b>Koadernoarekin</b>Las unidades 11–19 tienen ejercicios extra en la pestaña <a href="#koadernoa">Koadernoa</a>.</div>'
+      + '</div>';
+    [[1,10,'1. liburukia · Tabernan'],[11,19,'2. liburukia · Jatetxean']].forEach(function(g){
+      h += '<h2 class="grp2">' + g[2] + '</h2><div class="cards">';
+      for (var n = g[0]; n <= g[1]; n++){ var u = U[n];
+        h += '<a class="card" href="#ost-' + n + '"><span class="n">' + n + '. unitatea' + (st.done[n] ? '<span class="ok">✓ eginda</span>' : '') + '</span><b>' + esc(u.eu) + '</b><span>' + esc(u.es) + ' — ' + esc(u.helb[1]) + '</span></a>';
+      }
+      h += '</div>';
+    });
+    var nw = 0; O.units.forEach(function(u){ (u.hz || []).forEach(function(c){ nw += c[2].length; }); });
+    h += '<h2 class="grp2">Hiztegiak</h2><div class="cards">'
+      + '<a class="card" href="#ost-20"><span class="n">20. unitatea</span><b>Glosategia</b><span>Todo el vocabulario del método por temas, con filtro.</span></a>'
+      + '<a class="card" href="#ost-kartela"><span class="n">Kartela</span><b>Frutak eta barazkiak</b><span>' + (O.kartela.frutak.length + O.kartela.barazkiak.length) + ' frutas y verduras, como se piden en la tienda.</span></a>'
+      + '<a class="card" href="#ost-bilatu"><span class="n">Bilatzailea</span><b>Bilatu hiztegian</b><span>Busca en las ' + nw + ' entradas de todas las unidades.</span></a></div>';
+    return h + foot();
+  }
+
+  function renderUnit(u){
+    var h = crumb(u.n + '. unitatea') + '<h1>' + esc(u.eu) + '<small>' + u.n + '. unitatea · ' + esc(u.es) + '</small></h1><div class="meta">'
+      + '<span class="pill">' + tomo(u) + ' · ' + u.orr + '. or.</span>'
+      + '<a class="pill" href="' + pdf(u) + '" target="_blank" rel="noopener">📄 PDFa</a>';
+    if (!u.glos) h += '<a class="pill" href="' + O.dir + u.pdf + '#page=' + (u.off + 12) + '" target="_blank" rel="noopener">Erantzunak (PDF)</a>';
+    if (u.cd) h += '<span class="pill">🎧 CDa · ' + u.cd + '. pista</span>';
+    if (u.n >= 11 && u.n <= 19) h += '<a class="pill" href="#j' + (u.n - 10) + '">✏️ Koadernoa · ' + (u.n - 10) + '</a>';
+    if (!u.glos) h += '<button type="button" class="pill" id="ostDone" aria-pressed="' + (st.done[u.n] ? 'true' : 'false') + '">' + (st.done[u.n] ? '✓ Eginda' : 'Markatu eginda') + '</button>';
+    h += '</div><div class="helb"><b>Helburua · Objetivo</b>' + esc(u.helb[0]) + '<div class="es">' + esc(u.helb[1]) + '</div></div>';
+    (u.oh || []).forEach(function(n){ h += '<p class="oh">' + esc(n) + '</p>'; });
+    var id = 'ost' + u.n + '-';
+    if (!u.glos){
+      h += '<div class="jump">' + [['elk','Elkarrizketa'],['ar','Ariketak'],['az','Azalpenak'],['hz','Hiztegia'],['er','Errepasoa'],['bad','Badakizu?']].map(function(j){ return '<a href="#' + id + j[0] + '" data-jump="' + id + j[0] + '">' + j[1] + '</a>'; }).join('') + '</div>';
+      h += sec(id + 'elk', u.n + '.1', 'Elkarrizketa', 'Diálogo');
+      if (u.eg) h += '<div class="scene">' + esc(u.eg[0]) + '<span class="es">' + esc(u.eg[1]) + '</span></div>';
+      h += '<div class="tools"><button type="button" class="pill" id="ostEs" aria-pressed="' + (st.es ? 'true' : 'false') + '">' + (st.es ? 'Ocultar traducción' : 'Mostrar traducción') + '</button><span>Lee cada réplica en voz alta antes de mirar el castellano.</span></div>';
+      h += '<ul class="dial">' + u.dial.map(function(d){
+        return d[0] ? '<li><span class="who">' + esc(d[0]) + '</span><span class="eu">' + esc(d[1]) + '<span class="es">' + esc(d[2]) + '</span></span></li>'
+                    : '<li class="sc"><div class="scene">' + esc(d[1]) + '<span class="es">' + esc(d[2]) + '</span></div></li>';
+      }).join('') + '</ul>';
+      h += sec(id + 'ar', u.n + '.2', 'Ariketak', 'Ejercicios') + u.ar.map(function(a){ return exercise(u, a); }).join('');
+      h += sec(id + 'az', u.n + '.3', 'Azalpenak', 'Explicaciones') + u.az.map(function(z){ return '<div class="az"><h3><span class="k">' + esc(z[0]) + '</span>' + esc(z[1]) + '</h3>' + z[2] + '</div>'; }).join('');
+      h += sec(id + 'hz', u.n + '.4', 'Hiztegia', 'Diccionario') + words(u.hz, false);
+      h += sec(id + 'er', u.n + '.5', 'Errepasoa', 'Repaso') + u.er.map(function(a){ return exercise(u, a); }).join('');
+      h += sec(id + 'bad', u.n + '.6', 'Badakizu?', '¿Sabías que…?') + '<div class="bad"><h3>' + esc(u.bad.t[0]) + '<small>' + esc(u.bad.t[1]) + '</small></h3>' + para(u.bad.eu)
+        + '<details><summary>Gaztelaniaz · en castellano</summary>' + para(u.bad.es) + '</details></div>';
+    } else {
+      h += words(u.hz, true);
+    }
+    var prev = u.n > 1 ? '<a href="#ost-' + (u.n - 1) + '">‹ ' + (u.n - 1) + '. ' + esc(U[u.n - 1].eu) + '</a>' : '<a href="#materialak">‹ Aurkezpena</a>';
+    var next = u.n < 20 ? '<a href="#ost-' + (u.n + 1) + '">' + (u.n + 1) + '. ' + esc(U[u.n + 1].eu) + ' ›</a>' : '<a href="#ost-kartela">Frutak eta barazkiak ›</a>';
+    return h + '<div class="pager">' + prev + next + '</div>' + foot();
+  }
+
+  function renderKartela(){
+    var K = O.kartela;
+    function grid(list){ return '<div class="kgrid">' + list.map(function(w){ return '<div><b>' + esc(w[0]) + '</b><span>' + esc(w[1]) + '</span></div>'; }).join('') + '</div>'; }
+    return crumb('Kartela') + '<h1>Frutak eta barazkiak<small>' + esc(K.eu) + ' — ' + esc(K.es) + '</small></h1>'
+      + '<div class="meta"><span class="pill">' + esc(K.src) + '</span><a class="pill" href="' + O.dir + K.pdf + '" target="_blank" rel="noopener">📄 Kartela (PDF, con fotos)</a></div>'
+      + '<p class="oh">' + esc(K.nota) + '</p>'
+      + '<h2 class="sec"><span class="k">🍎</span>Frutak<span class="es">Frutas · ' + K.frutak.length + '</span></h2>' + grid(K.frutak)
+      + '<h2 class="sec"><span class="k">🥕</span>Barazkiak<span class="es">Verduras · ' + K.barazkiak.length + '</span></h2>' + grid(K.barazkiak)
+      + '<div class="pager"><a href="#ost-20">‹ 20. Hiztegia</a><a href="#ost-bilatu">Bilatu hiztegian ›</a></div>' + foot();
+  }
+
+  var INDEX = null;
+  function buildIndex(){
+    var map = {};
+    function add(eu, es, where){ var k = eu + '\u0000' + es; if (!map[k]) map[k] = { eu:eu, es:es, w:[], k:norm(eu + ' ' + es) }; if (map[k].w.indexOf(where) < 0) map[k].w.push(where); }
+    O.units.forEach(function(u){ (u.hz || []).forEach(function(c){ c[2].forEach(function(w){ add(w[0], w[1], u.n); }); }); });
+    O.kartela.frutak.concat(O.kartela.barazkiak).forEach(function(w){ add(w[0], w[1], 'K'); });
+    INDEX = Object.keys(map).map(function(k){ return map[k]; }).sort(function(a, b){ return a.eu.localeCompare(b.eu, 'eu'); });
+  }
+  function renderSearch(){
+    if (!INDEX) buildIndex();
+    return crumb('Bilatzailea') + '<h1>Bilatu hiztegian<small>Buscador del vocabulario de Ostalaritza</small></h1>'
+      + '<p class="lede">Escribe en euskera o en castellano (sin preocuparte por las tildes). Cada resultado indica en qué unidades aparece.</p>'
+      + '<input type="search" class="search" id="ostQ" placeholder="adib. «legatz», «cuchara», «ordain»…" autocomplete="off" autofocus>'
+      + '<div class="count" id="ostQn"></div><table class="w" style="margin-top:10px"><tbody id="ostQr"></tbody></table>' + foot();
+  }
+  function wireSearch(){
+    var q = document.getElementById('ostQ'), out = document.getElementById('ostQr'), cnt = document.getElementById('ostQn');
+    function run(){
+      var t = norm(q.value.trim()), res = t ? INDEX.filter(function(e){ return e.k.indexOf(t) >= 0; }) : INDEX;
+      cnt.textContent = (t ? res.length + ' emaitza · resultados' : INDEX.length + ' sarrera · entradas') + (res.length > 300 ? ' — se muestran 300' : '');
+      out.innerHTML = res.slice(0, 300).map(function(e){
+        return '<tr><td>' + esc(e.eu) + '</td><td>' + esc(e.es) + ' ' + e.w.map(function(n){ return n === 'K' ? '<a class="u" href="#ost-kartela">kartela</a>' : '<a class="u" href="#ost-' + n + '">' + n + '</a>'; }).join(' ') + '</td></tr>';
+      }).join('');
+    }
+    q.addEventListener('input', run); run();
+  }
+  function wireFilter(){
+    var f = document.getElementById('ostHzFilter'); if (!f) return;
+    var rows = view.querySelectorAll('tr[data-k]'), cnt = document.getElementById('ostHzCount');
+    function run(){
+      var t = norm(f.value.trim()), n = 0;
+      Array.prototype.forEach.call(rows, function(r){ var ok = !t || r.getAttribute('data-k').indexOf(t) >= 0; r.hidden = !ok; if (ok) n++; });
+      Array.prototype.forEach.call(view.querySelectorAll('.hz'), function(b){ b.hidden = !b.querySelector('tr:not([hidden])'); });
+      cnt.textContent = n + ' / ' + rows.length + ' sarrera';
+    }
+    f.addEventListener('input', run); run();
+  }
+
+  function render(v, keepScroll){
+    if (!v || v === 'materialak' || !/^ost-/.test(v)) v = 'materialak';
+    var m = /^ost-(\d+)$/.exec(v);
+    if (m && !U[m[1]]) v = 'materialak';
+    var changed = v !== cur;
+    cur = v;
+    try { localStorage.setItem(LASTK, v); } catch(e){}
+    view.classList.toggle('hide-es', !st.es);
+    view.innerHTML = '<div class="wrap">' + (v === 'materialak' ? renderHome() : v === 'ost-kartela' ? renderKartela() : v === 'ost-bilatu' ? renderSearch() : renderUnit(U[m[1]])) + '</div>';
+    drawToc();
+    if (v === 'ost-bilatu') wireSearch();
+    wireFilter();
+    var done = document.getElementById('ostDone');
+    if (done) done.addEventListener('click', function(){ var n = +m[1]; if (st.done[n]) delete st.done[n]; else st.done[n] = Date.now(); save(); render(cur, true); });
+    var es = document.getElementById('ostEs');
+    if (es) es.addEventListener('click', function(){ st.es = !st.es; save(); view.classList.toggle('hide-es', !st.es); es.setAttribute('aria-pressed', st.es ? 'true' : 'false'); es.textContent = st.es ? 'Ocultar traducción' : 'Mostrar traducción'; });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-jump]'), function(a){
+      a.addEventListener('click', function(ev){ ev.preventDefault(); var t = document.getElementById(a.getAttribute('data-jump')); if (t) t.scrollIntoView({ behavior:'smooth' }); });
+    });
+    if (changed && !keepScroll) window.scrollTo(0, 0);
+  }
+
+  window.A2_MATERIALAK = { last: function(){ try { return localStorage.getItem(LASTK) || 'materialak'; } catch(e){ return 'materialak'; } } };
+  window.addEventListener('a2:tab', function(e){
+    if (e.detail !== 'materialak') return;
+    var h = (location.hash || '').slice(1);
+    render(h === 'materialak' || /^ost-/.test(h) ? h : window.A2_MATERIALAK.last());
+  });
+  if (window.HUB) HUB.bind(DOC, LS, function(v){
+    if (!v || typeof v !== 'object') return;
+    st = v; st.done = st.done || {};
+    if (!root.hidden && cur) render(cur, true);
+  }, function(){ return st; });
+})();
+</script>
+<script>
+/* ── pestañas A2: Koadernoa / Materialak ──────────────────────────
+   #koadernoa y #jN → Koadernoa · #materialak y #ost-… → Materialak.
+   Sin hash: la última pestaña usada en este navegador.            */
+(function(){
+  var TABS = ['koadernoa','materialak'], KEY = 'euskara-a2-tab';
+  var secs = {}, btns = {};
+  TABS.forEach(function(t){ secs[t] = document.getElementById('app-' + t); btns[t] = document.getElementById('tab-' + t); });
+  if (!secs.materialak || !btns.materialak) return;
+  function tabFor(h){
+    if (!h) return null;
+    if (h === 'materialak' || /^ost/.test(h)) return 'materialak';
+    if (h === 'koadernoa') return 'koadernoa';
+    var el = document.getElementById(h), app = el && el.closest ? el.closest('.app') : null;
+    return app ? app.id.slice(4) : null;
+  }
+  function show(t){
+    TABS.forEach(function(x){ secs[x].hidden = x !== t; btns[x].setAttribute('aria-selected', x === t ? 'true' : 'false'); });
+    try { localStorage.setItem(KEY, t); } catch(e){}
+    try { window.dispatchEvent(new CustomEvent('a2:tab', { detail:t })); } catch(e){}
+  }
+  function route(){
+    var h = (location.hash || '').slice(1), t = tabFor(h);
+    if (!t){ try { t = localStorage.getItem(KEY); } catch(e){} if (TABS.indexOf(t) < 0) t = 'koadernoa'; }
+    show(t);
+    if (t === 'koadernoa'){
+      var el = h && h !== 'koadernoa' ? document.getElementById(h) : null;
+      if (el) el.scrollIntoView(); else if (h === 'koadernoa') window.scrollTo(0, 0);
+    }
+  }
+  TABS.forEach(function(t){
+    btns[t].addEventListener('click', function(){
+      var target = t === 'materialak' && window.A2_MATERIALAK ? window.A2_MATERIALAK.last() : t;
+      if ((location.hash || '').slice(1) === target) route(); else location.hash = target;
+    });
+  });
+  window.addEventListener('hashchange', route);
+  route();
 })();
 </script>
 <script>

@@ -24,6 +24,16 @@
 **Hiztegia** (vocabulario), **Jokoa** (minijuegos + Entzun bukle + Esaldiak),
 y los módulos `PLANA`, `MEMORIA`, `ENTZUN`, `ESALDIAK` + la IIFE del Jokoa.
 
+**Añadido 2026-09-28 · pestaña 📚 Materialak** (`app-materialak`), con el
+subapartado **Ostalaritza**: las 20 unidades del método HABE/Elhuyar
+transcritas (diálogo eu/es, ariketak con soluciones, azalpenak, hiztegia,
+errepasoa, badakizu), el glosario 20, el cartel «Frutak eta barazkiak» y un
+buscador sobre ~1.700 entradas. Datos en `armairua-a2-ostalaritza-data.js`
+(`window.A2_OSTALARITZA`), PDF originales en `materialak/ostalaritza/`,
+progreso «eginda» en HUB (`materialak-a2:ostalaritza`). Ese vocabulario es la
+base natural para el futuro `A2_DATA.w` (§4.2). Las erratas del libro que se
+corrigieron van marcadas con ⚠ en cada unidad.
+
 El portal [index.html](index.html) ya enlaza A2 como *«Hurrengo urratsa ·
 Jatetxean»* ([index.html:179](index.html#L179)), así que la entrada existe.
 
