@@ -6,7 +6,7 @@ El sistema visual se llama *«Geruzak»* (estratos): toma como metáfora el car�
 
 ## Niveles
 
-- **A1** (`a1.html`) — Oinarria. Egutegia (plan de 28 días), Hiztegia (796 palabras) y Koadernoa (ejercicios editables con solución).
+- **A1** (`a1.html`) — Oinarria. Egutegia (plan de 28 días), Hiztegia (1.270 palabras), Koadernoa (ejercicios editables con solución), Mintzamena (los *Modelos de conversaciones castellano-euskera* del Gobierno Vasco, transcritos, con voz; PDF en `materialak/mintzamena/`) y Jokoa.
 - **A2** (`a2.html`) — Jatetxean. Koadernoa basado en *Ostalaritza · Jatetxean* (HABE/Elhuyar): «eduki», futuro, casos y subordinación.
 - **B1–C2** — en preparación.
 
