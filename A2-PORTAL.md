@@ -34,6 +34,14 @@ progreso «eginda» en HUB (`materialak-a2:ostalaritza`). Ese vocabulario es la
 base natural para el futuro `A2_DATA.w` (§4.2). Las erratas del libro que se
 corrigieron van marcadas con ⚠ en cada unidad.
 
+**Reorganizado 2026-09-28 · dos bloques.** El hub ya no muestra pestañas de
+material sino **bloques**: **📘 A2 orokorra** (`app-orokorra`, `#orokorra`), el
+A2 general, de momento vacío y pendiente de materiales; y **🍽️ Ostalaritza**
+(bloque específico de hostelería), que agrupa *Materialak* (`#materialak`,
+`#ost-…`) y el *Koadernoa* (`#koadernoa`, `#jN`) y se recorre con la barra del
+bloque (`#bbar-ostalaritza`). Lo que se añada para el A2 general va en
+`app-orokorra`, no dentro de Ostalaritza.
+
 El portal [index.html](index.html) ya enlaza A2 como *«Hurrengo urratsa ·
 Jatetxean»* ([index.html:179](index.html#L179)), así que la entrada existe.
 
