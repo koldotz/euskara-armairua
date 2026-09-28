@@ -885,7 +885,7 @@ window.HUB = (function(){
 <div class="page">
 <header class="top">
   <div>
-    <div class="who">Maialen · Euskara A1 · 2026ko iraila</div>
+    <div class="who">Maialen · Euskara A1 · 2026ko urria</div>
     <h1>Hogeita zortzi <em>egun</em></h1>
   </div>
   <div class="kpis">
@@ -1190,7 +1190,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 </div>
 
 <footer class="f">
-  <span>Plan de 28 días · 3 de septiembre – 30 de septiembre de 2026 · ~94 horas de trabajo · Tu progreso se guarda en este navegador.</span>
+  <span>Plan de 28 días · 1 de octubre – 28 de octubre de 2026 · ~94 horas de trabajo · Tu progreso se guarda en este navegador.</span>
   <button id="reset">Reiniciar el plan</button>
 </footer>
 </div>
@@ -1216,7 +1216,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var d = new Date(Number(p[0]), Number(p[1])-1, Number(p[2]));
       if (d.getTime() === t.getTime()) return i;
     }
-    var first = new Date(2026,8,3), last = new Date(2026,8,30);
+    var first = new Date(2026,9,1), last = new Date(2026,9,28);
     if (t < first) return 0;
     if (t > last) return P.days.length - 1;
     return 0;
@@ -1417,7 +1417,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   function todayN(){
     var t=new Date(); t.setHours(0,0,0,0);
     for(var i=0;i<P.days.length;i++){ var p=P.days[i].date.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(d.getTime()===t.getTime()) return i+1; }
-    var first=new Date(2026,8,3), last=new Date(2026,8,30);
+    var first=new Date(2026,9,1), last=new Date(2026,9,28);
     if(t<first) return 1; if(t>last) return 28; return 1;
   }
 
@@ -1688,7 +1688,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
   function todayN(){
     var t = new Date(); t.setHours(0,0,0,0);
     for(var i=0;i<P.days.length;i++){ var p=P.days[i].date.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(d.getTime()===t.getTime()) return i+1; }
-    var first=new Date(2026,8,3), last=new Date(2026,8,30);
+    var first=new Date(2026,9,1), last=new Date(2026,9,28);
     if(t<first) return 1; if(t>last) return 28; return 1;
   }
 
@@ -4376,7 +4376,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 
 <section class="unit" id="a3"><div class="wrap">
   <div class="uhead"><span class="n">C</span><h2>Azken azterketa</h2><span class="tag">Eguna 28 · 90 min</span></div>
-  <p class="uintro">La prueba final del plan. Mismo formato, más una parte de gramática explícita. Hazla el 30 de septiembre, cronometrada, sin material a la vista.</p>
+  <p class="uintro">La prueba final del plan. Mismo formato, más una parte de gramática explícita. Hazla el 28 de octubre, cronometrada, sin material a la vista.</p>
 
   <div class="exam">
     <div class="eh"><b>0. Gramatika · control de estructuras</b><span>15 min · 20 puntu</span></div>
