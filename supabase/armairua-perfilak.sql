@@ -47,6 +47,34 @@ as $$
   order by p.eguneratua desc limit 60
 $$;
 
+-- ── comprobar el PIN (interna: la usan sartu y gorde) ──────────────────
+-- Devuelve null si el PIN es correcto, o el error listo para devolver.
+-- Cada PIN erróneo cuenta, se entre por donde se entre: al quinto seguido el
+-- perfil queda bloqueado 15 minutos. No se puede llamar desde fuera (ver
+-- permisos al final).
+create or replace function public.armairua_pin_egiaztatu(r public.armairua_perfilak, p_pin text)
+returns jsonb
+language plpgsql volatile
+set search_path = public, extensions
+as $$
+begin
+  if r.blokeoa is not null and r.blokeoa > now() then
+    return jsonb_build_object('ok', false, 'err', 'blokeatuta', 'noiz_arte', r.blokeoa);
+  end if;
+  if r.pin_hash = crypt(coalesce(p_pin, ''), r.pin_hash) then
+    if r.hutsak > 0 or r.blokeoa is not null then
+      update public.armairua_perfilak set hutsak = 0, blokeoa = null where gakoa = r.gakoa;
+    end if;
+    return null;
+  end if;
+  update public.armairua_perfilak
+     set hutsak  = case when r.hutsak + 1 >= 5 then 0 else r.hutsak + 1 end,
+         blokeoa = case when r.hutsak + 1 >= 5 then now() + interval '15 minutes' else null end
+   where gakoa = r.gakoa;
+  return jsonb_build_object('ok', false, 'err', 'pin', 'geratzen', greatest(0, 4 - r.hutsak));
+end
+$$;
+
 -- ── entrar (o crear el perfil si el nombre es nuevo) ───────────────────
 create or replace function public.armairua_sartu(p_izena text, p_pin text)
 returns jsonb
@@ -54,8 +82,9 @@ language plpgsql volatile security definer
 set search_path = public, extensions
 as $$
 declare
-  k text := lower(btrim(coalesce(p_izena, '')));
-  r public.armairua_perfilak;
+  k  text := lower(btrim(coalesce(p_izena, '')));
+  r  public.armairua_perfilak;
+  ez jsonb;
 begin
   if k = '' or length(k) > 40 then
     return jsonb_build_object('ok', false, 'err', 'izena');
@@ -74,22 +103,16 @@ begin
                               'datuak', r.datuak, 'eguneratua', r.eguneratua);
   end if;
 
-  if r.blokeoa is not null and r.blokeoa > now() then
-    return jsonb_build_object('ok', false, 'err', 'blokeatuta', 'noiz_arte', r.blokeoa);
-  end if;
-
   if r.pin_hash is null then
     -- perfil sin PIN (o PIN borrado a mano): el primero que entra lo fija
-    update public.armairua_perfilak set pin_hash = crypt(p_pin, gen_salt('bf')) where gakoa = k;
-  elsif r.pin_hash <> crypt(p_pin, r.pin_hash) then
     update public.armairua_perfilak
-       set hutsak  = case when r.hutsak + 1 >= 5 then 0 else r.hutsak + 1 end,
-           blokeoa = case when r.hutsak + 1 >= 5 then now() + interval '15 minutes' else null end
+       set pin_hash = crypt(p_pin, gen_salt('bf')), hutsak = 0, blokeoa = null
      where gakoa = k;
-    return jsonb_build_object('ok', false, 'err', 'pin', 'geratzen', greatest(0, 4 - r.hutsak));
+  else
+    ez := public.armairua_pin_egiaztatu(r, p_pin);
+    if ez is not null then return ez; end if;
   end if;
 
-  update public.armairua_perfilak set hutsak = 0, blokeoa = null where gakoa = k;
   return jsonb_build_object('ok', true, 'berria', false, 'izena', r.izena,
                             'datuak', r.datuak, 'eguneratua', r.eguneratua);
 end
@@ -108,14 +131,15 @@ declare
   t  jsonb;
   nv jsonb := coalesce(p_datuak -> 'v', '{}'::jsonb);
   e  record;
+  ez jsonb;
   aldatu boolean := false;
 begin
   select * into r from public.armairua_perfilak where gakoa = k for update;
-  if not found or r.pin_hash is null
-     or (r.blokeoa is not null and r.blokeoa > now())
-     or r.pin_hash <> crypt(coalesce(p_pin, ''), r.pin_hash) then
-    return jsonb_build_object('ok', false, 'err', 'pin');
+  if not found or r.pin_hash is null then
+    return jsonb_build_object('ok', false, 'err', 'pin');   -- perfil borrado o PIN restablecido
   end if;
+  ez := public.armairua_pin_egiaztatu(r, p_pin);             -- los fallos cuentan para el bloqueo
+  if ez is not null then return ez; end if;
 
   v := coalesce(r.datuak -> 'v', '{}'::jsonb);
   t := coalesce(r.datuak -> 't', '{}'::jsonb);
@@ -145,6 +169,7 @@ end
 $$;
 
 -- ── permisos: la clave pública solo puede llamar a las tres funciones ──
+revoke all on function public.armairua_pin_egiaztatu(public.armairua_perfilak, text) from public, anon, authenticated;
 revoke all on function public.armairua_zerrenda()                 from public;
 revoke all on function public.armairua_sartu(text, text)          from public;
 revoke all on function public.armairua_gorde(text, text, jsonb)   from public;

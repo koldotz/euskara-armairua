@@ -90,7 +90,9 @@
   var MSG = {
     'pin':'PIN incorrecto.', 'pin-formatua':'El PIN son 4 cifras.', 'izena':'Nombre no válido (1–40 caracteres).',
     'blokeatuta':'Perfil bloqueado 15 minutos por demasiados PIN erróneos.', 'handiegia':'El progreso es demasiado grande para subirlo.',
-    'sarea':'Sin conexión con el banco de perfiles: tu progreso se guarda aquí y se subirá cuando vuelva la conexión.'
+    'sarea':'Sin conexión con el banco de perfiles: tu progreso se guarda aquí y se subirá cuando vuelva la conexión.',
+    'pin-zaharra':'El PIN guardado en este dispositivo ya no vale (¿se ha restablecido?). Vuelve a escribirlo.',
+    'utzi':'Cancelado: sigues en tu perfil. Cuando tengas conexión, sincroniza y vuelve a intentarlo.'
   };
   function errMsg(res){
     var e = (res && res.err) || 'sarea', t = MSG[e] || MSG.sarea;
@@ -115,20 +117,25 @@
   function setState(s, e){ state = s; if (e !== undefined) errTxt = e; paint(); }
 
   /* ── sincronizar: sube lo cambiado y trae lo más nuevo, en una sola llamada ── */
-  var busy = false, again = false, timer = null;
+  var busy = false, again = false, timer = null, inflight = null, pinLost = false;
   function sync(opts){
     opts = opts || {};
     var n = name(), p = pin();
     if (!n || !p){ paint(); return Promise.resolve(false); }
-    if (busy){ again = true; return Promise.resolve(false); }
+    if (busy){ again = true; return inflight; }
     busy = true; if (!opts.quiet) setState('saving');
     var m = meta(); if (m.who !== who(n)) m = freshMeta(n);
     scan(m); saveMeta(m);
     var out = { v:{}, t:{} };
     Object.keys(m.t).forEach(function(k){ if ((m.p[k] || 0) < m.t[k]){ var v = ls(k); if (v != null){ out.v[k] = v; out.t[k] = m.t[k]; } } });
-    return rpc('armairua_gorde', { p_izena:n, p_pin:p, p_datuak:out }, opts.keepalive).then(function(res){
+    inflight = rpc('armairua_gorde', { p_izena:n, p_pin:p, p_datuak:out }, opts.keepalive).then(function(res){
       busy = false;
-      if (!res || !res.ok){ setState('error', errMsg(res)); return false; }
+      if (!res || !res.ok){
+        /* PIN guardado que ya no vale (restablecido a mano): se olvida para no
+           reintentar cada 45 s, porque cada fallo cuenta para el bloqueo */
+        if (res && res.err === 'pin'){ ldel(PINK); pinLost = true; setState('error', MSG['pin-zaharra']); return false; }
+        setState('error', errMsg(res)); return false;
+      }
       var m2 = meta(); if (m2.who !== who(n)) m2 = m;
       Object.keys(out.t).forEach(function(k){ m2.p[k] = Math.max(m2.p[k] || 0, out.t[k]); });
       var ch = apply(m2, res.datuak); saveMeta(m2);
@@ -138,6 +145,29 @@
       if (again){ again = false; sync({ quiet:true }); }
       return ch.length > 0;
     }, function(){ busy = false; setState('error', MSG.sarea); return false; });
+    return inflight;
+  }
+  /* claves con cambios que la nube todavía no tiene */
+  function pending(){
+    var n = name(); if (!n) return [];
+    var m = meta();
+    if (m.who !== who(n)) return localKeys();                  // de este perfil no se ha subido nada
+    scan(m); saveMeta(m);
+    return Object.keys(m.t).filter(function(k){ return (m.p[k] || 0) < m.t[k] && ls(k) != null; });
+  }
+  /* sube todo lo pendiente (hasta «tries» vueltas); devuelve lo que no se pudo subir */
+  function flush(tries){
+    return sync({ quiet:true }).then(function(){
+      var left = pending();
+      if (!left.length || !pin() || tries <= 1) return left;
+      return new Promise(function(r){ setTimeout(r, 400); }).then(function(){ return flush(tries - 1); });
+    });
+  }
+  function lostWarn(left, what){
+    var n = left.length;
+    return '⚠ ' + what + ' tiene progreso que no se ha podido subir a la nube (' + n + (n === 1 ? ' apartado' : ' apartados') + ')'
+      + (state === 'error' && errTxt ? ': ' + errTxt : '.')
+      + '\n\nSi sigues, ese progreso se borrará de este dispositivo y se perderá. «Cancelar» para quedarte y reintentarlo con conexión; «Aceptar» para seguir igualmente.';
   }
   function later(ms){ if (timer) clearTimeout(timer); timer = setTimeout(function(){ sync({ quiet:state === 'ok' }); }, ms || 1500); }
   function reload(){
@@ -199,7 +229,7 @@
     if (!sp){ sp = document.createElement('div'); sp.id = 'gateSync'; sp.className = 'gate-sync'; form.parentNode.insertBefore(sp, form); }
     paintPanel();
     renderBank();
-    showErr('');
+    showErr(pinLost ? MSG['pin-zaharra'] : '');
     var p = el('gatePin'); if (p) p.value = '';
     if (name() && !pin()) setTimeout(function(){ try { el('gatePin').focus(); } catch(e){} }, 60);
   }
@@ -218,7 +248,9 @@
   }
   function logout(){
     if (!confirm('¿Salir de este perfil en este dispositivo? Tu progreso sigue guardado en la nube; aquí se borrará la copia local.')) return;
-    sync({ quiet:true }).then(function(){
+    var b = el('gsOut'); if (b) b.disabled = true;
+    flush(3).then(function(left){
+      if (left.length && !confirm(lostWarn(left, 'Este perfil'))){ if (b) b.disabled = false; paintPanel(); return; }
       clearSynced(); ldel(PINK); ldel(METAK); ldel(NAMEK);
       try { sessionStorage.removeItem(RG); } catch(e){}
       location.reload();
@@ -252,10 +284,15 @@
     if (!/^[0-9]{4}$/.test(p)){ showErr(MSG['pin-formatua']); if (pi) pi.focus(); return; }
     var btn = f.querySelector('button[type="submit"]'); if (btn) btn.disabled = true;
     showErr('');
-    var cur = name(), pre = (cur && pin() && who(cur) !== who(n)) ? sync({ quiet:true }) : Promise.resolve();
-    pre.then(function(){ return login(n, p); }).then(function(res){
+    var m0 = meta(), cur = name() || m0.who;
+    var pre = (m0.who && m0.who !== who(n)) ? flush(3) : Promise.resolve([]);   // login() borrará lo de m0.who
+    pre.then(function(left){
+      if (left.length && !confirm(lostWarn(left, 'El perfil «' + cur + '»'))) return { ok:false, err:'utzi' };
+      return login(n, p);
+    }).then(function(res){
       if (btn) btn.disabled = false;
       if (!res.ok){ showErr(errMsg(res)); if (pi){ pi.value = ''; pi.focus(); } return; }
+      pinLost = false;
       el('gateName').value = res.izena;
       passing = true;
       try { f.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })); } finally { passing = false; }
