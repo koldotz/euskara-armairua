@@ -185,11 +185,20 @@ begin
 end
 $$;
 
--- ── permisos: la clave pública solo puede llamar a las tres funciones ──
+-- ── versión instalada (para comprobar desde fuera qué SQL hay en Supabase) ──
+-- 1 = perfiles con PIN · 2 = PIN común a sartu y gorde · 3 = fusión con versión base
+create or replace function public.armairua_bertsioa()
+returns integer
+language sql immutable
+as $$ select 3 $$;
+
+-- ── permisos: la clave pública solo puede llamar a estas funciones ──
 revoke all on function public.armairua_pin_egiaztatu(public.armairua_perfilak, text) from public, anon, authenticated;
 revoke all on function public.armairua_zerrenda()                 from public;
 revoke all on function public.armairua_sartu(text, text)          from public;
 revoke all on function public.armairua_gorde(text, text, jsonb)   from public;
+revoke all on function public.armairua_bertsioa()                 from public;
 grant execute on function public.armairua_zerrenda()               to anon, authenticated;
+grant execute on function public.armairua_bertsioa()               to anon, authenticated;
 grant execute on function public.armairua_sartu(text, text)        to anon, authenticated;
 grant execute on function public.armairua_gorde(text, text, jsonb) to anon, authenticated;
