@@ -7,6 +7,8 @@
 <meta name="theme-color" content="#171B18">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <title>Euskara Armairua · A2</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
@@ -108,7 +110,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 #app-koadernoa header.hero h1{font-size:clamp(36px,5.4vw,54px); font-weight:700; letter-spacing:-.02em}
 #app-koadernoa header.hero h1 em{font-style:normal; color:var(--iron)}
 #app-koadernoa header.hero .lede{font-size:18px; color:var(--ink-2); margin-top:14px; max-width:58ch}
-#app-koadernoa .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:26px}
+#app-koadernoa .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:14px; margin-top:26px}
 #app-koadernoa .howto div{border-left:2px solid var(--line-strong); padding-left:12px}
 #app-koadernoa .howto b{display:block; font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--iron); margin-bottom:3px}
 #app-koadernoa .howto p{font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); line-height:1.5}
@@ -148,7 +150,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 
 #app-koadernoa .laster{margin-top:40px; border:1px dashed var(--line-strong); border-radius:var(--r); background:transparent; padding:22px 22px}
 #app-koadernoa .laster h3{font-family:var(--f-ui); font-size:14px; font-weight:600; color:var(--ink-2); margin-bottom:12px}
-#app-koadernoa .laster ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px}
+#app-koadernoa .laster ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr)); gap:8px}
 #app-koadernoa .laster li{font-family:var(--f-ui); font-size:13.5px; color:var(--muted); display:flex; gap:8px}
 #app-koadernoa .laster li .n{font-family:var(--f-mono); color:var(--line-strong)}
 #app-koadernoa .laster .pill{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--iron); border:1px solid var(--iron); border-radius:2px; padding:1px 6px; margin-left:auto; align-self:center}
@@ -314,7 +316,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 #app-materialak .pager{display:flex; justify-content:space-between; gap:12px; margin-top:52px; padding-top:18px; border-top:1px solid var(--line)}
 #app-materialak .pager a{font-family:var(--f-ui); font-size:14px; color:var(--sea); text-decoration:none}
 #app-materialak .pager a:hover{text-decoration:underline}
-#app-materialak .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin-top:12px}
+#app-materialak .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr)); gap:10px; margin-top:12px}
 #app-materialak .card{display:block; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:12px 14px; text-decoration:none; color:inherit}
 #app-materialak .card:hover{border-color:var(--sea); box-shadow:var(--shadow)}
 #app-materialak .card .n{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
@@ -322,13 +324,13 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 #app-materialak .card b{display:block; font-family:var(--f-display); font-size:19px; font-weight:600; margin-top:2px}
 #app-materialak .card span{display:block; font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.4; margin-top:3px}
 #app-materialak h2.grp2{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--iron); margin-top:34px}
-#app-materialak .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:22px}
+#app-materialak .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:14px; margin-top:22px}
 #app-materialak .howto div{border-left:2px solid var(--line-strong); padding-left:12px; font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); line-height:1.5}
 #app-materialak .howto b{display:block; font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--iron); margin-bottom:3px}
 #app-materialak .search{width:100%; font-family:var(--f-ui); font-size:16px; padding:10px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--surface); color:var(--ink); margin-top:18px}
 #app-materialak .search:focus{outline:2px solid var(--sea); outline-offset:1px}
 #app-materialak .count{font-family:var(--f-mono); font-size:11px; color:var(--muted); margin-top:8px}
-#app-materialak .kgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:6px; margin-top:10px}
+#app-materialak .kgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(170px,100%),1fr)); gap:6px; margin-top:10px}
 #app-materialak .kgrid div{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:7px 10px}
 #app-materialak .kgrid b{display:block; font-size:16px}
 #app-materialak .kgrid span{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
@@ -366,7 +368,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 #app-orokorra .empty p{font-family:var(--f-ui); font-size:14px; color:var(--muted); margin-top:4px}
 #app-orokorra .blk-h{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-top:48px; padding-top:22px; border-top:1px solid var(--line)}
 #app-orokorra .blk-p{font-family:var(--f-ui); font-size:14px; color:var(--muted); margin-top:6px}
-#app-orokorra .blks{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; margin-top:16px}
+#app-orokorra .blks{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr)); gap:16px; margin-top:16px}
 @media (max-width:400px){#app-orokorra .blks{grid-template-columns:1fr}}
 #app-orokorra a.blk{display:flex; align-items:center; gap:15px; text-decoration:none; color:inherit; border:1px solid var(--line-strong); border-left:3px solid var(--gold); border-radius:var(--r); background:var(--surface); padding:17px 18px; transition:border-color .14s, transform .14s, box-shadow .14s}
 #app-orokorra a.blk:hover{border-color:var(--gold); transform:translateY(-2px); box-shadow:var(--shadow)}
