@@ -1,0 +1,53 @@
+# ── Supabase esnatuta · mantener despierto el banco de perfiles ─────────────
+# Los proyectos gratuitos de Supabase se pausan tras una semana sin actividad,
+# y entonces los perfiles dejan de sincronizar (fue la causa del primer fallo).
+# Esta tarea hace dos veces por semana una consulta de solo lectura con la clave
+# pública de config.js, que cuenta como actividad.
+#
+# Si el proyecto ya estuviera pausado, la consulta falla, la tarea sale en rojo
+# y GitHub avisa por correo: entonces hay que reactivarlo a mano en supabase.com
+# (Project → Restore). También se puede lanzar a mano: pestaña Actions →
+# «Supabase esnatuta» → Run workflow.
+#
+# Ojo: GitHub desactiva las tareas programadas de un repositorio público tras
+# 60 días sin commits; si pasa, la pestaña Actions ofrece reactivarla.
+name: Supabase esnatuta
+
+on:
+  schedule:
+    - cron: '17 6 * * 1,4'      # lunes y jueves, 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: config.js
+          sparse-checkout-cone-mode: false
+
+      - name: Consultar el banco de perfiles
+        run: |
+          URL=$(sed -nE 's/^[[:space:]]*url:[[:space:]]*"([^"]+)".*/\1/p' config.js)
+          KEY=$(sed -nE 's/^[[:space:]]*key:[[:space:]]*"([^"]+)".*/\1/p' config.js)
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then echo "::error::config.js no tiene url o key"; exit 1; fi
+          call() {   # $1 = función; reintenta 3 veces
+            for i in 1 2 3; do
+              CODE=$(curl -s -m 20 -o out.json -w '%{http_code}' -X POST "$URL/rest/v1/rpc/$1" \
+                -H "apikey: $KEY" -H 'Content-Type: application/json' -d '{}') && [ "$CODE" = 200 ] && return 0
+              echo "intento $i: HTTP ${CODE:-sin respuesta}"; sleep 10
+            done
+            return 1
+          }
+          if ! call armairua_zerrenda; then
+            echo "::error::El banco de perfiles no responde. ¿Proyecto pausado? Reactívalo en supabase.com (Project → Restore)."
+            exit 1
+          fi
+          # sin nombres en el registro (el registro de Actions es público): solo el recuento
+          echo "Perfiles en la lista: $(grep -o '"izena"' out.json | wc -l | tr -d ' ')"
+          call armairua_bertsioa && echo "Versión del SQL instalada: $(cat out.json)"
