@@ -24,7 +24,7 @@ export default async function(t){
   await p.ev(`document.getElementById('lbBtn').click()`); await p.sleep(500);
   t.ok(!(await p.ev(`document.getElementById('lbOv').hidden`)), 'el botón 📓 abre la libreta');
   const secs = await p.ev(`[...document.querySelectorAll('#lbDoc .lb-sec h2')].map(h => h.textContent).join('|')`);
-  t.ok(secs.split('|').length === 6, 'seis apartados: ' + secs);
+  t.ok(secs.split('|').length === 7, 'siete apartados: ' + secs);
   const stats = await p.ev(`[...document.querySelectorAll('#lbDoc .lb-stats div')].map(d => d.textContent).join(' | ')`);
   t.ok(/1 \/ 28días del plan/.test(stats) && /6 \/ 136tareas/.test(stats) && /1 \/ 45ejercicios/.test(stats) && /^.*3 \(0\)palabras/.test(stats), 'portada con las cifras reales: ' + stats);
   t.ok(/Maialen/.test(await p.ev(`document.querySelector('#lbDoc .lb-who').textContent`)), 'portada con el nombre del perfil');

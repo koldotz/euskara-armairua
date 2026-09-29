@@ -143,6 +143,20 @@
           };
         } },
 
+      { id: 'akatsak', icon: '🩹', eu: 'Nire akatsak', title: 'Errores pendientes de repaso',
+        build: function(h){
+          var A = window.AKATSAK ? AKATSAK.data() : { j: {}, k: {} }, hard = words().filter(function(w){ return w.lp >= 2; });
+          var jk = Object.keys(A.j), kk = Object.keys(A.k);
+          if (!hard.length && !jk.length && !kk.length) return { n: '0' };
+          return {
+            n: (hard.length + jk.length + kk.length) + ' por repasar',
+            html: '<p class="lb-note">Lo que se te resiste en este momento. Al acertarlo sale de la lista, así que cada libreta enseña los errores que siguen vivos.</p>'
+              + (hard.length ? '<h3>Palabras difíciles</h3><div class="lb-cols">' + hard.map(function(x){ return '<div><b>' + h.esc(x.eu) + '</b><i>' + h.esc(x.es) + '</i><span class="lb-note">×' + x.lp + '</span>' + h.mark('w' + x.i) + '</div>'; }).join('') + '</div>' : '')
+              + (jk.length ? '<h3>Frases falladas en los juegos</h3><table><tbody>' + jk.map(function(eu){ var e = A.j[eu]; return '<tr><td><b>' + h.esc(eu) + '</b>' + h.mark('j:' + h.hash(eu)) + '</td><td>' + h.esc(e.es) + '</td><td class="lb-note lb-nw">×' + e.n + '</td></tr>'; }).join('') + '</tbody></table>' : '')
+              + (kk.length ? '<h3>Huecos del cuaderno</h3><table><tbody>' + kk.map(function(k){ var g = A.k[k]; return '<tr><td class="lb-nw">' + h.esc(g.x) + '</td><td>' + h.esc(g.q) + h.mark('k:' + k) + '</td><td><s>' + h.esc(g.you) + '</s> → <b>' + h.esc(g.sol) + '</b></td></tr>'; }).join('') + '</tbody></table>' : '')
+          };
+        } },
+
       { id: 'jokoa', icon: '🎮', eu: 'Jokoa · jolasak', title: 'Juegos y oraciones resueltas',
         build: function(h){
           var j = games();

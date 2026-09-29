@@ -29,12 +29,14 @@ Si algo falla, el proceso termina con código 1 y se lista cada comprobación fa
 | `unit/fusion-cliente` | la fusión a tres bandas de `armairua-cloud.js` (extraída del fichero real) |
 | `datos/datos` | integridad de Hiztegia, Esaldiak, Mintzamena y Ostalaritza; que los totales que se muestran (1.239 palabras) sean los reales; que existan los PDF |
 | `datos/gafas` | que el diccionario de las gafas sea coherente y que el fichero publicado coincida con el generador |
+| `datos/config` | que `config.js` lleve solo la clave pública y que la tarea que mantiene despierto Supabase pueda leerlo |
 | `datos/service-worker` | que todo lo precacheado exista y que todo lo que cargan las páginas esté precacheado (uso sin conexión) |
 | `e2e/paginas` | las 7 páginas y sus pestañas a 1280, 390 y 320 px: sin errores de JavaScript, sin recursos que falten, sin ids repetidos, sin desbordamiento horizontal |
 | `e2e/perfiles-dos-dispositivos` | el recorrido normal: crear perfil, entrar en otro dispositivo (PIN erróneo y bueno), progreso en los dos sentidos, salir |
 | `e2e/perfiles-salir-cambiar` | salir o cambiar de perfil sin conexión avisa antes de borrar; un PIN caducado no bloquea el perfil |
 | `e2e/perfiles-concurrencia` | dos dispositivos a la vez, uno sin conexión: nada se pisa, fichas de palabra enteras, reinicios, datos de la versión anterior |
 | `e2e/hiztegia-duplicadas` | las palabras repetidas en dos temas comparten ficha y no cuentan doble |
+| `e2e/hiztegia-idatzi` | el modo «Idatzi» de Hiztegia: corrección (mayúsculas, signos, artículo de más, erratas, sinónimos), nota propuesta con Intro, cola del repaso, modo recordado, móvil |
 | `e2e/libreta` | la libreta del A1: contenido de cada apartado, oraciones que se registran al acertar, quitar apartados, PDF real de Chrome, nombre de archivo, marcas «Berria» tras confirmar el guardado, móvil |
 | `e2e/geruzak-gafas` | las gafas de Geruzak: desglose, lectura en tablas, ficha, leyenda, estado recordado, HTML intacto al quitarlas, móvil |
 

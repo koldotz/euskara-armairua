@@ -17,7 +17,7 @@ export default async function(t){
   t.ok(W.every(w => Number.isInteger(w.t) && w.t >= 0 && w.t < D.t.length), 'A1_DATA: todos los temas existen');
   const uniq = new Set(W.map(w => w.eu.toLowerCase().trim() + '|' + w.es.toLowerCase().trim())).size;
   const shown = String(uniq).replace(/\B(?=(\d{3})+$)/g, '.');           // 1.239
-  for (const [f, re] of [['index.html', /Hiztegia — ([\d.]+) hitz/], ['a1.html', /id="hzEyebrow">Hiztegia · A1 · ([\d.]+) hitz/], ['README.md', /Hiztegia \(([\d.]+) palabras\)/]]) {
+  for (const [f, re] of [['index.html', /Hiztegia — ([\d.]+) hitz/], ['a1.html', /id="hzEyebrow">Hiztegia · A1 · ([\d.]+) hitz/], ['README.md', /Hiztegia \(([\d.]+) palabras[,)]/]]) {
     const m = fs.readFileSync(path.join(t.root, f), 'utf8').match(re);
     t.ok(m && m[1] === shown, `${f} muestra el total real de palabras distintas (${shown}): ${m ? m[1] : 'no encontrado'}`);
   }

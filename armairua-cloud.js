@@ -28,7 +28,7 @@
   /* claves que viajan: el progreso de todos los materiales. Se quedan en el
      dispositivo las marcas __t del HUB y las preferencias de navegación/voz. */
   var SYNC = /^(euskara-|hitzen-kutxa|koadernoa|mintzamena|materialak)/;
-  var SKIP = /__t$|^(euskara-izena|euskara-armairua-tab|euskara-a2-tab|euskara-a2-ost-sub|euskara-ent-view|euskara-a1-mz-last|euskara-a2-mat-last|euskara-entzumena-v1|euskara-geruzak-bt)$/;
+  var SKIP = /__t$|^(euskara-izena|euskara-armairua-tab|euskara-a2-tab|euskara-a2-ost-sub|euskara-ent-view|euskara-a1-mz-last|euskara-a2-mat-last|euskara-entzumena-v1|euskara-geruzak-bt|euskara-hiztegia-modo|euskara-hitza-oharra)$/;
   function synced(k){ return SYNC.test(k) && !SKIP.test(k); }
 
   /* ── utilidades ── */

@@ -583,6 +583,28 @@ section.cal{margin-top:34px}
 #app-hiztegia .grade .mid:not(:disabled):hover{border-color:var(--gold); background:var(--gold-soft)}
 #app-hiztegia .grade .yes:not(:disabled):hover{border-color:var(--sea); background:var(--sea-soft)}
 
+/* modo «Idatzi»: escribir en euskera (producción activa) */
+#app-hiztegia .wform{display:flex; gap:8px; margin-top:14px}
+#app-hiztegia .wform input{flex:1; min-width:0; font-family:var(--f-body); font-size:20px; padding:11px 14px; border:1px solid var(--line-strong); border-radius:4px; background:var(--surface); color:var(--ink)}
+#app-hiztegia .wform input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+#app-hiztegia .wform input:disabled{opacity:.7}
+#app-hiztegia .wform button{flex:none; font-family:var(--f-ui); font-size:14px; font-weight:600; padding:0 16px; cursor:pointer; border:1px solid var(--sea); border-radius:4px; background:var(--sea); color:var(--surface)}
+#app-hiztegia .wform button:disabled{opacity:.35; cursor:default}
+#app-hiztegia .wfb{margin-top:10px; padding:10px 14px; border-radius:4px; border-left:3px solid var(--line-strong); background:var(--surface); font-family:var(--f-ui); font-size:14.5px; line-height:1.5; display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline}
+#app-hiztegia .wfb b{font-size:15px}
+#app-hiztegia .wfb .sol{font-family:var(--f-body); font-size:18px}
+#app-hiztegia .wfb .sol mark{background:var(--gold-soft); color:var(--iron); border-bottom:2px solid var(--iron); padding:0 1px}
+#app-hiztegia .wfb .you{color:var(--muted); text-decoration:line-through}
+#app-hiztegia .wfb .note{flex-basis:100%; color:var(--muted); font-size:13px}
+#app-hiztegia .wfb .say{font:inherit; cursor:pointer; border:1px solid var(--line-strong); border-radius:4px; background:none; color:var(--ink-2); padding:1px 8px}
+#app-hiztegia .wfb[data-r="ok"]{border-left-color:var(--sea); background:var(--sea-soft)} #app-hiztegia .wfb[data-r="ok"] b{color:var(--sea)}
+#app-hiztegia .wfb[data-r="near"]{border-left-color:var(--gold); background:var(--gold-soft)} #app-hiztegia .wfb[data-r="near"] b{color:var(--gold)}
+#app-hiztegia .wfb[data-r="no"]{border-left-color:var(--crit); background:var(--iron-soft)} #app-hiztegia .wfb[data-r="no"] b{color:var(--crit)}
+#app-hiztegia .grade button.sug{outline:2px solid var(--ink); outline-offset:2px}
+#app-hiztegia[data-mode="write"] .fcard{cursor:default}
+#app-hiztegia[data-mode="write"] .fcard .front{font-family:var(--f-body); font-style:italic; font-weight:400}
+#app-hiztegia[data-mode="write"] .fcard .back{font-family:var(--f-display); font-style:normal; font-weight:600; font-size:28px}
+
 #app-hiztegia .done{text-align:center; padding:64px 20px; border:1px dashed var(--line-strong); border-radius:6px; background:var(--surface)}
 #app-hiztegia .done h3{font-size:24px; color:var(--sea); margin-bottom:8px}
 #app-hiztegia .done p{color:var(--muted); max-width:44ch; margin:0 auto}
@@ -1077,6 +1099,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .ent-seg .segbtn{font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:var(--ink-2); background:none; border:0; border-radius:999px; padding:7px 16px; cursor:pointer}
 .ent-seg .segbtn.on{background:var(--sea); color:#fff}
 .ent-seg .segbtn:not(.on):hover{color:var(--ink)}
+/* con cuatro sub-vistas, en pantallas estrechas la fila se desliza en horizontal */
+@media (max-width:600px){ .ent-seg{display:flex; max-width:100%; overflow-x:auto; scrollbar-width:none} .ent-seg::-webkit-scrollbar{display:none} .ent-seg .segbtn{flex:none; padding:7px 12px} }
 
 /* ── ESALDIAK · buscador de frases castellano → euskera ────────────── */
 .esa{max-width:760px}
@@ -1457,6 +1481,20 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     todayIdx: todayIdx,
     isDone: function(i,j){ return !!(st.done && st.done[i+'-'+j]); },
     doneCount: function(){ var c=0; if(st.done) for(var k in st.done){ if(st.done[k]) c++; } return c; },
+    score: function(id){ return st.scores ? st.scores[id] : undefined; },
+    // apunta la nota de una prueba (los simulacros la ponen solos al entregar)
+    setScore: function(id, v){
+      st.scores = st.scores || {};
+      if (v == null || v === '') delete st.scores[id]; else st.scores[id] = String(v);
+      save(); renderPruebas(); document.dispatchEvent(new CustomEvent('plana:change'));
+    },
+    // marca hechas las tareas de un tipo que enlazan a u (p. ej. el simulacro de #a1)
+    markLink: function(u, k){
+      var ch = false; st.done = st.done || {};
+      P.days.forEach(function(d, i){ d.tasks.forEach(function(t, j){ if (t.u === u && (!k || t.k === k) && !st.done[i+'-'+j]) { st.done[i+'-'+j] = 1; ch = true; } }); });
+      if (ch) { save(); renderDay(); renderGrid(); renderKpis(); document.dispatchEvent(new CustomEvent('plana:change')); }
+      return ch;
+    },
     onChange: function(fn){ document.addEventListener('plana:change', fn); }
   };
   document.dispatchEvent(new CustomEvent('plana:ready'));
@@ -1867,7 +1905,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       <button type="button" class="segbtn on" id="segJoko" role="tab" aria-selected="true">🎮 Jokoa</button>
       <button type="button" class="segbtn" id="segEsaldi" role="tab" aria-selected="false">🔎 Esaldiak</button>
       <button type="button" class="segbtn" id="segLoop" role="tab" aria-selected="false">🔁 Entzun bukle</button>
+      <button type="button" class="segbtn" id="segAkats" role="tab" aria-selected="false">🩹 Akatsak</button>
     </div>
+    <div id="entViewAkats" hidden></div>
 
     <div id="entViewLoop" hidden>
     <div class="ent-src" id="entSrc" hidden><label for="optSrc">Zer entzun</label><select id="optSrc" aria-label="Qué escuchar en el bucle"></select></div>
@@ -2364,6 +2404,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     function totalXP(){ return (st.xp||0)+planDone()*12+memKnown()*20; }
     /* oraciones resueltas, para la libreta: solo las de dos palabras o más
        (las sueltas ya están en Hitzen kutxa); hasta 400 por juego */
+    /* Nire akatsak: lo fallado entra en la lista; lo acertado después, sale */
+    function akats(ok, game, eu, es){ if(!window.AKATSAK) return; if(ok) AKATSAK.win(eu); else AKATSAK.fail(game, eu, es); }
     function logWin(game, eu, es){
       eu=String(eu||'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim(); es=String(es||'').replace(/<[^>]+>/g,'').trim();
       if(eu.split(' ').length<2) return;
@@ -2445,8 +2487,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       st.etot=(st.etot||0)+1;
       Array.prototype.forEach.call(elEntzun.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(eOpts[+o.getAttribute('data-k')]===eCur) o.classList.add('ok'); });
       var hint=document.getElementById('eHint');
-      if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; logWin('entzun', eCur.eu, eCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
-      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
+      if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; logWin('entzun', eCur.eu, eCur.es); akats(true, 'entzun', eCur.eu); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
+      else { b.classList.add('no'); akats(false, 'entzun', eCur.eu, eCur.es); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
       save(); refresh();
       setTimeout(function(){ newEntzun(true); }, advMs(ok));
     });
@@ -2639,8 +2681,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       oLock=true; var ok=(+b.getAttribute('data-k'))===oCur.a;
       Array.prototype.forEach.call(elOsatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-k'))===oCur.a) o.classList.add('ok'); });
       var hint=document.getElementById('oHint'), full=oCur.q.replace('___','<b>'+oCur.opts[oCur.a]+'</b>');
-      if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; logWin('osatu', oCur.q.replace('___', oCur.opts[oCur.a]), oCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
-      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+full+' — '+oCur.es; }
+      if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; logWin('osatu', oCur.q.replace('___', oCur.opts[oCur.a]), oCur.es); akats(true, 'osatu', oCur.q.replace('___', oCur.opts[oCur.a])); if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
+      else { b.classList.add('no'); akats(false, 'osatu', oCur.q.replace('___', oCur.opts[oCur.a]), oCur.es); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+full+' — '+oCur.es; }
       save(); refresh(); setTimeout(newOsatu, advMs(ok));
     });
 
@@ -2666,8 +2708,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       aLock=true; var ok=(aOpts[+b.getAttribute('data-k')]===aCur);
       Array.prototype.forEach.call(elAukeratu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(aOpts[+o.getAttribute('data-k')]===aCur) o.classList.add('ok'); });
       var hint=document.getElementById('aHint');
-      if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; logWin('zein', aCur.eu, aCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
-      else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
+      if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; logWin('zein', aCur.eu, aCur.es); akats(true, 'zein', aCur.eu); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
+      else { b.classList.add('no'); akats(false, 'zein', aCur.eu, aCur.es); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
       save(); refresh(); setTimeout(newAukeratu, advMs(ok));
     });
 
@@ -2716,8 +2758,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var chip=document.createElement('span'); chip.className='jk-chip'; chip.textContent=tok.textContent; ans.appendChild(chip);
       if(rBuilt.length===rCur.toks.length){
         var okk = rBuilt.join(' ')===rCur.toks.join(' '), hint=document.getElementById('rHint');
-        if(okk){ st.ordena=(st.ordena||0)+1; st.xp=(st.xp||0)+8; logWin('ordena', rCur.toks.join(' '), rCur.es); save(); refresh(); ans.classList.add('ok'); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bikain! ✓</b> +8 XP · <button type="button" class="jk-repeat" id="rNew">Beste bat →</button>'; }
-        else { ans.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez horrela.</span> → <b>'+rCur.toks.join(' ')+'</b> · <button type="button" class="jk-repeat" id="rNew">Berriz →</button>'; }
+        if(okk){ st.ordena=(st.ordena||0)+1; st.xp=(st.xp||0)+8; logWin('ordena', rCur.toks.join(' '), rCur.es); akats(true, 'ordena', rCur.toks.join(' ')); save(); refresh(); ans.classList.add('ok'); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bikain! ✓</b> +8 XP · <button type="button" class="jk-repeat" id="rNew">Beste bat →</button>'; }
+        else { ans.classList.add('no'); akats(false, 'ordena', rCur.toks.join(' '), rCur.es); save(); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez horrela.</span> → <b>'+rCur.toks.join(' ')+'</b> · <button type="button" class="jk-repeat" id="rNew">Berriz →</button>'; }
         var nb=document.getElementById('rNew'); if(nb) nb.onclick=newOrdena;
       }
     });
@@ -2748,8 +2790,8 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       Array.prototype.forEach.call(elEgia.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; });
       b.classList.add(ok?'ok':'no');
       var hint=document.getElementById('gHint');
-      if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; logWin('egia', gCur.eu, gCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
-      else { if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+gCur.eu+' = '+gCur.es; }
+      if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; logWin('egia', gCur.eu, gCur.es); akats(true, 'egia', gCur.eu); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
+      else { akats(false, 'egia', gCur.eu, gCur.es); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+gCur.eu+' = '+gCur.es; }
       save(); refresh(); setTimeout(newEgia, advMs(ok));
     });
 
@@ -2845,19 +2887,23 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     });
 
     /* ── conmutador de sub-vista Jokoa / Esaldiak / Bukle ── */
-    var esaldi=document.getElementById('entViewEsaldi'), segE=document.getElementById('segEsaldi');
+    var esaldi=document.getElementById('entViewEsaldi'), segE=document.getElementById('segEsaldi'),
+        akatsV=document.getElementById('entViewAkats'), segA=document.getElementById('segAkats');
     var VK='euskara-ent-view';
     function showView(v){
-      loop.hidden=(v!=='loop'); joko.hidden=(v!=='joko'); if(esaldi) esaldi.hidden=(v!=='esaldi');
+      loop.hidden=(v!=='loop'); joko.hidden=(v!=='joko'); if(esaldi) esaldi.hidden=(v!=='esaldi'); if(akatsV) akatsV.hidden=(v!=='akats');
+      if(segA){ segA.classList.toggle('on',v==='akats'); segA.setAttribute('aria-selected',String(v==='akats')); }
       segL.classList.toggle('on',v==='loop'); segJ.classList.toggle('on',v==='joko'); if(segE) segE.classList.toggle('on',v==='esaldi');
       segL.setAttribute('aria-selected',String(v==='loop')); segJ.setAttribute('aria-selected',String(v==='joko')); if(segE) segE.setAttribute('aria-selected',String(v==='esaldi'));
       try{ localStorage.setItem(VK,v); }catch(e){}
       if(v==='joko'){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); refresh(); ePlay(); }
       else if(v==='esaldi'){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); if(window.ESALDIAK && ESALDIAK.enter) ESALDIAK.enter(); }
+      else if(v==='akats'){ if(window.ENTZUN && ENTZUN.pause) ENTZUN.pause(); }
     }
     segL.addEventListener('click', function(){ showView('loop'); });
     segJ.addEventListener('click', function(){ showView('joko'); });
     if(segE) segE.addEventListener('click', function(){ showView('esaldi'); });
+    if(segA) segA.addEventListener('click', function(){ showView('akats'); });
 
     /* ── fuente de los juegos: temario A1 o Mintzamena ── */
     var elSrc=document.getElementById('jkSrc');
@@ -2883,7 +2929,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     if(window.PLANA) PLANA.onChange(refresh);
     if(window.MEMORIA) MEMORIA.onChange(refresh);
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ var src=st.src, mzb=st.mzb; st=v; refresh(); if(st.src!==src || st.mzb!==mzb){ renderSrc(); newAll(); } } }, function(){ return st; });
-    window.JOKOA = { show: showView,
+    window.JOKOA = { show: showView, view: function(){ return !joko.hidden ? 'joko' : (!loop.hidden ? 'loop' : (esaldi && !esaldi.hidden ? 'esaldi' : 'akats')); },
       /* cifras y oraciones resueltas, para la libreta */
       stats: function(){
         var xp=totalXP(), i=0; for(var k=0;k<LV.length;k++){ if(xp>=LV[k].xp) i=k; }
@@ -2896,6 +2942,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     var last=''; try{ last=localStorage.getItem(VK)||''; }catch(e){}
     if(last==='loop') showView('loop');        // por defecto Jokoa;
     else if(last==='esaldi') showView('esaldi'); // recuerda la última sub-vista elegida
+    else if(last==='akats') showView('akats');
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start);
   else start();
@@ -3050,10 +3097,11 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <div class="bar">
   <div class="seg" role="group" aria-label="Modo">
     <button id="mStudy" aria-pressed="true">Ikasi · tarjetas</button>
+    <button id="mWrite" aria-pressed="false" title="Ves el castellano y lo escribes en euskera">Idatzi · escribir</button>
     <button id="mList" aria-pressed="false">Zerrenda · lista</button>
   </div>
   <select id="theme" aria-label="Tema"></select>
-  <div class="seg" role="group" aria-label="Dirección">
+  <div class="seg" role="group" aria-label="Dirección" id="dirSeg">
     <button id="dEu" aria-pressed="true">eu → es</button>
     <button id="dEs" aria-pressed="false">es → eu</button>
   </div>
@@ -3084,6 +3132,11 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
         <span class="hint" id="cHint">Pulsa o toca para ver la traducción</span>
       </div>
     </div>
+    <form class="wform" id="wForm" hidden autocomplete="off">
+      <input type="text" id="wIn" lang="eu" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="Idatzi euskaraz…" aria-label="Escribe la palabra en euskera">
+      <button type="submit" id="wGo">Egiaztatu</button>
+    </form>
+    <div class="wfb" id="wFb" role="status" aria-live="polite" hidden></div>
     <div class="grade">
       <button class="no"  id="g0" disabled>Ez dakit<small>reinicia el repaso</small></button>
       <button class="mid" id="g1" disabled>Kosta zait<small>vuelve pronto</small></button>
@@ -3332,18 +3385,87 @@ window.MZ = (function(){
     elDeck.hidden = false; elDone.hidden = true;
     cur = queue[0]; flipped = false;
     elCard.setAttribute('data-flipped','false');
-    elFront.textContent = dir === 'eu' ? cur.eu : cur.es;
-    elBack.textContent  = dir === 'eu' ? cur.es : cur.eu;
+    var w = mode === 'write';
+    elFront.textContent = (w || dir === 'es') ? cur.es : cur.eu;
+    elBack.textContent  = (w || dir === 'es') ? cur.eu : cur.es;
     elTag.textContent = THEMES[cur.t];
     elBox.innerHTML = dots(rec(cur.i).b);
-    elHint.textContent = 'Pulsa o toca para ver la traducción';
-    ['g0','g1','g2'].forEach(function(id){ document.getElementById(id).disabled = true; });
+    elHint.textContent = w ? 'Escríbelo en euskera y pulsa Intro' : 'Pulsa o toca para ver la traducción';
+    ['g0','g1','g2'].forEach(function(id){ var b = document.getElementById(id); b.disabled = true; b.classList.remove('sug'); });
+    elWForm.hidden = !w; elWFb.hidden = true; elWIn.value = ''; elWIn.disabled = false; elWGo.disabled = false; wSug = null;
+    if (w && !document.getElementById('app-hiztegia').hidden) { try { elWIn.focus({ preventScroll: true }); } catch(err){} }
     var done = total - queue.length;
     elBar.style.width = (total ? (done/total*100) : 0) + '%';
     elCnt.textContent = done + ' / ' + total;
   }
 
+  /* ── modo «Idatzi»: escribir en euskera ──
+     Se compara sin mayúsculas, tildes ni signos. Cuenta como correcta una
+     palabra de otra tarjeta con la misma traducción (sinónimo); como «casi»,
+     la palabra con el artículo de más (etxea por etxe) o con una o dos letras
+     distintas. La nota se propone, pero se puede cambiar (una errata). */
+  var elWForm = document.getElementById('wForm'), elWIn = document.getElementById('wIn'),
+      elWGo = document.getElementById('wGo'), elWFb = document.getElementById('wFb');
+  function wnorm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\.\.\./g, ' ').replace(/[¿?¡!.,;:«»"()]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  var BY_ES = {};
+  WORDS.forEach(function(w){ var k = wnorm(w.es); (BY_ES[k] = BY_ES[k] || []).push(w.eu); });
+  function lev(a, b){
+    var m = a.length, n = b.length, d = [], i, j;
+    for (i = 0; i <= m; i++){ d[i] = [i]; }
+    for (j = 1; j <= n; j++) d[0][j] = j;
+    for (i = 1; i <= m; i++) for (j = 1; j <= n; j++)
+      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+    return d;
+  }
+  /* la forma correcta con <mark> en lo que no coincide con lo escrito */
+  function diffHTML(typed, target){
+    var a = typed.toLowerCase(), b = target, bl = target.toLowerCase(), d = lev(a, bl), i = a.length, j = b.length, out = [];
+    while (j > 0){
+      if (i > 0 && d[i][j] === d[i-1][j-1] + (a[i-1] === bl[j-1] ? 0 : 1)){ out.unshift([b[j-1], a[i-1] !== bl[j-1]]); i--; j--; }
+      else if (d[i][j] === d[i][j-1] + 1){ out.unshift([b[j-1], true]); j--; }
+      else i--;
+    }
+    return out.map(function(x){ var c = x[0].replace(/[&<>]/g, function(ch){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;' }[ch]; }); return x[1] && c.trim() ? '<mark>' + c + '</mark>' : c; }).join('');
+  }
+  function wcheck(typed, w){
+    var t = wnorm(typed), target = wnorm(w.eu);
+    if (!t) return { r:'no' };
+    if (t === target) return { r:'ok' };
+    if ((BY_ES[wnorm(w.es)] || []).some(function(e){ return wnorm(e) === t; })) return { r:'ok', note:'También vale: tiene la misma traducción. Esta tarjeta era «' + w.eu + '».' };
+    if (!/a$/.test(target) && (t === target + 'a' || t === target + 'ak')) return { r:'near', note:'Sobra el artículo: la palabra se aprende sin -a (' + w.eu + ').' };
+    var dist = lev(t, target)[t.length][target.length], tol = target.length <= 5 ? 1 : (target.length <= 12 ? 2 : 3);
+    if (dist <= tol) return { r:'near', note:(dist === 1 ? 'Una letra de diferencia.' : dist + ' letras de diferencia.') + ' Si fue una errata, puedes marcar «Badakit».' };
+    return { r:'no' };
+  }
+  var wSug = null;
+  function wSubmit(e){
+    if (e) e.preventDefault();
+    if (!cur || flipped || mode !== 'write') return;
+    var typed = elWIn.value, res = wcheck(typed, cur), g = res.r === 'ok' ? 2 : (res.r === 'near' ? 1 : 0);
+    flipped = true;
+    elCard.setAttribute('data-flipped', 'true');
+    elWIn.disabled = true; elWGo.disabled = true;
+    var head = res.r === 'ok' ? '✓ Zuzen!' : (res.r === 'near' ? '≈ Ia-ia' : (typed.trim() ? '✗ Ez' : '✗ Hutsik · en blanco'));
+    var sol = res.r === 'ok' ? cur.eu.replace(/[&<>]/g, '') : diffHTML(typed.trim(), cur.eu);
+    elWFb.setAttribute('data-r', res.r);
+    elWFb.innerHTML = '<b>' + head + '</b>'
+      + (res.r !== 'ok' && typed.trim() ? '<span class="you"></span>' : '')
+      + '<span class="sol">' + sol + '</span>'
+      + (window.ENTZUN && ENTZUN.say ? '<button type="button" class="say" id="wSay" aria-label="Escuchar la palabra">🔊</button>' : '')
+      + (res.note ? '<span class="note"></span>' : '');
+    if (elWFb.querySelector('.you')) elWFb.querySelector('.you').textContent = typed.trim();
+    if (res.note) elWFb.querySelector('.note').textContent = res.note;
+    var sb = document.getElementById('wSay'); if (sb) sb.addEventListener('click', function(){ ENTZUN.say(cur ? cur.eu : ''); });
+    elWFb.hidden = false;
+    elHint.textContent = 'La nota propuesta está marcada · Intro para aceptarla';
+    ['g0','g1','g2'].forEach(function(id, k){ var b = document.getElementById(id); b.disabled = false; b.classList.toggle('sug', k === g); });
+    wSug = g;
+    try { document.getElementById('g' + g).focus({ preventScroll: true }); } catch(err){}
+  }
+  elWForm.addEventListener('submit', wSubmit);
+
   function flip(){
+    if (mode === 'write') return;
     if (!cur || flipped) return;
     flipped = true;
     elCard.setAttribute('data-flipped','true');
@@ -3351,12 +3473,14 @@ window.MZ = (function(){
     ['g0','g1','g2'].forEach(function(id){ document.getElementById(id).disabled = false; });
   }
 
+  var gradeSubs = [];
+  function graded(){ gradeSubs.forEach(function(fn){ try { fn(); } catch(e){} }); }
   function grade(g){
     if (!cur || !flipped) return;
     var r = state[ci(cur.i)] || fresh();
     schedule(r, g);
     state[ci(cur.i)] = r;
-    save();
+    save(); graded();
     if (g === 0) { queue.push(queue.shift()); } else { queue.shift(); }
     stats(); show(); renderList();
   }
@@ -3366,8 +3490,9 @@ window.MZ = (function(){
     if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); flip(); }
   });
   document.addEventListener('keydown', function(e){
-    if (mode !== 'study') return;
+    if (mode !== 'study' && mode !== 'write') return;
     if (document.getElementById('app-hiztegia').hidden) return;
+    if (e.target === elWIn) return;                                   // escribiendo la respuesta
     if (e.key === ' ' && !flipped){ e.preventDefault(); flip(); return; }
     if (flipped && (e.key === '1' || e.key === '2' || e.key === '3')){
       e.preventDefault(); grade(Number(e.key) - 1);
@@ -3413,11 +3538,16 @@ window.MZ = (function(){
   function setMode(m){
     mode = m;
     document.getElementById('mStudy').setAttribute('aria-pressed', m === 'study');
+    document.getElementById('mWrite').setAttribute('aria-pressed', m === 'write');
     document.getElementById('mList').setAttribute('aria-pressed', m === 'list');
-    document.getElementById('viewStudy').hidden = m !== 'study';
+    document.getElementById('viewStudy').hidden = m === 'list';
     document.getElementById('viewList').hidden  = m !== 'list';
+    document.getElementById('dirSeg').hidden = m === 'write';          // escribir es siempre castellano → euskera
+    document.getElementById('app-hiztegia').setAttribute('data-mode', m);
+    try { localStorage.setItem('euskara-hiztegia-modo', m); } catch(e){}
     elQ.hidden = m !== 'list';
     if (m === 'list'){ renderThemes(); renderList(); }
+    else show();
   }
   function setDir(d){
     dir = d;
@@ -3430,6 +3560,7 @@ window.MZ = (function(){
   document.getElementById('sess').addEventListener('change', function(e){ sess = Number(e.target.value); refresh(); });
   document.getElementById('mStudy').addEventListener('click', function(){ setMode('study'); });
   document.getElementById('mList').addEventListener('click', function(){ setMode('list'); });
+  document.getElementById('mWrite').addEventListener('click', function(){ setMode('write'); });
   document.getElementById('dEu').addEventListener('click', function(){ setDir('eu'); });
   document.getElementById('dEs').addEventListener('click', function(){ setDir('es'); });
   themeSel.addEventListener('change', function(){ theme = Number(themeSel.value); refresh(); });
@@ -3440,6 +3571,7 @@ window.MZ = (function(){
   });
 
   refresh();
+  (function(){ var m = null; try { m = localStorage.getItem('euskara-hiztegia-modo'); } catch(e){} if (m === 'write' || m === 'list') setMode(m); })();
 
   /* ── API para el modo sesión y otros módulos ── */
   function bySort(a, b){
@@ -3470,6 +3602,20 @@ window.MZ = (function(){
       if (limit > 0) q = q.slice(0, limit);
       return q.map(function(w){ return { i:w.i, eu:w.eu, es:w.es, tag:THEMES[w.t] }; });
     },
+    // repasar solo estas palabras (desde «Nire akatsak»), con tarjetas o escribiéndolas
+    drill: function(ids, m){
+      var set = {}; (ids || []).forEach(function(i){ set[ci(i)] = 1; });
+      theme = -1; themeSel.value = '-1';
+      queue = UNIQ.filter(function(w){ return set[w.i]; }); total = queue.length;
+      setMode(m === 'write' ? 'write' : 'study');
+      if (location.hash !== '#hiztegia') location.hash = 'hiztegia';
+    },
+    onGrade: function(fn){ gradeSubs.push(fn); },
+    // la tarjeta que se está mostrando
+    current: function(){ return cur ? { i:cur.i, eu:cur.eu, es:cur.es, t:cur.t } : null; },
+    mode: function(){ return mode; },
+    // corrige una respuesta escrita para la palabra i: {r:'ok'|'near'|'no', note}
+    check: function(typed, i){ return wcheck(typed, WORDS[i]); },
     // palabras con ficha (una vez cada una), para la libreta
     worked: function(){
       return UNIQ.filter(function(w){ return state[w.i]; }).map(function(w){
@@ -3479,7 +3625,7 @@ window.MZ = (function(){
     },
     // califica una palabra por índice (0 fallo · 1 cuesta · 2 bien); estado autoritativo aquí
     grade: function(i, g){
-      var r = state[ci(i)] || fresh(); schedule(r, g); state[ci(i)] = r; save(); stats();
+      var r = state[ci(i)] || fresh(); schedule(r, g); state[ci(i)] = r; save(); stats(); graded();
     }
   };
 
@@ -5623,6 +5769,21 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
 <script src="armairua-glosario.js"></script>
 <script src="armairua-libreta.js"></script>
 <script src="armairua-libreta-a1.js"></script>
+<script src="armairua-geruzak-betaurrekoak.js"></script>
+<script src="armairua-akatsak.js"></script>
+<script src="armairua-koadernoa-egiaztatu.js"></script>
+<script src="armairua-hitza.js"></script>
+<script>
+/* comprobar ejercicios y simulacros (sus notas van a las pruebas del plan) */
+KOADERNOA_CHECK.setup({ root: '#app-koadernoa', exams: { a1: { prueba: 's1' }, a2: { prueba: 's2' }, a3: { prueba: 'sf' } } });
+/* desglose de palabras al tocarlas, en las zonas en euskera */
+HITZA.setup({ dict: window.GERUZAK_BETAURREKOAK, words: A1_DATA.w, guide: 'geruzak.html', hintKey: 'euskara-hitza-oharra',
+  zones: [ { root: '#app-koadernoa', sel: '.q, .txt, .sol .in, .gloss, .kc-model' },
+           { root: '#app-mintzamena', sel: '.mz-eu' },
+           { root: '#entViewEsaldi', sel: '.esa-eu' } ] });
+/* Nire akatsak, en Jokoa */
+AKATSAK.mount(document.getElementById('entViewAkats'), { hiztegia: window.HIZTEGIA });
+</script>
 <script>document.getElementById('lbBtn').addEventListener('click', function(){ if (window.LIBRETA) LIBRETA.open(); });</script>
 </body>
 </html>
