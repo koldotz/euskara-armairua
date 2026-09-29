@@ -197,6 +197,14 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 }
 .hub .guide:hover{border-color:var(--sea); background:var(--sea-soft)}
 .hub .guide span{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+/* libreta: todo lo trabajado, en PDF (armairua-libreta.js) */
+.hub .lbtn{
+  align-self:center; flex:none; display:flex; align-items:center; gap:6px; cursor:pointer;
+  font-family:var(--f-ui); font-size:13px; font-weight:500; color:var(--ink-2);
+  border:1px solid var(--line-strong); border-radius:var(--r); padding:6px 11px; background:var(--ground);
+}
+.hub .lbtn:hover{border-color:var(--sea); color:var(--sea); background:var(--sea-soft)}
+@media (max-width:1200px){ .hub .lbtn .lbt{display:none} .hub .lbtn{padding:6px 9px} }
 
 @media (max-width:820px){
   :root{ --topbar:56px }
@@ -217,7 +225,11 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
   .hub .who{margin-left:auto; align-self:center}
   .hub nav{order:10; flex:1 1 0; height:46px}
   .hub nav button{align-items:center}
-  .hub .guide{order:11; padding:6px 10px}
+  .hub .guide{order:12; padding:6px 10px}
+  .hub .lbtn{order:11; margin-left:6px}
+  .hub .who{max-width:calc(100vw - 200px); min-width:0}
+  .hub .who .stack{min-width:0}
+  .hub .who .nm{display:block; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 }
 @media (max-width:400px){
   .hub nav button i{display:none}
@@ -748,6 +760,7 @@ section.cal{margin-top:34px}
   <button type="button" id="tab-jokoa" role="tab" aria-selected="false" aria-controls="app-jokoa"><span class="t"><i>🎮</i>Jokoa</span><span class="c">Juegos y retos</span></button>
   </nav>
   <button type="button" class="who" id="who" data-state="local" aria-label="Perfil y guardado"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
+  <button type="button" class="lbtn" id="lbBtn" title="Libreta: todo lo trabajado en el A1, en PDF" aria-label="Libreta: exportar lo trabajado a PDF"><span aria-hidden="true">📓</span><span class="lbt">Libreta</span></button>
   <a class="guide" href="gramatika.html">Gramatika <span>bilatu</span></a>
  </div>
 </div>
@@ -2349,6 +2362,16 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     function memKnown(){ var n=0; if(window.MEMORIA) MEMORIA.items().forEach(function(it){ if(MEMORIA.isKnown(it._id)) n++; }); return n; }
     function planDone(){ return window.PLANA?PLANA.doneCount():0; }
     function totalXP(){ return (st.xp||0)+planDone()*12+memKnown()*20; }
+    /* oraciones resueltas, para la libreta: solo las de dos palabras o más
+       (las sueltas ya están en Hitzen kutxa); hasta 400 por juego */
+    function logWin(game, eu, es){
+      eu=String(eu||'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim(); es=String(es||'').replace(/<[^>]+>/g,'').trim();
+      if(eu.split(' ').length<2) return;
+      var L=st.log||(st.log={}), g=L[game]||(L[game]={});
+      g[eu]=[es, Date.now()];
+      var ks=Object.keys(g);
+      if(ks.length>400) ks.sort(function(a,b){ return g[a][1]-g[b][1]; }).slice(0, ks.length-400).forEach(function(k){ delete g[k]; });
+    }
 
     var elProg=document.getElementById('jkProg'), elBadges=document.getElementById('jkBadges'),
         elEntzun=document.getElementById('jkEntzun'), elLotu=document.getElementById('jkLotu'),
@@ -2422,7 +2445,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       st.etot=(st.etot||0)+1;
       Array.prototype.forEach.call(elEntzun.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(eOpts[+o.getAttribute('data-k')]===eCur) o.classList.add('ok'); });
       var hint=document.getElementById('eHint');
-      if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
+      if(ok){ st.eok=(st.eok||0)+1; st.xp=(st.xp||0)+5; logWin('entzun', eCur.eu, eCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> &nbsp;'+eCur.eu+' = '+eCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> &nbsp;'+eCur.eu+' = '+eCur.es; }
       save(); refresh();
       setTimeout(function(){ newEntzun(true); }, advMs(ok));
@@ -2616,7 +2639,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       oLock=true; var ok=(+b.getAttribute('data-k'))===oCur.a;
       Array.prototype.forEach.call(elOsatu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if((+o.getAttribute('data-k'))===oCur.a) o.classList.add('ok'); });
       var hint=document.getElementById('oHint'), full=oCur.q.replace('___','<b>'+oCur.opts[oCur.a]+'</b>');
-      if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
+      if(ok){ st.osatu=(st.osatu||0)+1; st.xp=(st.xp||0)+5; logWin('osatu', oCur.q.replace('___', oCur.opts[oCur.a]), oCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Ondo! ✓</b> '+full+' — '+oCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+full+' — '+oCur.es; }
       save(); refresh(); setTimeout(newOsatu, advMs(ok));
     });
@@ -2643,7 +2666,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       aLock=true; var ok=(aOpts[+b.getAttribute('data-k')]===aCur);
       Array.prototype.forEach.call(elAukeratu.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; if(aOpts[+o.getAttribute('data-k')]===aCur) o.classList.add('ok'); });
       var hint=document.getElementById('aHint');
-      if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
+      if(ok){ st.zein=(st.zein||0)+1; st.xp=(st.xp||0)+5; logWin('zein', aCur.eu, aCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+aCur.eu+' = '+aCur.es; }
       else { b.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+aCur.eu+' = '+aCur.es; }
       save(); refresh(); setTimeout(newAukeratu, advMs(ok));
     });
@@ -2693,7 +2716,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var chip=document.createElement('span'); chip.className='jk-chip'; chip.textContent=tok.textContent; ans.appendChild(chip);
       if(rBuilt.length===rCur.toks.length){
         var okk = rBuilt.join(' ')===rCur.toks.join(' '), hint=document.getElementById('rHint');
-        if(okk){ st.ordena=(st.ordena||0)+1; st.xp=(st.xp||0)+8; save(); refresh(); ans.classList.add('ok'); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bikain! ✓</b> +8 XP · <button type="button" class="jk-repeat" id="rNew">Beste bat →</button>'; }
+        if(okk){ st.ordena=(st.ordena||0)+1; st.xp=(st.xp||0)+8; logWin('ordena', rCur.toks.join(' '), rCur.es); save(); refresh(); ans.classList.add('ok'); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bikain! ✓</b> +8 XP · <button type="button" class="jk-repeat" id="rNew">Beste bat →</button>'; }
         else { ans.classList.add('no'); if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez horrela.</span> → <b>'+rCur.toks.join(' ')+'</b> · <button type="button" class="jk-repeat" id="rNew">Berriz →</button>'; }
         var nb=document.getElementById('rNew'); if(nb) nb.onclick=newOrdena;
       }
@@ -2725,7 +2748,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       Array.prototype.forEach.call(elEgia.querySelectorAll('.jk-opt'), function(o){ o.disabled=true; });
       b.classList.add(ok?'ok':'no');
       var hint=document.getElementById('gHint');
-      if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
+      if(ok){ st.egia=(st.egia||0)+1; st.xp=(st.xp||0)+4; logWin('egia', gCur.eu, gCur.es); if(hint) hint.innerHTML='<b style="color:var(--sea)">Bai! ✓</b> '+gCur.eu+' = '+gCur.es; }
       else { if(hint) hint.innerHTML='<span style="color:var(--iron)">Ez.</span> '+gCur.eu+' = '+gCur.es; }
       save(); refresh(); setTimeout(newEgia, advMs(ok));
     });
@@ -2860,7 +2883,15 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     if(window.PLANA) PLANA.onChange(refresh);
     if(window.MEMORIA) MEMORIA.onChange(refresh);
     if(window.HUB && HUB.bind) HUB.bind('jokoa', KEY, function(v){ if(v){ var src=st.src, mzb=st.mzb; st=v; refresh(); if(st.src!==src || st.mzb!==mzb){ renderSrc(); newAll(); } } }, function(){ return st; });
-    window.JOKOA = { show: showView };
+    window.JOKOA = { show: showView,
+      /* cifras y oraciones resueltas, para la libreta */
+      stats: function(){
+        var xp=totalXP(), i=0; for(var k=0;k<LV.length;k++){ if(xp>=LV[k].xp) i=k; }
+        return { xp:xp, maila:LV[i].nm, streak:st.streak||0, best:st.best||0, eok:st.eok||0, etot:st.etot||0,
+          n:{ entzun:st.eok||0, lotu:st.lotu||0, osatu:st.osatu||0, zein:st.zein||0, ordena:st.ordena||0, egia:st.egia||0, sailkatu:st.sailkatu||0 },
+          lv:{ lvEntzun:st.lvEntzun||0, lvOsatu:st.lvOsatu||0, lvZein:st.lvZein||0, lvOrdena:st.lvOrdena||0, lvEgia:st.lvEgia||0, lvSailka:st.lvSailka||0 },
+          lotuLv:+(st.dlevel||0), log:st.log||{} };
+      } };
 
     var last=''; try{ last=localStorage.getItem(VK)||''; }catch(e){}
     if(last==='loop') showView('loop');        // por defecto Jokoa;
@@ -3438,6 +3469,13 @@ window.MZ = (function(){
       var q = UNIQ.filter(function(w){ return due(w.i); }).sort(bySort);
       if (limit > 0) q = q.slice(0, limit);
       return q.map(function(w){ return { i:w.i, eu:w.eu, es:w.es, tag:THEMES[w.t] }; });
+    },
+    // palabras con ficha (una vez cada una), para la libreta
+    worked: function(){
+      return UNIQ.filter(function(w){ return state[w.i]; }).map(function(w){
+        var r = state[w.i];
+        return { i:w.i, eu:w.eu, es:w.es, t:w.t, tema:THEMES[w.t], b:r.b || 1, lp:r.lp || 0, n:r.n || 0, d:r.d || 0 };
+      });
     },
     // califica una palabra por índice (0 fallo · 1 cuesta · 2 bien); estado autoritativo aquí
     grade: function(i, g){
@@ -5583,5 +5621,8 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
 <script src="armairua-cloud.js"></script>
 <script src="armairua-export.js"></script>
 <script src="armairua-glosario.js"></script>
+<script src="armairua-libreta.js"></script>
+<script src="armairua-libreta-a1.js"></script>
+<script>document.getElementById('lbBtn').addEventListener('click', function(){ if (window.LIBRETA) LIBRETA.open(); });</script>
 </body>
 </html>

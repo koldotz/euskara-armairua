@@ -35,6 +35,7 @@ Si algo falla, el proceso termina con código 1 y se lista cada comprobación fa
 | `e2e/perfiles-salir-cambiar` | salir o cambiar de perfil sin conexión avisa antes de borrar; un PIN caducado no bloquea el perfil |
 | `e2e/perfiles-concurrencia` | dos dispositivos a la vez, uno sin conexión: nada se pisa, fichas de palabra enteras, reinicios, datos de la versión anterior |
 | `e2e/hiztegia-duplicadas` | las palabras repetidas en dos temas comparten ficha y no cuentan doble |
+| `e2e/libreta` | la libreta del A1: contenido de cada apartado, oraciones que se registran al acertar, quitar apartados, PDF real de Chrome, nombre de archivo, marcas «Berria» tras confirmar el guardado, móvil |
 | `e2e/geruzak-gafas` | las gafas de Geruzak: desglose, lectura en tablas, ficha, leyenda, estado recordado, HTML intacto al quitarlas, móvil |
 
 ## Probar a mano con el Supabase emulado
