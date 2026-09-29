@@ -32,6 +32,12 @@
   --warn:#946015;
   --crit:#A33325;
   --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --plum:#6A4C93;         /* gafas: persona del verbo */
+  --plum-soft:#EAE2F3;
+  --blue:#2D5F8B;         /* gafas: derivación y grado */
+  --blue-soft:#DDE7F1;
+  --rose:#9A3B67;         /* gafas: partículas */
+  --rose-soft:#F5DFE9;
 
   --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
   --f-body:"Source Serif 4", Georgia, serif;
@@ -61,6 +67,12 @@
     --warn:#D9A44A;
     --crit:#E0776A;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+    --plum:#B99BE0;
+    --plum-soft:#2D2339;
+    --blue:#8DB5DE;
+    --blue-soft:#1C2B3A;
+    --rose:#E391B8;
+    --rose-soft:#3A2230;
   }
 }
 :root[data-theme="dark"]{
@@ -82,6 +94,12 @@
   --warn:#D9A44A;
   --crit:#E0776A;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+  --plum:#B99BE0;
+  --plum-soft:#2D2339;
+  --blue:#8DB5DE;
+  --blue-soft:#1C2B3A;
+  --rose:#E391B8;
+  --rose-soft:#3A2230;
 }
 
 *{box-sizing:border-box}
@@ -219,6 +237,80 @@ footer{border-top:1px solid var(--line); margin-top:70px; padding:28px 0; font-f
 .xlinks{display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line)}
 .xlinks a{font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); text-decoration:none; padding:5px 9px; border:1px solid var(--line-strong); border-radius:3px; display:flex; gap:6px; align-items:center; width:100%}
 .xlinks a:hover{border-color:var(--sea); color:var(--sea); background:var(--sea-soft)}
+
+/* ── Ikasteko betaurrekoak · gafas de aprendizaje ──
+   Cada forma vasca se trocea en morfemas (color por tipo) con la
+   traducción debajo. body.bt-on mientras están puestas.               */
+.bt-btn{position:fixed; right:16px; bottom:16px; z-index:60; display:flex; align-items:center; gap:9px; cursor:pointer; text-align:left;
+  font-family:var(--f-ui); color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:999px;
+  padding:7px 16px 7px 10px; box-shadow:var(--shadow)}
+.bt-btn:hover{border-color:var(--sea)}
+.bt-btn[aria-pressed="true"]{background:var(--sea); border-color:var(--sea); color:var(--surface)}
+.bt-btn .bt-ic{font-size:22px; line-height:1}
+.bt-btn b{display:block; font-size:13px; font-weight:600; line-height:1.2}
+.bt-btn small{display:block; font-size:11px; line-height:1.2; opacity:.8}
+@media (max-width:600px){.bt-btn{right:12px; bottom:12px; padding:7px 13px 7px 9px}.bt-btn small{display:none}.bt-btn b{font-size:12.5px}}
+@media print{.bt-btn,.bt-legend,.bt-pop{display:none!important}}
+
+.bt-legend{position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:6px; overflow-x:auto; white-space:nowrap;
+  padding:8px 28px; font-family:var(--f-ui); font-size:12px; color:var(--muted);
+  background:color-mix(in srgb, var(--surface) 92%, transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line); scrollbar-width:none}
+.bt-legend::-webkit-scrollbar{display:none}
+.bt-legend button{display:flex; align-items:center; gap:5px; flex:none; font:inherit; color:var(--ink-2); background:none; border:1px solid transparent; border-radius:999px; padding:2px 8px 2px 3px; cursor:pointer}
+.bt-legend button:hover{border-color:var(--line-strong)}
+.bt-legend button[aria-pressed="true"]{border-color:var(--ink-2); background:var(--surface)}
+.bt-legend .bt-hint{flex:none; margin-left:6px}
+@media (max-width:600px){.bt-legend{padding:8px 16px}.bt-legend .bt-hint{display:none}}
+body.bt-on section{scroll-margin-top:52px}
+
+.bt-w{display:inline-flex; flex-direction:column; align-items:flex-start; vertical-align:top; line-height:1.2; margin:1px 0 3px;
+  cursor:pointer; border-radius:3px; text-indent:0; outline-offset:1px}
+.bt-w:hover .bt-m{box-shadow:0 0 0 1px var(--line-strong)}
+.bt-m{display:inline-flex; gap:1px; white-space:nowrap; border-radius:2px}
+.bt-p{padding:0 2px; border-radius:2px; border-bottom:2px solid var(--line-strong); background:var(--surface-2); color:var(--ink)}
+.bt-t{font-family:var(--f-ui); font-size:max(10.5px,.4em); font-weight:500; font-style:normal; letter-spacing:0; text-transform:none;
+  color:var(--muted); max-width:17em; margin-top:1px; line-height:1.2}
+.bt-tr{display:block; font-family:var(--f-ui); font-size:12.5px; font-style:italic; color:var(--muted); margin:0 0 6px}
+[data-m="det"]{--bt-c:var(--gold); --bt-s:var(--gold-soft)}
+[data-m="kasu"]{--bt-c:var(--iron); --bt-s:var(--iron-soft)}
+[data-m="asp"]{--bt-c:var(--sea); --bt-s:var(--sea-soft)}
+[data-m="pers"]{--bt-c:var(--plum); --bt-s:var(--plum-soft)}
+[data-m="erat"]{--bt-c:var(--blue); --bt-s:var(--blue-soft)}
+[data-m="part"]{--bt-c:var(--rose); --bt-s:var(--rose-soft)}
+.bt-p:not([data-m="erro"]):not([data-m="lot"]){background:var(--bt-s); color:var(--bt-c); border-bottom-color:var(--bt-c)}
+.bt-p[data-m="lot"]{background:none; color:var(--muted); border-bottom:2px dotted var(--muted)}
+body[data-btf] .bt-p{opacity:.3}
+body[data-btf="erro"] .bt-p[data-m="erro"],body[data-btf="det"] .bt-p[data-m="det"],body[data-btf="kasu"] .bt-p[data-m="kasu"],
+body[data-btf="lot"] .bt-p[data-m="lot"],body[data-btf="asp"] .bt-p[data-m="asp"],body[data-btf="pers"] .bt-p[data-m="pers"],
+body[data-btf="erat"] .bt-p[data-m="erat"],body[data-btf="part"] .bt-p[data-m="part"]{opacity:1}
+
+.bt-chip{display:inline-block; font-family:var(--f-mono); font-size:12px; font-weight:500; line-height:1.5; padding:0 6px; border-radius:2px;
+  border-bottom:2px solid var(--line-strong); background:var(--surface-2); color:var(--ink); white-space:nowrap}
+.bt-chip:not([data-m="erro"]):not([data-m="lot"]){background:var(--bt-s); color:var(--bt-c); border-bottom-color:var(--bt-c)}
+.bt-chip[data-m="lot"]{background:none; color:var(--muted); border-bottom:2px dotted var(--muted)}
+
+.bt-pop{position:fixed; z-index:70; width:min(380px, calc(100vw - 16px)); max-height:min(70vh, 560px); overflow-y:auto;
+  background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); border-radius:8px; box-shadow:var(--shadow);
+  font-family:var(--f-ui); font-size:13.5px; line-height:1.45; padding:12px 14px}
+.bt-pop.sheet{left:8px!important; right:8px; bottom:8px; top:auto!important; width:auto; max-height:62vh}
+.bt-ph{display:flex; align-items:flex-start; gap:10px}
+.bt-pw{display:inline-flex; flex-wrap:wrap; gap:2px}
+.bt-ph .bt-pw .bt-chip{font-size:16px}
+.bt-x{margin-left:auto; flex:none; font:inherit; font-size:14px; line-height:1; color:var(--muted); background:none; border:1px solid var(--line); border-radius:4px; padding:5px 7px; cursor:pointer}
+.bt-x:hover{color:var(--ink); border-color:var(--line-strong)}
+.bt-pg{font-family:var(--f-body); font-size:16px; font-style:italic; margin:6px 0 8px}
+.bt-pl{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--line); padding-top:10px}
+.bt-pl li{display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; align-items:start; margin:0; padding:2px 4px; border-radius:4px}
+.bt-pl li.on{background:var(--surface-2)}
+.bt-pl b{font-weight:600}
+.bt-pl .bt-mo{color:var(--muted); font-size:12px}
+.bt-pl a{white-space:nowrap}
+.bt-alt{border-top:1px solid var(--line); margin-top:10px; padding-top:8px; display:flex; flex-direction:column; gap:5px; align-items:flex-start}
+.bt-alt > span{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.bt-alt button{display:flex; align-items:center; gap:8px; flex-wrap:wrap; text-align:left; font:inherit; font-size:13px; color:var(--ink-2); background:none; border:1px solid var(--line); border-radius:4px; padding:4px 7px; cursor:pointer}
+.bt-alt button:hover{border-color:var(--sea); color:var(--ink)}
+.bt-note{margin:10px 0 0; font-size:11.5px; color:var(--muted)}
 </style>
 </head>
 <body>
@@ -252,6 +344,7 @@ footer{border-top:1px solid var(--line); margin-top:70px; padding:28px 0; font-f
 </div></nav>
 
 <main>
+<div class="bt-legend" id="btLegend" role="toolbar" aria-label="Leyenda de las gafas" hidden></div>
 <header class="hero"><div class="wrap">
   <div class="eyebrow">Gramatika eta morfologia · A1 maila</div>
   <h1>Euskararen <em>geruzak</em></h1>
@@ -1093,5 +1186,267 @@ footer{border-top:1px solid var(--line); margin-top:70px; padding:28px 0; font-f
 </div>
 <script src="armairua-export.js"></script>
 <script src="armairua-glosario.js"></script>
+<button type="button" class="bt-btn" id="btBtn" aria-pressed="false" title="Traducción y desglose en morfemas de cada palabra vasca"><span class="bt-ic" aria-hidden="true">👓</span><span><b>Ikasteko betaurrekoak</b><small>gafas: traducción + morfemas</small></span></button>
+<div class="bt-pop" id="btPop" role="dialog" aria-label="Desglose de la palabra" hidden></div>
+<script src="armairua-geruzak-betaurrekoak.js"></script>
+<script>
+/* ── Ikasteko betaurrekoak · gafas de aprendizaje ───────────────────────
+   El botón flotante pone la guía en modo interlineado: cada forma vasca se
+   trocea en sus morfemas (color por tipo) con la traducción debajo, y al
+   tocarla se abre su ficha (qué es cada pieza y en qué bloque se explica).
+   Datos: armairua-geruzak-betaurrekoak.js. Al quitarlas se devuelven los
+   nodos originales, así que nada del resto de la página se entera.      */
+(function(){
+  var D = window.GERUZAK_BETAURREKOAK, main = document.querySelector('main');
+  var btn = document.getElementById('btBtn'), legend = document.getElementById('btLegend'), pop = document.getElementById('btPop');
+  if (!D || !main || !btn) { if (btn) btn.hidden = true; return; }
+  var KEY = 'euskara-geruzak-bt';
+  var SKIP = '.es, .strata, .num, a, script, style, button, .xp-toolbar, .ex > div > i, .bt-w, .bt-tr, .bt-legend';
+  var EUS = 'b, u, strong, em, i, .mono, td, th, .pill, .eyebrow, .suf, h1, .card .v';
+  var WORD = /-?[\p{L}()]+(?:-[\p{L}()]+)*-?/gu;
+  var PHRASE = /[^.,;:!?¿¡—–·\/«»"“”=+…]+/g;
+  var ROWCASE = { NORK:['NORK'], NORI:['NORI'], NOREN:['NOREN'], NORENTZAT:['NORENTZAT'], NOREKIN:['NOREKIN'], NONGO:['NONGO','NONGOG'],
+    NON:['NON','NONSG'], NORA:['NORA'], NONDIK:['NONDIK','NONDIKD'], '-Z':['INST'], NORENGAN:['GAN'], NORENGANA:['GANA'], NORENGANDIK:['GANDIK'] };
+  var STOP = {}; D.stop.forEach(function(w){ STOP[w] = 1; });
+  var on = false, built = false, hosts = [], popFor = null;
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  function el(tag, cls){ var e = document.createElement(tag); if (cls) e.className = cls; return e; }
+  function cnt(s, c){ return s.split(c).length - 1; }
+  function reads(k){ var v = D.w[k]; return !v ? null : Array.isArray(v[0]) ? v : [v]; }
+  function pieces(p){
+    return p.split('|').map(function(x){
+      var m = /^(.*):([A-Z0-9]+)$/.exec(x);
+      if (m) return { t: m[1], id: m[2], mota: D.m[m[2]][0] };
+      var e = x.indexOf('=');
+      return e < 0 ? { t: x, mota: 'erro' } : { t: x.slice(0, e), es: x.slice(e + 1), mota: 'erro' };
+    });
+  }
+
+  /* ¿es una forma del diccionario? Quita paréntesis de fuera y prueba sin guiones (e-TXE-a) */
+  function look(tok){
+    var pre = '', post = '', core = tok, k;
+    while (core.charAt(0) === '(' && cnt(core, '(') > cnt(core, ')')) { pre += '('; core = core.slice(1); }
+    while (core.slice(-1) === ')' && cnt(core, ')') > cnt(core, '(')) { post = ')' + post; core = core.slice(0, -1); }
+    if (/^\([^()]+\)$/.test(core)) { pre += '('; post = ')' + post; core = core.slice(1, -1); }
+    k = core.toLowerCase();
+    if (!D.w[k]) { k = k.replace(/(\p{L})-(?=\p{L})/gu, '$1'); if (!D.w[k]) return null; }
+    return { k: k, core: core, pre: pre, post: post };
+  }
+
+  /* reparte la palabra tal como está escrita (mayúsculas, guiones) entre las piezas */
+  function mapTo(s, ps){
+    var out = [], i = 0;
+    for (var j = 0; j < ps.length; j++){
+      var want = ps[j].t, got = '', q = 0;
+      while (q < want.length){
+        if (i >= s.length) return null;
+        var a = s.charAt(i), b = want.charAt(q);
+        if (a.toLowerCase() === b.toLowerCase()) { got += a; i++; q++; }
+        else if (a === '-') { got += a; i++; }
+        else if (b === '-') q++;
+        else return null;
+      }
+      out.push({ text: got, p: ps[j] });
+    }
+    if (i < s.length) { if (/^-+$/.test(s.slice(i))) out[out.length - 1].text += s.slice(i); else return null; }
+    return out;
+  }
+
+  /* contexto para elegir lectura: bloque, y en las tablas la fila (caso) y la columna (número) */
+  function origText(e){ return e.__btOrig ? e.__btOrig.map(function(n){ return n.textContent; }).join('') : e.textContent; }
+  function ctxOf(host){
+    var c = { sec: (host.closest('section') || {}).id || '' }, td = host.closest('td');
+    if (td) {
+      var th = td.parentNode.querySelector('th'), t = td.closest('table'), head = t && t.tHead && t.tHead.rows[0];
+      if (th) c.row = origText(th).trim().toUpperCase();
+      if (head && head.cells[td.cellIndex]) c.col = origText(head.cells[td.cellIndex]).trim().split(/\s/)[0].toUpperCase();
+    }
+    return c;
+  }
+  function choose(rs, c){
+    var best = 0, bs = -1e9;
+    rs.forEach(function(r, i){
+      var ids = pieces(r[1]).map(function(p){ return p.id; }).filter(Boolean), s = -i * 0.1;
+      var has = function(list){ return ids.some(function(id){ return list.indexOf(id) >= 0; }); };
+      ids.forEach(function(id){ if (D.m[id][3] === c.sec) s += 1; });
+      if (c.row && ROWCASE[c.row]) s += has(ROWCASE[c.row]) ? 3 : 0;
+      else if (c.row === 'NOR') s += ids.some(function(id){ return D.m[id][0] === 'kasu'; }) ? -3 : 1;
+      if (c.col === 'PLURAL') s += has(['PL', 'DETPL', 'EK']) ? 2 : -1;
+      else if (c.col === 'SINGULAR') s += has(['PL', 'DETPL']) ? -2 : 0;
+      else if (c.col === 'MUGAGABE') s += has(['PL', 'DET', 'DETPL']) ? -2 : 1;
+      if (s > bs) { bs = s; best = i; }
+    });
+    return best;
+  }
+
+  function fill(w){
+    var b = w.__bt, r = reads(b.k)[b.r], ps = pieces(r[1]);
+    var parts = mapTo(b.core, ps) || [{ text: b.core, p: { mota: 'erro' } }], m = el('span', 'bt-m'), t = el('span', 'bt-t');
+    parts.forEach(function(x, i){ var s = el('span', 'bt-p'); s.setAttribute('data-m', x.p.mota); s.textContent = x.text; s.__i = i; m.appendChild(s); });
+    t.textContent = r[0];
+    w.textContent = ''; w.appendChild(m); w.appendChild(t);
+    w.setAttribute('aria-label', b.core + ': ' + r[0]);
+  }
+  function word(info, c){
+    var w = el('span', 'bt-w'); w.tabIndex = 0; w.setAttribute('role', 'button');
+    w.__bt = { k: info.k, core: info.core, r: choose(reads(info.k), c) };
+    fill(w); return w;
+  }
+
+  /* un tramo de texto → nodos: las palabras vascas se vuelven .bt-w. Las que
+     también son castellanas (STOP) solo si la frase es mayoritariamente vasca. */
+  function tokenize(text, c, eusHost){
+    var toks = [], pm, m;
+    PHRASE.lastIndex = 0;
+    while ((pm = PHRASE.exec(text))){
+      var seg = pm[0], known = 0, unknown = 0, list = [];
+      WORD.lastIndex = 0;
+      while ((m = WORD.exec(seg))){
+        var info = look(m[0]), letters = m[0].replace(/[^\p{L}]/gu, '').length;
+        if (info && !STOP[info.k]) known++;
+        else if (!info && letters >= 2) unknown++;
+        if (info) list.push({ s: pm.index + m.index, e: pm.index + m.index + m[0].length, info: info });
+      }
+      var eus = known >= unknown && (known > 0 || eusHost);
+      list.forEach(function(t){ if (!STOP[t.info.k] || eus) toks.push(t); });
+    }
+    var nodes = [], last = 0;
+    toks.forEach(function(t){
+      if (t.s > last) nodes.push(document.createTextNode(text.slice(last, t.s)));
+      if (t.info.pre) nodes.push(document.createTextNode(t.info.pre));
+      nodes.push(word(t.info, c));
+      if (t.info.post) nodes.push(document.createTextNode(t.info.post));
+      last = t.e;
+    });
+    if (last < text.length) nodes.push(document.createTextNode(text.slice(last)));
+    var tr = D.f[text.trim().replace(/\s+/g, ' ').toLowerCase()];
+    if (tr) { var s = el('span', 'bt-tr'); s.textContent = tr; nodes.push(s); }
+    return { nodes: nodes, hit: toks.length > 0 || !!tr };
+  }
+
+  /* <u> y <span class="suf"> parten palabras (etxe<u>a</u>): se funden con el texto de al lado */
+  function glue(n){ return n.nodeType === 1 && !n.children.length && (n.tagName === 'U' || (n.tagName === 'SPAN' && n.classList.contains('suf'))); }
+  function proc(e){
+    if (e.nodeType !== 1 || e.matches(SKIP)) return;
+    var kids = Array.prototype.slice.call(e.childNodes);
+    kids.forEach(function(n){ if (n.nodeType === 1 && !glue(n)) proc(n); });
+    if (!kids.some(function(n){ return (n.nodeType === 3 && /\p{L}/u.test(n.data)) || glue(n); })) return;
+    var c = ctxOf(e), eusHost = !!e.closest(EUS), out = [], run = '', hit = false;
+    function flush(){ if (!run) return; var r = tokenize(run, c, eusHost); hit = hit || r.hit; out.push.apply(out, r.nodes); run = ''; }
+    kids.forEach(function(n){ if (n.nodeType === 3 || glue(n)) run += n.textContent; else { flush(); out.push(n); } });
+    flush();
+    if (!hit) return;
+    e.__btOrig = kids; e.__btNew = out; hosts.push(e);
+    e.replaceChildren.apply(e, out);
+  }
+
+  /* ── ficha de la palabra ── */
+  function chips(ps){ return ps.map(function(p){ return '<span class="bt-chip" data-m="' + p.mota + '">' + esc(p.t) + '</span>'; }).join(''); }
+  function openPop(w, pi){
+    var b = w.__bt, rs = reads(b.k), r = rs[b.r], ps = pieces(r[1]);
+    var h = '<div class="bt-ph"><span class="bt-pw">' + chips(ps) + '</span><button type="button" class="bt-x" aria-label="Cerrar">✕</button></div>' +
+      '<div class="bt-pg">' + esc(r[0]) + '</div><ol class="bt-pl">';
+    ps.forEach(function(p, i){
+      var mm = p.id && D.m[p.id], mo = D.mota[p.mota], txt;
+      if (mm) txt = esc(mm[2]) + (mm[3] ? ' <a href="#' + mm[3] + '">bloque ' + mm[3].slice(1) + ' →</a>' : '');
+      else txt = p.es ? '«' + esc(p.es) + '»' : (/^\p{Lu}/u.test(p.t) ? 'nombre propio' : 'raíz');
+      h += '<li' + (i === pi ? ' class="on"' : '') + '><span class="bt-chip" data-m="' + p.mota + '">' + esc(p.t) + '</span><div><b>' + esc(mo[0]) +
+        '</b> <span class="bt-mo">· ' + esc(mo[1]) + '</span><br>' + txt + '</div></li>';
+    });
+    h += '</ol>';
+    if (rs.length > 1) {
+      h += '<div class="bt-alt"><span>También puede ser</span>';
+      rs.forEach(function(x, i){ if (i !== b.r) h += '<button type="button" data-r="' + i + '"><span class="bt-pw">' + chips(pieces(x[1])) + '</span>' + esc(x[0]) + '</button>'; });
+      h += '</div>';
+    }
+    h += '<p class="bt-note">Desglose preparado con ayuda de IA: contrástalo con las tablas de la guía.</p>';
+    pop.innerHTML = h; pop.hidden = false; popFor = w; place();
+    pop.querySelector('.bt-x').focus({ preventScroll: true });
+  }
+  function place(){
+    if (!popFor || pop.hidden) return;
+    if (matchMedia('(max-width:600px)').matches) { pop.classList.add('sheet'); pop.style.left = pop.style.top = ''; return; }
+    pop.classList.remove('sheet');
+    var r = popFor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+    if (r.bottom < 0 || r.top > innerHeight) return closePop();
+    var y = r.bottom + 8;
+    if (y + ph > innerHeight - 8 && r.top - ph - 8 > 8) y = r.top - ph - 8;
+    pop.style.left = Math.max(8, Math.min(r.left, innerWidth - pw - 8)) + 'px';
+    pop.style.top = Math.max(8, Math.min(y, innerHeight - ph - 8)) + 'px';
+  }
+  function closePop(refocus){
+    if (pop.hidden) return;
+    pop.hidden = true;
+    if (refocus && popFor) popFor.focus({ preventScroll: true });
+    popFor = null;
+  }
+
+  /* ── poner / quitar ── */
+  function anchor(){
+    var x = Math.min(main.getBoundingClientRect().left + 60, innerWidth - 1), e = document.elementFromPoint(x, 110);
+    e = e && e.closest('p, li, tr, h2, h3, h4, .ex > div, .card, .box, .kicker, header, section');
+    return e && main.contains(e) ? { e: e, top: e.getBoundingClientRect().top } : null;
+  }
+  function set(v, keepScroll){
+    var a = keepScroll ? anchor() : null;
+    on = v;
+    if (v) {
+      if (!built) { proc(main); built = true; }
+      else hosts.forEach(function(h){ h.replaceChildren.apply(h, h.__btNew); });
+    } else {
+      closePop(); filter('');
+      hosts.forEach(function(h){ h.replaceChildren.apply(h, h.__btOrig); });
+    }
+    document.body.classList.toggle('bt-on', v);
+    btn.setAttribute('aria-pressed', v ? 'true' : 'false');
+    legend.hidden = !v;
+    if (a && a.e.isConnected) window.scrollBy(0, a.e.getBoundingClientRect().top - a.top);
+    try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (err) {}
+  }
+  function filter(m){
+    if (m) document.body.setAttribute('data-btf', m); else document.body.removeAttribute('data-btf');
+    Array.prototype.forEach.call(legend.querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-m') === m ? 'true' : 'false'); });
+  }
+
+  legend.innerHTML = Object.keys(D.mota).map(function(k){
+    return '<button type="button" data-m="' + k + '" aria-pressed="false" title="Resaltar solo: ' + esc(D.mota[k][1]) + '"><span class="bt-chip" data-m="' + k + '">' +
+      esc(D.mota[k][0]) + '</span>' + esc(D.mota[k][2]) + '</button>';
+  }).join('') + '<span class="bt-hint">· toca una palabra para ver su ficha</span>';
+  legend.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-m]'); if (!b) return;
+    var m = b.getAttribute('data-m'); filter(document.body.getAttribute('data-btf') === m ? '' : m);
+  });
+  btn.addEventListener('click', function(){ set(!on, true); });
+  main.addEventListener('click', function(e){
+    if (!on) return;
+    var w = e.target.closest('.bt-w'); if (!w) return;
+    var p = e.target.closest('.bt-p');
+    if (popFor === w && !pop.hidden) return closePop();
+    openPop(w, p ? p.__i : null);
+  });
+  main.addEventListener('keydown', function(e){
+    if (on && (e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('bt-w')) { e.preventDefault(); openPop(e.target, null); }
+  });
+  pop.addEventListener('click', function(e){
+    if (e.target.closest('.bt-x')) return closePop(true);
+    var a = e.target.closest('button[data-r]');
+    if (a && popFor) { var w = popFor; w.__bt.r = +a.getAttribute('data-r'); fill(w); openPop(w, null); return; }
+    if (e.target.closest('a')) closePop();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !pop.hidden) closePop(true); });
+  document.addEventListener('pointerdown', function(e){ if (!pop.hidden && !pop.contains(e.target) && !e.target.closest('.bt-w')) closePop(); });
+  addEventListener('scroll', place, { passive: true });
+  addEventListener('resize', place);
+
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (err) {}
+  if (saved === '1') {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ set(true); });
+    else set(true);
+  }
+  window.BETAURREKOAK = { set: set, on: function(){ return on; } };
+})();
+</script>
 </body>
 </html>
