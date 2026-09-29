@@ -1,124 +1,292 @@
 /* ─────────────────────────────────────────────────────────────────────
    Banco de perfiles (Supabase) · sincroniza el progreso entre navegadores
-   y dispositivos, por perfil. Se apoya en el HUB existente sin reescribirlo.
+   y dispositivos. v2: nombre + PIN y fusión clave a clave.
 
-   - Sin config (config.js vacío) → NO hace nada: la app queda igual que
-     ahora (perfil y progreso solo en este navegador).
-   - Con config → un "banco" público: cada perfil (nombre) guarda su
-     progreso en la tabla `perfilak`. Al entrar con un nombre, se trae su
-     progreso de la nube; al avanzar, se sube (con antirrebote).
+   - Sin config (config.js vacío) → NO hace nada: la app queda igual
+     (perfil y progreso solo en este navegador).
+   - Con config → cada perfil (nombre + PIN de 4 cifras) guarda su progreso
+     en Supabase a través de tres funciones (ver supabase/armairua-perfilak.sql):
+       armairua_zerrenda · armairua_sartu · armairua_gorde
+     La tabla está cerrada: sin el PIN nadie lee ni pisa un perfil.
+   - Progreso = claves de localStorage de la app. Cada clave lleva la hora de
+     su último cambio y el servidor se queda, clave a clave, con la más
+     reciente: dos dispositivos no se borran el trabajo entre sí.
+   - Se sincroniza al abrir la página, al volver a ella, tras cada cambio
+     (con antirrebote), cada 45 s mientras está a la vista y al salir.
+   - Se engancha al HUB de cada página sin reescribirlo: añade el PIN a la
+     pantalla de entrada, el estado de la nube al chip de perfil y los
+     botones «Sinkronizatu orain» e «Irten».
    ───────────────────────────────────────────────────────────────────── */
 (function(){
   var C = window.ARMAIRUA_CFG || {};
   if (!C.url || !C.key || !window.HUB) return;   // sin backend → comportamiento local intacto
 
-  var BASE  = C.url.replace(/\/+$/, '');
-  var KEY   = C.key;
-  var TABLE = C.table || 'perfilak';
-  var PRE   = /^(euskara|hitzen-kutxa|koadernoa)/;   // claves de la app en localStorage
-  var HKEY  = 'armairua-cloud-t';                    // marca de tiempo de la última sync (local)
-  var RG    = 'armairua-reloaded';                   // guarda de recarga (sessionStorage)
+  var BASE = C.url.replace(/\/+$/, ''), KEY = C.key;
+  var NAMEK = 'euskara-izena', PINK = 'armairua-pin', METAK = 'armairua-cloud-meta', RG = 'armairua-reloaded';
+  /* claves que viajan: el progreso de todos los materiales. Se quedan en el
+     dispositivo las marcas __t del HUB y las preferencias de navegación/voz. */
+  var SYNC = /^(euskara-|hitzen-kutxa|koadernoa|mintzamena|materialak)/;
+  var SKIP = /__t$|^(euskara-izena|euskara-armairua-tab|euskara-a2-tab|euskara-a2-ost-sub|euskara-ent-view|euskara-a1-mz-last|euskara-a2-mat-last|euskara-entzumena-v1|euskara-geruzak-bt)$/;
+  function synced(k){ return SYNC.test(k) && !SKIP.test(k); }
 
-  function H(extra){
-    var h = { apikey:KEY, Authorization:'Bearer '+KEY, 'Content-Type':'application/json', Accept:'application/json' };
-    if (extra) for (var k in extra) h[k] = extra[k];
+  /* ── utilidades ── */
+  function ls(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function lset(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+  function ldel(k){ try { localStorage.removeItem(k); } catch(e){} }
+  function name(){ var n = ''; try { n = (HUB.name && HUB.name()) || ''; } catch(e){} return String(n || ls(NAMEK) || '').trim(); }
+  function pin(){ return ls(PINK) || ''; }
+  function who(n){ return String(n || '').trim().toLowerCase(); }
+  function hash(s){ s = String(s); var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36) + ':' + s.length; }
+  function meta(){ var m; try { m = JSON.parse(ls(METAK) || '{}') || {}; } catch(e){ m = {}; } m.t = m.t || {}; m.h = m.h || {}; m.p = m.p || {}; m.who = m.who || ''; return m; }
+  function freshMeta(n){ return { t:{}, h:{}, p:{}, who:who(n) }; }
+  function saveMeta(m){ lset(METAK, JSON.stringify(m)); }
+  function localKeys(){ var a = []; try { for (var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if (synced(k)) a.push(k); } } catch(e){} return a; }
+  function hubT(k){ return Number(ls(k + '__t')) || 0; }
+
+  function H(){
+    var h = { apikey:KEY, 'Content-Type':'application/json', Accept:'application/json' };
+    if (/^eyJ/.test(KEY)) h.Authorization = 'Bearer ' + KEY;   // claves «anon» antiguas (JWT); las sb_publishable_ van solo en apikey
     return h;
   }
-  function nm(){ try { return (HUB.name && HUB.name()) || localStorage.getItem('euskara-izena') || ''; } catch(e){ return ''; } }
-  function localT(){ try { return Number(localStorage.getItem(HKEY)) || 0; } catch(e){ return 0; } }
-  function setT(t){ try { localStorage.setItem(HKEY, String(t)); } catch(e){} }
-  function snap(){
-    var o = {};
-    for (var i=0;i<localStorage.length;i++){ var k = localStorage.key(i); if (PRE.test(k) && k !== HKEY) o[k] = localStorage.getItem(k); }
-    return o;
-  }
-  function applySnap(d){
-    if (!d) return;
-    var del = [];
-    for (var i=0;i<localStorage.length;i++){ var k = localStorage.key(i); if (PRE.test(k) && k !== HKEY) del.push(k); }
-    del.forEach(function(k){ try { localStorage.removeItem(k); } catch(e){} });
-    Object.keys(d).forEach(function(k){ try { localStorage.setItem(k, d[k]); } catch(e){} });
+  function rpc(fn, args, keepalive){
+    return fetch(BASE + '/rest/v1/rpc/' + fn, { method:'POST', headers:H(), body:JSON.stringify(args || {}), keepalive:!!keepalive })
+      .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); });
   }
 
-  /* ── nube ── */
-  var pt = null;
-  function push(){
-    var izena = nm(); if (!izena) return;
-    var t = Date.now();
-    fetch(BASE+'/rest/v1/'+TABLE, {
-      method:'POST',
-      headers:H({ Prefer:'resolution=merge-duplicates,return=minimal' }),
-      body:JSON.stringify({ izena:izena, datuak:snap(), eguneratua:new Date(t).toISOString() })
-    }).then(function(r){ if (r.ok) setT(t); })['catch'](function(){});
-  }
-  function schedule(){ if (pt) clearTimeout(pt); pt = setTimeout(push, 900); }
-
-  function pull(izena, cb){
-    if (!izena){ cb && cb(false); return; }
-    fetch(BASE+'/rest/v1/'+TABLE+'?izena=eq.'+encodeURIComponent(izena)+'&select=datuak,eguneratua&limit=1', { headers:H() })
-      .then(function(r){ return r.json(); })
-      .then(function(rows){
-        if (rows && rows.length && rows[0].datuak){ cb && cb(true, rows[0].datuak, Date.parse(rows[0].eguneratua||'')||0); }
-        else cb && cb(false);
-      })['catch'](function(){ cb && cb(false); });
-  }
-
-  window.ARMAIRUA_BANK = {
-    list:function(cb){
-      fetch(BASE+'/rest/v1/'+TABLE+'?select=izena,eguneratua&order=eguneratua.desc.nullslast&limit=60', { headers:H() })
-        .then(function(r){ return r.json(); }).then(function(rows){ cb(rows && rows.length ? rows : []); })['catch'](function(){ cb([]); });
-    },
-    pull:pull, push:push
-  };
-
-  /* ── engancharse al HUB ── */
-  if (typeof HUB.save === 'function'){ var _s = HUB.save; HUB.save = function(){ _s.apply(HUB, arguments); schedule(); }; }
-
-  function syncIn(izena){
-    pull(izena, function(found, datuak, ct){
-      if (found){
-        if (ct > localT()){                        // la nube gana solo si es más nueva
-          applySnap(datuak); setT(ct);
-          var guard=''; try { guard = sessionStorage.getItem(RG) || ''; } catch(e){}
-          if (guard !== izena){ try { sessionStorage.setItem(RG, izena); } catch(e){} location.reload(); }
-        }
-      } else { push(); }                            // perfil nuevo → créalo en el banco
+  /* marca la hora de cada clave que ha cambiado desde la última vez.
+     La primera vez que se mira un perfil en este navegador, lo que ya había
+     cuenta como «antiguo» (hora del HUB o 1) para no pisar la nube. */
+  function scan(m){
+    var now = Date.now(), first = !m.init;
+    localKeys().forEach(function(k){
+      var v = ls(k), h = hash(v);
+      if (m.h[k] === h) return;
+      m.h[k] = h;
+      m.t[k] = first ? (hubT(k) || 1) : Math.max(now, hubT(k));
     });
+    m.init = true;
+  }
+  /* aplica lo que la nube tiene más nuevo; devuelve las claves que cambian */
+  function apply(m, d){
+    var ch = [];
+    if (!d || !d.v) return ch;
+    Object.keys(d.v).forEach(function(k){
+      if (!synced(k)) return;
+      var ct = Number(d.t && d.t[k]) || 0;
+      if (ct > (m.t[k] || 0)){
+        var v = d.v[k]; if (typeof v !== 'string') v = JSON.stringify(v);
+        if (ls(k) !== v){ lset(k, v); ch.push(k); }
+        m.t[k] = ct; m.h[k] = hash(v);
+        if (ls(k + '__t') != null) lset(k + '__t', String(ct));
+      }
+      if (ct) m.p[k] = Math.max(m.p[k] || 0, ct);
+    });
+    return ch;
+  }
+  function clearSynced(){ localKeys().forEach(function(k){ ldel(k); ldel(k + '__t'); }); }
+
+  /* ── estado (chip de perfil) ── */
+  var state = '', errTxt = '', lastOk = 0;
+  var MSG = {
+    'pin':'PIN incorrecto.', 'pin-formatua':'El PIN son 4 cifras.', 'izena':'Nombre no válido (1–40 caracteres).',
+    'blokeatuta':'Perfil bloqueado 15 minutos por demasiados PIN erróneos.', 'handiegia':'El progreso es demasiado grande para subirlo.',
+    'sarea':'Sin conexión con el banco de perfiles: tu progreso se guarda aquí y se subirá cuando vuelva la conexión.'
+  };
+  function errMsg(res){
+    var e = (res && res.err) || 'sarea', t = MSG[e] || MSG.sarea;
+    if (e === 'pin' && res && res.geratzen != null) t += res.geratzen > 0 ? ' Te quedan ' + res.geratzen + ' intentos antes del bloqueo.' : ' El perfil se ha bloqueado 15 minutos.';
+    return t;
+  }
+  function paint(){
+    var chip = document.getElementById('who'); if (!chip) return;
+    var n = name(); if (!n) return;               // sin perfil: manda el texto del HUB
+    var st = chip.querySelector('.st'), txt, ds;
+    if (!pin()){ txt = 'Sin PIN · toca para sincronizar'; ds = 'local'; }
+    else if (state === 'saving'){ txt = 'Sinkronizatzen…'; ds = 'saving'; }
+    else if (state === 'error'){ txt = 'Sin sincronizar · solo aquí'; ds = 'error'; }
+    else if (state === 'remote'){ txt = 'Cambios de otro dispositivo'; ds = 'saving'; }
+    else if (state === 'ok'){ txt = 'Sinkronizatuta · en la nube'; ds = 'cloud'; }
+    else { txt = 'Conectando…'; ds = 'saving'; }
+    chip.setAttribute('data-state', ds);
+    if (st) st.textContent = txt;
+    chip.title = state === 'error' ? errTxt : (state === 'remote' ? 'Toca para cargar los cambios de otro dispositivo' : txt);
+    paintPanel();
+  }
+  function setState(s, e){ state = s; if (e !== undefined) errTxt = e; paint(); }
+
+  /* ── sincronizar: sube lo cambiado y trae lo más nuevo, en una sola llamada ── */
+  var busy = false, again = false, timer = null;
+  function sync(opts){
+    opts = opts || {};
+    var n = name(), p = pin();
+    if (!n || !p){ paint(); return Promise.resolve(false); }
+    if (busy){ again = true; return Promise.resolve(false); }
+    busy = true; if (!opts.quiet) setState('saving');
+    var m = meta(); if (m.who !== who(n)) m = freshMeta(n);
+    scan(m); saveMeta(m);
+    var out = { v:{}, t:{} };
+    Object.keys(m.t).forEach(function(k){ if ((m.p[k] || 0) < m.t[k]){ var v = ls(k); if (v != null){ out.v[k] = v; out.t[k] = m.t[k]; } } });
+    return rpc('armairua_gorde', { p_izena:n, p_pin:p, p_datuak:out }, opts.keepalive).then(function(res){
+      busy = false;
+      if (!res || !res.ok){ setState('error', errMsg(res)); return false; }
+      var m2 = meta(); if (m2.who !== who(n)) m2 = m;
+      Object.keys(out.t).forEach(function(k){ m2.p[k] = Math.max(m2.p[k] || 0, out.t[k]); });
+      var ch = apply(m2, res.datuak); saveMeta(m2);
+      lastOk = Date.now();
+      if (ch.length){ if (opts.reload) reload(); else setState('remote'); }
+      else if (state !== 'remote') setState('ok');
+      if (again){ again = false; sync({ quiet:true }); }
+      return ch.length > 0;
+    }, function(){ busy = false; setState('error', MSG.sarea); return false; });
+  }
+  function later(ms){ if (timer) clearTimeout(timer); timer = setTimeout(function(){ sync({ quiet:state === 'ok' }); }, ms || 1500); }
+  function reload(){
+    var t = 0; try { t = Number(sessionStorage.getItem(RG)) || 0; } catch(e){}
+    if (Date.now() - t < 8000){ setState('remote'); return; }      // evita bucles de recarga
+    try { sessionStorage.setItem(RG, String(Date.now())); } catch(e){}
+    location.reload();
   }
 
-  var last = nm();
-  if (HUB.onChange) HUB.onChange(function(state, izena){ if (izena && izena !== last){ last = izena; syncIn(izena); } });
+  /* ── entrar con nombre + PIN ── */
+  function login(n, p){
+    return rpc('armairua_sartu', { p_izena:n, p_pin:p }).then(function(res){
+      if (!res || !res.ok) return res || { ok:false, err:'sarea' };
+      var m = meta();
+      if (m.who && m.who !== who(res.izena)) clearSynced();     // otro perfil en este navegador: no mezclar
+      if (m.who !== who(res.izena)) m = freshMeta(res.izena);
+      lset(PINK, p);
+      scan(m);                                                  // lo que hubiera aquí cuenta como antiguo
+      res.changed = apply(m, res.datuak); saveMeta(m);
+      return res;
+    }, function(){ return { ok:false, err:'sarea' }; });
+  }
 
-  /* ── "banco de perfiles a la vista" en la pantalla de nombre ── */
-  var css = '.gate-bank{margin:16px 0 4px}.gate-bank .gb-lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.gate-bank .gb-list{display:flex;flex-wrap:wrap;gap:7px}.gate-bank .gb-chip{font-family:var(--f-ui);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--line-strong);background:var(--ground);color:var(--ink);border-radius:20px;padding:5px 13px}.gate-bank .gb-chip:hover{border-color:var(--sea);color:var(--sea)}.gate-bank .gb-empty{font-family:var(--f-ui);font-size:13px;color:var(--muted)}';
+  /* ── pantalla de entrada: PIN, lista de perfiles, panel de sincronización ── */
+  var css = ''
+    + '.gate-bank{margin:16px 0 4px}.gate-bank .gb-lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}'
+    + '.gate-bank .gb-list{display:flex;flex-wrap:wrap;gap:7px}.gate-bank .gb-chip{font-family:var(--f-ui);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--line-strong);background:var(--ground);color:var(--ink);border-radius:20px;padding:5px 13px}'
+    + '.gate-bank .gb-chip:hover{border-color:var(--sea);color:var(--sea)}.gate-bank .gb-empty{font-family:var(--f-ui);font-size:13px;color:var(--muted)}'
+    + '#gateForm{flex-wrap:wrap}#gatePin{flex:0 0 96px;min-width:0;font-family:var(--f-mono);font-size:15px;letter-spacing:.3em;text-align:center;padding:9px 8px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--ground);color:var(--ink)}'
+    + '#gatePin:focus{outline:2px solid var(--sea);outline-offset:1px;border-color:var(--sea)}'
+    + '.gate-err{font-family:var(--f-ui);font-size:13px;color:var(--crit);margin-top:10px;line-height:1.45}.gate-err:empty{display:none}'
+    + '.gate-sync{margin:16px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--ground);font-family:var(--f-ui);font-size:13.5px;color:var(--ink-2);line-height:1.5}'
+    + '.gate-sync b{color:var(--ink)}.gate-sync .gs-st{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}.gate-sync .gs-st.bad{color:var(--crit)}'
+    + '.gate-sync .gs-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.gate-sync button{font-family:var(--f-ui);font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:var(--r);padding:6px 12px}'
+    + '.gate-sync button:hover{border-color:var(--sea);color:var(--sea)}.gate-sync button.out:hover{border-color:var(--crit);color:var(--crit)}'
+    + '.hub .who[data-state="error"] .dot{background:var(--crit)}';
   try { var sEl = document.createElement('style'); sEl.textContent = css; document.head.appendChild(sEl); } catch(e){}
 
+  var passing = false;
+  function el(id){ return document.getElementById(id); }
+  function showErr(t){ var e = el('gateErr'); if (e) e.textContent = t || ''; }
+  function ago(t){ if (!t) return 'todavía no'; var s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'hace un momento' : (s < 3600 ? 'hace ' + Math.round(s / 60) + ' min' : 'hace ' + Math.round(s / 3600) + ' h'); }
+
+  function prepareGate(){
+    var form = el('gateForm'), nameIn = el('gateName'); if (!form || !nameIn) return;
+    if (!el('gatePin')){
+      var pi = document.createElement('input');
+      pi.id = 'gatePin'; pi.type = 'password'; pi.inputMode = 'numeric'; pi.maxLength = 4; pi.autocomplete = 'off';
+      pi.placeholder = 'PIN'; pi.setAttribute('aria-label', 'PIN de 4 cifras'); pi.setAttribute('pattern', '[0-9]{4}');
+      nameIn.parentNode.insertBefore(pi, nameIn.nextSibling);
+      var er = document.createElement('p'); er.id = 'gateErr'; er.className = 'gate-err'; er.setAttribute('role', 'alert');
+      form.parentNode.insertBefore(er, form.nextSibling);
+      var fine = form.parentNode.querySelector('.fine');
+      if (fine) fine.textContent = 'Tu nombre y un PIN de 4 cifras protegen tu progreso. Si el nombre es nuevo, se crea el perfil con ese PIN; si ya existe, el PIN tiene que coincidir. Con los mismos datos entras desde cualquier dispositivo. Apunta el PIN: no se puede recuperar.';
+      var lede = form.parentNode.querySelector('.lede');
+      if (lede) lede.textContent = 'Escribe tu nombre y tu PIN: el armario guardará tu progreso en tu cuenta y lo tendrás igual en el móvil, en la tableta o en cualquier navegador.';
+    }
+    var sp = el('gateSync');
+    if (!sp){ sp = document.createElement('div'); sp.id = 'gateSync'; sp.className = 'gate-sync'; form.parentNode.insertBefore(sp, form); }
+    paintPanel();
+    renderBank();
+    showErr('');
+    var p = el('gatePin'); if (p) p.value = '';
+    if (name() && !pin()) setTimeout(function(){ try { el('gatePin').focus(); } catch(e){} }, 60);
+  }
+  function paintPanel(){
+    var sp = el('gateSync'); if (!sp) return;
+    var n = name();
+    if (!n || !pin()){ sp.hidden = true; return; }
+    sp.hidden = false;
+    var bad = state === 'error';
+    sp.innerHTML = 'Perfil activo: <b></b><span class="gs-st' + (bad ? ' bad' : '') + '"></span>'
+      + '<div class="gs-act"><button type="button" id="gsSync">⟳ Sinkronizatu orain</button><button type="button" class="out" id="gsOut">Irten · salir en este dispositivo</button></div>';
+    sp.querySelector('b').textContent = n;
+    sp.querySelector('.gs-st').textContent = bad ? errTxt : (state === 'remote' ? 'Hay cambios de otro dispositivo: pulsa «Sinkronizatu orain» para cargarlos.' : 'Última sincronización: ' + ago(lastOk) + '.');
+    el('gsSync').onclick = function(){ sync({ reload:true }); };
+    el('gsOut').onclick = logout;
+  }
+  function logout(){
+    if (!confirm('¿Salir de este perfil en este dispositivo? Tu progreso sigue guardado en la nube; aquí se borrará la copia local.')) return;
+    sync({ quiet:true }).then(function(){
+      clearSynced(); ldel(PINK); ldel(METAK); ldel(NAMEK);
+      try { sessionStorage.removeItem(RG); } catch(e){}
+      location.reload();
+    });
+  }
   function renderBank(){
-    var form = document.getElementById('gateForm'); if (!form) return;
-    var wrap = document.getElementById('gateBank');
+    var form = el('gateForm'); if (!form) return;
+    var wrap = el('gateBank');
     if (!wrap){ wrap = document.createElement('div'); wrap.id = 'gateBank'; wrap.className = 'gate-bank'; form.parentNode.insertBefore(wrap, form); }
-    wrap.innerHTML = '<div class="gb-lbl">Perfiles guardados · banku publikoa</div><div class="gb-list">Kargatzen…</div>';
-    ARMAIRUA_BANK.list(function(rows){
+    wrap.innerHTML = '<div class="gb-lbl">Perfiles guardados · toca el tuyo y escribe tu PIN</div><div class="gb-list">Kargatzen…</div>';
+    rpc('armairua_zerrenda', {}).then(function(rows){ return rows || []; }, function(){ return null; }).then(function(rows){
       var l = wrap.querySelector('.gb-list');
+      if (rows === null){ l.innerHTML = '<span class="gb-empty">No se puede conectar con el banco de perfiles ahora mismo.</span>'; return; }
       if (!rows.length){ l.innerHTML = '<span class="gb-empty">Aún no hay ninguno. Crea el tuyo abajo.</span>'; return; }
       l.innerHTML = '';
       rows.forEach(function(r){
         var b = document.createElement('button'); b.type = 'button'; b.className = 'gb-chip'; b.textContent = r.izena;
-        b.addEventListener('click', function(){
-          var i = document.getElementById('gateName'); i.value = r.izena;
-          if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable:true, bubbles:true }));
-        });
+        b.addEventListener('click', function(){ el('gateName').value = r.izena; showErr(''); var p = el('gatePin'); if (p){ p.value = ''; p.focus(); } });
         l.appendChild(b);
       });
     });
   }
 
-  var g = document.getElementById('gate');
-  if (g){
-    try { new MutationObserver(function(){ if (!g.hidden) renderBank(); }).observe(g, { attributes:true, attributeFilter:['hidden'] }); } catch(e){}
-    if (!g.hidden) renderBank();
-  }
+  /* el envío del formulario pasa primero por aquí (captura en document):
+     se comprueba el PIN en la nube y, si vale, se deja seguir al HUB */
+  document.addEventListener('submit', function(ev){
+    var f = ev.target; if (!f || f.id !== 'gateForm' || passing) return;
+    ev.preventDefault(); ev.stopPropagation(); if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+    var n = (el('gateName').value || '').trim(), pi = el('gatePin'), p = pi ? (pi.value || '').trim() : '';
+    if (!n) return;
+    if (!/^[0-9]{4}$/.test(p)){ showErr(MSG['pin-formatua']); if (pi) pi.focus(); return; }
+    var btn = f.querySelector('button[type="submit"]'); if (btn) btn.disabled = true;
+    showErr('');
+    var cur = name(), pre = (cur && pin() && who(cur) !== who(n)) ? sync({ quiet:true }) : Promise.resolve();
+    pre.then(function(){ return login(n, p); }).then(function(res){
+      if (btn) btn.disabled = false;
+      if (!res.ok){ showErr(errMsg(res)); if (pi){ pi.value = ''; pi.focus(); } return; }
+      el('gateName').value = res.izena;
+      passing = true;
+      try { f.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })); } finally { passing = false; }
+      try { var g = el('gate'); if (g) g.hidden = true; } catch(e){}
+      lastOk = Date.now();
+      sync({ quiet:true }).then(function(){ if (res.changed && res.changed.length) reload(); else setState('ok'); });
+    });
+  }, true);
 
-  /* al cargar, si ya hay nombre, sincroniza por si otro dispositivo avanzó */
-  if (nm()) syncIn(nm());
+  /* ── enganches ── */
+  if (typeof HUB.save === 'function'){ var _s = HUB.save; HUB.save = function(){ _s.apply(HUB, arguments); later(1500); }; }
+  if (typeof HUB.onChange === 'function') HUB.onChange(function(){ setTimeout(paint, 0); });
+
+  var g = el('gate');
+  if (g){
+    try { new MutationObserver(function(){ if (!g.hidden) prepareGate(); }).observe(g, { attributes:true, attributeFilter:['hidden'] }); } catch(e){}
+    if (!g.hidden) prepareGate();
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'visible') sync({ reload:true, quiet:state === 'ok' });
+    else if (name() && pin()) sync({ keepalive:true, quiet:true });
+  });
+  window.addEventListener('pagehide', function(){ if (name() && pin()) sync({ keepalive:true, quiet:true }); });
+  setInterval(function(){ if (document.visibilityState === 'visible' && name() && pin()) sync({ quiet:true }); }, 45000);
+
+  window.ARMAIRUA_BANK = { sync:sync, login:login, state:function(){ return state; } };
+
+  function boot(){
+    paint();
+    if (name() && pin()) sync({ reload:true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(boot, 0); });
+  else setTimeout(boot, 0);
 })();
