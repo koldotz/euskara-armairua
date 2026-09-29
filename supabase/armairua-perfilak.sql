@@ -17,9 +17,11 @@
 -- quedará como nuevo.
 --
 -- El progreso (datuak) es {"v": {clave: valor}, "t": {clave: marca_de_tiempo}}:
--- cada clave de localStorage con la hora de su último cambio. Al guardar, el
--- servidor se queda, clave a clave, con la versión más reciente, así que dos
--- dispositivos no se pisan el progreso aunque suban a la vez.
+-- cada clave de localStorage con la versión (marca de tiempo) de la nube. Cada
+-- cambio dice de qué versión parte ("b"): si otro dispositivo la cambió
+-- entretanto, el servidor lo rechaza y el navegador fusiona los dos (palabra a
+-- palabra, casilla a casilla) y vuelve a subirlo. Así dos dispositivos no se
+-- pisan el progreso aunque trabajen a la vez o sin conexión.
 
 create extension if not exists pgcrypto;
 
@@ -130,8 +132,11 @@ declare
   v  jsonb;
   t  jsonb;
   nv jsonb := coalesce(p_datuak -> 'v', '{}'::jsonb);
+  nb jsonb := p_datuak -> 'b';          -- versión de la nube de la que parte cada cambio (clientes v3)
   e  record;
   ez jsonb;
+  cur numeric;
+  ukatuak jsonb := '[]'::jsonb;         -- claves rechazadas por conflicto
   aldatu boolean := false;
 begin
   select * into r from public.armairua_perfilak where gakoa = k for update;
@@ -145,8 +150,20 @@ begin
   t := coalesce(r.datuak -> 't', '{}'::jsonb);
 
   for e in select key, value from jsonb_each(coalesce(p_datuak -> 't', '{}'::jsonb)) loop
-    if jsonb_typeof(e.value) = 'number' and nv ? e.key
-       and (e.value #>> '{}')::numeric > coalesce((t ->> e.key)::numeric, 0) then
+    continue when jsonb_typeof(e.value) <> 'number' or not (nv ? e.key);
+    cur := coalesce((t ->> e.key)::numeric, 0);
+    if nb is not null then
+      -- el cliente dice de qué versión parte: solo se acepta si nadie la ha
+      -- cambiado entretanto. Si no, se rechaza y el cliente fusiona y reintenta.
+      if coalesce((nb ->> e.key)::numeric, 0) = cur then
+        v := v || jsonb_build_object(e.key, nv -> e.key);
+        t := t || jsonb_build_object(e.key, greatest((e.value #>> '{}')::numeric, cur + 1));
+        aldatu := true;
+      else
+        ukatuak := ukatuak || to_jsonb(e.key);
+      end if;
+    elsif (e.value #>> '{}')::numeric > cur then
+      -- clientes antiguos (sin base): gana la versión más reciente
       v := v || jsonb_build_object(e.key, nv -> e.key);
       t := t || jsonb_build_object(e.key, e.value);
       aldatu := true;
@@ -163,7 +180,7 @@ begin
      returning eguneratua into r.eguneratua;
   end if;
 
-  return jsonb_build_object('ok', true, 'aldatu', aldatu,
+  return jsonb_build_object('ok', true, 'aldatu', aldatu, 'ukatuak', ukatuak,
                             'datuak', jsonb_build_object('v', v, 't', t), 'eguneratua', r.eguneratua);
 end
 $$;

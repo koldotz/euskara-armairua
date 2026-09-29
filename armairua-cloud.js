@@ -8,9 +8,11 @@
      en Supabase a través de tres funciones (ver supabase/armairua-perfilak.sql):
        armairua_zerrenda · armairua_sartu · armairua_gorde
      La tabla está cerrada: sin el PIN nadie lee ni pisa un perfil.
-   - Progreso = claves de localStorage de la app. Cada clave lleva la hora de
-     su último cambio y el servidor se queda, clave a clave, con la más
-     reciente: dos dispositivos no se borran el trabajo entre sí.
+   - Progreso = claves de localStorage de la app. Cada subida dice de qué
+     versión de la nube parte; si otro dispositivo la cambió entretanto, el
+     servidor la rechaza y aquí se fusionan las dos a tres bandas (base, local,
+     nube: palabra a palabra, casilla a casilla) y se vuelve a subir. Así dos
+     dispositivos no se borran el trabajo aunque trabajen sin conexión.
    - Se sincroniza al abrir la página, al volver a ella, tras cada cambio
      (con antirrebote), cada 45 s mientras está a la vista y al salir.
    - Se engancha al HUB de cada página sin reescribirlo: añade el PIN a la
@@ -22,7 +24,7 @@
   if (!C.url || !C.key || !window.HUB) return;   // sin backend → comportamiento local intacto
 
   var BASE = C.url.replace(/\/+$/, ''), KEY = C.key;
-  var NAMEK = 'euskara-izena', PINK = 'armairua-pin', METAK = 'armairua-cloud-meta', RG = 'armairua-reloaded';
+  var NAMEK = 'euskara-izena', PINK = 'armairua-pin', METAK = 'armairua-cloud-meta', BASEK = 'armairua-cloud-base', RG = 'armairua-reloaded';
   /* claves que viajan: el progreso de todos los materiales. Se quedan en el
      dispositivo las marcas __t del HUB y las preferencias de navegación/voz. */
   var SYNC = /^(euskara-|hitzen-kutxa|koadernoa|mintzamena|materialak)/;
@@ -37,8 +39,14 @@
   function pin(){ return ls(PINK) || ''; }
   function who(n){ return String(n || '').trim().toLowerCase(); }
   function hash(s){ s = String(s); var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36) + ':' + s.length; }
-  function meta(){ var m; try { m = JSON.parse(ls(METAK) || '{}') || {}; } catch(e){ m = {}; } m.t = m.t || {}; m.h = m.h || {}; m.p = m.p || {}; m.who = m.who || ''; return m; }
-  function freshMeta(n){ return { t:{}, h:{}, p:{}, who:who(n) }; }
+  /* meta: t = hora del último cambio local · h = huella del valor · p = hasta
+     dónde se ha subido · c = versión de la nube en la que se basa lo local */
+  function meta(){ var m; try { m = JSON.parse(ls(METAK) || '{}') || {}; } catch(e){ m = {}; } m.t = m.t || {}; m.h = m.h || {}; m.p = m.p || {}; m.c = m.c || {}; m.who = m.who || ''; return m; }
+  function freshMeta(n){ return { t:{}, h:{}, p:{}, c:{}, who:who(n) }; }
+  /* base: el valor de cada clave tal como está en la versión c de la nube
+     (lo que hace falta para fusionar a tres bandas) */
+  function base(w){ var b; try { b = JSON.parse(ls(BASEK) || 'null'); } catch(e){ b = null; } return (b && b.who === w && b.v) ? b : { who:w, v:{} }; }
+  function saveBase(b){ lset(BASEK, JSON.stringify(b)); }
   function saveMeta(m){ lset(METAK, JSON.stringify(m)); }
   function localKeys(){ var a = []; try { for (var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if (synced(k)) a.push(k); } } catch(e){} return a; }
   function hubT(k){ return Number(ls(k + '__t')) || 0; }
@@ -62,28 +70,71 @@
       var v = ls(k), h = hash(v);
       if (m.h[k] === h) return;
       m.h[k] = h;
-      m.t[k] = first ? (hubT(k) || 1) : Math.max(now, hubT(k));
+      /* hora del cambio: la que apuntó el HUB al guardarlo (la real), o la de
+         ahora si el cambio no pasó por el HUB; siempre posterior a lo subido */
+      var ht = hubT(k), pk = m.p[k] || 0;
+      m.t[k] = first ? (ht || 1) : Math.max(ht > pk ? ht : now, pk + 1);
     });
     m.init = true;
   }
-  /* aplica lo que la nube tiene más nuevo; devuelve las claves que cambian */
-  function apply(m, d){
-    var ch = [];
-    if (!d || !d.v) return ch;
+  /* ── fusión a tres bandas de valores JSON ──
+     o = base común, a = local, b = nube. Lo que solo cambió en un lado se
+     queda; si cambió en los dos, se baja al detalle (palabra, casilla…) y en
+     el último nivel gana el lado más reciente (pa = el local es más nuevo).
+     ATOM: claves cuyos elementos no se parten. En Hitzen kutxa cada palabra
+     es una ficha SM-2 (caja, intervalo, facilidad…) que va entera: mezclar
+     campos de dos repasos distintos daría una ficha incoherente. */
+  var ATOM = { 'hitzen-kutxa-v1':1 };
+  function isMap(x){ return !!x && typeof x === 'object' && !Array.isArray(x); }
+  function eq(a, b){
+    if (a === b) return true;
+    if (!a || !b || typeof a !== 'object' || typeof b !== 'object' || Array.isArray(a) !== Array.isArray(b)) return false;
+    var ka = Object.keys(a), kb = Object.keys(b);
+    return ka.length === kb.length && ka.every(function(k){ return Object.prototype.hasOwnProperty.call(b, k) && eq(a[k], b[k]); });
+  }
+  function merge3(o, a, b, pa, d){
+    if (eq(a, b) || eq(b, o)) return a;
+    if (eq(a, o)) return b;
+    if (d > 0 && isMap(a) && isMap(b)){
+      var out = {}, oo = isMap(o) ? o : {}, seen = {};
+      Object.keys(a).concat(Object.keys(b), Object.keys(oo)).forEach(function(k){
+        if (seen[k]) return; seen[k] = 1;
+        var r = merge3(oo[k], a[k], b[k], pa, d - 1);
+        if (r !== undefined) out[k] = r;
+      });
+      return out;
+    }
+    return pa ? a : b;
+  }
+  function jp(s){ if (s == null) return undefined; try { return JSON.parse(s); } catch(e){ return { __raw:s }; } }
+  function mergeStr(k, bv, lv, cv, pa){
+    var o = jp(bv), a = jp(lv), b = jp(cv);
+    if ((isMap(a) && a.__raw !== undefined) || (isMap(b) && b.__raw !== undefined)) return pa ? lv : cv;   // no es JSON
+    var r = merge3(o, a, b, pa, ATOM[k] != null ? ATOM[k] : 99);
+    return eq(r, b) ? cv : (eq(r, a) ? lv : JSON.stringify(r));
+  }
+  /* aplica lo que la nube tiene más nuevo que nuestra base. Sin cambios
+     locales, se toma tal cual; con cambios en los dos lados, se fusiona y el
+     resultado queda pendiente de subir. Devuelve {ch: claves cambiadas aquí,
+     dirty: hay fusiones que subir} */
+  function apply(m, d, B){
+    var ch = [], dirty = false;
+    if (!d || !d.v) return { ch:ch, dirty:false };
     Object.keys(d.v).forEach(function(k){
       if (!synced(k)) return;
       var ct = Number(d.t && d.t[k]) || 0;
-      if (ct > (m.t[k] || 0)){
-        var v = d.v[k]; if (typeof v !== 'string') v = JSON.stringify(v);
-        if (ls(k) !== v){ lset(k, v); ch.push(k); }
-        m.t[k] = ct; m.h[k] = hash(v);
-        if (ls(k + '__t') != null) lset(k + '__t', String(ct));
-      }
-      if (ct) m.p[k] = Math.max(m.p[k] || 0, ct);
+      if (ct <= (m.c[k] || 0)) return;                                  // ya partimos de esa versión
+      var cv = d.v[k]; if (typeof cv !== 'string') cv = JSON.stringify(cv);
+      var lv = ls(k), bv = B.v[k];
+      var nv = (lv == null || lv === cv || lv === bv) ? cv : mergeStr(k, bv, lv, cv, (m.t[k] || 0) > ct);
+      if (nv !== lv){ lset(k, nv); ch.push(k); if (ls(k + '__t') != null) lset(k + '__t', String(ct)); }
+      m.c[k] = ct; B.v[k] = cv; m.h[k] = hash(nv);
+      if (nv === cv){ m.t[k] = ct; m.p[k] = Math.max(m.p[k] || 0, ct); }
+      else { m.t[k] = Math.max(Date.now(), ct + 1, (m.p[k] || 0) + 1); dirty = true; }
     });
-    return ch;
+    return { ch:ch, dirty:dirty };
   }
-  function clearSynced(){ localKeys().forEach(function(k){ ldel(k); ldel(k + '__t'); }); }
+  function clearSynced(){ localKeys().forEach(function(k){ ldel(k); ldel(k + '__t'); }); ldel(BASEK); }
 
   /* ── estado (chip de perfil) ── */
   var state = '', errTxt = '', lastOk = 0;
@@ -117,7 +168,7 @@
   function setState(s, e){ state = s; if (e !== undefined) errTxt = e; paint(); }
 
   /* ── sincronizar: sube lo cambiado y trae lo más nuevo, en una sola llamada ── */
-  var busy = false, again = false, timer = null, inflight = null, pinLost = false;
+  var busy = false, again = false, timer = null, inflight = null, pinLost = false, merges = 0;
   function sync(opts){
     opts = opts || {};
     var n = name(), p = pin();
@@ -126,8 +177,8 @@
     busy = true; if (!opts.quiet) setState('saving');
     var m = meta(); if (m.who !== who(n)) m = freshMeta(n);
     scan(m); saveMeta(m);
-    var out = { v:{}, t:{} };
-    Object.keys(m.t).forEach(function(k){ if ((m.p[k] || 0) < m.t[k]){ var v = ls(k); if (v != null){ out.v[k] = v; out.t[k] = m.t[k]; } } });
+    var out = { v:{}, t:{}, b:{} };
+    Object.keys(m.t).forEach(function(k){ if ((m.p[k] || 0) < m.t[k]){ var v = ls(k); if (v != null){ out.v[k] = v; out.t[k] = m.t[k]; out.b[k] = m.c[k] || 0; } } });
     inflight = rpc('armairua_gorde', { p_izena:n, p_pin:p, p_datuak:out }, opts.keepalive).then(function(res){
       busy = false;
       if (!res || !res.ok){
@@ -137,13 +188,20 @@
         setState('error', errMsg(res)); return false;
       }
       var m2 = meta(); if (m2.who !== who(n)) m2 = m;
-      Object.keys(out.t).forEach(function(k){ m2.p[k] = Math.max(m2.p[k] || 0, out.t[k]); });
-      var ch = apply(m2, res.datuak); saveMeta(m2);
+      var B = base(m2.who), dv = (res.datuak && res.datuak.v) || {}, dt = (res.datuak && res.datuak.t) || {};
+      /* aceptado = la nube guarda ahora exactamente lo que subimos (vale también
+         con el SQL antiguo, que no rechaza sino que se queda con lo más reciente) */
+      Object.keys(out.t).forEach(function(k){
+        var sv = dv[k]; if (sv != null && typeof sv !== 'string') sv = JSON.stringify(sv);
+        if (sv === out.v[k]){ m2.p[k] = Math.max(m2.p[k] || 0, out.t[k]); m2.c[k] = Number(dt[k]) || 0; B.v[k] = out.v[k]; }
+      });
+      var r = apply(m2, res.datuak, B); saveMeta(m2); saveBase(B);         // lo rechazado se fusiona aquí
       lastOk = Date.now();
-      if (ch.length){ if (opts.reload) reload(); else setState('remote'); }
+      if (r.dirty && merges < 3){ merges++; again = true; } else if (!r.dirty) merges = 0;
+      if (r.ch.length){ if (opts.reload) reload(); else setState('remote'); }
       else if (state !== 'remote') setState('ok');
       if (again){ again = false; sync({ quiet:true }); }
-      return ch.length > 0;
+      return r.ch.length > 0;
     }, function(){ busy = false; setState('error', MSG.sarea); return false; });
     return inflight;
   }
@@ -186,7 +244,8 @@
       if (m.who !== who(res.izena)) m = freshMeta(res.izena);
       lset(PINK, p);
       scan(m);                                                  // lo que hubiera aquí cuenta como antiguo
-      res.changed = apply(m, res.datuak); saveMeta(m);
+      var B = base(m.who), r = apply(m, res.datuak, B);          // lo local y lo de la nube se fusionan
+      res.changed = r.ch; saveMeta(m); saveBase(B);
       return res;
     }, function(){ return { ok:false, err:'sarea' }; });
   }
