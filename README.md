@@ -48,6 +48,13 @@ euskara-armairua/
 
 Para añadir un nivel nuevo, copia `a2.html` como plantilla, cambia el prefijo de las claves de guardado (p. ej. `koadernoa-b1:*`) y añade su tarjeta en `index.html`.
 
+## Pruebas y herramientas
+
+La web no necesita compilación ni dependencias. Para desarrollar hay pruebas automáticas y algunas herramientas (Node 22 y Chrome; `npm install` una vez):
+
+- `npm test`: todas las pruebas (~3 min): el SQL del banco de perfiles en una base de datos en memoria, la integridad de los datos, y la web entera en Chrome sin ventana (perfiles y sincronización con Supabase emulado, las 7 páginas en escritorio y móvil, las gafas de Geruzak). `npm run test:rapido` hace solo las que no necesitan navegador. Detalles en [tests/README.md](tests/README.md).
+- [tools/](tools/README.md): el generador del diccionario de las gafas (`npm run gafas`), un extractor de PDF a texto e imágenes (macOS) y un buscador de palabras que aún no están en el Hiztegia. Son los pasos para incorporar materiales nuevos.
+
 ## Créditos
 
 Creado originalmente como un artefacto de Claude y exportado a este repositorio.

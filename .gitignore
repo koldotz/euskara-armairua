@@ -11,3 +11,6 @@
 
 # Logs
 *.log
+
+# Dependencias de desarrollo (pruebas)
+node_modules/

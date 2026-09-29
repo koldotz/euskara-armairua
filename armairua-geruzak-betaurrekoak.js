@@ -1,5 +1,7 @@
 /* ─────────────────────────────────────────────────────────────────────
    Geruzak · «Ikasteko betaurrekoak» (gafas de aprendizaje)
+   Fichero GENERADO por tools/geruzak/build.mjs: no lo edites a mano;
+   cambia tools/geruzak/words.mjs (o morf.mjs, extra.mjs) y regenera.
    Datos del modo de visualización de geruzak.html: cada forma vasca de la
    guía con su traducción y su desglose en morfemas.
      mota : tipos de pieza → [nombre vasco, descripción, etiqueta corta]
