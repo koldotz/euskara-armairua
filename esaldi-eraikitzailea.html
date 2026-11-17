@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Esaldi-eraikitzailea — constructor de frases A1: elige qué decir y cómo, y la frase se monta con el caso y el verbo marcados.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<title>Esaldi-eraikitzailea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400;1,7..72,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+
+:root{
+  --ground:#F1EEE4; --surface:#FBF9F2; --surface-2:#E7E2D3;
+  --ink:#1E1C17; --ink-2:#46423A; --muted:#716B5E;
+  --line:#DAD3C2; --line-strong:#BDB5A1; --leaf:#6F8A4C; --bark:#8B7658;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2; --iron:#B0472B; --iron-soft:#F3DED6; --gold:#8A6A19; --gold-soft:#F0E6CC;
+  --plum:#6A4C93; --plum-soft:#EAE2F3; --blue:#2D5F8B; --blue-soft:#DDE7F1; --rose:#9C3D6B; --rose-soft:#F2DDE7;
+  --teal:#1E6E7A; --teal-soft:#D7ECEE; --mug:#5B6259; --mug-soft:#E1E4DD; --crit:#A33325;
+  --f-display:"Fraunces", Georgia, serif; --f-body:"Literata", Georgia, serif; --f-ui:"Work Sans", system-ui, sans-serif;
+  --gut-l:max(16px, env(safe-area-inset-left, 0px)); --gut-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#15140F; --surface:#1D1B15; --surface-2:#29261E; --ink:#EDE9DE; --ink-2:#CCC6B7; --muted:#989182;
+  --line:#332F26; --line-strong:#4B4639; --leaf:#93AF70; --bark:#A89276;
+  --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620; --gold:#D3AE5A; --gold-soft:#33290F;
+  --plum:#B99BE0; --plum-soft:#2D2339; --blue:#8DB6DE; --blue-soft:#1C2A38; --rose:#E58FB8; --rose-soft:#3A2230;
+  --teal:#6CC3CF; --teal-soft:#18333A; --mug:#AEB5AB; --mug-soft:#272C27; --crit:#E0776A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --ground:#15140F; --surface:#1D1B15; --surface-2:#29261E; --ink:#EDE9DE; --ink-2:#CCC6B7; --muted:#989182;
+  --line:#332F26; --line-strong:#4B4639; --leaf:#93AF70; --bark:#A89276;
+  --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620; --gold:#D3AE5A; --gold-soft:#33290F;
+  --plum:#B99BE0; --plum-soft:#2D2339; --blue:#8DB6DE; --blue-soft:#1C2A38; --rose:#E58FB8; --rose-soft:#3A2230;
+  --teal:#6CC3CF; --teal-soft:#18333A; --mug:#AEB5AB; --mug-soft:#272C27; --crit:#E0776A; color-scheme:dark }
+.k-nor{--c:var(--sea);--cs:var(--sea-soft)} .k-nork{--c:var(--plum);--cs:var(--plum-soft)} .k-nori{--c:var(--rose);--cs:var(--rose-soft)}
+.k-noren{--c:var(--blue);--cs:var(--blue-soft)} .k-norekin{--c:var(--teal);--cs:var(--teal-soft)}
+.k-non,.k-nongo,.k-nondik,.k-nora{--c:var(--gold);--cs:var(--gold-soft)} .k-rik{--c:var(--iron);--cs:var(--iron-soft)} .k-mugagabe{--c:var(--mug);--cs:var(--mug-soft)}
+.k-v{--c:var(--bark);--cs:var(--surface-2)} .k-pt{--c:var(--iron);--cs:var(--iron-soft)} .k-w{--c:var(--muted);--cs:var(--surface-2)}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:400 16px/1.5 var(--f-body);-webkit-text-size-adjust:100%;padding-left:var(--gut-l);padding-right:var(--gut-r);padding-block:0 40px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--ground)}
+h1,h2,h3,p{margin:0;text-wrap:balance} button{font:inherit;color:inherit} a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+s.bad{color:var(--crit)}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:22px;padding-top:18px}
+.mast{display:grid;gap:6px}
+.crumbs{font:500 11px/1.4 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 8px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.mast h1{font:600 clamp(2rem, 8vw, 3rem)/1 var(--f-display);font-variation-settings:'opsz' 144}
+.mast h1 em{font-style:italic;font-weight:400;color:var(--sea)}
+.mast p{font:italic 400 15px/1.45 var(--f-body);color:var(--ink-2);max-width:60ch}
+.step{display:grid;gap:10px}
+.sh{display:flex;align-items:baseline;gap:10px;font:600 11px/1.2 var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sh b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--ground);font:600 12px/1 var(--f-ui);letter-spacing:0}
+.grp-l{font:italic 400 13.5px/1.3 var(--f-body);color:var(--muted);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 13px/1.2 var(--f-ui);padding:9px 12px;border-radius:2px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:inset 0 0 0 2px var(--surface), inset 0 0 0 3px var(--line);color:var(--ink-2);cursor:pointer;text-align:left}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground);box-shadow:none}
+.chip.int{display:grid;gap:2px}
+.chip.int small{font:italic 400 12px/1.2 var(--f-body);color:var(--muted)}
+.chip.int[aria-pressed="true"] small{color:var(--ground);opacity:.8}
+.chip.opt{font-family:var(--f-body);font-style:italic;font-size:15px}
+.chip.opt small{font:400 11.5px/1 var(--f-ui);color:var(--muted);margin-left:6px;font-style:normal}
+.chip.opt[aria-pressed="true"] small{color:var(--ground);opacity:.8}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line-strong);border-radius:2px;background:var(--surface);overflow:hidden}
+.seg button{border:0;background:transparent;padding:9px 12px;font:500 13px/1.1 var(--f-ui);color:var(--ink-2);cursor:pointer;flex:1 1 auto}
+.seg button + button{border-left:1px solid var(--line-strong)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.seg .k-aff[aria-pressed="true"]{background:var(--sea)} .seg .k-neg[aria-pressed="true"]{background:var(--iron)} .seg .k-q[aria-pressed="true"],.seg .k-yn[aria-pressed="true"]{background:var(--blue)}
+.row2{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.ask{display:grid;gap:2px;padding:10px 14px;border-left:3px solid var(--leaf);background:var(--surface);border-radius:0 2px 2px 0}
+.ask .lbl{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ask .eu{font:italic 400 1.1rem/1.3 var(--f-body)} .ask .es{font:400 13px/1.3 var(--f-ui);color:var(--muted)}
+/* resultado */
+.out{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ground);padding-block:8px 10px;margin-inline:calc(-1 * var(--gut-l)) calc(-1 * var(--gut-r));padding-inline:var(--gut-l) var(--gut-r);border-bottom:1px solid var(--line-strong)}
+.out-in{max-width:760px;margin:0 auto;display:grid;gap:8px}
+.sentence{font:italic 400 clamp(1.5rem, 6.5vw, 2.3rem)/1.2 var(--f-body);display:flex;flex-wrap:wrap;gap:0 .3em;align-items:baseline}
+.sentence .wd{display:inline}
+.sentence .wd b{font-weight:600;color:var(--c)}
+.sentence .wd.dim{color:var(--muted);font-size:.8em}
+.sentence .wd.v{text-decoration:underline;text-decoration-color:var(--iron);text-decoration-thickness:2px;text-underline-offset:.2em}
+.sentence .wd.pt{color:var(--iron);font-weight:600}
+.trans{font:400 14px/1.4 var(--f-ui);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.copy{margin-left:auto;font:500 12px/1 var(--f-ui);padding:6px 10px;border:1px dashed var(--line-strong);border-radius:2px;background:transparent;color:var(--ink-2);cursor:pointer}
+/* piezas */
+.pieces{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.pz{display:grid;gap:3px;padding:9px 12px 8px;border-radius:2px;border:1px solid var(--c);border-top:5px solid var(--c);background:var(--surface);min-width:0;flex:0 1 auto}
+.pz.dim{opacity:.55;border-style:dashed;border-top-style:solid}
+.pz .t{font:italic 400 1.2rem/1.2 var(--f-body)} .pz .t b{font-weight:600;color:var(--c)}
+.pz .l{font:600 10px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+.pz .e{font:400 11.5px/1.2 var(--f-ui);color:var(--muted)}
+.plus{align-self:center;font:400 16px/1 var(--f-ui);color:var(--muted)}
+.why{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--leaf);background:var(--surface);border-radius:0 2px 2px 0;font:400 14.5px/1.5 var(--f-ui);color:var(--ink-2)}
+.why i{font:italic 400 15.5px var(--f-body);color:var(--ink)}
+.why .lbl{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.trap{border-left:3px double var(--iron);background:var(--iron-soft);padding:10px 14px;border-radius:0 2px 2px 0;font:400 14px/1.5 var(--f-ui)}
+.trap b{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--iron);margin-right:8px}
+.trap i{font:italic 400 15px var(--f-body)}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.lk{font:600 11px/1 var(--f-ui);letter-spacing:.08em;padding:6px 10px;border:1px solid var(--c);color:var(--c);border-radius:2px;text-decoration:none;background:var(--surface)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 12.5px/1.3 var(--f-ui);color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i.sw{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.allgrid{display:grid;gap:4px;border-top:3px double var(--ink);padding-top:12px}
+.allgrid h2{font:600 1.4rem/1.1 var(--f-display)}
+.allgrid p{font:italic 400 13.5px/1.4 var(--f-body);color:var(--muted)}
+.tbl{display:grid;gap:6px;margin-top:8px}
+.tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:2px;cursor:pointer;text-align:left}
+.tr .a{font:500 13px/1.3 var(--f-ui);color:var(--ink)} .tr .b{font:italic 400 14.5px/1.3 var(--f-body);color:var(--ink-2);grid-column:1 / -1} .tr .c{font:600 10px/1.2 var(--f-ui);letter-spacing:.08em;color:var(--c);align-self:start}
+footer{font:400 12.5px/1.5 var(--f-ui);color:var(--muted);border-top:1px solid var(--line-strong);padding-top:14px;display:grid;gap:4px}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+<header class="mast">
+  <nav class="crumbs" aria-label="Ruta"><a href="index.html">Euskara Armairua</a><span>/</span><a href="kasuen-zuhaitza.html">Kasuen zuhaitza</a><span>/</span><span>Guía de conversación</span></nav>
+  <h1>Esaldi-<em>eraikitzailea</em></h1>
+  <p>Elige qué quieres decir, si lo afirmas, lo niegas o lo preguntas, y cambia las piezas. La frase se monta sola con el caso y el verbo marcados.</p>
+</header>
+</div>
+<div class="out"><div class="out-in">
+  <p class="sentence" id="sentence" lang="eu"></p>
+  <p class="trans"><span id="trans"></span><button type="button" class="copy" id="copy">Copiar</button></p>
+</div></div>
+<main class="wrap">
+  <section class="step"><span class="sh"><b>1</b> ¿Qué quieres decir?</span>
+    <p class="grp-l">Sobre mí · <i>Nor naiz?</i></p><div class="chips"><button type="button" class="chip int" data-intent="izena" aria-pressed="false"><span>Cómo me llamo</span><small lang="eu">Zein da zure izena?</small></button><button type="button" class="chip int" data-intent="nongoa" aria-pressed="false"><span>De dónde soy</span><small lang="eu">Nongoa zara?</small></button><button type="button" class="chip int" data-intent="non-bizi" aria-pressed="false"><span>Dónde vivo</span><small lang="eu">Non bizi zara?</small></button><button type="button" class="chip int" data-intent="norekin" aria-pressed="false"><span>Con quién vivo</span><small lang="eu">Norekin bizi zara?</small></button><button type="button" class="chip int" data-intent="urte" aria-pressed="false"><span>Cuántos años tengo</span><small lang="eu">Zenbat urte dauzkazu?</small></button><button type="button" class="chip int" data-intent="gustatu" aria-pressed="false"><span>Qué me gusta</span><small lang="eu">Zer gustatzen zaizu?</small></button><button type="button" class="chip int" data-intent="anaiak" aria-pressed="false"><span>Qué hermanos tengo</span><small lang="eu">Anai-arrebarik ba al daukazu?</small></button></div>
+    <p class="grp-l">Mi pueblo · <i>Nire herria</i></p><div class="chips"><button type="button" class="chip int" data-intent="nolakoa" aria-pressed="false"><span>Cómo es mi pueblo</span><small lang="eu">Nolakoa da zure herria?</small></button><button type="button" class="chip int" data-intent="non-dago" aria-pressed="false"><span>Dónde está mi pueblo</span><small lang="eu">Non dago zure herria?</small></button><button type="button" class="chip int" data-intent="zer-dago" aria-pressed="false"><span>Qué hay en mi pueblo</span><small lang="eu">Zer dago zure herrian?</small></button><button type="button" class="chip int" data-intent="herri-izena" aria-pressed="false"><span>Cómo se llama mi pueblo</span><small lang="eu">Nola du izena zure herriak?</small></button><button type="button" class="chip int" data-intent="jendea" aria-pressed="false"><span>Cuánta gente vive</span><small lang="eu">Zenbat jende bizi da zure herrian?</small></button><button type="button" class="chip int" data-intent="nora" aria-pressed="false"><span>A dónde voy</span><small lang="eu">Nora joaten zara larunbatetan?</small></button><button type="button" class="chip int" data-intent="nondik" aria-pressed="false"><span>De dónde vengo</span><small lang="eu">Nondik zatoz?</small></button></div>
+  </section>
+  <div class="ask"><span class="lbl">Te preguntarán</span><span class="eu" id="ask-eu" lang="eu"></span><span class="es" id="ask-es"></span></div>
+  <section class="step"><span class="sh"><b>2</b> ¿Cómo lo dices?</span>
+    <div class="row2">
+      <div class="seg" role="group" aria-label="Tipo de frase"><button type="button" class="k-aff" data-kind="aff" aria-pressed="false">Afirmo</button><button type="button" class="k-neg" data-kind="neg" aria-pressed="false">Niego</button><button type="button" class="k-q" data-kind="q" aria-pressed="false">Pregunto ¿…?</button><button type="button" class="k-yn" data-kind="yn" aria-pressed="false">Pregunto sí / no</button></div>
+      <div class="seg" role="group" aria-label="Persona"><button type="button" data-person="ni" aria-pressed="true">yo · <i>ni</i></button><button type="button" data-person="gu" aria-pressed="false">nosotros · <i>gu</i></button></div>
+    </div>
+  </section>
+  <section class="step"><span class="sh"><b>3</b> Cambia las piezas</span><div id="slots" class="step"></div></section>
+  <section class="step"><span class="sh">La frase, pieza a pieza</span>
+    <div class="pieces" id="pieces"></div>
+    <div class="legend"><span><i class="sw k-nor"></i>NOR</span><span><i class="sw k-nork"></i>NORK</span><span><i class="sw k-nori"></i>NORI</span><span><i class="sw k-noren"></i>NOREN</span><span><i class="sw k-norekin"></i>NOREKIN</span><span><i class="sw k-non"></i>lugar</span><span><i class="sw k-mugagabe"></i>mugagabe</span><span><i class="sw k-rik"></i>-(r)ik</span><span><i class="sw k-v"></i>verbo</span><span>sufijo en <b>negrita</b> · entre paréntesis, se omite</span></div>
+    <div class="why" id="why"></div>
+    <div class="trap" id="trap"></div>
+    <div class="links" id="links"></div>
+  </section>
+  <section class="allgrid"><h2>Todas las frases con este ajuste</h2><p>Lo mismo que has elegido en el paso 2, aplicado a todas las situaciones. Pulsa una para abrirla.</p><div class="tbl" id="all"></div></section>
+  <footer><span>Esaldi-eraikitzailea · guía de conversación A1 · Euskara Armairua</span><span>Las estructuras vienen de <a href="nire-herria.html">Nire herria</a> y <a href="nor-naiz.html">Nor naiz?</a>; los datos (Ane, Zubialde…) son de ejemplo.</span>  <span>&#9888; Claude · por contrastar: explicaciones y frases preparadas por Claude, sin revisar todavía por un hablante.</span>
+</footer>
+</main>
+<script>
+/* Esaldi-eraikitzailea — datos del constructor de frases.
+   Cada intención tiene: pregunta que te harán, huecos (slots) con opciones y
+   un constructor build(kind, person, choice) → { pieces, es }.
+   Pieza: { t: texto, s: sufijo marcado, r: 'c:<caso>' | 'v' | 'pt' | 'w' | 'i:<caso>', es, dim } */
+var CASEN = { nor: 'NOR', nork: 'NORK', nori: 'NORI', noren: 'NOREN', norekin: 'NOREKIN', non: 'NON', nongo: 'NONGO', nondik: 'NONDIK', nora: 'NORA', mugagabe: 'MUGAGABE', rik: '-(R)IK' };
+var KINDS = [['aff', 'Afirmo'], ['neg', 'Niego'], ['q', 'Pregunto ¿…?'], ['yn', 'Pregunto sí / no']];
+var PERS = [['ni', 'yo · ni'], ['gu', 'nosotros · gu']];
+var pc = function (t, s, r, es, dim) { return { t: t, s: s || '', r: r, es: es || '', dim: !!dim }; };
+var V = function (t, es) { return pc(t, '', 'v', es); };
+var PT = function (t, es) { return pc(t, '', 'pt', es); };
+var W = function (t, es) { return pc(t, '', 'w', es); };
+var poss = function (p) { return p === 'ni' ? pc('nire', '', 'c:noren', 'mi') : pc('gure', '', 'c:noren', 'nuestro'); };
+var yourP = function (p) { return p === 'ni' ? pc('zure', '', 'c:noren', 'tu') : pc('zuen', '', 'c:noren', 'vuestro'); };
+var be = { ni: ['naiz', 'zara'], gu: ['gara', 'zarete'] };
+var q = function (p) { return p === 'ni' ? '¿Vives' : '¿Vivís'; };
+
+var INTENTS = [
+  /* ───── Nor naiz? ───── */
+  { id: 'izena', grp: 'nn', label: 'Cómo me llamo', ask: ['Zein da zure izena?', '¿Cuál es tu nombre?'], cases: ['noren', 'nor'], verb: 'izan',
+    slots: [{ id: 'n', label: 'Nombre', opts: [['Ane'], ['Jon'], ['Miren'], ['Iker']] }],
+    why: 'El dueño del nombre va en NOREN (*nire*, *gure*) y delante de lo poseído. El nombre es NOR y lleva *izan*: *da* en singular, *dira* si son varios nombres.',
+    trap: '~Nire izena da Ane~ → *Nire izena Ane da*: el verbo, al final.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', names = pl ? c.n + ' eta Jon' : c.n, es = pl ? c.n + ' y Jon' : c.n;
+      var izen = pc('izen', pl ? 'ak' : 'a', 'c:nor', pl ? 'nombres' : 'nombre'), v = V(pl ? 'dira' : 'da', pl ? 'son' : 'es');
+      if (k === 'aff') return [[poss(p), izen, W(names, es), v], (pl ? 'Nuestros nombres son ' : 'Mi nombre es ') + es + '.'];
+      if (k === 'neg') return [[poss(p), izen, PT('ez', 'no'), v, W(names, es)], (pl ? 'Nuestros nombres no son ' : 'Mi nombre no es ') + es + '.'];
+      if (k === 'q') return [[pc(pl ? 'Zeintzuk' : 'Zein', '', 'i:nor', pl ? 'cuáles' : 'cuál'), v, yourP(p), izen], pl ? '¿Cuáles son vuestros nombres?' : '¿Cuál es tu nombre?'];
+      return [[yourP(p), izen, W(names, es), PT('al', '¿?'), v], pl ? '¿Vuestros nombres son ' + es + '?' : '¿Tu nombre es ' + es + '?'];
+    } },
+  { id: 'nongoa', grp: 'nn', label: 'De dónde soy', ask: ['Nongoa zara?', '¿De dónde eres?'], cases: ['nongo', 'nor'], verb: 'izan',
+    slots: [{ id: 'l', label: 'Lugar', opts: [['Zubialde', 'ko'], ['Donostia', 'ko'], ['Bilbo', 'ko'], ['Gasteiz', 'ko'], ['Irun', 'go'], ['hemen', 'go']] }],
+    why: 'La procedencia es NONGO (*-ko*, y *-go* tras *-n* o *-l*) más el artículo de NOR: *-a* en singular, *-ak* en plural, porque es el atributo de *izan*.',
+    trap: '~Bilbotik naiz~ → *Bilbokoa naiz*: NONDIK es movimiento, no origen.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', w = pc(c.l[0], c.l[1] + (pl ? 'ak' : 'a'), 'c:nongo', 'de ' + c.l[0]);
+      var esL = c.l[0] === 'hemen' ? 'de aquí' : 'de ' + c.l[0];
+      if (k === 'aff') return [[w, V(be[p][0], pl ? 'somos' : 'soy')], (pl ? 'Somos ' : 'Soy ') + esL + '.'];
+      if (k === 'neg') return [[PT('ez', 'no'), V(be[p][0]), w], (pl ? 'No somos ' : 'No soy ') + esL + '.'];
+      if (k === 'q') return [[pc('Nongo', pl ? 'ak' : 'a', 'i:nongo', 'de dónde'), V(be[p][1], pl ? 'sois' : 'eres')], pl ? '¿De dónde sois?' : '¿De dónde eres?'];
+      return [[w, PT('al'), V(be[p][1])], (pl ? '¿Sois ' : '¿Eres ') + esL + '?'];
+    } },
+  { id: 'non-bizi', grp: 'nn', label: 'Dónde vivo', ask: ['Non bizi zara?', '¿Dónde vives?'], cases: ['non', 'nor'], verb: 'bizi',
+    slots: [{ id: 'l', label: 'Lugar', opts: [['Donostia', 'n'], ['Zubialde', 'n'], ['Irun', 'en'], ['Bilbo', 'n'], ['herri txiki bat', 'ean', 'un pueblo pequeño'], ['etxe zahar bat', 'ean', 'una casa vieja'], ['hiri handi bat', 'ean', 'una ciudad grande']] }],
+    why: 'El lugar donde vives es NON: *-n* en los topónimos, *-ean* tras consonante y tras *bat*. Quien vive es NOR, sin sufijo, y por eso *bizi naiz*, nunca ~nik~.',
+    trap: '~Nik Donostian bizi naiz~ → *Ni Donostian bizi naiz*: *bizi izan* nunca lleva NORK.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', esL = c.l[2] || c.l[0], w = pc(c.l[0], c.l[1], 'c:non', 'en ' + esL);
+      if (k === 'aff') return [[w, W('bizi', 'vivir'), V(be[p][0], pl ? 'vivimos' : 'vivo')], (pl ? 'Vivimos en ' : 'Vivo en ') + esL + '.'];
+      if (k === 'neg') return [[PT('ez'), V(be[p][0]), w, W('bizi')], (pl ? 'No vivimos en ' : 'No vivo en ') + esL + '.'];
+      if (k === 'q') return [[pc('Non', '', 'i:non', 'dónde'), W('bizi'), V(be[p][1])], pl ? '¿Dónde vivís?' : '¿Dónde vives?'];
+      return [[w, W('bizi'), PT('al'), V(be[p][1])], q(p) + ' en ' + esL + '?'];
+    } },
+  { id: 'norekin', grp: 'nn', label: 'Con quién vivo', ask: ['Norekin bizi zara?', '¿Con quién vives?'], cases: ['norekin', 'noren', 'nor'], verb: 'bizi',
+    slots: [{ id: 'w', label: 'Compañía', opts: [['bikote', 'arekin', 'mi pareja', 1], ['ama', 'rekin', 'mi madre', 1], ['guraso', 'ekin', 'mis padres', 1], ['lagun', 'ekin', 'mis amigos', 1], ['katu', 'arekin', 'mi gato', 1], ['bakarrik', '', 'solo/a']] }],
+    why: 'La compañía es NOREKIN: se forma sobre NOREN quitando la *-n* y añadiendo *-kin* (*-arekin* en singular, *-ekin* en plural). «Solo» no es un caso: *bakarrik*.',
+    trap: '~Nire bikotea bizi naiz~ → *Nire bikotearekin bizi naiz*.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', o = c.w, es = o[2];
+      if (pl) es = o[2].replace('mis ', 'nuestros ').replace('mi pareja', 'nuestra pareja').replace('mi madre', 'nuestra madre').replace('mi gato', 'nuestro gato');
+      var parts = o[3] ? [poss(p), pc(o[0], o[1], 'c:norekin', 'con ' + es)] : [pc('bakarrik', '', 'w', 'solo/a')];
+      var esC = o[3] ? 'con ' + es : (pl ? 'solos' : 'solo/a');
+      if (k === 'aff') return [parts.concat([W('bizi'), V(be[p][0], pl ? 'vivimos' : 'vivo')]), (pl ? 'Vivimos ' : 'Vivo ') + esC + '.'];
+      if (k === 'neg') return [[PT('ez'), V(be[p][0])].concat(parts, [W('bizi')]), (pl ? 'No vivimos ' : 'No vivo ') + esC + '.'];
+      if (k === 'q') return [[pc('Norekin', '', 'i:norekin', 'con quién'), W('bizi'), V(be[p][1])], pl ? '¿Con quién vivís?' : '¿Con quién vives?'];
+      var yours = o[3] ? [yourP(p), pc(o[0], o[1], 'c:norekin')] : [pc('bakarrik', '', 'w')];
+      return [yours.concat([W('bizi'), PT('al'), V(be[p][1])]), q(p) + ' ' + esC.replace(/nuestr/g, 'vuestr').replace(/^con mi/, 'con tu').replace(/^con mis/, 'con tus') + '?'];
+    } },
+  { id: 'urte', grp: 'nn', label: 'Cuántos años tengo', ask: ['Zenbat urte dauzkazu?', '¿Cuántos años tienes?'], cases: ['mugagabe', 'nork'], verb: 'eduki',
+    slots: [{ id: 'n', label: 'Años', opts: [['hogei', '20'], ['hogeita bost', '25'], ['hogeita hamalau', '34'], ['berrogei', '40'], ['berrogeita hamar', '50'], ['hirurogei', '60']] }],
+    why: 'Tras un número el nombre va en mugagabe: *urte*, sin *-ak*. Quien tiene es NORK (*nik*, *guk*), escondido en *dauzkat* / *dauzkagu*; como los años son varios, el verbo lleva *-zka-*.',
+    trap: '~Hogei urteak dauzkat~ → *Hogei urte dauzkat*.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', who = pc(pl ? '(guk)' : '(nik)', '', 'c:nork', '', true);
+      var n = pc(c.n[0], '', 'c:mugagabe', c.n[1]), u = pc('urte', '', 'c:mugagabe', 'años');
+      if (k === 'aff') return [[who, n, u, V(pl ? 'dauzkagu' : 'dauzkat', pl ? 'tenemos' : 'tengo')], (pl ? 'Tenemos ' : 'Tengo ') + c.n[1] + ' años.'];
+      if (k === 'neg') return [[who, PT('ez'), V(pl ? 'dauzkagu' : 'dauzkat'), n, u], (pl ? 'No tenemos ' : 'No tengo ') + c.n[1] + ' años.'];
+      if (k === 'q') return [[pc('Zenbat', '', 'i:mugagabe', 'cuántos'), u, V(pl ? 'dauzkazue' : 'dauzkazu', pl ? 'tenéis' : 'tienes')], pl ? '¿Cuántos años tenéis?' : '¿Cuántos años tienes?'];
+      return [[n, u, PT('al'), V(pl ? 'dauzkazue' : 'dauzkazu')], (pl ? '¿Tenéis ' : '¿Tienes ') + c.n[1] + ' años?'];
+    } },
+  { id: 'gustatu', grp: 'nn', label: 'Qué me gusta', ask: ['Zer gustatzen zaizu?', '¿Qué te gusta?'], cases: ['nor', 'nori'], verb: 'gustatu',
+    slots: [{ id: 't', label: 'Lo que gusta', opts: [['irakurtzea', 0, 'leer'], ['futbola', 0, 'el fútbol'], ['kafea', 0, 'el café'], ['mendira joatea', 0, 'ir al monte'], ['liburuak', 1, 'los libros'], ['euskal abestiak', 1, 'las canciones vascas'], ['katuak', 1, 'los gatos']] }],
+    why: 'Con *gustatu* lo que gusta es NOR y manda el número del verbo: *zait* si es una cosa, *zaizkit* si son varias. A quién le gusta es NORI, escondido en el auxiliar: *-t* = *niri*, *-gu* = *guri*, *-zu* = *zuri*.',
+    trap: '~Nik irakurtzea gustatzen zait~ → *Niri irakurtzea gustatzen zait*. Y ~liburuak gustatzen zait~ → *zaizkit*.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', many = !!c.t[1], who = pc(pl ? '(guri)' : '(niri)', '', 'c:nori', '', true);
+      var t = pc(c.t[0], '', 'c:nor', c.t[2]);
+      var v = many ? (pl ? 'zaizkigu' : 'zaizkit') : (pl ? 'zaigu' : 'zait'), vq = many ? (pl ? 'zaizkizue' : 'zaizkizu') : (pl ? 'zaizue' : 'zaizu');
+      var g = W('gustatzen', 'gustar'), esT = c.t[2];
+      if (k === 'aff') return [[who, t, g, V(v, pl ? 'nos gusta' : 'me gusta')], (pl ? 'Nos gusta' : 'Me gusta') + (many ? 'n ' : ' ') + esT + '.'];
+      if (k === 'neg') return [[who, t, PT('ez'), V(v), g], (pl ? 'No nos gusta' : 'No me gusta') + (many ? 'n ' : ' ') + esT + '.'];
+      if (k === 'q') return [[pc('Zer', '', 'i:nor', 'qué'), g, V(pl ? 'zaizue' : 'zaizu', pl ? 'os gusta' : 'te gusta')], pl ? '¿Qué os gusta?' : '¿Qué te gusta?'];
+      return [[pc(pl ? '(zuei)' : '(zuri)', '', 'c:nori', '', true), t, g, PT('al'), V(vq)], (pl ? '¿Os gusta' : '¿Te gusta') + (many ? 'n ' : ' ') + esT + '?'];
+    } },
+  { id: 'anaiak', grp: 'nn', label: 'Qué hermanos tengo', ask: ['Anai-arrebarik ba al daukazu?', '¿Tienes hermanos?'], cases: ['mugagabe', 'rik', 'nork'], verb: 'eduki',
+    slots: [{ id: 'h', label: 'Hermanos', opts: [['bi anaia', 1, 'dos hermanos', 'anaiarik'], ['arreba bat', 0, 'una hermana', 'arrebarik'], ['hiru anai-arreba', 1, 'tres hermanos', 'anai-arrebarik'], ['ahizpa bat', 0, 'una hermana (de mujer)', 'ahizparik']] }],
+    why: 'Con número o *bat*, el nombre va en mugagabe y el verbo cuenta: *daukat* (una) / *dauzkat* (varios). En negativa lo que no tienes pasa al partitivo *-(r)ik* y el verbo vuelve a singular.',
+    trap: '~Ez dauzkat anaiak~ → *Ez daukat anaiarik*.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', many = !!c.h[1], who = pc(pl ? '(guk)' : '(nik)', '', 'c:nork', '', true);
+      var h = pc(c.h[0], '', 'c:mugagabe', c.h[2]), rk = pc(c.h[3].replace(/r?ik$/, ''), c.h[3].match(/r?ik$/)[0], 'c:rik', 'ningún ' + c.h[2].replace(/^(dos|una|tres) /, ''));
+      var v = many ? (pl ? 'dauzkagu' : 'dauzkat') : (pl ? 'daukagu' : 'daukat');
+      if (k === 'aff') return [[who, h, V(v, pl ? 'tenemos' : 'tengo')], (pl ? 'Tenemos ' : 'Tengo ') + c.h[2] + '.'];
+      if (k === 'neg') return [[who, PT('ez'), V(pl ? 'daukagu' : 'daukat'), rk], (pl ? 'No tenemos ' : 'No tengo ') + rk.es.replace('ningún ', '') + '.'];
+      if (k === 'q') return [[pc('Zenbat', '', 'i:mugagabe', 'cuántos'), pc('anai-arreba', '', 'c:mugagabe', 'hermanos'), V(pl ? 'dauzkazue' : 'dauzkazu', pl ? 'tenéis' : 'tienes')], pl ? '¿Cuántos hermanos tenéis?' : '¿Cuántos hermanos tienes?'];
+      return [[PT('Ba'), PT('al'), V(pl ? 'daukazue' : 'daukazu'), rk], (pl ? '¿Tenéis ' : '¿Tienes ') + rk.es.replace('ningún ', '') + '?'];
+    } },
+  /* ───── Nire herria ───── */
+  { id: 'nolakoa', grp: 'nh', label: 'Cómo es mi pueblo', ask: ['Nolakoa da zure herria?', '¿Cómo es tu pueblo?'], cases: ['noren', 'nor'], verb: 'izan',
+    slots: [{ id: 'a', label: 'Cómo es', opts: [['txiki', 'pequeño'], ['handi', 'grande'], ['polit', 'bonito'], ['lasai', 'tranquilo'], ['zahar', 'viejo']] }],
+    why: 'El pueblo es NOR y el adjetivo también: los dos llevan *-a*, porque el atributo de *izan* va en NOR. El dueño, *nire* / *gure*, en NOREN.',
+    trap: '~Nire herria txiki da~ → *Nire herria txikia da*.',
+    build: function (k, p, c) {
+      var h = pc('herri', 'a', 'c:nor', 'pueblo'), a = pc(c.a[0], 'a', 'c:nor', c.a[1]), esP = p === 'gu' ? 'Nuestro pueblo' : 'Mi pueblo';
+      if (k === 'aff') return [[poss(p), h, a, V('da', 'es')], esP + ' es ' + c.a[1] + '.'];
+      if (k === 'neg') return [[poss(p), h, PT('ez'), V('da'), a], esP + ' no es ' + c.a[1] + '.'];
+      if (k === 'q') return [[pc('Nolako', 'a', 'i:nor', 'cómo'), V('da'), yourP(p), h], '¿Cómo es ' + (p === 'gu' ? 'vuestro' : 'tu') + ' pueblo?'];
+      return [[yourP(p), h, a, PT('al'), V('da')], '¿' + (p === 'gu' ? 'Vuestro' : 'Tu') + ' pueblo es ' + c.a[1] + '?'];
+    } },
+  { id: 'non-dago', grp: 'nh', label: 'Dónde está mi pueblo', ask: ['Non dago zure herria?', '¿Dónde está tu pueblo?'], cases: ['non', 'nor'], verb: 'egon',
+    slots: [{ id: 'l', label: 'Lugar', opts: [['Gipuzkoa', 'n'], ['Bizkaia', 'n'], ['Araba', 'n'], ['Nafarroa', 'n'], ['kostalde', 'an', 'la costa'], ['barnealde', 'an', 'el interior'], ['mendi', 'an', 'el monte']] }],
+    why: 'Dónde está algo es NON con *egon*: *dago*. En los topónimos solo *-n*; en los nombres comunes *-an* tras vocal y *-ean* tras consonante.',
+    trap: '~Nire herria Gipuzkoan da~ → *dago*: para situar, *egon*.',
+    build: function (k, p, c) {
+      var h = pc('herri', 'a', 'c:nor', 'pueblo'), esL = c.l[2] || c.l[0], l = pc(c.l[0], c.l[1], 'c:non', 'en ' + esL), esP = p === 'gu' ? 'Nuestro pueblo' : 'Mi pueblo';
+      if (k === 'aff') return [[poss(p), h, l, V('dago', 'está')], esP + ' está en ' + esL + '.'];
+      if (k === 'neg') return [[poss(p), h, PT('ez'), V('dago'), l], esP + ' no está en ' + esL + '.'];
+      if (k === 'q') return [[pc('Non', '', 'i:non', 'dónde'), V('dago'), yourP(p), h], '¿Dónde está ' + (p === 'gu' ? 'vuestro' : 'tu') + ' pueblo?'];
+      return [[yourP(p), h, l, PT('al'), V('dago')], '¿' + (p === 'gu' ? 'Vuestro' : 'Tu') + ' pueblo está en ' + esL + '?'];
+    } },
+  { id: 'zer-dago', grp: 'nh', label: 'Qué hay en mi pueblo', ask: ['Zer dago zure herrian?', '¿Qué hay en tu pueblo?'], cases: ['non', 'mugagabe', 'rik', 'nor'], verb: 'egon',
+    slots: [{ id: 't', label: 'Lo que hay', opts: [['liburutegi', ' bat', 'una biblioteca', 'liburutegi', 'rik', 0], ['hondartza', ' bat', 'una playa', 'hondartza', 'rik', 0], ['zinema', ' bat', 'un cine', 'zinema', 'rik', 0], ['hotel', ' bat', 'un hotel', 'hotel', 'ik', 0], ['bi eskola', '', 'dos escuelas', 'eskola', 'rik', 1], ['taberna asko', '', 'muchos bares', 'taberna asko', 'rik', 1], ['denda handi', 'ak', 'tiendas grandes', 'denda handi', 'rik', 1]] }],
+    why: 'Lo que hay es NOR en mugagabe (*bat*, un número, *asko*) y el lugar, NON. En negativa y en la pregunta «¿hay…?» pasa al partitivo *-(r)ik*, siempre con verbo en singular: *ez dago*, *ba al dago*.',
+    trap: '~Ez daude hotelik~ → *Ez dago hotelik*.',
+    build: function (k, p, c) {
+      var o = c.t, pl = !!o[5], esP = p === 'gu' ? 'nuestro pueblo' : 'mi pueblo', esY = p === 'gu' ? 'vuestro pueblo' : 'tu pueblo';
+      var h = pc('herri', 'an', 'c:non', 'en el pueblo'), t = pc(o[0], o[1], 'c:mugagabe', o[2]), rk = pc(o[3], o[4], 'c:rik', 'ningún/a ' + o[2].replace(/^(un|una|dos|muchos) /, ''));
+      if (k === 'aff') return [[poss(p), h, t, V(pl ? 'daude' : 'dago', 'hay')], 'En ' + esP + ' hay ' + o[2] + '.'];
+      if (k === 'neg') return [[poss(p), h, PT('ez'), V('dago'), rk], 'En ' + esP + ' no hay ' + o[2].replace(/^(un|una) /, '').replace(/^(dos|muchos) /, '') + '.'];
+      if (k === 'q') return [[pc('Zer', '', 'i:nor', 'qué'), V('dago'), yourP(p), h], '¿Qué hay en ' + esY + '?'];
+      return [[PT('Ba'), PT('al'), V('dago'), rk, yourP(p), h], '¿Hay ' + o[2].replace(/^(un|una) /, '').replace(/^(dos|muchos) /, '') + ' en ' + esY + '?'];
+    } },
+  { id: 'herri-izena', grp: 'nh', label: 'Cómo se llama mi pueblo', ask: ['Nola du izena zure herriak?', '¿Cómo se llama tu pueblo?'], cases: ['nork', 'noren', 'nor'], verb: 'ukan',
+    slots: [{ id: 'n', label: 'Nombre', opts: [['Zubialde'], ['Ibarrola'], ['Mendiberri'], ['Errekalde']] }],
+    why: '«Se llama» se dice «tiene nombre»: el pueblo es quien tiene, NORK (*herriak*, con *-k*), y el auxiliar es *du*. Ojo: *herriak* aquí es singular; lo dice el verbo.',
+    trap: '~Nire herria Zubialde du izena~ → *Nire herriak*: con *du*, hay NORK.',
+    build: function (k, p, c) {
+      var h = pc('herri', 'ak', 'c:nork', 'pueblo'), n = W(c.n[0]), iz = pc('izen', 'a', 'c:nor', 'nombre'), esP = p === 'gu' ? 'Nuestro pueblo' : 'Mi pueblo';
+      if (k === 'aff') return [[poss(p), h, n, V('du', 'tiene'), iz], esP + ' se llama ' + c.n[0] + '.'];
+      if (k === 'neg') return [[poss(p), h, PT('ez'), V('du'), n, iz], esP + ' no se llama ' + c.n[0] + '.'];
+      if (k === 'q') return [[pc('Nola', '', 'i:nor', 'cómo'), V('du'), iz, yourP(p), h], '¿Cómo se llama ' + (p === 'gu' ? 'vuestro' : 'tu') + ' pueblo?'];
+      return [[yourP(p), h, n, PT('al'), V('du'), iz], '¿' + (p === 'gu' ? 'Vuestro' : 'Tu') + ' pueblo se llama ' + c.n[0] + '?'];
+    } },
+  { id: 'jendea', grp: 'nh', label: 'Cuánta gente vive', ask: ['Zenbat jende bizi da zure herrian?', '¿Cuánta gente vive en tu pueblo?'], cases: ['mugagabe', 'non', 'rik'], verb: 'bizi',
+    slots: [{ id: 'n', label: 'Cuánta gente', opts: [['zortzi mila biztanle', 1, 'ocho mil habitantes', 'zortzi mila biztanle', ''], ['bi mila biztanle', 1, 'dos mil habitantes', 'bi mila biztanle', ''], ['jende asko', 0, 'mucha gente', 'jende asko', 'rik'], ['jende gutxi', 0, 'poca gente', 'jende gutxi', 'rik']] }],
+    why: 'Tras un número, mugagabe y verbo en plural: *biztanle bizi dira*. *Jende* no se cuenta: singular, *bizi da*. En negativa, *asko* pasa al partitivo: *jende askorik*.',
+    trap: '~Zenbat biztanleak?~ → *Zenbat biztanle?*',
+    build: function (k, p, c) {
+      var o = c.n, pl = !!o[1], h = pc('herri', 'an', 'c:non', 'en el pueblo'), esP = p === 'gu' ? 'nuestro pueblo' : 'mi pueblo', esY = p === 'gu' ? 'vuestro pueblo' : 'tu pueblo';
+      var n = pc(o[0], '', 'c:mugagabe', o[2]), neg = o[4] ? pc(o[3], o[4], 'c:rik', o[2]) : n;
+      if (k === 'aff') return [[poss(p), h, n, W('bizi'), V(pl ? 'dira' : 'da', pl ? 'viven' : 'vive')], 'En ' + esP + ' vive' + (pl ? 'n ' : ' ') + o[2] + '.'];
+      if (k === 'neg') return [[poss(p), h, PT('ez'), V(pl ? 'dira' : 'da'), neg, W('bizi')], 'En ' + esP + ' no vive' + (pl ? 'n ' : ' ') + o[2] + '.'];
+      if (k === 'q') return [[pc('Zenbat', '', 'i:mugagabe', 'cuánta'), pc('jende', '', 'c:mugagabe', 'gente'), W('bizi'), V('da'), yourP(p), h], '¿Cuánta gente vive en ' + esY + '?'];
+      return [[n, W('bizi'), PT('al'), V(pl ? 'dira' : 'da'), yourP(p), h], '¿Vive' + (pl ? 'n ' : ' ') + o[2] + ' en ' + esY + '?'];
+    } },
+  { id: 'nora', grp: 'nh', label: 'A dónde voy', ask: ['Nora joaten zara larunbatetan?', '¿A dónde vas los sábados?'], cases: ['nora', 'non', 'nor'], verb: 'mugi',
+    slots: [{ id: 'd', label: 'Destino', opts: [['azoka', 'ra', 'al mercado'], ['mendi', 'ra', 'al monte'], ['hondartza', 'ra', 'a la playa'], ['lan', 'era', 'al trabajo'], ['eskola', 'ra', 'a la escuela'], ['Donostia', 'ra', 'a Donostia']] },
+      { id: 'w', label: 'Cuándo', opts: [['larunbat', 'etan', 'los sábados'], ['igande', 'etan', 'los domingos'], ['egunero', '', 'todos los días'], ['udan', '', 'en verano']] }],
+    why: 'El destino es NORA (*-ra*, *-era* tras consonante) con un verbo de movimiento; lo habitual se dice con *joaten naiz*. «Los sábados» es NON de tiempo en plural: *-etan*.',
+    trap: '~Plazan noa~ → *Plazara noa*: con *joan*, NORA.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', d = pc(c.d[0], c.d[1], 'c:nora', c.d[2]), w = pc(c.w[0], c.w[1], c.w[1] ? 'c:non' : 'w', c.w[2]), j = W('joaten', 'ir');
+      if (k === 'aff') return [[w, d, j, V(be[p][0], pl ? 'vamos' : 'voy')], (c.w[2][0].toUpperCase() + c.w[2].slice(1)) + (pl ? ' vamos ' : ' voy ') + c.d[2] + '.'];
+      if (k === 'neg') return [[w, PT('ez'), V(be[p][0]), d, j], (c.w[2][0].toUpperCase() + c.w[2].slice(1)) + (pl ? ' no vamos ' : ' no voy ') + c.d[2] + '.'];
+      if (k === 'q') return [[pc('Nora', '', 'i:nora', 'a dónde'), j, V(be[p][1], pl ? 'vais' : 'vas'), w], '¿A dónde ' + (pl ? 'vais ' : 'vas ') + c.w[2] + '?'];
+      return [[w, d, j, PT('al'), V(be[p][1])], '¿' + (pl ? 'Vais ' : 'Vas ') + c.d[2] + ' ' + c.w[2] + '?'];
+    } },
+  { id: 'nondik', grp: 'nh', label: 'De dónde vengo', ask: ['Nondik zatoz?', '¿De dónde vienes?'], cases: ['nondik', 'nor'], verb: 'mugi',
+    slots: [{ id: 'o', label: 'Origen', opts: [['lan', 'etik', 'del trabajo'], ['eskola', 'tik', 'de la escuela'], ['Donostia', 'tik', 'de Donostia'], ['mendi', 'tik', 'del monte'], ['hondartza', 'tik', 'de la playa'], ['Irun', 'dik', 'de Irun']] }],
+    why: 'El punto de partida es NONDIK: *-tik* tras vocal, *-etik* tras consonante y *-dik* tras *-n* o *-l*. *Etorri* es sintético: *nator*, *gatoz*, *zatoz*, *zatozte*.',
+    trap: '~Irunetik nator~ → *Irundik nator*.',
+    build: function (k, p, c) {
+      var pl = p === 'gu', o = pc(c.o[0], c.o[1], 'c:nondik', c.o[2]), v = V(pl ? 'gatoz' : 'nator', pl ? 'venimos' : 'vengo'), vq = V(pl ? 'zatozte' : 'zatoz', pl ? 'venís' : 'vienes');
+      if (k === 'aff') return [[o, v], (pl ? 'Venimos ' : 'Vengo ') + c.o[2] + '.'];
+      if (k === 'neg') return [[PT('ez'), v, o], (pl ? 'No venimos ' : 'No vengo ') + c.o[2] + '.'];
+      if (k === 'q') return [[pc('Nondik', '', 'i:nondik', 'de dónde'), vq], pl ? '¿De dónde venís?' : '¿De dónde vienes?'];
+      return [[o, PT('al'), vq], (pl ? '¿Venís ' : '¿Vienes ') + c.o[2] + '?'];
+    } },
+];
+var GRPS = { nn: 'Nor naiz? · sobre mí', nh: 'Nire herria · mi pueblo' };
+
+(function(){
+var KEY = 'esaldi-eraikitzailea-v1';
+function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function md(str){ return esc(str).replace(/~(.+?)~/g, '<s class="bad">$1</s>').replace(/\*(.+?)\*/g, '<i>$1</i>'); }
+var BY = {}; INTENTS.forEach(function(i){ BY[i.id] = i; });
+window.ARMAIRUA_HASH_OK = function(h){ return !!BY[h]; };
+var S = { intent: 'non-bizi', kind: 'aff', person: 'ni', ch: {} };
+try { var o = JSON.parse(localStorage.getItem(KEY) || '{}'); if (BY[o.intent]) S.intent = o.intent; if (['aff','neg','q','yn'].indexOf(o.kind) >= 0) S.kind = o.kind; if (o.person === 'gu') S.person = 'gu'; if (o.ch && typeof o.ch === 'object') S.ch = o.ch; } catch (e) {}
+var h0 = location.hash.slice(1); if (BY[h0]) S.intent = h0;
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function choice(it){ var c = {}; it.slots.forEach(function(sl){ var i = (S.ch[it.id] || {})[sl.id] || 0; if (!sl.opts[i]) i = 0; c[sl.id] = sl.opts[i]; }); return c; }
+function cls(r){ return r.indexOf('c:') === 0 || r.indexOf('i:') === 0 ? 'k-' + r.slice(2) : 'k-' + r; }
+function lab(r){ if (r === 'v') return 'verbo'; if (r === 'pt') return 'partícula'; if (r === 'w') return 'palabra'; var id = r.slice(2); return (r.indexOf('i:') === 0 ? '¿? · ' : '') + CASEN[id]; }
+function plain(p){ var t = p.t + p.s; return t; }
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+var $ = function(id){ return document.getElementById(id); };
+function render(){
+  var it = BY[S.intent], c = choice(it), r = it.build(S.kind, S.person, c), pieces = r[0], es = r[1];
+  var first = -1; pieces.forEach(function(p, i){ if (first < 0 && !p.dim) first = i; });
+  var words = pieces.map(function(p, i){
+    var t = esc(p.t), s = p.s ? '<b>' + esc(p.s) + '</b>' : '';
+    if (i === first) t = cap(t);
+    return '<span class="wd ' + cls(p.r) + (p.r === 'v' ? ' v' : '') + (p.r === 'pt' ? ' pt' : '') + (p.dim ? ' dim' : '') + '">' + t + s + '</span>';
+  }).join('');
+  var end = (S.kind === 'q' || S.kind === 'yn') ? '<span class="wd">?</span>' : '<span class="wd">.</span>';
+  $('sentence').innerHTML = words + end;
+  $('trans').textContent = es;
+  $('pieces').innerHTML = pieces.map(function(p, i){
+    return (i ? '<span class="plus">+</span>' : '') + '<div class="pz ' + cls(p.r) + (p.dim ? ' dim' : '') + '"><span class="t">' + esc(p.t) + (p.s ? '<b>' + esc(p.s) + '</b>' : '') + '</span><span class="l">' + esc(lab(p.r)) + '</span>' + (p.es ? '<span class="e">' + esc(p.es) + '</span>' : (p.dim ? '<span class="e">se omite</span>' : '')) + '</div>';
+  }).join('');
+  $('ask-eu').textContent = it.ask[0]; $('ask-es').textContent = it.ask[1];
+  $('why').innerHTML = '<span class="lbl">Por qué</span><span>' + md(it.why) + '</span>';
+  $('trap').innerHTML = '<b>Trampa</b>' + md(it.trap);
+  $('links').innerHTML = it.cases.map(function(id){ return '<a class="lk k-' + id + '" href="kasuen-zuhaitza.html#' + id + '">' + CASEN[id] + ' en el mural</a>'; }).join('');
+  $('slots').innerHTML = it.slots.map(function(sl){
+    var cur = (S.ch[it.id] || {})[sl.id] || 0;
+    return '<div class="step"><span class="sh">' + esc(sl.label) + '</span><div class="chips">' + sl.opts.map(function(o, i){
+      var w = esc(o[0]) + (typeof o[1] === 'string' && o[1] ? '<b>' + esc(o[1]) + '</b>' : ''), e = typeof o[2] === 'string' ? o[2] : (typeof o[1] === 'string' && !/^[a-z]/.test(o[1]) ? o[1] : '');
+      return '<button type="button" class="chip opt" data-slot="' + sl.id + '" data-i="' + i + '" aria-pressed="' + (i === cur) + '">' + w + (e ? '<small>' + esc(e) + '</small>' : '') + '</button>';
+    }).join('') + '</div></div>';
+  }).join('');
+  document.querySelectorAll('[data-intent]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.intent === S.intent ? 'true' : 'false'); });
+  document.querySelectorAll('[data-kind]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.kind === S.kind ? 'true' : 'false'); });
+  document.querySelectorAll('[data-person]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.person === S.person ? 'true' : 'false'); });
+  // tabla de todas
+  $('all').innerHTML = INTENTS.map(function(x){ var rr = x.build(S.kind, S.person, choice(x)); return '<button type="button" class="tr k-' + x.cases[0] + '" data-intent="' + x.id + '"><span class="a">' + esc(x.label) + '</span><span class="c">' + CASEN[x.cases[0]] + '</span><span class="b">' + esc(cap(rr[0].filter(function(x){ return !x.dim; }).map(plain).join(' '))) + (S.kind === 'q' || S.kind === 'yn' ? '?' : '.') + '</span></button>'; }).join('');
+  save();
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.intent) { S.intent = b.dataset.intent; if (location.hash.slice(1) !== S.intent) history.replaceState(null, '', '#' + S.intent); render(); if (b.classList.contains('tr')) $('top').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+  if (b.dataset.kind) { S.kind = b.dataset.kind; render(); return; }
+  if (b.dataset.person) { S.person = b.dataset.person; render(); return; }
+  if (b.dataset.slot) { S.ch[S.intent] = S.ch[S.intent] || {}; S.ch[S.intent][b.dataset.slot] = +b.dataset.i; render(); return; }
+  if (b.id === 'copy') { var t = $('sentence').textContent.replace(/\s+([.?])$/, '$1'); var done = function(){ b.textContent = 'Copiada'; setTimeout(function(){ b.textContent = 'Copiar'; }, 1200); };
+    try { navigator.clipboard.writeText(t).then(done, function(){ var r = document.createRange(); r.selectNodeContents($('sentence')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }); } catch (err) { var r2 = document.createRange(); r2.selectNodeContents($('sentence')); var s2 = getSelection(); s2.removeAllRanges(); s2.addRange(r2); } }
+});
+window.addEventListener('hashchange', function(){ var id = location.hash.slice(1); if (BY[id]) { S.intent = id; render(); } });
+render();
+})();
+</script>
+</body>
+</html>

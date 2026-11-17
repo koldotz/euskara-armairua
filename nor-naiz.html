@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nor naiz? — ficha A1 explicada: las ocho preguntas para presentarte, con NOREKIN y NOR-NORI.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<title>Nor naiz?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+/* Layout: rail de índice fijo a la izquierda en pantallas anchas; una columna de lectura; casos como estratos.
+   Paleta «Geruzak» de Euskara Armairua: caliza, mar cantábrico, hierro oxidado. */
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2;
+  --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC;
+  --plum:#6A4C93; --plum-soft:#EAE2F3;
+  --blue:#2D5F8B; --blue-soft:#DDE7F1;
+  --ok:#2E6B42; --crit:#A33325;
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:4px; --measure:68ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+    --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+    --line:#2E342E; --line-strong:#414840;
+    --sea:#63C0A0; --sea-soft:#1B3830;
+    --iron:#E08A6B; --iron-soft:#3A2620;
+    --gold:#D3AE5A; --gold-soft:#33290F;
+    --plum:#B99BE0; --plum-soft:#2D2339;
+    --blue:#8DB6DE; --blue-soft:#1C2A38;
+    --ok:#6FBF88; --crit:#E0776A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+  --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840;
+  --sea:#63C0A0; --sea-soft:#1B3830;
+  --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F;
+  --plum:#B99BE0; --plum-soft:#2D2339;
+  --blue:#8DB6DE; --blue-soft:#1C2A38;
+  --ok:#6FBF88; --crit:#E0776A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:400 17px/1.62 var(--f-body);-webkit-text-size-adjust:100%;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--sea);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--sea);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p{margin:0}
+.eu{font-style:italic}
+strong{font-weight:600}
+b.m{color:var(--iron);font-weight:600}
+s.bad{color:var(--crit);text-decoration-thickness:1.5px;font-style:italic}
+
+/* ── mast ── */
+.mast{max-width:1180px;margin:0 auto;padding-block:40px 28px;display:grid;gap:18px}
+.crumbs{font:500 12px/1.4 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs a:hover{color:var(--sea)}
+.mast h1{font:600 clamp(2.4rem, 6vw, 4rem)/1 var(--f-display);letter-spacing:-.01em}
+.mast h1 em{font:italic 400 1em/1 var(--f-body);color:var(--sea)}
+.mast .intro{max-width:62ch;font-size:1.12rem;color:var(--ink-2)}
+.strata{display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:0;max-width:760px;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden}
+.strata div{padding:10px 12px;font:500 12px/1.35 var(--f-ui);color:var(--ink-2);border-right:1px solid var(--line)}
+.strata div:last-child{border-right:0}
+.strata b{display:block;font:600 1.35rem/1.1 var(--f-display);color:var(--ink);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.strata div:nth-child(1){background:var(--sea-soft)} .strata div:nth-child(2){background:var(--iron-soft)}
+.strata div:nth-child(3){background:var(--gold-soft)} .strata div:nth-child(4){background:var(--blue-soft)}
+.mast-links{display:flex;flex-wrap:wrap;gap:8px 18px;font:500 14px/1.4 var(--f-ui)}
+
+/* ── layout ── */
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:0 48px}
+@media (min-width:1040px){ .wrap{grid-template-columns:220px minmax(0,1fr)} }
+.toc{font:500 14px/1.3 var(--f-ui);min-width:0}
+.toc-in{border-top:1px solid var(--line-strong);padding-block:14px}
+.toc-t{font:600 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;grid-template-columns:repeat(auto-fill, minmax(160px, 1fr))}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border-radius:var(--r);color:var(--ink-2);text-decoration:none}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.on{background:var(--sea-soft);color:var(--sea)}
+.toc-n{font:500 12px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.toc a.on .toc-n{color:var(--sea)}
+@media (min-width:1040px){
+  .toc-in{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 18px)}
+  .toc ol{grid-template-columns:1fr}
+}
+main{min-width:0;padding-bottom:64px}
+
+/* ── sections ── */
+.sec{border-top:1px solid var(--line-strong);padding-block:44px 20px;display:grid;gap:18px;scroll-margin-top:12px;grid-template-columns:minmax(0,1fr)}
+.sec > p, .sec > .list, .case-b > p, .case-b > .list{max-width:var(--measure)}
+.sec-h{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start}
+.sec-num{font:500 1.05rem/1 var(--f-mono);color:var(--iron);padding-top:.5rem;font-variant-numeric:tabular-nums}
+.sec-kat{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sec h2{font:600 clamp(1.6rem, 3.4vw, 2.2rem)/1.12 var(--f-display)}
+.lead{font-size:1.14rem;color:var(--ink-2);max-width:62ch}
+.sec h3{font:600 1.32rem/1.2 var(--f-display);margin-top:18px;scroll-margin-top:12px}
+.list{margin:0;padding-left:1.2em;display:grid;gap:8px}
+.list li::marker{color:var(--iron)}
+
+/* examples */
+.ex{border-left:3px solid var(--sea);padding:4px 0 4px 16px;display:grid;gap:2px;max-width:var(--measure)}
+.ex-eu{font:italic 400 1.22rem/1.35 var(--f-body);color:var(--ink)}
+.ex-es{font:400 15px/1.45 var(--f-ui);color:var(--muted)}
+.ex-n{font:400 14px/1.45 var(--f-ui);color:var(--ink-2);margin-top:4px}
+.exs{display:grid;border-top:1px solid var(--line);max-width:760px}
+.exr{display:grid;gap:2px 18px;padding:10px 0;border-bottom:1px solid var(--line)}
+@media (min-width:640px){ .exr{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:baseline} }
+.exr .ex-eu{font-size:1.1rem}
+.ex-tag{display:inline-block;margin-left:8px;font:500 12px/1.3 var(--f-ui);color:var(--sea);background:var(--sea-soft);padding:2px 7px;border-radius:999px}
+
+/* tables */
+.tbl{margin:0;max-width:100%;display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.tbl figcaption{font:600 12px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tbl-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font:400 15px/1.45 var(--f-ui)}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tbody tr:last-child th, tbody tr:last-child td{border-bottom:0}
+thead th{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+tbody th{font-weight:600;color:var(--ink)}
+td .eu, th .eu{font-family:var(--f-body);font-size:1.04em}
+.grid6 td{font-size:15px}
+.grid6 tbody th{background:var(--surface-2);white-space:nowrap}
+.grid6 td .eu{font-size:1.1em}
+
+/* notes */
+.note{border-radius:var(--r);padding:14px 16px;display:grid;gap:6px;max-width:var(--measure);background:var(--surface);border:1px solid var(--line)}
+.note p{font-size:16px}
+.note-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.note-k{font:700 11px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase}
+.note-t{font:600 1rem/1.3 var(--f-display)}
+.n-deep{background:var(--sea-soft);border-color:transparent} .n-deep .note-k{color:var(--sea)}
+.n-warn{background:var(--iron-soft);border-color:transparent} .n-warn .note-k{color:var(--iron)}
+.n-tip{background:var(--gold-soft);border-color:transparent} .n-tip .note-k{color:var(--gold)}
+.n-fix{background:var(--surface);border:1px dashed var(--blue)} .n-fix .note-k{color:var(--blue)}
+
+/* morpheme chips */
+.chips{margin:0;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.chips-row{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;width:max-content;max-width:100%}
+.chip{display:grid;gap:4px;padding:10px 14px;background:var(--iron-soft);border-right:1px solid var(--line-strong);min-width:0}
+.chip:last-child{border-right:0}
+.chip.root{background:var(--surface)}
+.chip-p{font:600 1.35rem/1 var(--f-mono);color:var(--iron)}
+.chip.root .chip-p{color:var(--ink)}
+.chip-l{font:500 11.5px/1.2 var(--f-ui);color:var(--ink-2)}
+@media (max-width:480px){ .chip{padding:8px 10px} .chip-p{font-size:1.15rem} }
+.chips figcaption, .svgfig figcaption{font:400 14.5px/1.5 var(--f-ui);color:var(--ink-2);max-width:var(--measure)}
+
+/* diagrams */
+.svgfig{margin:0;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.svg-scroll{overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);padding:12px}
+.dg{display:block;width:100%;min-width:540px;max-width:720px;height:auto;margin:0 auto}
+
+.dg .bx{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.dg .bx.sea{fill:var(--sea-soft);stroke:var(--sea)}
+.dg .bx.blue{fill:var(--blue-soft);stroke:var(--blue)}
+.dg .bx.plum{fill:var(--plum-soft);stroke:var(--plum)}
+.dg .bx.iron{fill:var(--iron-soft);stroke:var(--iron)}
+.dg .bx.muted{fill:var(--surface-2);stroke:var(--line-strong)}
+.dg .bx.q{fill:var(--surface-2);stroke:var(--line-strong)}
+.dg .bx.place{fill:var(--gold-soft);stroke:var(--gold)}
+.dg .tx{fill:var(--ink)}
+.dg .mu{fill:var(--muted)}
+.dg .lb.sea{fill:var(--sea)} .dg .lb.blue{fill:var(--blue)} .dg .lb.plum{fill:var(--plum)}
+.dg .lb.iron{fill:var(--iron)} .dg .lb.gold{fill:var(--gold)} .dg .lb.muted{fill:var(--muted)}
+.dg .ln.sea{stroke:var(--sea)} .dg .ln.blue{stroke:var(--blue)} .dg .ln.plum{stroke:var(--plum)}
+.dg .ln.iron{stroke:var(--iron)} .dg .ln.muted{stroke:var(--line-strong)}
+.dg .fl.sea{fill:var(--sea)} .dg .fl.iron{fill:var(--iron)} .dg .fl.gold{fill:var(--gold)}
+
+
+/* case index + cards */
+.caseindex{display:grid;grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:8px}
+.caseindex a{display:grid;gap:2px;padding:9px 11px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.caseindex a:hover{border-color:var(--sea);background:var(--sea-soft)}
+.caseindex span{font:600 13.5px/1.2 var(--f-ui);letter-spacing:.03em}
+.caseindex small{font:400 12.5px/1.3 var(--f-ui);color:var(--muted)}
+.case{background:var(--surface);border:1px solid var(--line-strong);border-top:4px solid var(--sea);border-radius:var(--r);padding:18px clamp(14px, 3vw, 24px) 20px;display:grid;gap:14px;scroll-margin-top:12px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.case-h{display:grid;gap:2px}
+.case h4{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.case-n{font:700 1.5rem/1.1 var(--f-display);letter-spacing:.02em}
+.case-s{font:italic 400 1.05rem/1.2 var(--f-body);color:var(--muted)}
+.case-q{font:500 14.5px/1.4 var(--f-ui);color:var(--sea)}
+.forms{margin:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.forms div{padding:9px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ground);min-width:0}
+.forms dt{font:600 11px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.forms dd{margin:0;font:italic 400 1.02rem/1.35 var(--f-body);overflow-wrap:anywhere}
+.forms-note{font:400 13px/1.4 var(--f-ui);color:var(--muted)}
+.case-b{display:grid;gap:14px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.case .note{background-clip:padding-box}
+.case .n-fix{background:var(--ground)}
+.case .tbl-scroll{background:var(--ground)}
+
+/* quiz */
+.quiz{margin-top:14px;border-top:2px solid var(--ink);padding-top:14px;display:grid;gap:10px;max-width:780px;grid-template-columns:minmax(0,1fr)}
+.quiz-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.quiz h3{margin:0;font:600 1.2rem/1.2 var(--f-display)}
+.quiz-all{font:600 13px/1 var(--f-ui);color:var(--sea);background:transparent;border:1px solid var(--sea);border-radius:999px;padding:8px 14px;cursor:pointer}
+.quiz-all:hover{background:var(--sea-soft)}
+.quiz-all[aria-pressed="true"]{background:var(--sea);color:var(--surface)}
+.quiz ol{margin:0;padding:0;list-style:none;counter-reset:q;display:grid;gap:0}
+.quiz li{counter-increment:q;border-bottom:1px solid var(--line)}
+.quiz summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:8px;padding:11px 0;font:400 16px/1.45 var(--f-body)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:counter(q, decimal-leading-zero);font:500 12px/1.9 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.quiz summary::after{content:"Ver";font:600 12px/1.9 var(--f-ui);color:var(--sea);letter-spacing:.04em}
+.quiz details[open] summary::after{content:"Ocultar"}
+.ans{margin:0 0 12px 2.2em;padding:8px 12px;border-left:3px solid var(--ok);background:var(--surface);font:400 15.5px/1.5 var(--f-body);border-radius:0 var(--r) var(--r) 0}
+
+/* errors */
+.errors td{font-size:15.5px}
+.errors td:nth-child(1), .errors td:nth-child(2){font-family:var(--f-body);font-size:1.02rem;white-space:nowrap}
+.errors .ok{color:var(--ok);font-weight:600}
+.errors td:nth-child(3){min-width:200px}
+
+footer{max-width:1180px;margin:0 auto;border-top:1px solid var(--line-strong);padding-block:22px 40px;font:400 13.5px/1.5 var(--f-ui);color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+footer a{color:var(--ink-2)}
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+
+
+:root{--pen:#1D4F91;--rose:#9C3D6B;--rose-soft:#F2DDE7;--teal:#1E6E7A;--teal-soft:#D7ECEE}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--pen:#94BCF0;--rose:#E58FB8;--rose-soft:#3A2230;--teal:#6CC3CF;--teal-soft:#18333A} }
+:root[data-theme="dark"]{--pen:#94BCF0;--rose:#E58FB8;--rose-soft:#3A2230;--teal:#6CC3CF;--teal-soft:#18333A}
+
+.dg .bx.rose{fill:var(--rose-soft);stroke:var(--rose)}
+.dg .lb.rose{fill:var(--rose)} .dg .ln.rose{stroke:var(--rose)}
+.dg .bx.muted{fill:var(--surface-2);stroke:var(--line-strong)}
+.dg .lb.sea{fill:var(--sea)} .dg .ln.sea{stroke:var(--sea)} .dg .lb.muted{fill:var(--muted)}
+
+.sec h2.qh{font:600 clamp(1.7rem, 4vw, 2.5rem)/1.08 var(--f-display)}
+.qsub{font:400 1.08rem/1.4 var(--f-ui);color:var(--muted);margin-top:8px}
+.toc-eu{font-style:italic}
+
+/* análisis de la pregunta */
+.gloss{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
+.gloss-row{display:flex;flex-wrap:wrap;gap:8px}
+.gw{display:grid;gap:3px;align-content:start;padding:10px 13px 10px;border:1px solid var(--line-strong);border-top:3px solid var(--c);border-radius:var(--r);background:var(--surface);min-width:0;max-width:100%}
+.gw-w{font:italic 600 1.32rem/1.1 var(--f-body);color:var(--ink)}
+.gw-l{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.gw-m{font:400 12.5px/1.3 var(--f-ui);color:var(--muted)}
+.c-nor{--c:var(--sea)} .c-nork{--c:var(--plum)} .c-noren{--c:var(--blue)} .c-non{--c:var(--gold)}
+.c-verb{--c:var(--iron)} .c-q{--c:var(--ink-2)} .c-det{--c:var(--muted)}
+.c-nori{--c:var(--rose)} .c-norekin{--c:var(--teal)}
+
+/* plantilla */
+.tpl{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:12px 16px;border:1px dashed var(--line-strong);border-radius:var(--r);background:var(--surface);max-width:var(--measure)}
+.tpl-k{font:700 11px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tpl-t{font:400 1.14rem/1.6 var(--f-body)}
+.blank{display:inline-block;width:4.2em;border-bottom:2px solid var(--iron);margin:0 .2em;vertical-align:baseline}
+
+/* matriz 3 × 2 */
+.mx{display:grid;grid-template-columns:7.4rem minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);overflow:hidden;max-width:960px}
+.mx-h{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:9px 14px;border-bottom:1px solid var(--line-strong)}
+.mx-h + .mx-h{border-left:1px solid var(--line)}
+.mx-r{display:flex;align-items:flex-start;gap:8px;font:600 13.5px/1.3 var(--f-ui);padding:14px;border-bottom:1px solid var(--line);background:var(--ground);color:var(--ink)}
+.mx-r::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;margin-top:5px;background:var(--rc)}
+.r-aff{--rc:var(--sea)} .r-neg{--rc:var(--iron)} .r-q{--rc:var(--blue)}
+.mx-c{padding:13px 15px;border-bottom:1px solid var(--line);border-left:1px solid var(--line);display:grid;gap:12px;align-content:start;min-width:0}
+.mx > :nth-last-child(-n+3){border-bottom:0}
+.mi{display:grid;gap:2px;min-width:0}
+.mi-eu{font:italic 400 1.1rem/1.38 var(--f-body);color:var(--ink)}
+.mi-es{font:400 14px/1.4 var(--f-ui);color:var(--muted)}
+.mi-n{font:500 12.5px/1.35 var(--f-ui);color:var(--sea);margin-top:2px}
+.mx-tag{display:none}
+@media (max-width:700px){
+  .mx{grid-template-columns:minmax(0,1fr)}
+  .mx-h{display:none}
+  .mx-r{display:none}
+  .mx-c{border-left:0;border-bottom:1px solid var(--line)}
+  .mx > :nth-last-child(-n+3){border-bottom:1px solid var(--line)}
+  .mx > :last-child{border-bottom:0}
+  .mx-tag{display:flex;align-items:center;gap:7px;font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .mx-tag::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--rc)}
+}
+
+/* ficha resuelta */
+.sheet{margin:0;background:var(--surface);border:1.5px solid var(--ink);padding:24px clamp(16px, 4vw, 40px) 28px;display:grid;gap:16px;max-width:780px;box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.sheet-t{font:700 1.45rem/1 var(--f-ui);text-align:center;letter-spacing:.03em;margin-bottom:4px}
+.sheet-item{display:grid;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.sheet-item:last-child{border-bottom:0;padding-bottom:0}
+.sheet-q{font:700 13px/1.35 var(--f-ui);text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
+.sheet-a{font:500 1.6rem/1.32 "Caveat", "Segoe Print", "Bradley Hand", "Comic Neue", cursive;color:var(--pen)}
+.sheet-es summary{cursor:pointer;font:500 12.5px/1.4 var(--f-ui);color:var(--muted);width:max-content}
+.sheet-es p{font:400 14px/1.5 var(--f-ui);color:var(--ink-2);margin-top:4px}
+.quiz + .quiz{margin-top:26px}
+/* casos uno a uno */
+.case{border-top-color:var(--c, var(--sea))}
+.case .case-q{color:var(--c, var(--sea))}
+.case-lead{font-size:1.06rem;line-height:1.6;max-width:var(--measure)}
+.case-sub{font:700 11.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.case .exs{max-width:100%}
+.case .quiz{margin-top:6px}
+.caseindex a{border-left:3px solid var(--c, var(--line-strong))}
+.case .list{max-width:var(--measure)}
+
+
+</style>
+</head>
+<body>
+<header class="mast">
+  <nav class="crumbs" aria-label="Ruta"><a href="index.html">Euskara Armairua</a><span aria-hidden="true">/</span><a href="index.html#kasuak">Fichas A1</a><span aria-hidden="true">/</span><span>Nor naiz?</span></nav>
+  <h1>Nor <em>naiz?</em></h1>
+  <p class="intro">Las ocho preguntas de la ficha para presentarte: qué casos pide cada una, con NOREKIN y NOR-NORI como novedad, y cómo responderla en singular y plural, afirmativa, negativa y pregunta.</p>
+  <div class="strata" aria-label="Contenido">
+    <div><b>8</b>preguntas de la ficha</div>
+    <div><b>2</b>casos nuevos: NOREKIN y NORI</div>
+    <div><b>4</b>verbos: izan, bizi izan, eduki, gustatu</div>
+    <div><b>6</b>formas de cada respuesta</div>
+  </div>
+  <p class="mast-links"><a href="nire-herria.html">Ficha anterior: Nire herria</a><a href="gramatika-sakonean.html">Gramatika sakonean</a><a href="gramatika.html">Buscador de gramática</a></p>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Índice"><div class="toc-in"><p class="toc-t">Índice</p><ol><li><a href="#kasuak" data-sec="kasuak"><span class="toc-n">A</span><span>Casos y verbos</span></a></li><li><a href="#kasuz-kasu" data-sec="kasuz-kasu"><span class="toc-n">B</span><span>Casos a fondo</span></a></li><li><a href="#p1" data-sec="p1"><span class="toc-n">01</span><span lang="eu" class="toc-eu">Zein da nire izena</span></a></li><li><a href="#p2" data-sec="p2"><span class="toc-n">02</span><span lang="eu" class="toc-eu">Nongoa naiz</span></a></li><li><a href="#p3" data-sec="p3"><span class="toc-n">03</span><span lang="eu" class="toc-eu">Non bizi naiz</span></a></li><li><a href="#p4" data-sec="p4"><span class="toc-n">04</span><span lang="eu" class="toc-eu">Zenbat urte</span></a></li><li><a href="#p5" data-sec="p5"><span class="toc-n">05</span><span lang="eu" class="toc-eu">Norekin bizi naiz</span></a></li><li><a href="#p6" data-sec="p6"><span class="toc-n">06</span><span lang="eu" class="toc-eu">Nolakoa naiz</span></a></li><li><a href="#p7" data-sec="p7"><span class="toc-n">07</span><span lang="eu" class="toc-eu">Zer gustatzen zait</span></a></li><li><a href="#p8" data-sec="p8"><span class="toc-n">08</span><span lang="eu" class="toc-eu">Zer ez zait</span></a></li><li><a href="#fitxa" data-sec="fitxa"><span class="toc-n">C</span><span>Ficha resuelta</span></a></li><li><a href="#ariketak" data-sec="ariketak"><span class="toc-n">D</span><span>Pruébate</span></a></li></ol></div></nav>
+  <main>
+
+<section class="sec" id="kasuak" aria-labelledby="kasuak-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">A</span>
+    <div>
+      <p class="sec-kat">Antes de responder</p>
+      <h2 id="kasuak-h">Los casos y verbos de la ficha</h2>
+      
+    </div>
+  </header>
+  <p class="lead">La ficha <i class="eu">Nor naiz?</i> habla de ti, así que casi todas las respuestas van en primera persona (<i class="eu">ni</i>). Repite casos que ya viste en <i class="eu">Nire herria</i> (NOR, NOREN, NON, NONGO, mugagabe) y añade dos nuevos: NOREKIN y NORI, con su auxiliar NOR-NORI (<i class="eu">zait</i>).</p>
+  <aside class="note n-tip"><p class="note-h"><span class="note-k">Persona modelo</span><span class="note-t">Ane</span></p><p>Los ejemplos hablan de <i class="eu">Ane</i>, una persona inventada: es de Zubialde (el pueblo de la ficha anterior), vive en Donostia con su pareja y su gato, tiene 34 años y le gusta leer e ir al monte. Cambia los datos por los tuyos; las estructuras sirven igual.</p></aside>
+<h3>Las ocho preguntas de un vistazo</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Pregunta</th><th scope="col">En castellano</th><th scope="col">Verbo</th><th scope="col">Casos clave</th></tr></thead><tbody><tr><th scope="row"><i class="eu">1 · Zein da nire izena?</i></th><td>¿Cómo me llamo?</td><td><i class="eu">izan</i> · <i class="eu">da</i></td><td>NOR · NOREN</td></tr><tr><th scope="row"><i class="eu">2 · Nongoa naiz?</i></th><td>¿De dónde soy?</td><td><i class="eu">izan</i> · <i class="eu">naiz</i></td><td>NONGO + <i class="eu">-a</i></td></tr><tr><th scope="row"><i class="eu">3 · Non bizi naiz?</i></th><td>¿Dónde vivo?</td><td><i class="eu">bizi izan</i> · <i class="eu">naiz</i></td><td>NON · NOR</td></tr><tr><th scope="row"><i class="eu">4 · Zenbat urte dauzkat?</i></th><td>¿Cuántos años tengo?</td><td><i class="eu">eduki</i> · <i class="eu">dauzkat</i></td><td>mugagabe · NOR · NORK implícito</td></tr><tr><th scope="row"><i class="eu">5 · Norekin bizi naiz?</i></th><td>¿Con quién vivo?</td><td><i class="eu">bizi izan</i> · <i class="eu">naiz</i></td><td><strong>NOREKIN</strong> (nuevo)</td></tr><tr><th scope="row"><i class="eu">6 · Nolakoa naiz?</i></th><td>¿Cómo soy?</td><td><i class="eu">izan</i> · <i class="eu">naiz</i></td><td>NOR + adjetivo · <i class="eu">oso</i>, <i class="eu">nahiko</i>, <i class="eu">batere</i></td></tr><tr><th scope="row"><i class="eu">7 · Zer gustatzen zait?</i></th><td>¿Qué me gusta?</td><td><i class="eu">gustatu</i> · <i class="eu">zait</i></td><td><strong>NOR-NORI</strong> (nuevo) · NORI</td></tr><tr><th scope="row"><i class="eu">8 · Zer ez zait gustatzen?</i></th><td>¿Qué no me gusta?</td><td><i class="eu">gustatu</i> · <i class="eu">ez zait</i></td><td>NOR-NORI en negativa</td></tr></tbody></table></div></figure>
+<p>En <i class="eu">Nire herria</i> el verbo principal era <i class="eu">egon</i> (<i class="eu">dago</i>). Aquí lo son <i class="eu">izan</i> (<i class="eu">naiz</i>), para decir quién eres, y <i class="eu">gustatu</i> (<i class="eu">zait</i>), para decir qué te gusta.</p>
+<h3>Los casos que aparecen</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Caso</th><th scope="col">Pregunta</th><th scope="col">En la ficha</th><th scope="col">En tus respuestas</th><th scope="col">Visto en</th></tr></thead><tbody><tr><th scope="row"><strong>NOR</strong> · absolutivo</th><td><i class="eu">zer? nor?</i></td><td><i class="eu">izena</i>, <i class="eu">ni</i>, <i class="eu">urte</i>, <i class="eu">zer</i></td><td><i class="eu">Ni Ane naiz.</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>NORK</strong> · ergativo</th><td><i class="eu">nork?</i></td><td>escondido en <i class="eu">dauzkat</i> (<i class="eu">nik</i>)</td><td><i class="eu">Nire amak 60 urte dauzka.</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>NOREN</strong> · genitivo</th><td><i class="eu">noren?</i></td><td><i class="eu">nire</i> (pregunta 1)</td><td><i class="eu">Nire izena Ane da.</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>NON</strong> · inesivo</th><td><i class="eu">non?</i></td><td>respuesta de la 3</td><td><i class="eu">Donostian bizi naiz.</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>NONGO</strong> · genitivo locativo</th><td><i class="eu">nongo?</i></td><td><i class="eu">nongoa</i> (pregunta 2)</td><td><i class="eu">Zubialdekoa naiz.</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>Mugagabe</strong></th><td>—</td><td><i class="eu">zenbat urte</i> (4)</td><td><i class="eu">hogeita hamalau urte</i></td><td><i class="eu">Nire herria</i></td></tr><tr><th scope="row"><strong>NOREKIN</strong> · soziativo</th><td><i class="eu">norekin?</i></td><td><i class="eu">norekin</i> (pregunta 5)</td><td><i class="eu">Nire bikotearekin bizi naiz.</i></td><td>nuevo</td></tr><tr><th scope="row"><strong>NORI</strong> · dativo</th><td><i class="eu">nori?</i></td><td>escondido en <i class="eu">zait</i> (7 y 8)</td><td><i class="eu">Niri irakurtzea gustatzen zait.</i></td><td>nuevo</td></tr></tbody></table></div></figure>
+<p>Cada caso está explicado a fondo en la sección B, <i class="eu">Los casos, uno a uno</i>. Los dos nuevos tienen ficha completa; los ya vistos, un repaso de cómo funcionan en esta ficha.</p>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">dos casos nuevos y un auxiliar nuevo</span></p><p>NOREKIN y NORI son casos, como NON o NOREN. NOR-NORI no es un caso: es la familia del auxiliar que aparece cuando en la frase hay un NOR y un NORI. Con <i class="eu">gustatu</i>, lo que gusta es NOR y la persona a la que le gusta es NORI: <i class="eu">(Niri) liburuak gustatzen zaizkit</i>. Es la segunda de las cuatro familias del árbol de auxiliares: <i class="eu">naiz</i> (NOR), <i class="eu">zait</i> (NOR-NORI), <i class="eu">dut</i> (NOR-NORK) y <i class="eu">diot</i> (NOR-NORI-NORK).</p></aside>
+<h3>Los cuatro verbos</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Verbo</th><th scope="col">Para qué</th><th scope="col">Yo (ni)</th><th scope="col">Nosotros (gu)</th><th scope="col">Preguntas</th></tr></thead><tbody><tr><th scope="row"><i class="eu">izan</i></th><td>nombre, origen, carácter</td><td><i class="eu">naiz</i></td><td><i class="eu">gara</i></td><td>1 · 2 · 6</td></tr><tr><th scope="row"><i class="eu">bizi izan</i></th><td>vivir</td><td><i class="eu">bizi naiz</i></td><td><i class="eu">bizi gara</i></td><td>3 · 5</td></tr><tr><th scope="row"><i class="eu">eduki</i> (o <i class="eu">ukan</i>)</th><td>tener (años)</td><td><i class="eu">dauzkat</i> (<i class="eu">ditut</i>)</td><td><i class="eu">dauzkagu</i> (<i class="eu">ditugu</i>)</td><td>4</td></tr><tr><th scope="row"><i class="eu">gustatu</i></th><td>gustar (NOR-NORI)</td><td><i class="eu">zait</i> / <i class="eu">zaizkit</i></td><td><i class="eu">zaigu</i> / <i class="eu">zaizkigu</i></td><td>7 · 8</td></tr></tbody></table></div></figure>
+<h3>Las tres transformaciones, con personas</h3>
+<p>En esta ficha el singular es <i class="eu">ni</i> (yo) y el plural es <i class="eu">gu</i> (nosotros). Las preguntas se hacen a otra persona: <i class="eu">zu</i> (tú) o <i class="eu">zuek</i> (vosotros). Una misma frase en sus seis formas:</p>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoa naiz.</p><p class="mi-es">Soy de Zubialde.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoak gara.</p><p class="mi-es">Somos de Zubialde.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez naiz Zubialdekoa.</p><p class="mi-es">No soy de Zubialde.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez gara Zubialdekoak.</p><p class="mi-es">No somos de Zubialde.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoa al zara?</p><p class="mi-es">¿Eres de Zubialde?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoak al zarete?</p><p class="mi-es">¿Sois de Zubialde?</p></div></div></div>
+<ul class="list"><li><strong>A plural (ni → gu):</strong> <i class="eu">naiz</i> → <i class="eu">gara</i>; el atributo <i class="eu">-a</i> → <i class="eu">-ak</i>; <i class="eu">nire</i> → <i class="eu">gure</i>; <i class="eu">dauzkat</i> → <i class="eu">dauzkagu</i>; <i class="eu">zait</i> → <i class="eu">zaigu</i>.</li><li><strong>A pregunta (zu, zuek):</strong> <i class="eu">naiz</i> → <i class="eu">zara</i> / <i class="eu">zarete</i>; <i class="eu">nire</i> → <i class="eu">zure</i> / <i class="eu">zuen</i>; <i class="eu">dauzkat</i> → <i class="eu">dauzkazu</i> / <i class="eu">dauzkazue</i>; <i class="eu">zait</i> → <i class="eu">zaizu</i> / <i class="eu">zaizue</i>.</li><li><strong>A negativa:</strong> <i class="eu">ez</i> y el verbo conjugado van delante: <i class="eu">Ez naiz Bilbokoa</i>. Si el verbo es compuesto, el resto se queda detrás: <i class="eu">Ez naiz Donostian bizi</i>, <i class="eu">Ez zait gustatzen</i>.</li><li><strong>Pregunta de sí o no:</strong> <i class="eu">al</i> justo delante del verbo conjugado: <i class="eu">Donostian bizi al zara?</i>, <i class="eu">Kafea gustatzen al zaizu?</i> Pregunta abierta: interrogativo y verbo juntos: <i class="eu">Non bizi zara?</i></li></ul>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">zure o zuen</span></p><p><i class="eu">zure</i> es «tu» y <i class="eu">zuen</i> es «vuestro»: <i class="eu">Zein da zure izena?</i> (a una persona), <i class="eu">Zeintzuk dira zuen izenak?</i> (a varias).</p></aside>
+</section>
+
+<section class="sec" id="kasuz-kasu" aria-labelledby="kasuz-kasu-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">B</span>
+    <div>
+      <p class="sec-kat">Antes de responder</p>
+      <h2 id="kasuz-kasu-h">Los casos, uno a uno</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Primero los dos casos nuevos de esta ficha, NOREKIN y NORI (con su auxiliar NOR-NORI), con ficha completa. Después, un repaso de los casos ya vistos en <i class="eu">Nire herria</i>, centrado en cómo aparecen aquí. Como esta ficha habla de personas, las formas se muestran con pronombres y con <i class="eu">lagun</i> (amigo/a).</p>
+  <h3>Una persona en todos los casos</h3>
+<p>Así cambian <i class="eu">ni</i>, <i class="eu">zu</i> y <i class="eu">gu</i> en los casos de esta ficha. Te servirán en casi todas las respuestas.</p>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Caso</th><th scope="col">ni · yo</th><th scope="col">zu · tú</th><th scope="col">gu · nosotros</th><th scope="col">En la ficha</th></tr></thead><tbody><tr><th scope="row"><strong>NOR</strong></th><td><i class="eu">ni</i></td><td><i class="eu">zu</i></td><td><i class="eu">gu</i></td><td><i class="eu">Ni Ane naiz.</i></td></tr><tr><th scope="row"><strong>NORK</strong></th><td><i class="eu">nik</i></td><td><i class="eu">zuk</i></td><td><i class="eu">guk</i></td><td><i class="eu">Nik 34 urte dauzkat.</i></td></tr><tr><th scope="row"><strong>NORI</strong></th><td><i class="eu">niri</i></td><td><i class="eu">zuri</i></td><td><i class="eu">guri</i></td><td><i class="eu">Niri irakurtzea gustatzen zait.</i></td></tr><tr><th scope="row"><strong>NOREN</strong></th><td><i class="eu">nire</i></td><td><i class="eu">zure</i></td><td><i class="eu">gure</i></td><td><i class="eu">Nire izena Ane da.</i></td></tr><tr><th scope="row"><strong>NOREKIN</strong></th><td><i class="eu">nirekin</i></td><td><i class="eu">zurekin</i></td><td><i class="eu">gurekin</i></td><td><i class="eu">Jon nirekin bizi da.</i></td></tr></tbody></table></div></figure>
+<h3>lagun en los mismos casos</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Caso</th><th scope="col">Singular</th><th scope="col">Plural</th><th scope="col">Ejemplo</th></tr></thead><tbody><tr><th scope="row"><strong>NOR</strong></th><td><i class="eu">laguna</i></td><td><i class="eu">lagunak</i></td><td><i class="eu">Nire laguna oso jatorra da.</i></td></tr><tr><th scope="row"><strong>NORK</strong></th><td><i class="eu">lagunak</i></td><td><i class="eu">lagunek</i></td><td><i class="eu">Nire lagunak hogeita hamar urte dauzka.</i></td></tr><tr><th scope="row"><strong>NORI</strong></th><td><i class="eu">lagunari</i></td><td><i class="eu">lagunei</i></td><td><i class="eu">Nire lagunari futbola gustatzen zaio.</i></td></tr><tr><th scope="row"><strong>NOREN</strong></th><td><i class="eu">lagunaren</i></td><td><i class="eu">lagunen</i></td><td><i class="eu">Nire lagunaren izena Jon da.</i></td></tr><tr><th scope="row"><strong>NOREKIN</strong></th><td><i class="eu">lagunarekin</i></td><td><i class="eu">lagunekin</i></td><td><i class="eu">Lagunekin bizi naiz.</i></td></tr></tbody></table></div></figure>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">NOREKIN sale de NOREN</span></p><p>Quita la <i class="eu">-n</i> final del genitivo y añade <i class="eu">-kin</i>: <i class="eu">nire</i> → <i class="eu">nirekin</i>, <i class="eu">haren</i> → <i class="eu">harekin</i>, <i class="eu">lagunaren</i> → <i class="eu">lagunarekin</i>, <i class="eu">lagunen</i> → <i class="eu">lagunekin</i>. Si sabes NOREN, ya sabes NOREKIN.</p></aside>
+<nav class="caseindex" aria-label="Casos"><a href="#k-norekin" class="c-norekin"><span>NOREKIN</span><small>¿con quién? ¿con qué?</small></a><a href="#k-nori" class="c-nori"><span>NORI</span><small>¿a quién? · a quien le gusta</small></a><a href="#k-nor" class="c-nor"><span>NOR</span><small>¿quién? ¿qué?</small></a><a href="#k-nork" class="c-nork"><span>NORK</span><small>¿quién? · el que tiene</small></a><a href="#k-noren" class="c-noren"><span>NOREN</span><small>¿de quién? · mi, tu, nuestro</small></a><a href="#k-non" class="c-non"><span>NON</span><small>¿dónde?</small></a><a href="#k-nongo" class="c-non"><span>NONGO</span><small>¿de dónde (es)?</small></a><a href="#k-mugagabe" class="c-det"><span>MUGAGABE</span><small>tras números y zenbat</small></a></nav>
+<article class="case c-norekin" id="k-norekin"><header class="case-h"><h4><span class="case-n">NOREKIN</span><span class="case-s">soziativo · nuevo</span></h4><p class="case-q">¿con quién? ¿con qué?</p></header><p class="case-lead">Es el caso de la compañía: con quién estás, vives o haces algo, y también lo que acompaña a algo. En la ficha aparece en la pregunta 5 (<i class="eu">Norekin bizi naiz?</i>). No estaba en <i class="eu">Nire herria</i>.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">lagun</i> · amigo/a</th><td><i class="eu">lagunekin</i></td><td><i class="eu">lagunarekin</i></td><td><i class="eu">lagunekin</i></td></tr><tr><th scope="row"><i class="eu">ama</i> · madre</th><td><i class="eu">amarekin</i></td><td><i class="eu">amarekin</i></td><td><i class="eu">amekin</i></td></tr><tr><th scope="row"><i class="eu">bikote</i> · pareja</th><td><i class="eu">bikoterekin</i></td><td><i class="eu">bikotearekin</i></td><td><i class="eu">bikoteekin</i></td></tr><tr><th scope="row"><i class="eu">guraso</i> · padre o madre</th><td><i class="eu">gurasorekin</i></td><td><i class="eu">gurasoarekin</i></td><td><i class="eu">gurasoekin</i></td></tr><tr><th scope="row">pronombres</th><td>—</td><td><i class="eu">nirekin, zurekin, harekin</i></td><td><i class="eu">gurekin, zuekin, haiekin</i></td></tr></tbody></table></div></figure>
+<p>Las formas: singular <i class="eu">-arekin</i>, plural <i class="eu">-ekin</i>, mugagabe <i class="eu">-(r)ekin</i>. Como todos los casos, se pega a la última palabra del grupo: <i class="eu">nire bikotearekin</i>, <i class="eu">gure katu txikiarekin</i>.</p>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire bikotearekin bizi naiz.</p><p class="ex-es">Vivo con mi pareja.<span class="ex-tag">pregunta 5</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Ez naiz gurasoekin bizi.</p><p class="ex-es">No vivo con mis padres.<span class="ex-tag">plural: <i class="eu">-ekin</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Lagunekin mendira joatea gustatzen zait.</p><p class="ex-es">Me gusta ir al monte con amigos.<span class="ex-tag">pregunta 7</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Kafea esnearekin hartzen dut.</p><p class="ex-es">Tomo el café con leche.<span class="ex-tag">lo que acompaña</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Nire bikotea bizi naiz</s> → <i class="eu">Nire bikotearekin bizi naiz</i>. «Con mis padres» es plural: <i class="eu">gurasoekin</i>, no <s class="bad">gurasoarekin</s> (con mi padre o con mi madre). «Solo/a» no es un caso: <i class="eu">Bakarrik bizi naiz</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el transporte no va con -rekin</span></p><p>Para el medio de transporte se usa el instrumental <i class="eu">-z</i>: <i class="eu">Autobusez etortzen naiz</i> (vengo en autobús). <i class="eu">-rekin</i> solo si es uno concreto: <i class="eu">Amaren autoarekin etorri naiz</i> (he venido con el coche de mi madre).</p></aside>
+<section class="quiz" aria-labelledby="q1-h"><div class="quiz-top"><h3 id="q1-h">Pruébate</h3><button type="button" class="quiz-all" id="q1-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q1-0"><summary>«Vivo con mi madre.»</summary><div class="ans"><i class="eu">Amarekin bizi naiz.</i></div></details></li><li><details id="q1-1"><summary>«¿Vives con tus amigos?»</summary><div class="ans"><i class="eu">Zure lagunekin bizi al zara?</i></div></details></li><li><details id="q1-2"><summary>«conmigo · contigo · con nosotros»</summary><div class="ans"><i class="eu">nirekin · zurekin · gurekin</i></div></details></li></ol></section></div></article>
+<article class="case c-nori" id="k-nori"><header class="case-h"><h4><span class="case-n">NORI</span><span class="case-s">dativo · nuevo</span></h4><p class="case-q">¿a quién? · a quien le gusta</p></header><p class="case-lead">Marca a la persona a la que le pasa o le llega algo. En la ficha está escondido en <i class="eu">zait</i> (preguntas 7 y 8): con <i class="eu">gustatu</i>, lo que gusta es NOR y la persona a la que le gusta es NORI (<i class="eu">niri</i>). Cuando una frase tiene NOR y NORI, el auxiliar es de la familia NOR-NORI.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">lagun</i></th><td><i class="eu">laguni</i></td><td><i class="eu">lagunari</i></td><td><i class="eu">lagunei</i></td></tr><tr><th scope="row"><i class="eu">ama</i></th><td><i class="eu">amari</i></td><td><i class="eu">amari</i></td><td><i class="eu">amei</i></td></tr><tr><th scope="row"><i class="eu">guraso</i></th><td><i class="eu">gurasori</i></td><td><i class="eu">gurasoari</i></td><td><i class="eu">gurasoei</i></td></tr><tr><th scope="row">pronombres</th><td>—</td><td><i class="eu">niri, zuri, hari</i></td><td><i class="eu">guri, zuei, haiei</i></td></tr></tbody></table></div></figure>
+<p class="case-sub">NOR-NORI: el auxiliar de gustatu</p>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">A quién (NORI)</th><th scope="col">Una cosa</th><th scope="col">Varias cosas</th></tr></thead><tbody><tr><th scope="row"><i class="eu">niri</i></th><td><i class="eu">zait</i></td><td><i class="eu">zaizkit</i></td></tr><tr><th scope="row"><i class="eu">zuri</i></th><td><i class="eu">zaizu</i></td><td><i class="eu">zaizkizu</i></td></tr><tr><th scope="row"><i class="eu">hari</i></th><td><i class="eu">zaio</i></td><td><i class="eu">zaizkio</i></td></tr><tr><th scope="row"><i class="eu">guri</i></th><td><i class="eu">zaigu</i></td><td><i class="eu">zaizkigu</i></td></tr><tr><th scope="row"><i class="eu">zuei</i></th><td><i class="eu">zaizue</i></td><td><i class="eu">zaizkizue</i></td></tr><tr><th scope="row"><i class="eu">haiei</i></th><td><i class="eu">zaie</i></td><td><i class="eu">zaizkie</i></td></tr></tbody></table></div></figure>
+<p>Dos decisiones independientes. A quién (NORI) cambia el final: <i class="eu">-t, -zu, -o, -gu, -zue, -e</i>. Cuántas cosas (NOR) decide entre <i class="eu">-i-</i> y <i class="eu">-izki-</i>.</p>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Irakurtzea gustatzen zait.</p><p class="ex-es">Me gusta leer.<span class="ex-tag">pregunta 7</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Liburuak gustatzen zaizkit.</p><p class="ex-es">Me gustan los libros.<span class="ex-tag">NOR plural → <i class="eu">zaizkit</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire amari futbola gustatzen zaio.</p><p class="ex-es">A mi madre le gusta el fútbol.<span class="ex-tag"><i class="eu">amari</i> → <i class="eu">zaio</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Eltxoak ez zaizkigu gustatzen.</p><p class="ex-es">No nos gustan los mosquitos.<span class="ex-tag">pregunta 8</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">NORI, no NORK</span></p><p><s class="bad">Nik irakurtzea gustatzen zait</s> → <i class="eu">Niri irakurtzea gustatzen zait</i>, o sin pronombre: <i class="eu">Irakurtzea gustatzen zait</i>. Con <i class="eu">gustatu</i> la persona no hace nada: le gusta. Por eso va en NORI y nunca lleva <i class="eu">-k</i>.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">el número lo manda lo que gusta</span></p><p><s class="bad">Liburuak gustatzen zait</s> → <i class="eu">zaizkit</i>. <s class="bad">Guri futbola gustatzen zaizkigu</s> → <i class="eu">zaigu</i>: el fútbol es uno, aunque seáis varios.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">otros verbos NOR-NORI</span></p><p>Siguen el mismo esquema que <i class="eu">gustatu</i>: <i class="eu">iruditu</i> (parecer: <i class="eu">Ondo iruditzen zait</i>, me parece bien), <i class="eu">ahaztu</i> (olvidarse: <i class="eu">Ahaztu zait</i>, se me ha olvidado) y <i class="eu">gertatu</i> (pasar: <i class="eu">Zer gertatu zaizu?</i>, ¿qué te ha pasado?).</p></aside>
+<section class="quiz" aria-labelledby="q2-h"><div class="quiz-top"><h3 id="q2-h">Pruébate</h3><button type="button" class="quiz-all" id="q2-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q2-0"><summary>«Me gustan los gatos.»</summary><div class="ans"><i class="eu">Katuak gustatzen zaizkit.</i></div></details></li><li><details id="q2-1"><summary>«¿Te gusta el café?»</summary><div class="ans"><i class="eu">Kafea gustatzen al zaizu?</i></div></details></li><li><details id="q2-2"><summary>«A mi padre no le gusta madrugar.»</summary><div class="ans"><i class="eu">Nire aitari ez zaio gustatzen goiz jaikitzea.</i></div></details></li></ol></section></div></article>
+<article class="case c-nor" id="k-nor"><header class="case-h"><h4><span class="case-n">NOR</span><span class="case-s">absolutivo · repaso</span></h4><p class="case-q">¿quién? ¿qué?</p></header><p class="case-lead">Ya visto en <i class="eu">Nire herria</i>. Aquí NOR es <i class="eu">ni</i>, el sujeto de <i class="eu">naiz</i> (preguntas 1, 2, 3, 5 y 6); lo que se tiene, <i class="eu">urte</i> (pregunta 4); y lo que gusta (preguntas 7 y 8). Como siempre, no lleva sufijo.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Ni Ane naiz.</p><p class="ex-es">Yo soy Ane.<span class="ex-tag">sujeto de <i class="eu">izan</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Hogeita hamalau urte dauzkat.</p><p class="ex-es">Tengo treinta y cuatro años.<span class="ex-tag">lo que se tiene</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Irakurtzea gustatzen zait.</p><p class="ex-es">Me gusta leer.<span class="ex-tag">lo que gusta</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Ni alai naiz</s> → <i class="eu">Ni alaia naiz</i>. El adjetivo atributo lleva <i class="eu">-a</i> (pregunta 6), igual que <i class="eu">Nire herria txikia da</i>.</p></aside>
+<section class="quiz" aria-labelledby="q3-h"><div class="quiz-top"><h3 id="q3-h">Pruébate</h3><button type="button" class="quiz-all" id="q3-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q3-0"><summary>«Somos de Zubialde.»</summary><div class="ans"><i class="eu">Zubialdekoak gara.</i></div></details></li><li><details id="q3-1"><summary>En <i class="eu">Futbola gustatzen zait</i>, ¿qué palabra va en NOR?</summary><div class="ans"><i class="eu">futbola</i>: es lo que gusta.</div></details></li></ol></section></div></article>
+<article class="case c-nork" id="k-nork"><header class="case-h"><h4><span class="case-n">NORK</span><span class="case-s">ergativo · repaso</span></h4><p class="case-q">¿quién? · el que tiene</p></header><p class="case-lead">No se ve, pero está: en <i class="eu">Zenbat urte dauzkat?</i> quien tiene los años es <i class="eu">nik</i>. <i class="eu">eduki</i> y <i class="eu">ukan</i> son verbos de tener, así que su sujeto es NORK, como en <i class="eu">Nire herriak Zubialde du izena</i>. Se nota en cuanto hablas de otra persona.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nik hogeita hamalau urte dauzkat.</p><p class="ex-es">Yo tengo treinta y cuatro años.<span class="ex-tag"><i class="eu">nik</i> casi nunca se dice</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire amak hirurogei urte dauzka.</p><p class="ex-es">Mi madre tiene sesenta años.<span class="ex-tag">aquí la <i class="eu">-k</i> se ve</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Ane dut izena.</p><p class="ex-es">Me llamo Ane.<span class="ex-tag"><i class="eu">nik</i> + <i class="eu">ukan</i></span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Nik Donostian bizi naiz</s> → <i class="eu">Ni Donostian bizi naiz</i>. <i class="eu">izan</i>, <i class="eu">bizi izan</i> y <i class="eu">gustatu</i> nunca llevan NORK. Con <i class="eu">gustatu</i>, la persona va en NORI (<i class="eu">niri</i>).</p></aside>
+<section class="quiz" aria-labelledby="q4-h"><div class="quiz-top"><h3 id="q4-h">Pruébate</h3><button type="button" class="quiz-all" id="q4-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q4-0"><summary>«Mi hermano tiene veinte años.»</summary><div class="ans"><i class="eu">Nire anaiak hogei urte dauzka.</i></div></details></li><li><details id="q4-1"><summary>¿<i class="eu">Ni</i> o <i class="eu">nik</i>? <i class="eu"><span class="blank" aria-label="hueco"></span> Zubialdekoa naiz.</i></summary><div class="ans"><i class="eu">Ni Zubialdekoa naiz.</i> Con <i class="eu">izan</i>, NOR.</div></details></li></ol></section></div></article>
+<article class="case c-noren" id="k-noren"><header class="case-h"><h4><span class="case-n">NOREN</span><span class="case-s">genitivo · repaso</span></h4><p class="case-q">¿de quién? · mi, tu, nuestro</p></header><p class="case-lead">Aparece en la pregunta 1 (<i class="eu">nire izena</i>) y en casi todas las respuestas: <i class="eu">nire bikotea</i>, <i class="eu">gure katua</i>, <i class="eu">zure izena</i>. Recuerda que <i class="eu">zuen</i> es «vuestro». Y es la base de NOREKIN: <i class="eu">nire</i> → <i class="eu">nirekin</i>.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire izena Ane da.</p><p class="ex-es">Me llamo Ane.<span class="ex-tag">pregunta 1</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Gure katuaren izena Txuri da.</p><p class="ex-es">Nuestro gato se llama Txuri.<span class="ex-tag">dos genitivos seguidos</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Zuen izenak politak dira.</p><p class="ex-es">Vuestros nombres son bonitos.<span class="ex-tag"><i class="eu">zuen</i> = vuestro</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Zein da zuen izena?</s> (a una persona) → <i class="eu">Zein da zure izena?</i></p></aside>
+<section class="quiz" aria-labelledby="q5-h"><div class="quiz-top"><h3 id="q5-h">Pruébate</h3><button type="button" class="quiz-all" id="q5-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q5-0"><summary>«nuestros padres»</summary><div class="ans"><i class="eu">gure gurasoak</i></div></details></li><li><details id="q5-1"><summary>«el nombre de tu pareja»</summary><div class="ans"><i class="eu">zure bikotearen izena</i></div></details></li></ol></section></div></article>
+<article class="case c-non" id="k-non"><header class="case-h"><h4><span class="case-n">NON</span><span class="case-s">inesivo · repaso</span></h4><p class="case-q">¿dónde?</p></header><p class="case-lead">Respuesta de la pregunta 3: <i class="eu">Donostian bizi naiz</i>. Con <i class="eu">bizi izan</i> (y con <i class="eu">egon</i>), el lugar va en NON. Los topónimos solo llevan <i class="eu">-n</i>.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Donostian bizi naiz.</p><p class="ex-es">Vivo en Donostia.<span class="ex-tag">topónimo: <i class="eu">-n</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Etxe zahar batean bizi naiz.</p><p class="ex-es">Vivo en una casa vieja.<span class="ex-tag"><i class="eu">bat</i> + NON → <i class="eu">batean</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Zubialdekoa naiz, baina Donostian bizi naiz.</p><p class="ex-es">Soy de Zubialde, pero vivo en Donostia.<span class="ex-tag">NONGO + NON</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Donostia bizi naiz</s> → <i class="eu">Donostian bizi naiz</i>. <s class="bad">Donostiaan</s> → <i class="eu">Donostian</i>: la <i class="eu">-a</i> es de la palabra.</p></aside>
+<section class="quiz" aria-labelledby="q6-h"><div class="quiz-top"><h3 id="q6-h">Pruébate</h3><button type="button" class="quiz-all" id="q6-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q6-0"><summary>«Vivo en Bilbao.»</summary><div class="ans"><i class="eu">Bilbon bizi naiz.</i></div></details></li><li><details id="q6-1"><summary>«Vivimos en un pueblo pequeño.»</summary><div class="ans"><i class="eu">Herri txiki batean bizi gara.</i></div></details></li></ol></section></div></article>
+<article class="case c-non" id="k-nongo"><header class="case-h"><h4><span class="case-n">NONGO</span><span class="case-s">genitivo locativo · repaso</span></h4><p class="case-q">¿de dónde (es)?</p></header><p class="case-lead">Respuesta de la pregunta 2 (<i class="eu">Nongoa naiz?</i>): la procedencia, con <i class="eu">-ko</i> + <i class="eu">-a</i>. Es el mismo caso que <i class="eu">nire herriko kaleak</i>; aquí lleva determinante porque es atributo de <i class="eu">izan</i>.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Zubialdekoa naiz.</p><p class="ex-es">Soy de Zubialde.<span class="ex-tag">pregunta 2</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire ama Irungoa da.</p><p class="ex-es">Mi madre es de Irun.<span class="ex-tag">tras <i class="eu">-n</i>: <i class="eu">-go</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Zubialdekoak gara.</p><p class="ex-es">Somos de Zubialde.<span class="ex-tag">plural</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Zubialdeko naiz</s> → <i class="eu">Zubialdekoa naiz</i>. <s class="bad">Bilbotik naiz</s> → <i class="eu">Bilbokoa naiz</i>: NONDIK es movimiento (<i class="eu">Bilbotik nator</i>, vengo de Bilbao).</p></aside>
+<section class="quiz" aria-labelledby="q7-h"><div class="quiz-top"><h3 id="q7-h">Pruébate</h3><button type="button" class="quiz-all" id="q7-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q7-0"><summary>«Soy de Madrid.»</summary><div class="ans"><i class="eu">Madrilgoa naiz.</i></div></details></li><li><details id="q7-1"><summary>«¿De dónde sois?»</summary><div class="ans"><i class="eu">Nongoak zarete?</i></div></details></li></ol></section></div></article>
+<article class="case c-det" id="k-mugagabe"><header class="case-h"><h4><span class="case-n">MUGAGABE</span><span class="case-s">sin determinante · repaso</span></h4><p class="case-q">tras números y zenbat</p></header><p class="case-lead">Pregunta 4: <i class="eu">zenbat urte</i>. Tras <i class="eu">zenbat</i> y los números, el nombre va sin <i class="eu">-a</i> ni <i class="eu">-ak</i>: <i class="eu">hogeita hamalau urte</i>. El verbo, en cambio, va en plural: <i class="eu">dauzkat</i>.</p><div class="case-b"><div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Zenbat urte dauzkazu?</p><p class="ex-es">¿Cuántos años tienes?<span class="ex-tag">pregunta 4</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Hogeita hamalau urte dauzkat.</p><p class="ex-es">Tengo treinta y cuatro años.<span class="ex-tag">número → verbo en plural</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Bi anaia dauzkat.</p><p class="ex-es">Tengo dos hermanos.</p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Zenbat urteak dauzkazu?</s> → <i class="eu">Zenbat urte dauzkazu?</i> Y si no tienes ninguno, partitivo, como en <i class="eu">Nire herria</i>: <i class="eu">Ez daukat anai-arrebarik</i> (no tengo hermanos), con el verbo en singular.</p></aside>
+<section class="quiz" aria-labelledby="q8-h"><div class="quiz-top"><h3 id="q8-h">Pruébate</h3><button type="button" class="quiz-all" id="q8-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q8-0"><summary>«Tengo cuarenta años.»</summary><div class="ans"><i class="eu">Berrogei urte dauzkat.</i></div></details></li><li><details id="q8-1"><summary>«¿Cuántos hermanos tienes?»</summary><div class="ans"><i class="eu">Zenbat anai-arreba dauzkazu?</i></div></details></li></ol></section></div></article>
+</section>
+
+<section class="sec" id="p1" aria-labelledby="p1-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">01</span>
+    <div>
+      <p class="sec-kat">Pregunta 1 de la ficha</p>
+      <h2 id="p1-h" class="qh" lang="eu">Zein da nire izena?</h2>
+      <p class="qsub">¿Cuál es mi nombre? · ¿Cómo me llamo?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Zein</i> pregunta «cuál» y va con <i class="eu">izan</i>. <i class="eu">Nire izena</i> es el sujeto (NOR) con un genitivo delante (<i class="eu">nire</i>), igual que <i class="eu">nire herriaren izena</i> en <i class="eu">Nire herria</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Zein</span><span class="gw-l">pregunta</span><span class="gw-m">¿cuál?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">da</span><span class="gw-l">izan</span><span class="gw-m">es</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">nire</span><span class="gw-l">NOREN</span><span class="gw-m">mi</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">izena</span><span class="gw-l">NOR sg</span><span class="gw-m">el nombre</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire izena</i> <span class="blank" aria-label="hueco"></span> <i class="eu">da.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire izena Ane da.</p><p class="mi-es">Me llamo Ane.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Gure izenak Ane eta Jon dira.</p><p class="mi-es">Nos llamamos Ane y Jon.</p><p class="mi-n"><i class="eu">izenak</i> plural → <i class="eu">dira</i></p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire izena ez da Ana; Ane da.</p><p class="mi-es">Mi nombre no es Ana; es Ane.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Gure izenak ez dira berdinak.</p><p class="mi-es">Nuestros nombres no son iguales.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zein da zure izena?</p><p class="mi-es">¿Cuál es tu nombre?</p></div><div class="mi"><p class="mi-eu" lang="eu">Nola duzu izena?</p><p class="mi-es">¿Cómo te llamas?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zeintzuk dira zuen izenak?</p><p class="mi-es">¿Cuáles son vuestros nombres?</p><p class="mi-n"><i class="eu">zein</i> → <i class="eu">zeintzuk</i> en plural</p></div></div></div>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">tres maneras de decir tu nombre</span></p><p><i class="eu">Nire izena Ane da</i> (NOREN + <i class="eu">izan</i>), <i class="eu">Ni Ane naiz</i> (NOR + <i class="eu">izan</i>) y <i class="eu">Ane dut izena</i> (NORK + <i class="eu">ukan</i>: quien tiene el nombre soy yo, <i class="eu">nik</i>). Es el mismo trío que viste con el pueblo: <i class="eu">Nire herriaren izena Zubialde da</i>, <i class="eu">Nire herria Zubialde da</i>, <i class="eu">Nire herriak Zubialde du izena</i>.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Zein da zuen izena?</s> (a una sola persona) → <i class="eu">Zein da zure izena?</i> Y en plural, el interrogativo también cambia: <i class="eu">zein</i> → <i class="eu">zeintzuk</i>: <i class="eu">Zeintzuk dira zuen izenak?</i></p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">el apellido</span></p><p>Igual con el apellido (<i class="eu">abizena</i>): <i class="eu">Nire abizena Etxeberria da</i>. Y para presentar a otra persona: <i class="eu">Hau Jon da</i> (este es Jon), <i class="eu">Nire bikotearen izena Jon da</i>.</p></aside>
+</section>
+
+<section class="sec" id="p2" aria-labelledby="p2-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">02</span>
+    <div>
+      <p class="sec-kat">Pregunta 2 de la ficha</p>
+      <h2 id="p2-h" class="qh" lang="eu">Nongoa naiz?</h2>
+      <p class="qsub">¿De dónde soy?</p>
+    </div>
+  </header>
+  <p class="lead">Es NONGO con determinante: <i class="eu">nongo</i> + <i class="eu">-a</i>. Pregunta por la procedencia, y la respuesta copia la estructura: lugar + <i class="eu">-ko</i> + <i class="eu">-a</i> + <i class="eu">naiz</i>. Es el <i class="eu">Zubialdekoa naiz</i> que ya salió en <i class="eu">Nire herria</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-non"><span class="gw-w" lang="eu">Nongoa</span><span class="gw-l">NONGO + -a</span><span class="gw-m">¿de dónde (es)?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">naiz</span><span class="gw-l">izan</span><span class="gw-m">soy</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><span class="blank" aria-label="hueco"></span><i class="eu">-koa naiz.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoa naiz.</p><p class="mi-es">Soy de Zubialde.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zubialdekoak gara.</p><p class="mi-es">Somos de Zubialde.</p><p class="mi-n"><i class="eu">-a</i> → <i class="eu">-ak</i>; <i class="eu">naiz</i> → <i class="eu">gara</i></p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez naiz Bilbokoa; Zubialdekoa naiz.</p><p class="mi-es">No soy de Bilbao; soy de Zubialde.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez gara hemengoak.</p><p class="mi-es">No somos de aquí.</p><p class="mi-n"><i class="eu">hemen</i> + <i class="eu">-go</i> + <i class="eu">-ak</i></p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nongoa zara?</p><p class="mi-es">¿De dónde eres?</p></div><div class="mi"><p class="mi-eu" lang="eu">Donostiakoa al zara?</p><p class="mi-es">¿Eres de Donostia?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nongoak zarete?</p><p class="mi-es">¿De dónde sois?</p><p class="mi-n"><i class="eu">nongoa</i> también va en plural</p></div></div></div>
+<figure class="tbl"><figcaption>Del lugar a la procedencia</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Lugar</th><th scope="col">Procedencia</th><th scope="col">Por qué</th></tr></thead><tbody><tr><th scope="row"><i class="eu">Zubialde</i>, <i class="eu">Donostia</i></th><td><i class="eu">Zubialdekoa</i>, <i class="eu">Donostiakoa</i></td><td>tras vocal, <i class="eu">-koa</i></td></tr><tr><th scope="row"><i class="eu">Gipuzkoa</i>, <i class="eu">Euskal Herria</i></th><td><i class="eu">Gipuzkoakoa</i>, <i class="eu">Euskal Herrikoa</i></td><td>igual</td></tr><tr><th scope="row"><i class="eu">Gasteiz</i></th><td><i class="eu">Gasteizkoa</i></td><td>tras consonante, <i class="eu">-koa</i></td></tr><tr><th scope="row"><i class="eu">Irun</i>, <i class="eu">Madril</i>, <i class="eu">hemen</i></th><td><i class="eu">Irungoa</i>, <i class="eu">Madrilgoa</i>, <i class="eu">hemengoa</i></td><td>tras <i class="eu">-n</i> y <i class="eu">-l</i>, <i class="eu">-goa</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Zubialdeko naiz</s> → <i class="eu">Zubialdekoa naiz</i>: es atributo de <i class="eu">izan</i> y lleva <i class="eu">-a</i>, como <i class="eu">txikia da</i>. <s class="bad">Bilbotik naiz</s> → <i class="eu">Bilbokoa naiz</i>: NONDIK es movimiento (<i class="eu">Bilbotik nator</i>, vengo de Bilbao).</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">nongoa o nondik</span></p><p><i class="eu">Nongoa zara?</i> pregunta de dónde eres (es fijo, va con <i class="eu">izan</i>). <i class="eu">Nondik zatoz?</i> pregunta de dónde vienes ahora (movimiento, va con <i class="eu">etorri</i>). <i class="eu">Zubialdekoa naiz, baina lanetik nator</i> = soy de Zubialde, pero vengo del trabajo.</p></aside>
+</section>
+
+<section class="sec" id="p3" aria-labelledby="p3-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">03</span>
+    <div>
+      <p class="sec-kat">Pregunta 3 de la ficha</p>
+      <h2 id="p3-h" class="qh" lang="eu">Non bizi naiz?</h2>
+      <p class="qsub">¿Dónde vivo?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Non</i> pide NON (inesivo). <i class="eu">bizi izan</i> es intransitivo: el sujeto va en NOR (<i class="eu">ni</i>, no <s class="bad">nik</s>) y el auxiliar es <i class="eu">izan</i> (<i class="eu">naiz</i>). Es la misma combinación que <i class="eu">Nire herrian zortzi mila biztanle bizi dira</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Non</span><span class="gw-l">pregunta</span><span class="gw-m">¿dónde?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">bizi naiz</span><span class="gw-l">bizi izan</span><span class="gw-m">vivo</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><span class="blank" aria-label="hueco"></span><i class="eu">-(e)n bizi naiz.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Donostian bizi naiz.</p><p class="mi-es">Vivo en Donostia.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Donostian bizi gara.</p><p class="mi-es">Vivimos en Donostia.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez naiz Zubialden bizi; Donostian bizi naiz.</p><p class="mi-es">No vivo en Zubialde; vivo en Donostia.</p><p class="mi-n"><i class="eu">ez naiz</i> delante, <i class="eu">bizi</i> detrás</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez gara herri txiki batean bizi.</p><p class="mi-es">No vivimos en un pueblo pequeño.</p><p class="mi-n"><i class="eu">bat</i> + NON → <i class="eu">batean</i></p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Non bizi zara?</p><p class="mi-es">¿Dónde vives?</p></div><div class="mi"><p class="mi-eu" lang="eu">Donostian bizi al zara?</p><p class="mi-es">¿Vives en Donostia?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Non bizi zarete?</p><p class="mi-es">¿Dónde vivís?</p></div></div></div>
+<figure class="tbl"><figcaption>bizi izan: bizi no cambia</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Persona</th><th scope="col">Afirmativa</th><th scope="col">Negativa</th></tr></thead><tbody><tr><th scope="row"><i class="eu">ni</i></th><td><i class="eu">Donostian bizi naiz.</i></td><td><i class="eu">Ez naiz Donostian bizi.</i></td></tr><tr><th scope="row"><i class="eu">zu</i></th><td><i class="eu">Donostian bizi zara.</i></td><td><i class="eu">Ez zara Donostian bizi.</i></td></tr><tr><th scope="row"><i class="eu">hura</i></th><td><i class="eu">Donostian bizi da.</i></td><td><i class="eu">Ez da Donostian bizi.</i></td></tr><tr><th scope="row"><i class="eu">gu</i></th><td><i class="eu">Donostian bizi gara.</i></td><td><i class="eu">Ez gara Donostian bizi.</i></td></tr><tr><th scope="row"><i class="eu">zuek</i></th><td><i class="eu">Donostian bizi zarete.</i></td><td><i class="eu">Ez zarete Donostian bizi.</i></td></tr><tr><th scope="row"><i class="eu">haiek</i></th><td><i class="eu">Donostian bizi dira.</i></td><td><i class="eu">Ez dira Donostian bizi.</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Nik Donostian bizi naiz</s> → <i class="eu">Ni</i>: <i class="eu">bizi izan</i> no lleva ergativo. <s class="bad">Donostia bizi naiz</s> → <i class="eu">Donostian</i>: falta el caso. <s class="bad">Donostian bizi dut</s> → <i class="eu">naiz</i>.</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">origen y residencia en una frase</span></p><p>NONGO + NON: <i class="eu">Zubialdekoa naiz, baina Donostian bizi naiz</i> (soy de Zubialde, pero vivo en Donostia). Para dar más detalle, encadena NON: <i class="eu">Donostian bizi naiz, etxe zahar batean</i>.</p></aside>
+</section>
+
+<section class="sec" id="p4" aria-labelledby="p4-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">04</span>
+    <div>
+      <p class="sec-kat">Pregunta 4 de la ficha</p>
+      <h2 id="p4-h" class="qh" lang="eu">Zenbat urte dauzkat?</h2>
+      <p class="qsub">¿Cuántos años tengo?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Zenbat</i> pide mugagabe: <i class="eu">zenbat urte</i>, no <s class="bad">zenbat urteak</s>, como <i class="eu">zenbat jende</i>. El verbo es <i class="eu">eduki</i> (tener), un sintético NOR-NORK: los años son el NOR, y como son varios, <i class="eu">dauzkat</i>. Quien los tiene es el NORK, <i class="eu">nik</i>, que casi nunca se dice. Con <i class="eu">ukan</i> también vale: <i class="eu">Zenbat urte ditut?</i></p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Zenbat</span><span class="gw-l">pregunta</span><span class="gw-m">¿cuántos?</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">urte</span><span class="gw-l">mugagabe</span><span class="gw-m">años</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">dauzkat</span><span class="gw-l">eduki pl</span><span class="gw-m">tengo (varios)</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><span class="blank" aria-label="hueco"></span> <i class="eu">urte dauzkat.</i> · <span class="blank" aria-label="hueco"></span> <i class="eu">urte ditut.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Hogeita hamalau urte dauzkat.</p><p class="mi-es">Tengo treinta y cuatro años.</p><p class="mi-n"><i class="eu">urte</i> son varios → <i class="eu">dauzkat</i></p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Hogeita hamar urte baino gehiago dauzkagu.</p><p class="mi-es">Tenemos más de treinta años.</p><p class="mi-n"><i class="eu">baino gehiago</i> = más de</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez dauzkat hogeita hamar urte; hogeita hamalau dauzkat.</p><p class="mi-es">No tengo treinta años; tengo treinta y cuatro.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez dauzkagu berrogei urte.</p><p class="mi-es">No tenemos cuarenta años.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zenbat urte dauzkazu?</p><p class="mi-es">¿Cuántos años tienes?</p></div><div class="mi"><p class="mi-eu" lang="eu">Zenbat urte dituzu?</p><p class="mi-es">Lo mismo, con <i class="eu">ukan</i>.</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zenbat urte dauzkazue?</p><p class="mi-es">¿Cuántos años tenéis?</p></div></div></div>
+<figure class="tbl"><figcaption>eduki · tener</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Quién tiene (NORK)</th><th scope="col">Una cosa</th><th scope="col">Varias cosas (años)</th></tr></thead><tbody><tr><th scope="row"><i class="eu">nik</i></th><td><i class="eu">daukat</i></td><td><i class="eu">dauzkat</i></td></tr><tr><th scope="row"><i class="eu">zuk</i></th><td><i class="eu">daukazu</i></td><td><i class="eu">dauzkazu</i></td></tr><tr><th scope="row"><i class="eu">hark</i></th><td><i class="eu">dauka</i></td><td><i class="eu">dauzka</i></td></tr><tr><th scope="row"><i class="eu">guk</i></th><td><i class="eu">daukagu</i></td><td><i class="eu">dauzkagu</i></td></tr><tr><th scope="row"><i class="eu">zuek</i></th><td><i class="eu">daukazue</i></td><td><i class="eu">dauzkazue</i></td></tr><tr><th scope="row"><i class="eu">haiek</i></th><td><i class="eu">daukate</i></td><td><i class="eu">dauzkate</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Hogeita hamalau urte naiz</s> → <i class="eu">dauzkat</i>: los años se tienen, como en castellano. <s class="bad">Hogeita hamalau urte daukat</s> → <i class="eu">dauzkat</i>: son varios años. <s class="bad">Zenbat urteak?</s> → <i class="eu">Zenbat urte?</i></p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el ergativo que no se ve</span></p><p><i class="eu">Nik hogeita hamalau urte dauzkat</i>: <i class="eu">nik</i> es NORK, el mismo caso de <i class="eu">Nire herriak Zubialde du izena</i>. Se ve en cuanto hablas de otra persona: <i class="eu">Nire amak hirurogei urte dauzka</i> (mi madre tiene sesenta años).</p></aside>
+<figure class="tbl"><figcaption>Contar de veinte en veinte</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Cifra</th><th scope="col">Euskera</th><th scope="col">Cómo se forma</th></tr></thead><tbody><tr><th scope="row">20 · 25</th><td><i class="eu">hogei</i> · <i class="eu">hogeita bost</i></td><td>20 · 20 + 5</td></tr><tr><th scope="row">30 · 34</th><td><i class="eu">hogeita hamar</i> · <i class="eu">hogeita hamalau</i></td><td>20 + 10 · 20 + 14</td></tr><tr><th scope="row">40 · 45</th><td><i class="eu">berrogei</i> · <i class="eu">berrogeita bost</i></td><td>2 × 20 · 2 × 20 + 5</td></tr><tr><th scope="row">50</th><td><i class="eu">berrogeita hamar</i></td><td>2 × 20 + 10</td></tr><tr><th scope="row">60 · 70</th><td><i class="eu">hirurogei</i> · <i class="eu">hirurogeita hamar</i></td><td>3 × 20 · 3 × 20 + 10</td></tr><tr><th scope="row">80 · 90</th><td><i class="eu">laurogei</i> · <i class="eu">laurogeita hamar</i></td><td>4 × 20 · 4 × 20 + 10</td></tr></tbody></table></div></figure>
+</section>
+
+<section class="sec" id="p5" aria-labelledby="p5-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">05</span>
+    <div>
+      <p class="sec-kat">Pregunta 5 de la ficha</p>
+      <h2 id="p5-h" class="qh" lang="eu">Norekin bizi naiz?</h2>
+      <p class="qsub">¿Con quién vivo?</p>
+    </div>
+  </header>
+  <p class="lead">Aquí aparece un caso nuevo: NOREKIN (soziativo), el de la compañía. Se forma sobre el genitivo: <i class="eu">nire</i> → <i class="eu">nirekin</i>, <i class="eu">lagunaren</i> → <i class="eu">lagunarekin</i>. El verbo sigue siendo <i class="eu">bizi izan</i> (NOR, <i class="eu">naiz</i>), como en la pregunta 3.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-norekin"><span class="gw-w" lang="eu">Norekin</span><span class="gw-l">NOREKIN</span><span class="gw-m">¿con quién?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">bizi naiz</span><span class="gw-l">bizi izan</span><span class="gw-m">vivo</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire</i> <span class="blank" aria-label="hueco"></span><i class="eu">-(r)ekin bizi naiz.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire bikotearekin bizi naiz.</p><p class="mi-es">Vivo con mi pareja.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Gure katuarekin bizi gara.</p><p class="mi-es">Vivimos con nuestro gato.</p><p class="mi-n"><i class="eu">gure</i> + NOREKIN</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez naiz gurasoekin bizi.</p><p class="mi-es">No vivo con mis padres.</p><p class="mi-n">plural: <i class="eu">-ekin</i></p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez gara lagunekin bizi.</p><p class="mi-es">No vivimos con amigos.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Norekin bizi zara?</p><p class="mi-es">¿Con quién vives?</p></div><div class="mi"><p class="mi-eu" lang="eu">Bakarrik bizi zara?</p><p class="mi-es">¿Vives solo/a?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Norekin bizi zarete?</p><p class="mi-es">¿Con quién vivís?</p></div></div></div>
+<figure class="tbl"><figcaption>Formas de NOREKIN</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row">pronombres</th><td><i class="eu">nirekin, zurekin, harekin</i></td><td><i class="eu">gurekin, zuekin, haiekin</i></td></tr><tr><th scope="row"><i class="eu">bikote</i> · pareja</th><td><i class="eu">bikotearekin</i></td><td><i class="eu">bikoteekin</i></td></tr><tr><th scope="row"><i class="eu">guraso</i> · padre o madre</th><td><i class="eu">gurasoarekin</i></td><td><i class="eu">gurasoekin</i></td></tr><tr><th scope="row"><i class="eu">ama</i> · madre</th><td><i class="eu">amarekin</i></td><td><i class="eu">amekin</i></td></tr><tr><th scope="row"><i class="eu">lagun</i> · amigo/a</th><td><i class="eu">lagunarekin</i></td><td><i class="eu">lagunekin</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Nire bikotea bizi naiz</s> → <i class="eu">Nire bikotearekin bizi naiz</i>. «Con mis padres» es plural: <i class="eu">gurasoekin</i>; <i class="eu">gurasoarekin</i> es «con mi padre» o «con mi madre». «Solo/a» no es un caso: <i class="eu">Bakarrik bizi naiz</i>.</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">varias personas</span></p><p>Si vives con varias personas o animales, cada una lleva <i class="eu">-ekin</i>: <i class="eu">Nire bikotearekin eta gure katuarekin bizi naiz</i>.</p></aside>
+</section>
+
+<section class="sec" id="p6" aria-labelledby="p6-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">06</span>
+    <div>
+      <p class="sec-kat">Pregunta 6 de la ficha</p>
+      <h2 id="p6-h" class="qh" lang="eu">Nolakoa naiz?</h2>
+      <p class="qsub">¿Cómo soy? · Erabili: oso, nahiko, batere</p>
+    </div>
+  </header>
+  <p class="lead">Igual que <i class="eu">Nolakoa da zure herria?</i>: <i class="eu">izan</i> + adjetivo con <i class="eu">-a</i>. La ficha pide tres palabras de grado: <i class="eu">oso</i> (muy), <i class="eu">nahiko</i> (bastante) y <i class="eu">batere</i> (nada), que solo funciona con <i class="eu">ez</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Nolakoa</span><span class="gw-l">pregunta</span><span class="gw-m">¿cómo (es)? · nola + -ko + -a</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">naiz</span><span class="gw-l">izan</span><span class="gw-m">soy</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Oso</i> / <i class="eu">nahiko</i> <span class="blank" aria-label="hueco"></span><i class="eu">-a naiz.</i> · <i class="eu">Ez naiz batere</i> <span class="blank" aria-label="hueco"></span><i class="eu">-a.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nahiko altua eta oso alaia naiz.</p><p class="mi-es">Soy bastante alta y muy alegre.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Oso langileak gara.</p><p class="mi-es">Somos muy trabajadores.</p><p class="mi-n"><i class="eu">-a</i> → <i class="eu">-ak</i></p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez naiz batere lotsatia.</p><p class="mi-es">No soy nada tímida.</p><p class="mi-n"><i class="eu">batere</i> solo con <i class="eu">ez</i></p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez gara batere isilak.</p><p class="mi-es">No somos nada callados.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nolakoa zara?</p><p class="mi-es">¿Cómo eres?</p></div><div class="mi"><p class="mi-eu" lang="eu">Lotsatia al zara?</p><p class="mi-es">¿Eres tímido/a?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nolakoak zarete?</p><p class="mi-es">¿Cómo sois?</p></div></div></div>
+<figure class="tbl"><figcaption>Del más al menos</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Significa</th><th scope="col">Ejemplo</th></tr></thead><tbody><tr><th scope="row"><i class="eu">oso</i></th><td>muy</td><td><i class="eu">oso alaia naiz</i></td></tr><tr><th scope="row"><i class="eu">nahiko</i></th><td>bastante</td><td><i class="eu">nahiko altua naiz</i></td></tr><tr><th scope="row"><i class="eu">pixka bat</i></th><td>un poco</td><td><i class="eu">pixka bat lotsatia naiz</i></td></tr><tr><th scope="row"><i class="eu">ez … batere</i></th><td>nada</td><td><i class="eu">ez naiz batere lotsatia</i></td></tr></tbody></table></div></figure>
+<figure class="tbl"><figcaption>Adjetivos para describirte</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Adjetivo</th><th scope="col">Contrario</th></tr></thead><tbody><tr><th scope="row"><i class="eu">altua</i> · alto/a</th><td><i class="eu">baxua</i> · bajo/a</td></tr><tr><th scope="row"><i class="eu">alaia</i> · alegre</th><td><i class="eu">serioa</i> · serio/a</td></tr><tr><th scope="row"><i class="eu">lasaia</i> · tranquilo/a</th><td><i class="eu">urduria</i> · nervioso/a</td></tr><tr><th scope="row"><i class="eu">langilea</i> · trabajador/a</th><td><i class="eu">alferra</i> · vago/a</td></tr><tr><th scope="row"><i class="eu">berritsua</i> · hablador/a</th><td><i class="eu">isila</i> · callado/a</td></tr><tr><th scope="row"><i class="eu">jatorra</i> · majo/a</th><td><i class="eu">lotsatia</i> · tímido/a</td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Batere lotsatia naiz</s> → <i class="eu">Ez naiz batere lotsatia</i>: sin <i class="eu">ez</i>, <i class="eu">batere</i> no funciona. <s class="bad">Oso altu naiz</s> → <i class="eu">Oso altua naiz</i>: el atributo lleva <i class="eu">-a</i>, como en <i class="eu">Nire herria txikia da</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">sin masculino ni femenino</span></p><p>Los adjetivos vascos no cambian según el género: <i class="eu">altua</i> es «alto» y «alta». Y recuerda la diferencia de <i class="eu">Nire herria</i>: <i class="eu">Nola zaude? — Ondo nago</i> (estado, <i class="eu">egon</i>) frente a <i class="eu">Nolakoa zara? — Alaia naiz</i> (carácter, <i class="eu">izan</i>).</p></aside>
+</section>
+
+<section class="sec" id="p7" aria-labelledby="p7-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">07</span>
+    <div>
+      <p class="sec-kat">Pregunta 7 de la ficha</p>
+      <h2 id="p7-h" class="qh" lang="eu">Zer gustatzen zait?</h2>
+      <p class="qsub">¿Qué me gusta?</p>
+    </div>
+  </header>
+  <p class="lead">Entra el NOR-NORI. Lo que gusta es el NOR y manda el número (<i class="eu">zait</i> / <i class="eu">zaizkit</i>). La persona a la que le gusta es el NORI (<i class="eu">niri</i>); casi nunca se dice, porque ya está en la <i class="eu">-t</i> final de <i class="eu">zait</i>. Funciona como «me gusta» en castellano.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-nor"><span class="gw-w" lang="eu">Zer</span><span class="gw-l">pregunta · NOR</span><span class="gw-m">¿qué?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">gustatzen</span><span class="gw-l">gustatu</span><span class="gw-m">gustar (habitual)</span></div><div class="gw c-nori"><span class="gw-w" lang="eu">zait</span><span class="gw-l">NOR-NORI</span><span class="gw-m">me (gusta)</span></div></div></figure>
+<figure class="svgfig"><div class="svg-scroll"><svg class="dg" viewBox="0 0 680 216" role="img" aria-label="Concordancia NOR-NORI en la frase Niri liburuak gustatzen zaizkit" xmlns="http://www.w3.org/2000/svg"><g font-family="'IBM Plex Sans', 'DejaVu Sans', system-ui, sans-serif"><path class="ln sea" d="M223 104 V144 Q223 152 231 152 H566 Q574 152 574 144 V104" fill="none" stroke-width="2.2"/><path class="ln rose" d="M76 104 V176 Q76 184 84 184 H630 Q638 184 638 176 V104" fill="none" stroke-width="2.2"/><rect class="bx rose" x="20" y="30" width="112" height="46" rx="4"/><text class="tx" x="76" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="20" font-style="italic">Niri</text><text class="lb rose" x="76" y="96" text-anchor="middle" font-size="12" font-weight="600" letter-spacing=".04em">NORI · a mí</text><rect class="bx sea" x="148" y="30" width="150" height="46" rx="4"/><text class="tx" x="223" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="20" font-style="italic">liburuak</text><text class="lb sea" x="223" y="96" text-anchor="middle" font-size="12" font-weight="600" letter-spacing=".04em">NOR · plural</text><rect class="bx muted" x="314" y="30" width="150" height="46" rx="4"/><text class="tx" x="389" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="20" font-style="italic">gustatzen</text><text class="lb muted" x="389" y="96" text-anchor="middle" font-size="12" font-weight="600" letter-spacing=".04em">gustatu</text><rect class="bx muted" x="480" y="30" width="52" height="46"/><text class="tx" x="506" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="21" font-style="italic" font-weight="600">za</text><text class="lb muted" x="506" y="96" text-anchor="middle" font-size="11" font-weight="600">raíz</text><rect class="bx sea" x="532" y="30" width="84" height="46"/><text class="tx" x="574" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="21" font-style="italic" font-weight="600">izki</text><text class="lb sea" x="574" y="96" text-anchor="middle" font-size="11" font-weight="600">NOR pl</text><rect class="bx rose" x="616" y="30" width="44" height="46"/><text class="tx" x="638" y="60" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="21" font-style="italic" font-weight="600">t</text><text class="lb rose" x="638" y="96" text-anchor="middle" font-size="11" font-weight="600">niri</text><text class="mu" x="570" y="20" text-anchor="middle" font-size="12">zaizkit</text><text class="mu" x="340" y="208" text-anchor="middle" font-size="12" font-style="italic">El NOR decide -i- o -izki-; el NORI decide el final: -t, -zu, -o, -gu, -zue, -e</text></g></svg></div><figcaption>En <i class="eu">zaizkit</i> se ven las dos personas: <i class="eu">-izki-</i> dice que lo que gusta (NOR) es plural; <i class="eu">-t</i> dice que la persona es <i class="eu">niri</i> (NORI). Con una sola cosa: <i class="eu">Liburua gustatzen zait</i>.</figcaption></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><span class="blank" aria-label="hueco"></span><i class="eu">-a gustatzen zait.</i> · <span class="blank" aria-label="hueco"></span><i class="eu">-ak gustatzen zaizkit.</i> · <span class="blank" aria-label="hueco"></span><i class="eu">-t(z)ea gustatzen zait.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Irakurtzea gustatzen zait.</p><p class="mi-es">Me gusta leer.</p><p class="mi-n">nombre verbal → <i class="eu">zait</i></p></div><div class="mi"><p class="mi-eu" lang="eu">Liburuak gustatzen zaizkit.</p><p class="mi-es">Me gustan los libros.</p><p class="mi-n">cosas en plural → <i class="eu">zaizkit</i></p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Mendira joatea gustatzen zaigu.</p><p class="mi-es">Nos gusta ir al monte.</p></div><div class="mi"><p class="mi-eu" lang="eu">Euskal abestiak gustatzen zaizkigu.</p><p class="mi-es">Nos gustan las canciones vascas.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Telebista ez zait asko gustatzen.</p><p class="mi-es">No me gusta mucho la tele.</p><p class="mi-n">más en la pregunta 8</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Hiriko zarata ez zaigu gustatzen.</p><p class="mi-es">No nos gusta el ruido de la ciudad.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zer gustatzen zaizu?</p><p class="mi-es">¿Qué te gusta?</p></div><div class="mi"><p class="mi-eu" lang="eu">Kafea gustatzen al zaizu?</p><p class="mi-es">¿Te gusta el café?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zer gustatzen zaizue?</p><p class="mi-es">¿Qué os gusta?</p></div></div></div>
+<figure class="tbl"><figcaption>NOR-NORI · gustatu</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">A quién (NORI)</th><th scope="col">Una cosa</th><th scope="col">Varias cosas</th></tr></thead><tbody><tr><th scope="row"><i class="eu">niri</i> · a mí</th><td><i class="eu">zait</i></td><td><i class="eu">zaizkit</i></td></tr><tr><th scope="row"><i class="eu">zuri</i> · a ti</th><td><i class="eu">zaizu</i></td><td><i class="eu">zaizkizu</i></td></tr><tr><th scope="row"><i class="eu">hari</i> · a él / ella</th><td><i class="eu">zaio</i></td><td><i class="eu">zaizkio</i></td></tr><tr><th scope="row"><i class="eu">guri</i> · a nosotros</th><td><i class="eu">zaigu</i></td><td><i class="eu">zaizkigu</i></td></tr><tr><th scope="row"><i class="eu">zuei</i> · a vosotros</th><td><i class="eu">zaizue</i></td><td><i class="eu">zaizkizue</i></td></tr><tr><th scope="row"><i class="eu">haiei</i> · a ellos</th><td><i class="eu">zaie</i></td><td><i class="eu">zaizkie</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">lo que gusta manda el número</span></p><p><s class="bad">Liburuak gustatzen zait</s> → <i class="eu">zaizkit</i>. Al revés también: <s class="bad">Guri futbola gustatzen zaizkigu</s> → <i class="eu">zaigu</i>, porque el fútbol es uno aunque seáis varios.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">NORI, no NORK</span></p><p><s class="bad">Nik irakurtzea gustatzen zait</s> → <i class="eu">Niri irakurtzea gustatzen zait</i>, o simplemente <i class="eu">Irakurtzea gustatzen zait</i>. Con <i class="eu">gustatu</i> la persona no hace nada: le gusta. Por eso va en NORI y nunca lleva <i class="eu">-k</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el nombre verbal es uno</span></p><p>Para decir que te gusta hacer algo se usa el nombre verbal <i class="eu">-t(z)ea</i>, que es singular: <i class="eu">Liburuak irakurtzea gustatzen zait</i> (lo que gusta es «el leer», no los libros). Dos actividades juntas también suelen ir con <i class="eu">zait</i>: <i class="eu">Irakurtzea eta mendira joatea gustatzen zait</i>.</p></aside>
+</section>
+
+<section class="sec" id="p8" aria-labelledby="p8-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">08</span>
+    <div>
+      <p class="sec-kat">Pregunta 8 de la ficha</p>
+      <h2 id="p8-h" class="qh" lang="eu">Zer ez zait gustatzen?</h2>
+      <p class="qsub">¿Qué no me gusta?</p>
+    </div>
+  </header>
+  <p class="lead">Es la pregunta 7 en negativa: <i class="eu">ez</i> y el auxiliar van delante (<i class="eu">ez zait</i>), y <i class="eu">gustatzen</i> detrás. Con <i class="eu">batere</i> se refuerza: <i class="eu">ez zait batere gustatzen</i> (no me gusta nada). Aquí no hay partitivo: lo que no gusta es algo concreto y lleva <i class="eu">-a</i> o <i class="eu">-ak</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-nor"><span class="gw-w" lang="eu">Zer</span><span class="gw-l">pregunta · NOR</span><span class="gw-m">¿qué?</span></div><div class="gw c-nori"><span class="gw-w" lang="eu">ez zait</span><span class="gw-l">NOR-NORI neg.</span><span class="gw-m">no me</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">gustatzen</span><span class="gw-l">gustatu</span><span class="gw-m">gusta</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><span class="blank" aria-label="hueco"></span><i class="eu">-a ez zait gustatzen.</i> · <span class="blank" aria-label="hueco"></span><i class="eu">-ak ez zaizkit gustatzen.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Futbola ez zait gustatzen, baina saskibaloia bai.</p><p class="mi-es">No me gusta el fútbol, pero el baloncesto sí.</p><p class="mi-n">lo que sí: <i class="eu">… bai</i></p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Hiria ez zaigu gustatzen, baina herria bai.</p><p class="mi-es">No nos gusta la ciudad, pero el pueblo sí.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez zait batere gustatzen goiz jaikitzea.</p><p class="mi-es">No me gusta nada madrugar.</p><p class="mi-n"><i class="eu">ez … batere</i></p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Eltxoak ez zaizkigu gustatzen.</p><p class="mi-es">No nos gustan los mosquitos.</p><p class="mi-n"><i class="eu">-izki-</i> + <i class="eu">-gu</i></p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zer ez zaizu gustatzen?</p><p class="mi-es">¿Qué no te gusta?</p></div><div class="mi"><p class="mi-eu" lang="eu">Ez al zaizu kafea gustatzen?</p><p class="mi-es">¿No te gusta el café?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zer ez zaizue gustatzen?</p><p class="mi-es">¿Qué no os gusta?</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Ez gustatzen zait</s> → <i class="eu">Ez zait gustatzen</i>: <i class="eu">ez</i> arrastra al auxiliar delante. <s class="bad">Eltxoak ez zait gustatzen</s> → <i class="eu">zaizkit</i>. <s class="bad">Ez zait futbolik gustatzen</s> → <i class="eu">Futbola ez zait gustatzen</i>: es algo concreto, no el partitivo de <i class="eu">Ez dago hondartzarik</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">encantar y odiar van con ukan</span></p><p><i class="eu">maite izan</i> (encantar, amar) y <i class="eu">gorroto izan</i> (odiar) no son NOR-NORI, sino NOR-NORK: la persona es <i class="eu">nik</i>. <i class="eu">Kafea maite dut</i> (me encanta el café), <i class="eu">Eltxoak gorroto ditut</i> (odio los mosquitos). Compara: <i class="eu">Kafea gustatzen zait</i> (NORI) frente a <i class="eu">Kafea maite dut</i> (NORK).</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">encadenar gustos</span></p><p><i class="eu">ere</i> añade: <i class="eu">Futbola ere ez zait gustatzen</i> (tampoco me gusta el fútbol). Y para contrastar: <i class="eu">Irakurtzea gustatzen zait, baina telebista ez</i>.</p></aside>
+</section>
+
+<section class="sec" id="fitxa" aria-labelledby="fitxa-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">C</span>
+    <div>
+      <p class="sec-kat">Modelo</p>
+      <h2 id="fitxa-h">La ficha resuelta</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Así podría quedar la ficha con la persona modelo. Cada respuesta usa solo estructuras de esta página.</p>
+  <figure class="sheet" aria-label="Ficha resuelta"><p class="sheet-t">NOR NAIZ?</p><div class="sheet-item"><p class="sheet-q" lang="eu">Zein da nire izena?</p><p class="sheet-a" lang="eu">Nire izena Ane da.</p><details class="sheet-es"><summary>En castellano</summary><p>Me llamo Ane.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Nongoa naiz?</p><p class="sheet-a" lang="eu">Zubialdekoa naiz. Zubialde Gipuzkoako herri txiki bat da.</p><details class="sheet-es"><summary>En castellano</summary><p>Soy de Zubialde. Zubialde es un pueblo pequeño de Gipuzkoa.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Non bizi naiz?</p><p class="sheet-a" lang="eu">Donostian bizi naiz, etxe zahar batean.</p><details class="sheet-es"><summary>En castellano</summary><p>Vivo en Donostia, en una casa vieja.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zenbat urte dauzkat?</p><p class="sheet-a" lang="eu">Hogeita hamalau urte dauzkat.</p><details class="sheet-es"><summary>En castellano</summary><p>Tengo treinta y cuatro años.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Norekin bizi naiz?</p><p class="sheet-a" lang="eu">Nire bikotearekin eta gure katuarekin bizi naiz.</p><details class="sheet-es"><summary>En castellano</summary><p>Vivo con mi pareja y nuestro gato.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Nolakoa naiz?</p><p class="sheet-a" lang="eu">Nahiko altua eta ilehoria naiz. Oso alaia eta langilea naiz, baina ez naiz batere lotsatia.</p><details class="sheet-es"><summary>En castellano</summary><p>Soy bastante alta y rubia. Soy muy alegre y trabajadora, pero no soy nada tímida.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zer gustatzen zait?</p><p class="sheet-a" lang="eu">Irakurtzea eta mendira joatea gustatzen zait. Euskal abestiak ere asko gustatzen zaizkit.</p><details class="sheet-es"><summary>En castellano</summary><p>Me gusta leer e ir al monte. También me gustan mucho las canciones vascas.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zer ez zait gustatzen?</p><p class="sheet-a" lang="eu">Ez zait batere gustatzen goiz jaikitzea. Futbola eta eltxoak ere ez zaizkit gustatzen.</p><details class="sheet-es"><summary>En castellano</summary><p>No me gusta nada madrugar. Tampoco me gustan el fútbol ni los mosquitos.</p></details></div></figure>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Para adaptarla a ti</span></p><p>Cambia los datos y mantén los verbos: <i class="eu">da</i> para el nombre, <i class="eu">-koa naiz</i> para el origen, <i class="eu">bizi naiz</i> para dónde y con quién vives, <i class="eu">dauzkat</i> para los años, <i class="eu">-a naiz</i> para cómo eres y <i class="eu">zait / zaizkit</i> para lo que te gusta.</p></aside>
+</section>
+
+<section class="sec" id="ariketak" aria-labelledby="ariketak-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">D</span>
+    <div>
+      <p class="sec-kat">Ejercicios</p>
+      <h2 id="ariketak-h">Pruébate</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Dieciocho ejercicios sobre las estructuras de la ficha. Las soluciones están ocultas debajo de cada uno.</p>
+  <section class="quiz" aria-labelledby="q9-h"><div class="quiz-top"><h3 id="q9-h">Transforma</h3><button type="button" class="quiz-all" id="q9-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q9-0"><summary>A plural (<i class="eu">gu</i>): <i class="eu">Zubialdekoa naiz.</i></summary><div class="ans"><i class="eu">Zubialdekoak gara.</i></div></details></li><li><details id="q9-1"><summary>A plural (<i class="eu">gu</i>): <i class="eu">Irakurtzea gustatzen zait.</i></summary><div class="ans"><i class="eu">Irakurtzea gustatzen zaigu.</i> Cambia la persona (NORI), no lo que gusta.</div></details></li><li><details id="q9-2"><summary>A negativa: <i class="eu">Donostian bizi naiz.</i></summary><div class="ans"><i class="eu">Ez naiz Donostian bizi.</i> <i class="eu">ez naiz</i> delante, <i class="eu">bizi</i> detrás.</div></details></li><li><details id="q9-3"><summary>A negativa con <i class="eu">batere</i>: <i class="eu">Lotsatia naiz.</i></summary><div class="ans"><i class="eu">Ez naiz batere lotsatia.</i></div></details></li><li><details id="q9-4"><summary>A pregunta de sí o no, a <i class="eu">zu</i>: <i class="eu">Nire bikotearekin bizi naiz.</i></summary><div class="ans"><i class="eu">Zure bikotearekin bizi al zara?</i></div></details></li><li><details id="q9-5"><summary>Pon en plural lo que gusta: <i class="eu">Liburua gustatzen zait.</i></summary><div class="ans"><i class="eu">Liburuak gustatzen zaizkit.</i></div></details></li></ol></section>
+<section class="quiz" aria-labelledby="q10-h"><div class="quiz-top"><h3 id="q10-h">Corrige</h3><button type="button" class="quiz-all" id="q10-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q10-0"><summary><i class="eu">Nik Donostian bizi naiz.</i></summary><div class="ans"><i class="eu">Ni Donostian bizi naiz.</i> <i class="eu">bizi izan</i> no lleva ergativo.</div></details></li><li><details id="q10-1"><summary><i class="eu">Hogeita hamar urte naiz.</i></summary><div class="ans"><i class="eu">Hogeita hamar urte dauzkat</i> (o <i class="eu">ditut</i>).</div></details></li><li><details id="q10-2"><summary><i class="eu">Zubialdeko naiz.</i></summary><div class="ans"><i class="eu">Zubialdekoa naiz.</i></div></details></li><li><details id="q10-3"><summary><i class="eu">Liburuak gustatzen zait.</i></summary><div class="ans"><i class="eu">Liburuak gustatzen zaizkit.</i></div></details></li><li><details id="q10-4"><summary><i class="eu">Batere lotsatia naiz.</i></summary><div class="ans"><i class="eu">Ez naiz batere lotsatia.</i></div></details></li><li><details id="q10-5"><summary><i class="eu">Nire gurasoarekin bizi naiz.</i> (con los dos)</summary><div class="ans"><i class="eu">Nire gurasoekin bizi naiz.</i> Plural: <i class="eu">-ekin</i>.</div></details></li></ol></section>
+<section class="quiz" aria-labelledby="q11-h"><div class="quiz-top"><h3 id="q11-h">Traduce</h3><button type="button" class="quiz-all" id="q11-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q11-0"><summary>«Me llamo Jon y soy de Irun.»</summary><div class="ans"><i class="eu">Nire izena Jon da eta Irungoa naiz.</i></div></details></li><li><details id="q11-1"><summary>«Vivo en Donostia con mis amigos.»</summary><div class="ans"><i class="eu">Donostian bizi naiz, nire lagunekin.</i></div></details></li><li><details id="q11-2"><summary>«Tengo veinticinco años.»</summary><div class="ans"><i class="eu">Hogeita bost urte dauzkat.</i></div></details></li><li><details id="q11-3"><summary>«Soy bastante alto, pero no soy nada serio.»</summary><div class="ans"><i class="eu">Nahiko altua naiz, baina ez naiz batere serioa.</i></div></details></li><li><details id="q11-4"><summary>«A mi madre le gustan los gatos.»</summary><div class="ans"><i class="eu">Nire amari katuak gustatzen zaizkio.</i></div></details></li><li><details id="q11-5"><summary>«No nos gusta nada madrugar.»</summary><div class="ans"><i class="eu">Ez zaigu batere gustatzen goiz jaikitzea.</i></div></details></li></ol></section>
+</section>
+  </main>
+</div>
+
+<footer>
+  <span>Nor naiz? · ficha de expresión escrita · nivel A1 · Euskara Armairua</span>
+  <span><a href="nire-herria.html">Nire herria</a> · <a href="gramatika-sakonean.html">Gramatika sakonean</a> · <a href="gramatika.html">Buscador</a></span>
+  <span>&#9888; Claude · por contrastar: explicaciones y frases preparadas por Claude, sin revisar todavía por un hablante.</span>
+</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.quiz').forEach(function(q){
+    var btn = q.querySelector('.quiz-all'), ds = q.querySelectorAll('details');
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-pressed') !== 'true';
+      ds.forEach(function(d){ d.open = open; });
+      btn.setAttribute('aria-pressed', open ? 'true' : 'false');
+      btn.textContent = open ? 'Ocultar soluciones' : 'Ver todas las soluciones';
+    });
+  });
+  var links = {};
+  document.querySelectorAll('.toc a').forEach(function(a){ links[a.dataset.sec] = a; });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) Object.keys(links).forEach(function(k){ links[k].classList.toggle('on', k === e.target.id); });
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    document.querySelectorAll('.sec').forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

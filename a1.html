@@ -10,6 +10,7 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <title>Euskara Armairua · A1</title>
+<script src="armairua-iturriak.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
 </head>
@@ -299,7 +300,7 @@ header.top{padding:30px 0 18px; display:flex; flex-wrap:wrap; gap:24px; align-it
 #app-egutegia header.top h1{font-family:var(--f-display); font-size:34px; font-weight:700; letter-spacing:-.02em; line-height:1.05}
 #app-egutegia header.top h1 em{font-style:normal; color:var(--sea)}
 #app-egutegia header.top .who{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:5px}
-#app-egutegia .kpis{display:flex; gap:26px; align-items:flex-end}
+#app-egutegia .kpis{display:flex; flex-wrap:wrap; justify-content:flex-end; gap:12px 26px; align-items:flex-end}
 #app-egutegia .kpi{display:flex; flex-direction:column; align-items:flex-end}
 #app-egutegia .kpi b{font-family:var(--f-mono); font-size:26px; font-weight:500; line-height:1; font-variant-numeric:tabular-nums}
 #app-egutegia .kpi span{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:6px}
@@ -664,6 +665,8 @@ section.cal{margin-top:34px}
 #app-koadernoa .howto p{font-family:var(--f-ui); font-size:13.5px; color:var(--ink-2); line-height:1.5}
 
 #app-koadernoa section.unit{padding-top:56px; scroll-margin-top:10px}
+/* con las lecciones de los libros el cuaderno pasa de 2.000 casillas: lo que está fuera de la pantalla no se maqueta hasta acercarse */
+#app-koadernoa section.unit{content-visibility:auto; contain-intrinsic-size:auto 2400px}
 #app-koadernoa .uhead{border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:8px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
 #app-koadernoa .uhead .n{font-family:var(--f-mono); font-size:13px; font-weight:500; color:var(--surface); background:var(--ink); padding:2px 8px; border-radius:2px}
 #app-koadernoa .uhead h2{font-size:26px; letter-spacing:-.01em}
@@ -776,7 +779,7 @@ section.cal{margin-top:34px}
   <div class="brand"><a href="index.html" title="Mailak · Armairura itzuli" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:6px"><span aria-hidden="true" style="font-family:var(--f-mono);color:var(--muted);font-size:15px">‹</span><b>Euskara <em>armairua</em></b></a><span>A1 · Oinarria · 2026ko iraila</span></div>
   <nav role="tablist" aria-label="Materialak">
   <button type="button" id="tab-egutegia" role="tab" aria-selected="false" aria-controls="app-egutegia"><span class="t"><i>📅</i>Egutegia</span><span class="c">Plan de 28 días</span></button>
-  <button type="button" id="tab-hiztegia" role="tab" aria-selected="false" aria-controls="app-hiztegia"><span class="t"><i>🗃️</i>Hiztegia</span><span class="c">1.239 palabras</span></button>
+  <button type="button" id="tab-hiztegia" role="tab" aria-selected="false" aria-controls="app-hiztegia"><span class="t"><i>🗃️</i>Hiztegia</span><span class="c">1.457 palabras</span></button>
   <button type="button" id="tab-koadernoa" role="tab" aria-selected="false" aria-controls="app-koadernoa"><span class="t"><i>✏️</i>Koadernoa</span><span class="c">Ariketak eta erantzunak</span></button>
   <button type="button" id="tab-mintzamena" role="tab" aria-selected="false" aria-controls="app-mintzamena"><span class="t"><i>🗣️</i>Mintzamena</span><span class="c">Hizketa-ereduak</span></button>
   <button type="button" id="tab-jokoa" role="tab" aria-selected="false" aria-controls="app-jokoa"><span class="t"><i>🎮</i>Jokoa</span><span class="c">Juegos y retos</span></button>
@@ -937,8 +940,8 @@ window.HUB = (function(){
     </header>
     <div class="mats">
       <a class="mat" href="#egutegia"><span class="mat-ic">📅</span><span class="mat-b"><span class="mat-t">Egutegia</span><span class="mat-d">Plan de 28 días, memoria gramatical y repaso</span></span><span class="mat-go">→</span></a>
-      <a class="mat" href="#hiztegia"><span class="mat-ic">🗃️</span><span class="mat-b"><span class="mat-t">Hiztegia</span><span class="mat-d">1.239 palabras en flashcards, por temas</span></span><span class="mat-go">→</span></a>
-      <a class="mat" href="#koadernoa"><span class="mat-ic">✏️</span><span class="mat-b"><span class="mat-t">Koadernoa</span><span class="mat-d">Ariketak eta erantzunak · 8 cuadernos + 3 simulacros</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#hiztegia"><span class="mat-ic">🗃️</span><span class="mat-b"><span class="mat-t">Hiztegia</span><span class="mat-d">1.457 palabras en flashcards, por temas</span></span><span class="mat-go">→</span></a>
+      <a class="mat" href="#koadernoa"><span class="mat-ic">✏️</span><span class="mat-b"><span class="mat-t">Koadernoa</span><span class="mat-d">Ariketak eta erantzunak · 8 cuadernos + 3 simulacros · hojas de Arian A1</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#mintzamena"><span class="mat-ic">🗣️</span><span class="mat-b"><span class="mat-t">Mintzamena</span><span class="mat-d">Hizketa-ereduak · 47 situaciones castellano–euskera, con voz</span></span><span class="mat-go">→</span></a>
       <a class="mat" href="#jokoa"><span class="mat-ic">🎮</span><span class="mat-b"><span class="mat-t">Jokoa</span><span class="mat-d">Juegos de repaso y escucha en bucle (A1 y Mintzamena)</span></span><span class="mat-go">→</span></a>
     </div>
@@ -1221,6 +1224,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 .esa-go{font-family:var(--f-mono); font-size:9px; letter-spacing:.04em; text-transform:uppercase; color:var(--iron); text-decoration:none}
 .esa-go:hover{text-decoration:underline}
 .esa-tag.mz{color:var(--iron); background:var(--iron-soft); border-color:var(--iron)}
+.esa-tag.bk{color:var(--ink-2); background:var(--surface-2); border-color:var(--line-strong)}
 .esa-more{display:block; margin:12px auto 0; font-family:var(--f-ui); font-size:13.5px; font-weight:600; color:var(--sea); background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:9px 16px; cursor:pointer}
 .esa-more:hover{border-color:var(--sea)}
 </style>
@@ -1445,7 +1449,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     var items = [
       { ic:'🏔️', nm:'Euskararen Geruzak', ds:'Gramática y morfología · 20 bloques', u:P.links.g },
       { ic:'✏️', nm:'Ariketen Koadernoa', ds:'8 cuadernos + 3 simulacros', u:P.links.w },
-      { ic:'🗃️', nm:'Hitzen Kutxa', ds:'1.239 palabras con repaso espaciado', u:P.links.h },
+      { ic:'🗃️', nm:'Hitzen Kutxa', ds:'1.457 palabras con repaso espaciado', u:P.links.h },
       { ic:'🗣️', nm:'Mintzamena', ds:'Modelos de conversación · 47 situaciones', u:'#mintzamena' }
     ];
     m.innerHTML = items.map(function(x){
@@ -1982,7 +1986,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
           <button type="button" id="esaClear" class="esa-clear" aria-label="Limpiar" hidden>✕</button>
         </div>
         <div class="esa-chips" id="esaChips" role="tablist" aria-label="Filtrar por estructura"></div>
-        <p class="esa-note">&#9888; Frases del curso A1 (koadernos, Irakurmena, Esapideak y simulacros) y, con la etiqueta <b>Mintzamena</b>, los modelos de conversación del Gobierno Vasco. El desglose de morfemas y las notas gramaticales de las del curso los ha añadido Claude: conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
+        <p class="esa-note">&#9888; Cada frase lleva la etiqueta de su procedencia: las del curso A1 de la app (koadernos, Irakurmena, Esapideak y simulacros) las ha preparado <b>Claude</b>, con el desglose de morfemas y las notas, y conviene contrastarlas con una fuente autoritativa (Euskaltzaindia); las de <b>Mintzamena</b> son los modelos de conversación del Gobierno Vasco.</p>
         <div class="esa-count" id="esaCount"></div>
         <div class="esa-list" id="esaList"></div>
       </div>
@@ -2964,6 +2968,27 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
       var S=MZ.byId[pr.s];
       DATA.push({ es:pr.es, eu:pr.eu, alt:pr.alt, k:'Mintzamena', src:S.beu+' · '+S.n+'. '+S.eu, sid:S.id });
     });
+    /* frases de las transcripciones personales, si las hay en este ordenador
+       (pribatua/, solo en local): diálogos con traducción y ejercicios de traducción */
+    if(window.A1_ITURRIAK) (function(){
+      var seen={};
+      function add(es, eu, alt, u, a){
+        es=String(es).replace(/^[a-z]\)\s*/,'').replace(/\*/g,'').trim(); eu=String(eu).replace(/\*/g,'').trim();
+        if(!es || !eu || /…\s*$|^…/.test(eu)) return;
+        var k=es.toLowerCase()+'|'+eu.toLowerCase(); if(seen[k]) return; seen[k]=1;
+        DATA.push({ es:es, eu:eu, alt:alt&&alt.length?alt:null, k:'Bakarka 1', src:'Bakarka 1 · '+u.n+'. ikasgaia · '+a.orr+'. or.', bk:u.id, orr:a.orr });
+      }
+      A1_ITURRIAK.unitateak.forEach(function(u){
+        if(u.src!=='bakarka1') return;
+        u.atalak.forEach(function(a){
+          if(a.mota==='elkarrizketa') a.lerroak.forEach(function(l){ if(l[2]) add(l[2], l[1], null, u, a); });
+          if(a.mota==='ariketa' && a.itz) a.items.forEach(function(it){
+            if(typeof it.a!=='string') return;
+            var al=it.a.split(/\s+\/\s+/); add(it.q, al[0], al.slice(1), u, a);
+          });
+        });
+      });
+    })();
     if(!DATA.length) return;
     var q=document.getElementById('esaQ'), clr=document.getElementById('esaClear'),
         chips=document.getElementById('esaChips'), list=document.getElementById('esaList'),
@@ -2975,7 +3000,7 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
     DATA.forEach(function(d){ d._es=norm(d.es); d._eu=norm(d.eu+' '+(d.alt||[]).join(' ')); });
 
     /* orden fijo de las etiquetas para los chips */
-    var ORDER=['NOR','NORK','NORI','Lekua','Aspektua','Lokailuak','Ordua','Esapideak','Mintzamena'];
+    var ORDER=['NOR','NORK','NORI','Lekua','Aspektua','Lokailuak','Ordua','Esapideak','Mintzamena','Bakarka 1'];
     var present={}; DATA.forEach(function(d){ present[d.k]=true; });
     var TAGS=ORDER.filter(function(k){ return present[k]; });
 
@@ -3038,8 +3063,9 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
           +     '<div class="esa-es">'+mark(d.es, nq)+'</div>'
           +     '<div class="esa-eu">'+mark(d.eu, nq)+'</div>'
           +     (d.alt && d.alt.length ? '<div class="esa-alt">Beste modu bat: '+d.alt.map(function(a){ return mark(a, nq); }).join(' · ')+'</div>' : '')
-          +     '<div class="esa-meta"><span class="esa-tag'+(d.sid?' mz':'')+'">'+esc(d.k)+'</span><span class="esa-src">'+esc(d.src)+'</span>'
-          +       (d.sid ? '<a class="esa-go" href="#mz-'+d.sid+'">Ireki egoera →</a>' : '')+'</div>'
+          +     '<div class="esa-meta"><span class="esa-tag'+(d.sid?' mz':d.bk?' bk':'')+'">'+esc(d.k)+'</span>'+(d.bk?'':'<span class="esa-src">'+esc(d.src)+'</span>')
+          +       (window.ITURRIAK ? ITURRIAK.badge(d.sid?'mintzamena':d.bk?'bakarka1':'claude', d.bk?d.src.replace('Bakarka 1 · ',''):'') : '')
+          +       (d.sid ? '<a class="esa-go" href="#mz-'+d.sid+'">Ireki egoera →</a>' : d.bk ? '<a class="esa-go" href="#'+d.bk+'">Ireki ikasgaia →</a>' : '')+'</div>'
           +   '</div>'
           +   '<button type="button" class="esa-say" data-eu="'+esc(window.MZ?MZ.speak(d.eu):d.eu)+'" aria-label="Escuchar en euskera">🔊</button>'
           + '</div>'
@@ -3082,15 +3108,15 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <div class="page">
 <header class="top">
   <div>
-    <div class="eyebrow" id="hzEyebrow">Hiztegia · A1 · 1.239 hitz</div>
+    <div class="eyebrow" id="hzEyebrow">Hiztegia · A1 · 1.457 hitz</div>
     <h1>Hitzen <em>kutxa</em></h1>
-    <p class="sub">Todo el léxico del A1 en veinte cajones temáticos —más siete de Mintzamena con el vocabulario de los modelos de conversación—, con repaso espaciado adaptativo: cada palabra ajusta sola cuándo vuelve a aparecer según lo bien que la recuerdes, y las que fallas se cuelan antes.</p>
+    <p class="sub">Todo el léxico del A1 en veinte cajones temáticos —más siete de Mintzamena con el vocabulario de los modelos de conversación y trece con el de cada lección de <i>Bakarka 1</i>—, con repaso espaciado adaptativo: cada palabra ajusta sola cuándo vuelve a aparecer según lo bien que la recuerdes, y las que fallas se cuelan antes.</p>
   </div>
   <div class="stats">
     <div class="due"><b id="stDue">—</b><span>Hoy toca</span></div>
     <div class="ok"><b id="stOk">—</b><span>Dominadas</span></div>
     <div class="hard"><b id="stHard">—</b><span>Difíciles</span></div>
-    <div><b id="stTot">1239</b><span>Total</span></div>
+    <div><b id="stTot">1457</b><span>Total</span></div>
   </div>
 </header>
 
@@ -3165,6 +3191,23 @@ a.mat:hover{border-color:var(--sea); transform:translateY(-2px); box-shadow:var(
 <script src="armairua-a1-data.js"></script>
 <script src="armairua-esaldiak-data.js"></script>
 <script src="armairua-a1-mintzamena-data.js"></script>
+<script>
+/* Transcripciones de libros para estudio personal: están solo en tu ordenador
+   (carpeta pribatua/, fuera del repositorio) y solo se leen cuando la app se
+   abre desde él (o desde tu red de casa). En la web publicada no existen ni se piden. */
+(function(){
+  var h = location.hostname;
+  var local = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(h) ||
+              /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(h) || /\.local$/.test(h);      // tu ordenador o tu red de casa
+  if (!local) return;
+  window.ARMAIRUA_LOCAL = true;
+  /* además de las transcripciones: el índice de tu copia del libro (páginas y audios que hay en
+     pribatua/arian-a1/) y el visor que la abre junto a las hojas de respuestas */
+  ['pribatua/armairua-a1-bakarka1-data.js', 'pribatua/armairua-a1-arian-data.js', 'pribatua/arian-a1/index.js', 'armairua-koadernoa-liburua.js'].forEach(function(f){
+    document.write('<scr' + 'ipt src=' + JSON.stringify(f) + '></scr' + 'ipt>');
+  });
+})();
+</script>
 <script>
 /* ── MZ · Mintzamena aplanado para los demás módulos ──────────────────
    A partir de A1_MINTZAMENA prepara una sola vez lo que usan Mintzamena,
@@ -3325,20 +3368,52 @@ window.MZ = (function(){
   var opt = document.createElement('option');
   opt.value = -1; opt.textContent = 'Denak · todos los temas';
   themeSel.appendChild(opt);
-  /* los cajones de Mintzamena (src:"mz") van en su propio grupo del selector */
-  var MZT = {}; WORDS.forEach(function(w){ if (w.src === 'mz') MZT[w.t] = true; });
-  var mzGroup = null;
+  /* los cajones de Mintzamena (src:"mz") y los de Bakarka 1 (src:"bk1") van en
+     su propio grupo del selector; al final, «Iturria»: todas las palabras de
+     una fuente (valores especiales: -3 Bakarka 1, -4 Mintzamena, -5 las de Claude) */
+  var MZT = {}, BKT = {}; WORDS.forEach(function(w){ if (w.src === 'mz') MZT[w.t] = true; if (w.src === 'bk1') BKT[w.t] = true; });
+  var SRCOF = { mz:'mintzamena', bk1:'bakarka1' };
+  var mzGroup = null, bkGroup = null;
   THEMES.forEach(function(t,i){
-    var o = document.createElement('option'); o.value = i; o.textContent = MZT[i] ? t.replace('Mintzamena · ', '') : t;
+    var o = document.createElement('option'); o.value = i; o.textContent = MZT[i] ? t.replace('Mintzamena · ', '') : BKT[i] ? t.replace('Bakarka 1 · ', '') : t;
     if (MZT[i]){
       if (!mzGroup){ mzGroup = document.createElement('optgroup'); mzGroup.label = 'Mintzamena · hizketa-ereduak'; themeSel.appendChild(mzGroup); }
       mzGroup.appendChild(o);
+    } else if (BKT[i]){
+      if (!bkGroup){ bkGroup = document.createElement('optgroup'); bkGroup.label = 'Bakarka 1 · liburuko hiztegia'; themeSel.appendChild(bkGroup); }
+      bkGroup.appendChild(o);
     } else themeSel.appendChild(o);
   });
+  (function(){
+    var g = document.createElement('optgroup'); g.label = 'Iturria · por fuente';
+    [[-3, 'Bakarka 1 · todo su vocabulario'], [-4, 'Mintzamena · todo su vocabulario'], [-5, '⚠ Claude · las del temario A1']].forEach(function(x){
+      var o = document.createElement('option'); o.value = x[0]; o.textContent = x[1]; g.appendChild(o);
+    });
+    themeSel.appendChild(g);
+  })();
+  /* fuente de una palabra: la de su ficha y, si comparte ficha, también la de las demás */
+  function srcOf(w){ return w.src ? SRCOF[w.src] || 'claude' : 'claude'; }
+  /* las fuentes de una ficha: la suya y las de las palabras iguales que la comparten */
+  var CARDSRC = {};
+  WORDS.forEach(function(w){ var k = ci(w.i), s = srcOf(w); (CARDSRC[k] = CARDSRC[k] || []).indexOf(s) < 0 && CARDSRC[k].push(s); });
+  function badgesOf(w){
+    if (!window.ITURRIAK) return '';
+    var own = srcOf(w), all = (CARDSRC[ci(w.i)] || [own]).slice().sort(function(a, b){ return (a === own ? -1 : 0) - (b === own ? -1 : 0); });
+    return all.map(function(s){ return ITURRIAK.badge(s); }).join(' ');
+  }
   try { document.getElementById('hzEyebrow').textContent = 'Hiztegia · A1 · ' + String(UNIQ.length).replace(/\B(?=(\d{3})+$)/g, '.') + ' hitz'; } catch(e){}
 
   /* «todos los temas» = cada palabra una vez; un tema = todas las suyas */
-  function pool(){ return theme < 0 ? UNIQ : WORDS.filter(function(w){ return w.t === theme; }); }
+  function pool(){
+    if (theme <= -3){
+      var want = theme === -3 ? 'bk1' : theme === -4 ? 'mz' : '', seen = {};
+      return WORDS.filter(function(w){
+        if ((w.src || '') !== want) return false;
+        var k = ci(w.i); if (seen[k]) return false; seen[k] = 1; return true;
+      });
+    }
+    return theme < 0 ? UNIQ : WORDS.filter(function(w){ return w.t === theme; });
+  }
 
   /* cola priorizada: primero lo más débil (caja baja), luego lo más
      atrasado y lo más fallado; azar solo para deshacer empates */
@@ -3389,6 +3464,7 @@ window.MZ = (function(){
     elFront.textContent = (w || dir === 'es') ? cur.es : cur.eu;
     elBack.textContent  = (w || dir === 'es') ? cur.eu : cur.es;
     elTag.textContent = THEMES[cur.t];
+    elTag.insertAdjacentHTML('beforeend', ' ' + badgesOf(cur));
     elBox.innerHTML = dots(rec(cur.i).b);
     elHint.textContent = w ? 'Escríbelo en euskera y pulsa Intro' : 'Pulsa o toca para ver la traducción';
     ['g0','g1','g2'].forEach(function(id){ var b = document.getElementById(id); b.disabled = true; b.classList.remove('sug'); });
@@ -3577,9 +3653,9 @@ window.MZ = (function(){
   function bySort(a, b){
     var t = today(), ra = rec(a.i), rb = rec(b.i);
     if (ra.b !== rb.b) return ra.b - rb.b;
-    /* las palabras de Mintzamena que aún no has visto van detrás de las del A1:
-       el vocabulario del plan primero, el de los modelos de conversación después */
-    var xa = (a.src === 'mz' && !state[ci(a.i)]) ? 1 : 0, xb = (b.src === 'mz' && !state[ci(b.i)]) ? 1 : 0;
+    /* las palabras de Mintzamena y de Bakarka 1 que aún no has visto van detrás
+       de las del A1: el vocabulario del plan primero, el de los libros después */
+    var xa = (a.src && !state[ci(a.i)]) ? 1 : 0, xb = (b.src && !state[ci(b.i)]) ? 1 : 0;
     if (xa !== xb) return xa - xb;
     var oa = t - ra.d, ob = t - rb.d;
     if (ob !== oa) return ob - oa;
@@ -3675,6 +3751,7 @@ window.MZ = (function(){
     <div><b>No corrijas sobre la marcha</b><p>Termina el ejercicio entero y luego contrasta. Así ves tus patrones de error.</p></div>
     <div><b>Repite a los tres días</b><p>Un ejercicio con más de dos fallos se vuelve a hacer, en limpio, 72 horas después.</p></div>
     <div><b>En voz alta</b><p>Los diálogos y las lecturas se leen hablando. El A1 se juega en el oral.</p></div>
+    <div><b>Arian A1 · erantzun-orriak</b><p>Al final del índice, las doce unidades del libro como hoja de respuestas: el número de cada ejercicio, su página, su audio y las casillas. Los enunciados se leen en el libro. <a href="#aro-01">Ir a la unidad 1 →</a></p></div>
   </div>
 </div></header>
 
@@ -4532,8 +4609,8 @@ window.MZ = (function(){
     <p>Hau nire etxea da. Nire lagunak Ane du izena. Gu ikasleak gara. Zu ez zara irakaslea, ezta? Liburu haiek berriak dira. — Nor da gizon hori? — Nire irakaslea da.</p>
     <p class="gloss"><b>ezta?</b> ¿verdad? · <b>gizon</b> hombre · <b>irakasle</b> profesor/a · <b>ikasle</b> estudiante</p>
   </div>
-  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Las frases proceden de los ejercicios del método, pero el análisis morfológico y las notas gramaticales los ha añadido Claude; conviene verificarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Notas por verificar</span></summary><div class="in anal">
-    <p class="anal-note">&#9888; Las frases vienen de los ejercicios del método (con solución verificada), pero el desglose de morfemas y las notas gramaticales los ha añadido Claude: conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
+  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Preparado por Claude: las frases, el desglose de morfemas y las notas gramaticales no salen de ningún documento de tu carpeta; conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Claude · por verificar</span></summary><div class="in anal">
+    <p class="anal-note">&#9888; Las frases de esta lectura, el desglose de morfemas y las notas gramaticales los ha preparado Claude: no salen de ningún libro de tu carpeta. Conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
     <div class="anal-s"><p class="eu"><b>Zer moduz zaude?</b> <span class="es">— ¿Qué tal estás?</span></p>
       <p class="mor"><b>Zer moduz</b> = qué tal · <b>zaude</b> = estás (EGON sintético · zu)</p>
       <p class="gr">Saludo fijo. «zaude» es el presente sintético de EGON para «zu».</p></div>
@@ -4570,8 +4647,8 @@ window.MZ = (function(){
     <p>Nik gaur ez daukat denborarik. — Kotxerik ba al duzu? — Ez, ez dut. Egia esan, ez dut ezer ikusi. Guk ez dakigu euskaraz oso ondo, baina ikasten ari gara.</p>
     <p class="gloss"><b>gaur</b> hoy · <b>egia esan</b> la verdad · <b>baina</b> pero · <b>ari gara</b> estamos (haciendo)</p>
   </div>
-  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Las frases proceden de los ejercicios del método, pero el análisis morfológico y las notas gramaticales los ha añadido Claude; conviene verificarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Notas por verificar</span></summary><div class="in anal">
-    <p class="anal-note">&#9888; Las frases vienen de los ejercicios del método (con solución verificada), pero el desglose de morfemas y las notas gramaticales los ha añadido Claude: conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
+  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Preparado por Claude: las frases, el desglose de morfemas y las notas gramaticales no salen de ningún documento de tu carpeta; conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Claude · por verificar</span></summary><div class="in anal">
+    <p class="anal-note">&#9888; Las frases de esta lectura, el desglose de morfemas y las notas gramaticales los ha preparado Claude: no salen de ningún libro de tu carpeta. Conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
     <div class="anal-s"><p class="eu"><b>Bi anaia eta arreba bat ditut.</b> <span class="es">— Tengo dos hermanos y una hermana.</span></p>
       <p class="mor"><b>bi anaia</b> = dos hermanos · <b>arreba bat</b> = una hermana · <b>ditut</b> = tengo (UKAN · nik · objeto plural)</p>
       <p class="gr">Tras un número, el nombre va en singular y sin artículo: «bi anaia». Como el objeto es «varios», el verbo es «ditut».</p></div>
@@ -4608,8 +4685,8 @@ window.MZ = (function(){
     <p>Haurrei ez zaizkie barazkiak gustatzen. Bihar nire etxea erakutsiko dizut. Giltzak bidali dizkigute. — Lagunduko didazu?</p>
     <p class="gloss"><b>barazki</b> verdura · <b>giltza</b> llave · <b>bihar</b> mañana · <b>artean</b> entre</p>
   </div>
-  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Las frases proceden de los ejercicios del método, pero el análisis morfológico y las notas gramaticales los ha añadido Claude; conviene verificarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Notas por verificar</span></summary><div class="in anal">
-    <p class="anal-note">&#9888; Las frases vienen de los ejercicios del método (con solución verificada), pero el desglose de morfemas y las notas gramaticales los ha añadido Claude: conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
+  <details class="sol"><summary>Análisis resuelto · morfemak <span class="warn" title="Preparado por Claude: las frases, el desglose de morfemas y las notas gramaticales no salen de ningún documento de tu carpeta; conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).">&#9888; Claude · por verificar</span></summary><div class="in anal">
+    <p class="anal-note">&#9888; Las frases de esta lectura, el desglose de morfemas y las notas gramaticales los ha preparado Claude: no salen de ningún libro de tu carpeta. Conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).</p>
     <div class="anal-s"><p class="eu"><b>Niri euskara asko gustatzen zait.</b> <span class="es">— A mí me gusta mucho el euskera.</span></p>
       <p class="mor"><b>ni</b> + <b>-ri</b> (NORI · dativo) · <b>euskara</b> (sujeto) · <b>gustatzen</b> · <b>zait</b> = me (gusta) (NOR-NORI: hura→niri)</p>
       <p class="gr">Verbos tipo «gustatu»: lo que gusta es el sujeto (euskara) y la persona va en dativo: niri ... zait.</p></div>
@@ -4960,16 +5037,28 @@ window.MZ = (function(){
   </div>
 </div></section>
 
-<footer><div class="wrap"><p><b>Ariketen Koadernoa</b> — 8 cuadernos y 3 simulacros de nivel A1, alineados con los cuadernos de gramática de <i>Euskararen Geruzak</i> y con la secuencia de <i>Bakarka 1</i>. Las soluciones están plegadas: ábrelas solo después de haber escrito la tuya.</p></div></footer>
+<footer><div class="wrap"><p><b>Ariketen Koadernoa</b> — 8 cuadernos, 3 lecturas y 3 simulacros de nivel A1 preparados por Claude (&#9888;), enlazados con los bloques de gramática de <i>Euskararen Geruzak</i>. Las soluciones están plegadas: ábrelas solo después de haber escrito la tuya.</p><p style="margin-top:8px"><b>Erantzun-orriak</b> — las hojas de respuestas de <i>Arian A1</i> llevan solo el número, la página, la pista de audio y las casillas de cada ejercicio; los enunciados están en el libro y no hay soluciones que comprobar. Las notas de cada apartado son de Claude (&#9888;).</p></div></footer>
 </main>
 </div>
+<script src="armairua-a1-arian-orria.js"></script>
+<script src="armairua-koadernoa-iturriak.js"></script>
+<script>
+/* etiqueta «⚠ Claude» en las unidades propias; detrás, las hojas de respuestas de
+   Arian A1 (casillas sin el texto del libro). Si en este ordenador hay
+   transcripciones personales (pribatua/, solo en local), se añaden también con la
+   etiqueta de su fuente. Va antes del índice y de los campos editables. */
+if (window.KOADERNOA_ITURRIAK) KOADERNOA_ITURRIAK.render({ root: '#app-koadernoa', data: window.A1_ITURRIAK, orriak: window.A1_ORRIAK,
+  groups: { bakarka1: 'Bakarka 1 · liburutik', arian: 'Arian A1 · liburutik', 'arian-orria': 'Arian A1 · erantzun-orria' } });
+/* solo en local: tu copia del libro (pribatua/arian-a1/) al lado de las hojas */
+if (window.KOADERNOA_LIBURUA) KOADERNOA_LIBURUA.setup({ root: '#app-koadernoa', liburuak: window.A1_LIBURUA });
+</script>
 <script>
 (function(){
   var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
   var secs  = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
   function mark(){
     var y = window.scrollY + 130, cur = 0;
-    for (var i=0;i<secs.length;i++){ if (secs[i] && secs[i].offsetTop <= y) cur = i; }
+    for (var i=0;i<secs.length;i++){ if (secs[i] && secs[i].offsetParent !== null && secs[i].offsetTop <= y) cur = i; }
     links.forEach(function(a,i){ a.style.background = i===cur ? 'var(--iron-soft)' : '';
       a.style.color = i===cur ? 'var(--iron)' : ''; a.style.fontWeight = i===cur ? '600' : ''; });
   }
@@ -5013,7 +5102,7 @@ window.MZ = (function(){
       if (state[key] != null) el.value = state[key];
       el.addEventListener('input', function(){
         state[key] = el.value;
-        if (type === 'area') grow(el); else sizeInput(el, type === 'score' ? 3 : 6);
+        if (type === 'area') grow(el); else if (type !== 'orria') sizeInput(el, type === 'score' ? 3 : 6);
         persist();
       });
     }
@@ -5024,23 +5113,24 @@ window.MZ = (function(){
       inp.type = 'text'; inp.className = 'gapf';
       inp.autocomplete = 'off'; inp.spellcheck = false;
       inp.setAttribute('aria-label', 'Erantzuna · respuesta');
+      var fk = span.getAttribute('data-fk');      // las unidades de los libros traen clave propia (no por posición)
       span.parentNode.replaceChild(inp, span);
-      register(inp, 'g' + i, 'gap');
+      register(inp, fk ? 'f:' + fk : 'g' + i, 'gap');
       sizeInput(inp, 6);
     });
 
     /* 2 · ítems abiertos (sin hueco) → área de escritura */
     Array.prototype.forEach.call(sec.querySelectorAll('ol.items > li'), function(li, i){
-      if (li.querySelector('.gapf') || li.querySelector('span.gap')) return;
+      if (li.querySelector('.gapf') || li.querySelector('span.gap') || li.hasAttribute('data-plain')) return;
       var ta = document.createElement('textarea');
       ta.className = 'ansf'; ta.rows = 1;
       ta.placeholder = 'Idatzi hemen…';
       ta.autocomplete = 'off';
       ta.setAttribute('aria-label', 'Zure erantzuna · tu respuesta');
       li.appendChild(ta);
-      register(ta, 'o' + i, 'area');
+      register(ta, li.getAttribute('data-fk') ? 'f:' + li.getAttribute('data-fk') : 'o' + i, 'area');
       textareas.push(ta);
-      grow(ta);
+      if (ta.value) grow(ta);                  // vacía ya tiene su altura mínima (con las lecciones de los libros son miles)
     });
 
     /* 3 · marcadores «__» de las líneas de puntuación */
@@ -5068,6 +5158,11 @@ window.MZ = (function(){
       });
     });
 
+    /* 4 · hojas de respuestas: opción (una de varias), marca y «Eginda» (elementos .orf con value) */
+    Array.prototype.forEach.call(sec.querySelectorAll('.orf[data-orf]'), function(el){
+      register(el, 'f:' + el.getAttribute('data-orf'), 'orria');
+    });
+
     /* nube: si llega una versión más nueva, repuebla los campos */
     HUB.bind(DOCID, LSKEY, function(v){
       if (!v || typeof v !== 'object') return;
@@ -5075,15 +5170,16 @@ window.MZ = (function(){
       Object.keys(fields).forEach(function(k){
         var f = fields[k];
         f.el.value = (v[k] != null) ? v[k] : '';
-        if (f.type === 'area') grow(f.el); else sizeInput(f.el, f.type === 'score' ? 3 : 6);
+        if (f.type === 'area') { if (f.el.value || f.el.style.height) grow(f.el); } else if (f.type !== 'orria') sizeInput(f.el, f.type === 'score' ? 3 : 6);
       });
+      if (window.KOADERNOA_ITURRIAK && KOADERNOA_ITURRIAK.refresh) KOADERNOA_ITURRIAK.refresh(sec);
     }, function(){ return state; });
   });
 
   /* al mostrarse la pestaña, ajustar la altura de las áreas ocultas */
   if (window.MutationObserver){
     new MutationObserver(function(){
-      if (!root.hidden) requestAnimationFrame(function(){ textareas.forEach(grow); });
+      if (!root.hidden) requestAnimationFrame(function(){ textareas.forEach(function(t){ if (t.value) grow(t); }); });
     }).observe(root, { attributes:true, attributeFilter:['hidden'] });
   }
 })();
@@ -5509,9 +5605,20 @@ window.MZ = (function(){
     try { window.dispatchEvent(new Event('scroll')); } catch(e){}
     if (anchor){
       var el = document.getElementById(anchor);
-      if (el) { el.scrollIntoView(); return; }
+      if (el) { el.scrollIntoView(); settle(el); return; }
     }
     window.scrollTo(0, 0);
+  }
+  /* el cuaderno maqueta sus unidades al acercarse (content-visibility): al saltar a
+     un ancla, lo de encima puede cambiar de altura; se corrige hasta que se asienta */
+  function settle(el){
+    var n = 0;
+    (function fix(){
+      requestAnimationFrame(function(){
+        var want = parseFloat(getComputedStyle(el).scrollMarginTop) || 0, top = el.getBoundingClientRect().top;
+        if (Math.abs(top - want) > 4 && n++ < 6) { el.scrollIntoView(); fix(); }
+      });
+    })();
   }
 
   function route(){

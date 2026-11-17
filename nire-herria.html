@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="Nire herria — ficha A1 explicada: las siete preguntas sobre tu pueblo, los casos que pide cada una y cómo responder.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<title>Nire herria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
+<style>
+
+/* Layout: rail de índice fijo a la izquierda en pantallas anchas; una columna de lectura; casos como estratos.
+   Paleta «Geruzak» de Euskara Armairua: caliza, mar cantábrico, hierro oxidado. */
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2;
+  --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC;
+  --plum:#6A4C93; --plum-soft:#EAE2F3;
+  --blue:#2D5F8B; --blue-soft:#DDE7F1;
+  --ok:#2E6B42; --crit:#A33325;
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:4px; --measure:68ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+    --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+    --line:#2E342E; --line-strong:#414840;
+    --sea:#63C0A0; --sea-soft:#1B3830;
+    --iron:#E08A6B; --iron-soft:#3A2620;
+    --gold:#D3AE5A; --gold-soft:#33290F;
+    --plum:#B99BE0; --plum-soft:#2D2339;
+    --blue:#8DB6DE; --blue-soft:#1C2A38;
+    --ok:#6FBF88; --crit:#E0776A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924;
+  --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840;
+  --sea:#63C0A0; --sea-soft:#1B3830;
+  --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F;
+  --plum:#B99BE0; --plum-soft:#2D2339;
+  --blue:#8DB6DE; --blue-soft:#1C2A38;
+  --ok:#6FBF88; --crit:#E0776A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:400 17px/1.62 var(--f-body);-webkit-text-size-adjust:100%;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--sea);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--sea);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p{margin:0}
+.eu{font-style:italic}
+strong{font-weight:600}
+b.m{color:var(--iron);font-weight:600}
+s.bad{color:var(--crit);text-decoration-thickness:1.5px;font-style:italic}
+
+/* ── mast ── */
+.mast{max-width:1180px;margin:0 auto;padding-block:40px 28px;display:grid;gap:18px}
+.crumbs{font:500 12px/1.4 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs a:hover{color:var(--sea)}
+.mast h1{font:600 clamp(2.4rem, 6vw, 4rem)/1 var(--f-display);letter-spacing:-.01em}
+.mast h1 em{font:italic 400 1em/1 var(--f-body);color:var(--sea)}
+.mast .intro{max-width:62ch;font-size:1.12rem;color:var(--ink-2)}
+.strata{display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:0;max-width:760px;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden}
+.strata div{padding:10px 12px;font:500 12px/1.35 var(--f-ui);color:var(--ink-2);border-right:1px solid var(--line)}
+.strata div:last-child{border-right:0}
+.strata b{display:block;font:600 1.35rem/1.1 var(--f-display);color:var(--ink);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.strata div:nth-child(1){background:var(--sea-soft)} .strata div:nth-child(2){background:var(--iron-soft)}
+.strata div:nth-child(3){background:var(--gold-soft)} .strata div:nth-child(4){background:var(--blue-soft)}
+.mast-links{display:flex;flex-wrap:wrap;gap:8px 18px;font:500 14px/1.4 var(--f-ui)}
+
+/* ── layout ── */
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:0 48px}
+@media (min-width:1040px){ .wrap{grid-template-columns:220px minmax(0,1fr)} }
+.toc{font:500 14px/1.3 var(--f-ui);min-width:0}
+.toc-in{border-top:1px solid var(--line-strong);padding-block:14px}
+.toc-t{font:600 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;grid-template-columns:repeat(auto-fill, minmax(160px, 1fr))}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border-radius:var(--r);color:var(--ink-2);text-decoration:none}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.on{background:var(--sea-soft);color:var(--sea)}
+.toc-n{font:500 12px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.toc a.on .toc-n{color:var(--sea)}
+@media (min-width:1040px){
+  .toc-in{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 18px)}
+  .toc ol{grid-template-columns:1fr}
+}
+main{min-width:0;padding-bottom:64px}
+
+/* ── sections ── */
+.sec{border-top:1px solid var(--line-strong);padding-block:44px 20px;display:grid;gap:18px;scroll-margin-top:12px;grid-template-columns:minmax(0,1fr)}
+.sec > p, .sec > .list, .case-b > p, .case-b > .list{max-width:var(--measure)}
+.sec-h{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start}
+.sec-num{font:500 1.05rem/1 var(--f-mono);color:var(--iron);padding-top:.5rem;font-variant-numeric:tabular-nums}
+.sec-kat{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sec h2{font:600 clamp(1.6rem, 3.4vw, 2.2rem)/1.12 var(--f-display)}
+.lead{font-size:1.14rem;color:var(--ink-2);max-width:62ch}
+.sec h3{font:600 1.32rem/1.2 var(--f-display);margin-top:18px;scroll-margin-top:12px}
+.list{margin:0;padding-left:1.2em;display:grid;gap:8px}
+.list li::marker{color:var(--iron)}
+
+/* examples */
+.ex{border-left:3px solid var(--sea);padding:4px 0 4px 16px;display:grid;gap:2px;max-width:var(--measure)}
+.ex-eu{font:italic 400 1.22rem/1.35 var(--f-body);color:var(--ink)}
+.ex-es{font:400 15px/1.45 var(--f-ui);color:var(--muted)}
+.ex-n{font:400 14px/1.45 var(--f-ui);color:var(--ink-2);margin-top:4px}
+.exs{display:grid;border-top:1px solid var(--line);max-width:760px}
+.exr{display:grid;gap:2px 18px;padding:10px 0;border-bottom:1px solid var(--line)}
+@media (min-width:640px){ .exr{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:baseline} }
+.exr .ex-eu{font-size:1.1rem}
+.ex-tag{display:inline-block;margin-left:8px;font:500 12px/1.3 var(--f-ui);color:var(--sea);background:var(--sea-soft);padding:2px 7px;border-radius:999px}
+
+/* tables */
+.tbl{margin:0;max-width:100%;display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.tbl figcaption{font:600 12px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tbl-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font:400 15px/1.45 var(--f-ui)}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tbody tr:last-child th, tbody tr:last-child td{border-bottom:0}
+thead th{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+tbody th{font-weight:600;color:var(--ink)}
+td .eu, th .eu{font-family:var(--f-body);font-size:1.04em}
+.grid6 td{font-size:15px}
+.grid6 tbody th{background:var(--surface-2);white-space:nowrap}
+.grid6 td .eu{font-size:1.1em}
+
+/* notes */
+.note{border-radius:var(--r);padding:14px 16px;display:grid;gap:6px;max-width:var(--measure);background:var(--surface);border:1px solid var(--line)}
+.note p{font-size:16px}
+.note-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.note-k{font:700 11px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase}
+.note-t{font:600 1rem/1.3 var(--f-display)}
+.n-deep{background:var(--sea-soft);border-color:transparent} .n-deep .note-k{color:var(--sea)}
+.n-warn{background:var(--iron-soft);border-color:transparent} .n-warn .note-k{color:var(--iron)}
+.n-tip{background:var(--gold-soft);border-color:transparent} .n-tip .note-k{color:var(--gold)}
+.n-fix{background:var(--surface);border:1px dashed var(--blue)} .n-fix .note-k{color:var(--blue)}
+
+/* morpheme chips */
+.chips{margin:0;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.chips-row{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;width:max-content;max-width:100%}
+.chip{display:grid;gap:4px;padding:10px 14px;background:var(--iron-soft);border-right:1px solid var(--line-strong);min-width:0}
+.chip:last-child{border-right:0}
+.chip.root{background:var(--surface)}
+.chip-p{font:600 1.35rem/1 var(--f-mono);color:var(--iron)}
+.chip.root .chip-p{color:var(--ink)}
+.chip-l{font:500 11.5px/1.2 var(--f-ui);color:var(--ink-2)}
+@media (max-width:480px){ .chip{padding:8px 10px} .chip-p{font-size:1.15rem} }
+.chips figcaption, .svgfig figcaption{font:400 14.5px/1.5 var(--f-ui);color:var(--ink-2);max-width:var(--measure)}
+
+/* diagrams */
+.svgfig{margin:0;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.svg-scroll{overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);padding:12px}
+.dg{display:block;width:100%;min-width:540px;max-width:720px;height:auto;margin:0 auto}
+
+.dg .bx{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.dg .bx.sea{fill:var(--sea-soft);stroke:var(--sea)}
+.dg .bx.blue{fill:var(--blue-soft);stroke:var(--blue)}
+.dg .bx.plum{fill:var(--plum-soft);stroke:var(--plum)}
+.dg .bx.iron{fill:var(--iron-soft);stroke:var(--iron)}
+.dg .bx.muted{fill:var(--surface-2);stroke:var(--line-strong)}
+.dg .bx.q{fill:var(--surface-2);stroke:var(--line-strong)}
+.dg .bx.place{fill:var(--gold-soft);stroke:var(--gold)}
+.dg .tx{fill:var(--ink)}
+.dg .mu{fill:var(--muted)}
+.dg .lb.sea{fill:var(--sea)} .dg .lb.blue{fill:var(--blue)} .dg .lb.plum{fill:var(--plum)}
+.dg .lb.iron{fill:var(--iron)} .dg .lb.gold{fill:var(--gold)} .dg .lb.muted{fill:var(--muted)}
+.dg .ln.sea{stroke:var(--sea)} .dg .ln.blue{stroke:var(--blue)} .dg .ln.plum{stroke:var(--plum)}
+.dg .ln.iron{stroke:var(--iron)} .dg .ln.muted{stroke:var(--line-strong)}
+.dg .fl.sea{fill:var(--sea)} .dg .fl.iron{fill:var(--iron)} .dg .fl.gold{fill:var(--gold)}
+
+
+/* case index + cards */
+.caseindex{display:grid;grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:8px}
+.caseindex a{display:grid;gap:2px;padding:9px 11px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.caseindex a:hover{border-color:var(--sea);background:var(--sea-soft)}
+.caseindex span{font:600 13.5px/1.2 var(--f-ui);letter-spacing:.03em}
+.caseindex small{font:400 12.5px/1.3 var(--f-ui);color:var(--muted)}
+.case{background:var(--surface);border:1px solid var(--line-strong);border-top:4px solid var(--sea);border-radius:var(--r);padding:18px clamp(14px, 3vw, 24px) 20px;display:grid;gap:14px;scroll-margin-top:12px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.case-h{display:grid;gap:2px}
+.case h4{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.case-n{font:700 1.5rem/1.1 var(--f-display);letter-spacing:.02em}
+.case-s{font:italic 400 1.05rem/1.2 var(--f-body);color:var(--muted)}
+.case-q{font:500 14.5px/1.4 var(--f-ui);color:var(--sea)}
+.forms{margin:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.forms div{padding:9px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ground);min-width:0}
+.forms dt{font:600 11px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.forms dd{margin:0;font:italic 400 1.02rem/1.35 var(--f-body);overflow-wrap:anywhere}
+.forms-note{font:400 13px/1.4 var(--f-ui);color:var(--muted)}
+.case-b{display:grid;gap:14px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.case .note{background-clip:padding-box}
+.case .n-fix{background:var(--ground)}
+.case .tbl-scroll{background:var(--ground)}
+
+/* quiz */
+.quiz{margin-top:14px;border-top:2px solid var(--ink);padding-top:14px;display:grid;gap:10px;max-width:780px;grid-template-columns:minmax(0,1fr)}
+.quiz-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.quiz h3{margin:0;font:600 1.2rem/1.2 var(--f-display)}
+.quiz-all{font:600 13px/1 var(--f-ui);color:var(--sea);background:transparent;border:1px solid var(--sea);border-radius:999px;padding:8px 14px;cursor:pointer}
+.quiz-all:hover{background:var(--sea-soft)}
+.quiz-all[aria-pressed="true"]{background:var(--sea);color:var(--surface)}
+.quiz ol{margin:0;padding:0;list-style:none;counter-reset:q;display:grid;gap:0}
+.quiz li{counter-increment:q;border-bottom:1px solid var(--line)}
+.quiz summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:8px;padding:11px 0;font:400 16px/1.45 var(--f-body)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:counter(q, decimal-leading-zero);font:500 12px/1.9 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.quiz summary::after{content:"Ver";font:600 12px/1.9 var(--f-ui);color:var(--sea);letter-spacing:.04em}
+.quiz details[open] summary::after{content:"Ocultar"}
+.ans{margin:0 0 12px 2.2em;padding:8px 12px;border-left:3px solid var(--ok);background:var(--surface);font:400 15.5px/1.5 var(--f-body);border-radius:0 var(--r) var(--r) 0}
+
+/* errors */
+.errors td{font-size:15.5px}
+.errors td:nth-child(1), .errors td:nth-child(2){font-family:var(--f-body);font-size:1.02rem;white-space:nowrap}
+.errors .ok{color:var(--ok);font-weight:600}
+.errors td:nth-child(3){min-width:200px}
+
+footer{max-width:1180px;margin:0 auto;border-top:1px solid var(--line-strong);padding-block:22px 40px;font:400 13.5px/1.5 var(--f-ui);color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+footer a{color:var(--ink-2)}
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+
+
+:root{--pen:#1D4F91}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--pen:#94BCF0} }
+:root[data-theme="dark"]{--pen:#94BCF0}
+
+.dg .river{fill:var(--blue-soft);stroke:var(--blue);stroke-width:1}
+.dg .town{stroke:var(--line-strong)}
+.dg .old{fill:var(--surface-2);stroke:var(--line-strong);stroke-width:1}
+
+.sec h2.qh{font:600 clamp(1.7rem, 4vw, 2.5rem)/1.08 var(--f-display)}
+.qsub{font:400 1.08rem/1.4 var(--f-ui);color:var(--muted);margin-top:8px}
+.toc-eu{font-style:italic}
+
+/* análisis de la pregunta */
+.gloss{margin:0;display:grid;grid-template-columns:minmax(0,1fr)}
+.gloss-row{display:flex;flex-wrap:wrap;gap:8px}
+.gw{display:grid;gap:3px;align-content:start;padding:10px 13px 10px;border:1px solid var(--line-strong);border-top:3px solid var(--c);border-radius:var(--r);background:var(--surface);min-width:0;max-width:100%}
+.gw-w{font:italic 600 1.32rem/1.1 var(--f-body);color:var(--ink)}
+.gw-l{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.gw-m{font:400 12.5px/1.3 var(--f-ui);color:var(--muted)}
+.c-nor{--c:var(--sea)} .c-nork{--c:var(--plum)} .c-noren{--c:var(--blue)} .c-non{--c:var(--gold)}
+.c-verb{--c:var(--iron)} .c-q{--c:var(--ink-2)} .c-det{--c:var(--muted)}
+
+/* plantilla */
+.tpl{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:12px 16px;border:1px dashed var(--line-strong);border-radius:var(--r);background:var(--surface);max-width:var(--measure)}
+.tpl-k{font:700 11px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tpl-t{font:400 1.14rem/1.6 var(--f-body)}
+.blank{display:inline-block;width:4.2em;border-bottom:2px solid var(--iron);margin:0 .2em;vertical-align:baseline}
+
+/* matriz 3 × 2 */
+.mx{display:grid;grid-template-columns:7.4rem minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);overflow:hidden;max-width:960px}
+.mx-h{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:9px 14px;border-bottom:1px solid var(--line-strong)}
+.mx-h + .mx-h{border-left:1px solid var(--line)}
+.mx-r{display:flex;align-items:flex-start;gap:8px;font:600 13.5px/1.3 var(--f-ui);padding:14px;border-bottom:1px solid var(--line);background:var(--ground);color:var(--ink)}
+.mx-r::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;margin-top:5px;background:var(--rc)}
+.r-aff{--rc:var(--sea)} .r-neg{--rc:var(--iron)} .r-q{--rc:var(--blue)}
+.mx-c{padding:13px 15px;border-bottom:1px solid var(--line);border-left:1px solid var(--line);display:grid;gap:12px;align-content:start;min-width:0}
+.mx > :nth-last-child(-n+3){border-bottom:0}
+.mi{display:grid;gap:2px;min-width:0}
+.mi-eu{font:italic 400 1.1rem/1.38 var(--f-body);color:var(--ink)}
+.mi-es{font:400 14px/1.4 var(--f-ui);color:var(--muted)}
+.mi-n{font:500 12.5px/1.35 var(--f-ui);color:var(--sea);margin-top:2px}
+.mx-tag{display:none}
+@media (max-width:700px){
+  .mx{grid-template-columns:minmax(0,1fr)}
+  .mx-h{display:none}
+  .mx-r{display:none}
+  .mx-c{border-left:0;border-bottom:1px solid var(--line)}
+  .mx > :nth-last-child(-n+3){border-bottom:1px solid var(--line)}
+  .mx > :last-child{border-bottom:0}
+  .mx-tag{display:flex;align-items:center;gap:7px;font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .mx-tag::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--rc)}
+}
+
+/* ficha resuelta */
+.sheet{margin:0;background:var(--surface);border:1.5px solid var(--ink);padding:24px clamp(16px, 4vw, 40px) 28px;display:grid;gap:16px;max-width:780px;box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.sheet-t{font:700 1.45rem/1 var(--f-ui);text-align:center;letter-spacing:.03em;margin-bottom:4px}
+.sheet-item{display:grid;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.sheet-item:last-child{border-bottom:0;padding-bottom:0}
+.sheet-q{font:700 13px/1.35 var(--f-ui);text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
+.sheet-a{font:500 1.6rem/1.32 "Caveat", "Segoe Print", "Bradley Hand", "Comic Neue", cursive;color:var(--pen)}
+.sheet-es summary{cursor:pointer;font:500 12.5px/1.4 var(--f-ui);color:var(--muted);width:max-content}
+.sheet-es p{font:400 14px/1.5 var(--f-ui);color:var(--ink-2);margin-top:4px}
+.quiz + .quiz{margin-top:26px}
+/* casos uno a uno */
+.case{border-top-color:var(--c, var(--sea))}
+.case .case-q{color:var(--c, var(--sea))}
+.case-lead{font-size:1.06rem;line-height:1.6;max-width:var(--measure)}
+.case-sub{font:700 11.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.case .exs{max-width:100%}
+.case .quiz{margin-top:6px}
+.caseindex a{border-left:3px solid var(--c, var(--line-strong))}
+.case .list{max-width:var(--measure)}
+
+
+</style>
+</head>
+<body>
+<header class="mast">
+  <nav class="crumbs" aria-label="Ruta"><a href="index.html">Euskara Armairua</a><span aria-hidden="true">/</span><a href="index.html#kasuak">Fichas A1</a><span aria-hidden="true">/</span><span>Nire herria</span></nav>
+  <h1>Nire <em>herria</em></h1>
+  <p class="intro">Las siete preguntas de la ficha: qué casos pide cada una y cómo responderla en singular, plural, afirmativa, negativa y pregunta.</p>
+  <div class="strata" aria-label="Contenido">
+    <div><b>7</b>preguntas de la ficha</div>
+    <div><b>8</b>casos, explicados uno a uno</div>
+    <div><b>4</b>verbos: egon, izan, bizi izan, ukan</div>
+    <div><b>6</b>formas de cada respuesta</div>
+  </div>
+  <p class="mast-links"><a href="gramatika-sakonean.html">Gramatika sakonean</a><a href="gramatika.html">Buscador de gramática</a></p>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Índice"><div class="toc-in"><p class="toc-t">Índice</p><ol><li><a href="#kasuak" data-sec="kasuak"><span class="toc-n">A</span><span>Casos y verbos</span></a></li><li><a href="#kasuz-kasu" data-sec="kasuz-kasu"><span class="toc-n">B</span><span>Casos a fondo</span></a></li><li><a href="#p1" data-sec="p1"><span class="toc-n">01</span><span lang="eu" class="toc-eu">Nola izena du</span></a></li><li><a href="#p2" data-sec="p2"><span class="toc-n">02</span><span lang="eu" class="toc-eu">Non dago</span></a></li><li><a href="#p3" data-sec="p3"><span class="toc-n">03</span><span lang="eu" class="toc-eu">Zenbat jende</span></a></li><li><a href="#p4" data-sec="p4"><span class="toc-n">04</span><span lang="eu" class="toc-eu">Zer dago</span></a></li><li><a href="#p5" data-sec="p5"><span class="toc-n">05</span><span lang="eu" class="toc-eu">Non daude</span></a></li><li><a href="#p6" data-sec="p6"><span class="toc-n">06</span><span lang="eu" class="toc-eu">Nolakoa da</span></a></li><li><a href="#p7" data-sec="p7"><span class="toc-n">07</span><span lang="eu" class="toc-eu">Zer ez dago</span></a></li><li><a href="#fitxa" data-sec="fitxa"><span class="toc-n">C</span><span>Ficha resuelta</span></a></li><li><a href="#ariketak" data-sec="ariketak"><span class="toc-n">D</span><span>Pruébate</span></a></li></ol></div></nav>
+  <main>
+
+<section class="sec" id="kasuak" aria-labelledby="kasuak-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">A</span>
+    <div>
+      <p class="sec-kat">Antes de responder</p>
+      <h2 id="kasuak-h">Los casos y verbos de la ficha</h2>
+      
+    </div>
+  </header>
+  <p class="lead">La ficha <i class="eu">Nire herria</i> tiene siete preguntas y en ellas cabe casi toda la gramática del A1: cuatro verbos, ocho casos y las tres transformaciones (plural, negativa y pregunta). Primero el mapa general; después, pregunta por pregunta.</p>
+  <aside class="note n-tip"><p class="note-h"><span class="note-k">Pueblo modelo</span><span class="note-t">Zubialde</span></p><p>Los ejemplos hablan de <i class="eu">Zubialde</i>, un pueblo inventado de Gipuzkoa: tiene plaza, biblioteca, dos escuelas y muchos bares, pero no tiene playa ni cine. Cambia los datos por los de tu pueblo; las estructuras sirven igual.</p></aside>
+<h3>Las siete preguntas de un vistazo</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Pregunta</th><th scope="col">En castellano</th><th scope="col">Verbo</th><th scope="col">Casos clave</th></tr></thead><tbody><tr><th scope="row"><i class="eu">1 · Nola izena du zure herriak?</i></th><td>¿Cómo se llama tu pueblo?</td><td><i class="eu">ukan</i> · <i class="eu">du</i></td><td>NORK · NOR · NOREN</td></tr><tr><th scope="row"><i class="eu">2 · Non dago zure herria?</i></th><td>¿Dónde está tu pueblo?</td><td><i class="eu">egon</i> · <i class="eu">dago</i></td><td>NON · NOR</td></tr><tr><th scope="row"><i class="eu">3 · Zenbat jende bizi da?</i></th><td>¿Cuánta gente vive?</td><td><i class="eu">bizi izan</i> · <i class="eu">da</i></td><td>mugagabe · NON</td></tr><tr><th scope="row"><i class="eu">4 · Zer dago zure herrian?</i></th><td>¿Qué hay en tu pueblo?</td><td><i class="eu">egon</i> · <i class="eu">dago</i></td><td>NON · NOR con <i class="eu">bat</i></td></tr><tr><th scope="row"><i class="eu">5 · Non daude toki horiek?</i></th><td>¿Dónde están esos sitios?</td><td><i class="eu">egon</i> · <i class="eu">daude</i></td><td>NON · posposiciones · demostrativo</td></tr><tr><th scope="row"><i class="eu">6 · Nolakoa da zure herria?</i></th><td>¿Cómo es tu pueblo?</td><td><i class="eu">izan</i> · <i class="eu">da</i></td><td>NOR + adjetivo · NONGO</td></tr><tr><th scope="row"><i class="eu">7 · Zer ez dago zure herrian?</i></th><td>¿Qué no hay en tu pueblo?</td><td><i class="eu">egon</i> · <i class="eu">ez dago</i></td><td>partitivo <i class="eu">-rik</i> · NON</td></tr></tbody></table></div></figure>
+<p>Cuatro de las siete preguntas usan <i class="eu">egon</i>. La idea principal: <i class="eu">egon</i> sirve para decir dónde está algo y qué hay; <i class="eu">izan</i>, para decir cómo es.</p>
+<h3>Los casos que aparecen</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Caso</th><th scope="col">Pregunta</th><th scope="col">En la ficha</th><th scope="col">En tus respuestas</th></tr></thead><tbody><tr><th scope="row"><strong>NOR</strong> · absolutivo</th><td><i class="eu">zer? nor?</i></td><td><i class="eu">izena</i>, <i class="eu">zure herria</i>, <i class="eu">jende</i>, <i class="eu">toki horiek</i></td><td><i class="eu">Nire herria txikia da.</i></td></tr><tr><th scope="row"><strong>NORK</strong> · ergativo</th><td><i class="eu">nork?</i></td><td><i class="eu">zure herriak</i> (pregunta 1)</td><td><i class="eu">Nire herriak zortzi mila biztanle ditu.</i></td></tr><tr><th scope="row"><strong>NOREN</strong> · genitivo</th><td><i class="eu">noren?</i></td><td><i class="eu">zure</i> (en todas)</td><td><i class="eu">ibaiaren ondoan</i>, <i class="eu">nire herriaren izena</i></td></tr><tr><th scope="row"><strong>NON</strong> · inesivo</th><td><i class="eu">non?</i></td><td><i class="eu">zure herrian</i> (4 y 7)</td><td><i class="eu">Gipuzkoan</i>, <i class="eu">plazan</i>, <i class="eu">alde zaharrean</i></td></tr><tr><th scope="row"><strong>NONGO</strong></th><td><i class="eu">nongo?</i></td><td>dentro de <i class="eu">nolakoa</i> (6)</td><td><i class="eu">nire herriko kaleak</i>, <i class="eu">Gipuzkoako herri bat</i></td></tr><tr><th scope="row"><strong>NONDIK</strong></th><td><i class="eu">nondik?</i></td><td>—</td><td><i class="eu">herritik kanpo</i>, <i class="eu">Donostiatik 30 kilometrora</i></td></tr><tr><th scope="row"><strong>-(R)IK</strong> · partitivo</th><td>—</td><td>pregunta 7: lo que no hay</td><td><i class="eu">Ez dago hondartzarik.</i></td></tr><tr><th scope="row"><strong>Mugagabe</strong> · sin determinante</th><td>—</td><td><i class="eu">zenbat jende</i> (3)</td><td><i class="eu">zortzi mila biztanle</i>, <i class="eu">bi eskola</i>, <i class="eu">taberna asko</i></td></tr></tbody></table></div></figure>
+<p>Cada uno de estos casos está explicado a fondo en la sección B, <i class="eu">Los casos, uno a uno</i>: formas, usos en la ficha, trampas y ejercicios.</p>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el ergativo está en la primera pregunta</span></p><p><i class="eu">Zure herriak</i> no significa «tus pueblos». El verbo es <i class="eu">du</i> (tener): el pueblo es quien «tiene» el nombre, así que va en NORK singular. Es el mismo caso que <i class="eu">Lagunak liburua irakurri du</i>. En plural sería <i class="eu">zure herriek … dute</i>.</p></aside>
+<h3>Los cuatro verbos</h3>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Verbo</th><th scope="col">Para qué</th><th scope="col">Singular</th><th scope="col">Plural</th><th scope="col">Preguntas</th></tr></thead><tbody><tr><th scope="row"><i class="eu">egon</i></th><td>dónde está algo · lo que hay</td><td><i class="eu">dago</i></td><td><i class="eu">daude</i></td><td>2 · 4 · 5 · 7</td></tr><tr><th scope="row"><i class="eu">izan</i></th><td>cómo es algo · qué es</td><td><i class="eu">da</i></td><td><i class="eu">dira</i></td><td>6</td></tr><tr><th scope="row"><i class="eu">bizi izan</i></th><td>vivir</td><td><i class="eu">bizi da</i></td><td><i class="eu">bizi dira</i></td><td>3</td></tr><tr><th scope="row"><i class="eu">ukan</i></th><td>tener</td><td><i class="eu">du</i></td><td><i class="eu">ditu</i> (objeto plural) · <i class="eu">dute</i> (sujeto plural)</td><td>1</td></tr></tbody></table></div></figure>
+<h3>Las tres transformaciones</h3>
+<p>Cada respuesta se puede transformar de tres maneras. Esta es una misma frase en sus seis formas:</p>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian liburutegi bat dago.</p><p class="mi-es">En mi pueblo hay una biblioteca.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian bi liburutegi daude.</p><p class="mi-es">En mi pueblo hay dos bibliotecas.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago liburutegirik.</p><p class="mi-es">En mi pueblo no hay biblioteca.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago liburutegirik.</p><p class="mi-es">En mi pueblo no hay bibliotecas.</p><p class="mi-n">con <i class="eu">-rik</i>, singular y plural coinciden</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ba al dago liburutegirik zure herrian?</p><p class="mi-es">¿Hay biblioteca en tu pueblo?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zenbat liburutegi daude zure herrian?</p><p class="mi-es">¿Cuántas bibliotecas hay en tu pueblo?</p></div></div></div>
+<ul class="list"><li><strong>A plural:</strong> <i class="eu">-a</i> pasa a <i class="eu">-ak</i>; <i class="eu">bat</i>, a un número o a <i class="eu">batzuk</i>; <i class="eu">hori</i>, a <i class="eu">horiek</i>. El verbo cambia con el sujeto: <i class="eu">dago</i> → <i class="eu">daude</i>, <i class="eu">da</i> → <i class="eu">dira</i>, <i class="eu">bizi da</i> → <i class="eu">bizi dira</i>. Con <i class="eu">ukan</i> depende de quién sea plural: si es el objeto, <i class="eu">du</i> → <i class="eu">ditu</i>; si es el sujeto, <i class="eu">du</i> → <i class="eu">dute</i>.</li><li><strong>A negativa:</strong> <i class="eu">ez</i> y el verbo conjugado van delante: <i class="eu">dago</i> → <i class="eu">ez dago</i>. Si el verbo es compuesto, el resto se queda detrás: <i class="eu">bizi da</i> → <i class="eu">ez da … bizi</i>. Lo indeterminado pasa al partitivo: <i class="eu">bat</i> → <i class="eu">-rik</i>, <i class="eu">asko</i> → <i class="eu">askorik</i>.</li><li><strong>A pregunta de sí o no:</strong> <i class="eu">al</i> va justo delante del verbo conjugado: <i class="eu">dago</i> → <i class="eu">al dago</i>, <i class="eu">bizi da</i> → <i class="eu">bizi al da</i>. Para preguntar si existe algo: <i class="eu">Ba al dago …-rik?</i></li><li><strong>Pregunta abierta:</strong> el interrogativo y el verbo van juntos: <i class="eu">Non dago zure herria?</i>, nunca <s class="bad">Non zure herria dago?</s></li></ul>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">contestar sí o no</span></p><p>Si en la respuesta el verbo sintético va solo, lleva <i class="eu">ba-</i>: <i class="eu">— Ba al dago liburutegirik? — Bai, badago.</i> En negativa no: <i class="eu">— Ez, ez dago.</i></p></aside>
+</section>
+
+<section class="sec" id="kasuz-kasu" aria-labelledby="kasuz-kasu-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">B</span>
+    <div>
+      <p class="sec-kat">Antes de responder</p>
+      <h2 id="kasuz-kasu-h">Los casos, uno a uno</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Cada caso con su función, cómo se forma, dónde aparece en la ficha, sus trampas y tres ejercicios. Las formas se muestran con palabras de la propia ficha: <i class="eu">herri</i>, <i class="eu">kale</i>, <i class="eu">plaza</i>, <i class="eu">hotel</i>…</p>
+  <h3>Una palabra en todos los casos</h3>
+<p>Así cambia <i class="eu">herri</i> (pueblo) en los casos de la ficha. La primera columna es el mugagabe, la forma sin determinante.</p>
+<figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Caso</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th><th scope="col">En la ficha</th></tr></thead><tbody><tr><th scope="row"><strong>NOR</strong></th><td><i class="eu">herri</i></td><td><i class="eu">herria</i></td><td><i class="eu">herriak</i></td><td><i class="eu">Nire herria txikia da.</i></td></tr><tr><th scope="row"><strong>NORK</strong></th><td><i class="eu">herrik</i></td><td><i class="eu">herriak</i></td><td><i class="eu">herriek</i></td><td><i class="eu">Nire herriak Zubialde du izena.</i></td></tr><tr><th scope="row"><strong>NOREN</strong></th><td><i class="eu">herriren</i></td><td><i class="eu">herriaren</i></td><td><i class="eu">herrien</i></td><td><i class="eu">Nire herriaren izena Zubialde da.</i></td></tr><tr><th scope="row"><strong>NON</strong></th><td><i class="eu">herritan</i></td><td><i class="eu">herrian</i></td><td><i class="eu">herrietan</i></td><td><i class="eu">Nire herrian bi eskola daude.</i></td></tr><tr><th scope="row"><strong>NONGO</strong></th><td><i class="eu">herritako</i></td><td><i class="eu">herriko</i></td><td><i class="eu">herrietako</i></td><td><i class="eu">Nire herriko kaleak estuak dira.</i></td></tr><tr><th scope="row"><strong>NONDIK</strong></th><td><i class="eu">herritatik</i></td><td><i class="eu">herritik</i></td><td><i class="eu">herrietatik</i></td><td><i class="eu">Kiroldegia herritik kanpo dago.</i></td></tr><tr><th scope="row"><strong>-(R)IK</strong></th><td><i class="eu">herririk</i></td><td>—</td><td>—</td><td><i class="eu">Ez dago herri handirik inguruan.</i></td></tr></tbody></table></div></figure>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">cómo leer una palabra declinada</span></p><p>Empieza por el final: <i class="eu">herri-e-ta-tik</i> = desde (<i class="eu">-tik</i>) + plural (<i class="eu">-e-</i>) + enlace de lugar (<i class="eu">-ta-</i>) + pueblo. Si sabes quitar el caso del final, siempre llegas a la palabra del diccionario.</p></aside>
+<nav class="caseindex" aria-label="Casos"><a href="#k-nor" class="c-nor"><span>NOR</span><small>¿quién? ¿qué? · sin agente</small></a><a href="#k-nork" class="c-nork"><span>NORK</span><small>¿quién? · el que tiene o hace algo</small></a><a href="#k-noren" class="c-noren"><span>NOREN</span><small>¿de quién? · posesión</small></a><a href="#k-non" class="c-non"><span>NON</span><small>¿dónde? · lugar y tiempo</small></a><a href="#k-nongo" class="c-non"><span>NONGO</span><small>¿de dónde? · el de…</small></a><a href="#k-nondik" class="c-non"><span>NONDIK</span><small>¿de dónde? ¿desde dónde? ¿por dónde?</small></a><a href="#k-rik" class="c-verb"><span>-(R)IK</span><small>¿algún…? · ningún…</small></a><a href="#k-mugagabe" class="c-det"><span>MUGAGABE</span><small>tras números, zenbat, zein, asko</small></a></nav>
+<article class="case c-nor" id="k-nor"><header class="case-h"><h4><span class="case-n">NOR</span><span class="case-s">absolutivo</span></h4><p class="case-q">¿quién? ¿qué? · sin agente</p></header><p class="case-lead">Es el caso «sin caso»: no tiene sufijo propio, solo la marca de número (<i class="eu">-a</i>, <i class="eu">-ak</i>) o nada. Es el que más aparece en la ficha, porque <i class="eu">egon</i>, <i class="eu">izan</i> y <i class="eu">bizi izan</i> llevan el sujeto en NOR.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i> · pueblo</th><td><i class="eu">herri</i></td><td><i class="eu">herria</i></td><td><i class="eu">herriak</i></td></tr><tr><th scope="row"><i class="eu">kale</i> · calle</th><td><i class="eu">kale</i></td><td><i class="eu">kalea</i></td><td><i class="eu">kaleak</i></td></tr><tr><th scope="row"><i class="eu">plaza</i></th><td><i class="eu">plaza</i></td><td><i class="eu">plaza</i></td><td><i class="eu">plazak</i></td></tr><tr><th scope="row"><i class="eu">hotel</i></th><td><i class="eu">hotel</i></td><td><i class="eu">hotela</i></td><td><i class="eu">hotelak</i></td></tr><tr><th scope="row">pronombres</th><td>—</td><td><i class="eu">ni, zu, hura</i></td><td><i class="eu">gu, zuek, haiek</i></td></tr><tr><th scope="row">demostrativos</th><td>—</td><td><i class="eu">herri hau / hori / hura</i></td><td><i class="eu">herri hauek / horiek / haiek</i></td></tr></tbody></table></div></figure>
+<p class="case-sub">Qué hace en la ficha</p>
+<ul class="list"><li>Sujeto de <i class="eu">egon</i>: <i class="eu">Nire herria Gipuzkoan dago.</i> (pregunta 2)</li><li>Lo que hay: <i class="eu">Liburutegi bat dago.</i> (pregunta 4)</li><li>Sujeto y atributo de <i class="eu">izan</i>: <i class="eu">Nire herria txikia da.</i> Las dos palabras van en NOR. (pregunta 6)</li><li>Sujeto de <i class="eu">bizi izan</i>: <i class="eu">Zortzi mila biztanle bizi dira.</i> (pregunta 3)</li><li>Objeto de <i class="eu">ukan</i>, es decir, lo que se tiene: <i class="eu">izena</i> en <i class="eu">Zubialde du izena</i>. (pregunta 1)</li></ul>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">NOR decide el número del verbo</span></p><p>El auxiliar copia siempre al NOR. Si el NOR es plural, el verbo también: <i class="eu">Liburutegi bat dago</i> / <i class="eu">Bi liburutegi daude</i>; <i class="eu">Herria txikia da</i> / <i class="eu">Herriak txikiak dira</i>. Pasa incluso con <i class="eu">ukan</i>: <i class="eu">Nire herriak izen bat du</i> / <i class="eu">Nire herriak bi izen ditu</i>. El pueblo es uno, pero los nombres son dos, y por eso <i class="eu">ditu</i>.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Nire herria txiki da</s> → <i class="eu">Nire herria txikia da</i>. El atributo también va en NOR y lleva determinante. Ojo con la <i class="eu">-a</i> orgánica: en singular coincide con el mugagabe, así que <i class="eu">plaza</i> significa «plaza» y también «la plaza».</p></aside>
+<section class="quiz" aria-labelledby="q1-h"><div class="quiz-top"><h3 id="q1-h">Pruébate</h3><button type="button" class="quiz-all" id="q1-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q1-0"><summary>«Las calles son estrechas.»</summary><div class="ans"><i class="eu">Kaleak estuak dira.</i> Sujeto y atributo en NOR plural.</div></details></li><li><details id="q1-1"><summary>Pasa a plural: <i class="eu">Plaza handia da.</i></summary><div class="ans"><i class="eu">Plazak handiak dira.</i></div></details></li><li><details id="q1-2"><summary>«Mi pueblo tiene dos nombres.»</summary><div class="ans"><i class="eu">Nire herriak bi izen ditu.</i> <i class="eu">bi izen</i> es NOR plural, por eso <i class="eu">ditu</i>.</div></details></li></ol></section></div></article>
+<article class="case c-nork" id="k-nork"><header class="case-h"><h4><span class="case-n">NORK</span><span class="case-s">ergativo</span></h4><p class="case-q">¿quién? · el que tiene o hace algo</p></header><p class="case-lead">Marca al sujeto de los verbos transitivos, los de tener algo o hacer algo a algo. En la ficha solo aparece con <i class="eu">ukan</i> (tener). La regla práctica: si el auxiliar es de la familia <i class="eu">du</i>, el sujeto lleva <i class="eu">-k</i>; si es <i class="eu">da</i> o <i class="eu">dago</i>, no.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i></th><td><i class="eu">herrik</i></td><td><i class="eu">herriak</i></td><td><i class="eu">herriek</i></td></tr><tr><th scope="row"><i class="eu">kale</i></th><td><i class="eu">kalek</i></td><td><i class="eu">kaleak</i></td><td><i class="eu">kaleek</i></td></tr><tr><th scope="row"><i class="eu">plaza</i></th><td><i class="eu">plazak</i></td><td><i class="eu">plazak</i></td><td><i class="eu">plazek</i></td></tr><tr><th scope="row"><i class="eu">hotel</i></th><td><i class="eu">hotelek</i></td><td><i class="eu">hotelak</i></td><td><i class="eu">hotelek</i></td></tr><tr><th scope="row">pronombres</th><td>—</td><td><i class="eu">nik, zuk, hark</i></td><td><i class="eu">guk, zuek, haiek</i></td></tr><tr><th scope="row">demostrativos</th><td>—</td><td><i class="eu">herri honek / horrek / hark</i></td><td><i class="eu">herri hauek / horiek / haiek</i></td></tr></tbody></table></div></figure>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire herriak Zubialde du izena.</p><p class="ex-es">Mi pueblo se llama Zubialde.<span class="ex-tag">pregunta 1</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire herriak zortzi mila biztanle ditu.</p><p class="ex-es">Mi pueblo tiene ocho mil habitantes.<span class="ex-tag">pregunta 3</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire herriak liburutegi bat du.</p><p class="ex-es">Mi pueblo tiene una biblioteca.<span class="ex-tag">pregunta 4</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Inguruko herriek izen politak dituzte.</p><p class="ex-es">Los pueblos de alrededor tienen nombres bonitos.<span class="ex-tag">plural</span></p></div></div>
+<figure class="tbl"><figcaption>Cuatro combinaciones con ukan</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Quién tiene</th><th scope="col">Una cosa</th><th scope="col">Varias cosas</th></tr></thead><tbody><tr><th scope="row">un pueblo</th><td><i class="eu">Herriak plaza bat du.</i></td><td><i class="eu">Herriak bi plaza ditu.</i></td></tr><tr><th scope="row">varios pueblos</th><td><i class="eu">Herriek plaza bat dute.</i></td><td><i class="eu">Herriek bi plaza dituzte.</i></td></tr></tbody></table></div></figure>
+<p>Lo que se tiene (NOR) decide entre <i class="eu">du</i> y <i class="eu">ditu</i>; quien tiene (NORK) decide si se añade <i class="eu">-te</i>.</p>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">-ak puede ser dos cosas</span></p><p><i class="eu">Herriak</i> es NOR plural en <i class="eu">Herriak txikiak dira</i> (los pueblos son pequeños) y NORK singular en <i class="eu">Herriak izen polita du</i> (el pueblo tiene un nombre bonito). No lo decide la palabra, sino el verbo: <i class="eu">dira</i> o <i class="eu">du</i>.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">no pongas -k donde no va</span></p><p>Al aprender el ergativo se tiende a ponerlo en todas partes: <s class="bad">Nire herriak Gipuzkoan dago</s> → <i class="eu">Nire herria Gipuzkoan dago</i>. <i class="eu">egon</i>, <i class="eu">izan</i> y <i class="eu">bizi izan</i> nunca llevan NORK.</p></aside>
+<section class="quiz" aria-labelledby="q2-h"><div class="quiz-top"><h3 id="q2-h">Pruébate</h3><button type="button" class="quiz-all" id="q2-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q2-0"><summary>«Mi pueblo tiene una plaza grande.»</summary><div class="ans"><i class="eu">Nire herriak plaza handi bat du.</i></div></details></li><li><details id="q2-1"><summary>¿<i class="eu">Herria</i> o <i class="eu">herriak</i>? <i class="eu">Nire <span class="blank" aria-label="hueco"></span> txikia da.</i></summary><div class="ans"><i class="eu">Nire herria txikia da.</i> Con <i class="eu">izan</i> no hay ergativo.</div></details></li><li><details id="q2-2"><summary>«Estos pueblos tienen muchos bares.»</summary><div class="ans"><i class="eu">Herri hauek taberna asko dituzte.</i> El ergativo plural de <i class="eu">hauek</i> tiene la misma forma: <i class="eu">hauek</i>.</div></details></li></ol></section></div></article>
+<article class="case c-noren" id="k-noren"><header class="case-h"><h4><span class="case-n">NOREN</span><span class="case-s">genitivo</span></h4><p class="case-q">¿de quién? · posesión</p></header><p class="case-lead">Indica a quién pertenece algo y va siempre delante de lo poseído: <i class="eu">zure herria</i>, <i class="eu">nire herriaren izena</i>. En la ficha está en todas las preguntas (<i class="eu">zure</i>) y es la base de las posposiciones de la pregunta 5.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i></th><td><i class="eu">herriren</i></td><td><i class="eu">herriaren</i></td><td><i class="eu">herrien</i></td></tr><tr><th scope="row"><i class="eu">eliza</i> · iglesia</th><td><i class="eu">elizaren</i></td><td><i class="eu">elizaren</i></td><td><i class="eu">elizen</i></td></tr><tr><th scope="row"><i class="eu">mendi</i> · monte</th><td><i class="eu">mendiren</i></td><td><i class="eu">mendiaren</i></td><td><i class="eu">mendien</i></td></tr><tr><th scope="row"><i class="eu">hotel</i></th><td><i class="eu">hotelen</i></td><td><i class="eu">hotelaren</i></td><td><i class="eu">hotelen</i></td></tr><tr><th scope="row">pronombres</th><td>—</td><td><i class="eu">nire, zure, haren</i></td><td><i class="eu">gure, zuen, haien</i></td></tr><tr><th scope="row">demostrativos</th><td>—</td><td><i class="eu">honen, horren, haren</i></td><td><i class="eu">hauen, horien, haien</i></td></tr></tbody></table></div></figure>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Zure herria polita da.</p><p class="ex-es">Tu pueblo es bonito.<span class="ex-tag">posesión</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire herriaren izena Zubialde da.</p><p class="ex-es">El nombre de mi pueblo es Zubialde.<span class="ex-tag">dos genitivos seguidos</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Eliza udaletxearen ondoan dago.</p><p class="ex-es">La iglesia está al lado del ayuntamiento.<span class="ex-tag">+ posposición</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Herri horiek mendien artean daude.</p><p class="ex-es">Esos pueblos están entre montes.<span class="ex-tag">plural + <i class="eu">artean</i></span></p></div></div>
+<p>El orden es el contrario del castellano: primero el dueño y después lo poseído. El determinante va al final del grupo: <i class="eu">nire herriaren izena</i> = «el nombre de mi pueblo».</p>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">un lugar no es dueño</span></p><p>«Un pueblo de Gipuzkoa» es <i class="eu">Gipuzkoako herri bat</i> (NONGO), no <s class="bad">Gipuzkoaren herri bat</s>. Para «las calles de mi pueblo», lo natural es <i class="eu">nire herriko kaleak</i>. El genitivo es para dueños y posposiciones; el «de» de lugar es NONGO.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">zuen</span></p><p><i class="eu">zuen</i> significa «vuestro»: <i class="eu">zuen herria</i> = vuestro pueblo. «Tu pueblo» es <i class="eu">zure herria</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el genitivo solo</span></p><p>Con <i class="eu">-a</i>, el genitivo funciona como pronombre: <i class="eu">Zure herria handia da; nirea txikia da</i> (el mío es pequeño). La pregunta es <i class="eu">Norena da?</i> (¿de quién es?).</p></aside>
+<section class="quiz" aria-labelledby="q3-h"><div class="quiz-top"><h3 id="q3-h">Pruébate</h3><button type="button" class="quiz-all" id="q3-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q3-0"><summary>«junto a la iglesia»</summary><div class="ans"><i class="eu">elizaren ondoan</i></div></details></li><li><details id="q3-1"><summary>«el nombre de tu pueblo»</summary><div class="ans"><i class="eu">zure herriaren izena</i></div></details></li><li><details id="q3-2"><summary>«delante de esos bares»</summary><div class="ans"><i class="eu">taberna horien aurrean</i></div></details></li></ol></section></div></article>
+<article class="case c-non" id="k-non"><header class="case-h"><h4><span class="case-n">NON</span><span class="case-s">inesivo</span></h4><p class="case-q">¿dónde? · lugar y tiempo</p></header><p class="case-lead">Dice dónde está o pasa algo. En la ficha es la respuesta de las preguntas 2 y 5, y el lugar de las preguntas 3, 4 y 7 (<i class="eu">zure herrian</i>). Va con <i class="eu">egon</i> (<i class="eu">dago</i>), con <i class="eu">bizi izan</i> y con el «hay».</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i></th><td><i class="eu">herritan</i></td><td><i class="eu">herrian</i></td><td><i class="eu">herrietan</i></td></tr><tr><th scope="row"><i class="eu">kale</i></th><td><i class="eu">kaletan</i></td><td><i class="eu">kalean</i></td><td><i class="eu">kaleetan</i></td></tr><tr><th scope="row"><i class="eu">plaza</i></th><td><i class="eu">plazatan</i></td><td><i class="eu">plazan</i></td><td><i class="eu">plazetan</i></td></tr><tr><th scope="row"><i class="eu">hotel</i></th><td><i class="eu">hoteletan</i></td><td><i class="eu">hotelean</i></td><td><i class="eu">hoteletan</i></td></tr><tr><th scope="row">topónimos</th><td>—</td><td><i class="eu">Zubialden, Gipuzkoan, Gasteizen</i></td><td>—</td></tr><tr><th scope="row">demostrativos</th><td>—</td><td><i class="eu">herri honetan / horretan / hartan</i></td><td><i class="eu">herri hauetan / horietan / haietan</i></td></tr></tbody></table></div></figure>
+<p>Tres reglas: en singular, <i class="eu">-(e)an</i>; en mugagabe y plural, <i class="eu">-(e)tan</i>; en topónimos, solo <i class="eu">-n</i> (o <i class="eu">-en</i> tras consonante), sin <i class="eu">-a-</i> ni <i class="eu">-ta-</i>.</p>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire herria Gipuzkoan dago.</p><p class="ex-es">Mi pueblo está en Gipuzkoa.<span class="ex-tag">pregunta 2</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire herrian zortzi mila biztanle bizi dira.</p><p class="ex-es">En mi pueblo viven ocho mil habitantes.<span class="ex-tag">pregunta 3</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Taberna asko alde zaharrean daude.</p><p class="ex-es">Muchos bares están en el casco viejo.<span class="ex-tag">pregunta 5</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Larunbatetan azoka dago.</p><p class="ex-es">Los sábados hay mercado.<span class="ex-tag">tiempo; en plural, costumbre</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">herria o herrian</span></p><p><i class="eu">Nire herria polita da</i> (mi pueblo es bonito): el pueblo es el sujeto, NOR. <i class="eu">Nire herrian plaza polit bat dago</i> (en mi pueblo hay una plaza bonita): el pueblo es el lugar, NON. Una sola <i class="eu">-n</i> cambia toda la frase.</p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">tras zein y zenbat</span></p><p><s class="bad">Zein herrian bizi zara?</s> → <i class="eu">Zein herritan bizi zara?</i> Tras <i class="eu">zein</i>, <i class="eu">zenbat</i> y los números va el mugagabe, que en este caso es <i class="eu">-tan</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">NON también sitúa en el tiempo</span></p><p><i class="eu">goizean</i> (por la mañana), <i class="eu">udan</i> (en verano), <i class="eu">larunbatean</i> (el sábado), <i class="eu">larunbatetan</i> (los sábados), <i class="eu">bostetan</i> (a las cinco).</p></aside>
+<section class="quiz" aria-labelledby="q4-h"><div class="quiz-top"><h3 id="q4-h">Pruébate</h3><button type="button" class="quiz-all" id="q4-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q4-0"><summary>«en las calles»</summary><div class="ans"><i class="eu">kaleetan</i></div></details></li><li><details id="q4-1"><summary>«¿En qué pueblo vives?»</summary><div class="ans"><i class="eu">Zein herritan bizi zara?</i></div></details></li><li><details id="q4-2"><summary>«En este pueblo hay muchos bares.»</summary><div class="ans"><i class="eu">Herri honetan taberna asko daude.</i></div></details></li></ol></section></div></article>
+<article class="case c-non" id="k-nongo"><header class="case-h"><h4><span class="case-n">NONGO</span><span class="case-s">genitivo de lugar</span></h4><p class="case-q">¿de dónde? · el de…</p></header><p class="case-lead">Es el «de» de lugar o de tiempo, no de dueño. Convierte un lugar en un adjetivo que va delante del nombre: <i class="eu">nire herriko kaleak</i>, <i class="eu">Gipuzkoako herri bat</i>, <i class="eu">inguruko herriak</i>. También está escondido en <i class="eu">nolakoa</i> (<i class="eu">nola</i> + <i class="eu">-ko</i> + <i class="eu">-a</i>).</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i></th><td><i class="eu">herritako</i></td><td><i class="eu">herriko</i></td><td><i class="eu">herrietako</i></td></tr><tr><th scope="row"><i class="eu">kale</i></th><td><i class="eu">kaletako</i></td><td><i class="eu">kaleko</i></td><td><i class="eu">kaleetako</i></td></tr><tr><th scope="row"><i class="eu">plaza</i></th><td><i class="eu">plazatako</i></td><td><i class="eu">plazako</i></td><td><i class="eu">plazetako</i></td></tr><tr><th scope="row">topónimos</th><td>—</td><td><i class="eu">Zubialdeko, Gipuzkoako, Gasteizko, Irungo</i></td><td>—</td></tr><tr><th scope="row">adverbios</th><td>—</td><td><i class="eu">hemengo, inguruko, gaurko</i></td><td>—</td></tr></tbody></table></div></figure>
+<p>Tras <i class="eu">-n</i> y <i class="eu">-l</i>, <i class="eu">-ko</i> pasa a <i class="eu">-go</i>: <i class="eu">Irungo</i>, <i class="eu">hemengo</i>.</p>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire herriko kaleak estuak dira.</p><p class="ex-es">Las calles de mi pueblo son estrechas.<span class="ex-tag">pregunta 6</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Zubialde Gipuzkoako herri bat da.</p><p class="ex-es">Zubialde es un pueblo de Gipuzkoa.<span class="ex-tag">pregunta 2</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Inguruko herriek izen politak dituzte.</p><p class="ex-es">Los pueblos de alrededor tienen nombres bonitos.<span class="ex-tag">pregunta 1</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nongoa zara? — Zubialdekoa naiz.</p><p class="ex-es">¿De dónde eres? — Soy de Zubialde.<span class="ex-tag">con <i class="eu">-a</i></span></p></div></div>
+<figure class="tbl"><figcaption>Los tres «de» del castellano</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Castellano</th><th scope="col">Euskera</th><th scope="col">Por qué</th></tr></thead><tbody><tr><th scope="row">la plaza de Mikel</th><td><i class="eu">Mikelen plaza</i></td><td>NOREN · tiene dueño</td></tr><tr><th scope="row">la plaza del pueblo</th><td><i class="eu">herriko plaza</i></td><td>NONGO · está en un lugar</td></tr><tr><th scope="row">la plaza de piedra</th><td><i class="eu">harrizko plaza</i></td><td><i class="eu">-zko</i> · material</td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Bilboren naiz</s> → <i class="eu">Bilbokoa naiz</i>. <s class="bad">Gipuzkoaren herri bat</s> → <i class="eu">Gipuzkoako herri bat</i>. Un lugar no es dueño de nada.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">-ko se pega a otras formas</span></p><p><i class="eu">-ko</i> también va detrás de posposiciones y de otros casos: <i class="eu">ondoko etxea</i> (la casa de al lado), <i class="eu">alde zaharreko tabernak</i> (los bares del casco viejo), <i class="eu">mendi arteko herria</i> (el pueblo entre montes).</p></aside>
+<section class="quiz" aria-labelledby="q5-h"><div class="quiz-top"><h3 id="q5-h">Pruébate</h3><button type="button" class="quiz-all" id="q5-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q5-0"><summary>«las tiendas de mi pueblo»</summary><div class="ans"><i class="eu">nire herriko dendak</i></div></details></li><li><details id="q5-1"><summary>«Soy de Gipuzkoa.»</summary><div class="ans"><i class="eu">Gipuzkoakoa naiz.</i></div></details></li><li><details id="q5-2"><summary>«los bares del casco viejo»</summary><div class="ans"><i class="eu">alde zaharreko tabernak</i></div></details></li></ol></section></div></article>
+<article class="case c-non" id="k-nondik"><header class="case-h"><h4><span class="case-n">NONDIK</span><span class="case-s">ablativo</span></h4><p class="case-q">¿de dónde? ¿desde dónde? ¿por dónde?</p></header><p class="case-lead">Marca el punto de partida. En la ficha aparece en dos construcciones: con <i class="eu">kanpo</i> (fuera de), que lo exige (<i class="eu">herritik kanpo</i>), y en la distancia (<i class="eu">Donostiatik 30 kilometrora</i>).</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Mugagabe</th><th scope="col">Singular</th><th scope="col">Plural</th></tr></thead><tbody><tr><th scope="row"><i class="eu">herri</i></th><td><i class="eu">herritatik</i></td><td><i class="eu">herritik</i></td><td><i class="eu">herrietatik</i></td></tr><tr><th scope="row"><i class="eu">kale</i></th><td><i class="eu">kaletatik</i></td><td><i class="eu">kaletik</i></td><td><i class="eu">kaleetatik</i></td></tr><tr><th scope="row"><i class="eu">plaza</i></th><td><i class="eu">plazatatik</i></td><td><i class="eu">plazatik</i></td><td><i class="eu">plazetatik</i></td></tr><tr><th scope="row">topónimos</th><td>—</td><td><i class="eu">Zubialdetik, Donostiatik, Gasteiztik, Irundik</i></td><td>—</td></tr><tr><th scope="row">adverbios</th><td>—</td><td><i class="eu">hemendik, hortik, handik</i></td><td>—</td></tr></tbody></table></div></figure>
+<p>Tras <i class="eu">-n</i> y <i class="eu">-l</i>, <i class="eu">-tik</i> pasa a <i class="eu">-dik</i>: <i class="eu">Irundik</i>, <i class="eu">hemendik</i>.</p>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Kiroldegia herritik kanpo dago.</p><p class="ex-es">El polideportivo está fuera del pueblo.<span class="ex-tag"><i class="eu">kanpo</i> + NONDIK</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Donostiatik hogeita hamar kilometrora dago.</p><p class="ex-es">Está a treinta kilómetros de Donostia.<span class="ex-tag">NONDIK + NORA</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Oria ibaia herritik pasatzen da.</p><p class="ex-es">El río Oria pasa por el pueblo.<span class="ex-tag">«por dónde»</span></p></div></div>
+<p>En la distancia trabajan juntos dos casos: NONDIK para el punto de partida y NORA (<i class="eu">-ra</i>) para los kilómetros. NORA es el caso de «a dónde»: <i class="eu">herrira</i>, <i class="eu">Donostiara</i>, <i class="eu">Gasteizera</i>.</p>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">herrian kanpo</s> → <i class="eu">herritik kanpo</i>. <s class="bad">Donostian 30 kilometrora</s> → <i class="eu">Donostiatik</i>. <s class="bad">Irunetik</s> → <i class="eu">Irundik</i>.</p></aside>
+<section class="quiz" aria-labelledby="q6-h"><div class="quiz-top"><h3 id="q6-h">Pruébate</h3><button type="button" class="quiz-all" id="q6-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q6-0"><summary>«fuera de la ciudad» (<i class="eu">hiri</i>: ciudad)</summary><div class="ans"><i class="eu">hiritik kanpo</i></div></details></li><li><details id="q6-1"><summary>«a diez kilómetros de Tolosa»</summary><div class="ans"><i class="eu">Tolosatik hamar kilometrora</i></div></details></li><li><details id="q6-2"><summary>«desde aquí»</summary><div class="ans"><i class="eu">hemendik</i></div></details></li></ol></section></div></article>
+<article class="case c-verb" id="k-rik"><header class="case-h"><h4><span class="case-n">-(R)IK</span><span class="case-s">partitivo</span></h4><p class="case-q">¿algún…? · ningún…</p></header><p class="case-lead">Sustituye a <i class="eu">bat</i>, <i class="eu">-a</i> o <i class="eu">-ak</i> cuando hablamos de algo indeterminado en una negación, en una pregunta de sí o no o en una condición. Significa «algún» o «ningún». No tiene plural, y el verbo va siempre en singular.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">La palabra acaba en</th><th scope="col">Sufijo</th><th scope="col">Ejemplos</th></tr></thead><tbody><tr><th scope="row">vocal</th><td><i class="eu">-rik</i></td><td><i class="eu">hondartzarik</i>, <i class="eu">zinemarik</i>, <i class="eu">liburutegirik</i>, <i class="eu">aireporturik</i></td></tr><tr><th scope="row">consonante</th><td><i class="eu">-ik</i></td><td><i class="eu">hotelik</i>, <i class="eu">trenik</i></td></tr><tr><th scope="row"><i class="eu">asko</i></th><td><i class="eu">-rik</i></td><td><i class="eu">jende askorik</i></td></tr><tr><th scope="row">nombre + adjetivo</th><td>al final del grupo</td><td><i class="eu">denda handirik</i></td></tr></tbody></table></div></figure>
+<p class="case-sub">Qué hace en la ficha</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Nire herrian ez dago hondartzarik.</p><p class="ex-es">En mi pueblo no hay playa.<span class="ex-tag">pregunta 7</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Ba al dago liburutegirik zure herrian?</p><p class="ex-es">¿Hay biblioteca en tu pueblo?<span class="ex-tag">pregunta 4</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Nire herrian ez da jende askorik bizi.</p><p class="ex-es">En mi pueblo no vive mucha gente.<span class="ex-tag">pregunta 3</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Auzo berriko kaleek ez dute izenik.</p><p class="ex-es">Las calles del barrio nuevo no tienen nombre.<span class="ex-tag">pregunta 1</span></p></div></div>
+<figure class="tbl"><figcaption>Cuándo sí y cuándo no</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Frase</th><th scope="col">¿-rik?</th><th scope="col">Por qué</th></tr></thead><tbody><tr><th scope="row"><i class="eu">Ez dago liburutegirik.</i></th><td>sí</td><td>no existe ninguna</td></tr><tr><th scope="row"><i class="eu">Liburutegia ez dago plazan.</i></th><td>no</td><td>existe, pero no está en la plaza</td></tr><tr><th scope="row"><i class="eu">Liburutegi bat dago.</i></th><td>no</td><td>afirmativa</td></tr><tr><th scope="row"><i class="eu">Ba al dago liburutegirik?</i></th><td>sí</td><td>pregunta si existe</td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Ez dago hondartza</s> → <i class="eu">Ez dago hondartzarik</i>. <s class="bad">Ez daude dendarik</s> → <i class="eu">Ez dago dendarik</i>. <s class="bad">Hondartzarik dago</s>: en afirmativa nunca; se dice <i class="eu">Hondartza bat dago</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">solo sustituye al NOR</span></p><p>El partitivo ocupa el sitio del NOR: sujeto de <i class="eu">egon</i> o <i class="eu">izan</i>, u objeto de <i class="eu">ukan</i>. Nunca va en NORK ni en NORI. Con <i class="eu">ere</i> significa «tampoco»: <i class="eu">Hotelik ere ez dago</i> (tampoco hay hotel).</p></aside>
+<section class="quiz" aria-labelledby="q7-h"><div class="quiz-top"><h3 id="q7-h">Pruébate</h3><button type="button" class="quiz-all" id="q7-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q7-0"><summary>«No hay hospital.»</summary><div class="ans"><i class="eu">Ez dago ospitalerik.</i></div></details></li><li><details id="q7-1"><summary>«¿Hay hoteles en tu pueblo?»</summary><div class="ans"><i class="eu">Ba al dago hotelik zure herrian?</i></div></details></li><li><details id="q7-2"><summary>Corrige: <i class="eu">Ez daude zinemarik.</i></summary><div class="ans"><i class="eu">Ez dago zinemarik.</i> Con <i class="eu">-rik</i>, el verbo va en singular.</div></details></li></ol></section></div></article>
+<article class="case c-det" id="k-mugagabe"><header class="case-h"><h4><span class="case-n">MUGAGABE</span><span class="case-s">sin determinante</span></h4><p class="case-q">tras números, zenbat, zein, asko</p></header><p class="case-lead">No es un caso, sino una forma del número: el nombre sin <i class="eu">-a</i> ni <i class="eu">-ak</i>. Aparece cuando otra palabra ya dice cuántos hay: un número, <i class="eu">zenbat</i>, <i class="eu">zein</i>, <i class="eu">asko</i> o <i class="eu">gutxi</i>. La pregunta 3 empieza con uno: <i class="eu">zenbat jende</i>.</p><div class="case-b"><figure class="tbl"><div class="tbl-scroll"><table><thead><tr><th scope="col">Contexto</th><th scope="col">Ejemplo</th><th scope="col">Castellano</th></tr></thead><tbody><tr><th scope="row">número</th><td><i class="eu">bi eskola</i>, <i class="eu">zortzi mila biztanle</i></td><td>dos escuelas, ocho mil habitantes</td></tr><tr><th scope="row"><i class="eu">bat</i> (va detrás)</th><td><i class="eu">liburutegi bat</i></td><td>una biblioteca</td></tr><tr><th scope="row"><i class="eu">zenbat</i>, <i class="eu">zein</i>, <i class="eu">zer</i></th><td><i class="eu">zenbat jende</i>, <i class="eu">zein herritan</i></td><td>cuánta gente, en qué pueblo</td></tr><tr><th scope="row"><i class="eu">asko</i>, <i class="eu">gutxi</i>, <i class="eu">nahiko</i> (van detrás)</th><td><i class="eu">taberna asko</i>, <i class="eu">jende gutxi</i></td><td>muchos bares, poca gente</td></tr><tr><th scope="row">partitivo</th><td><i class="eu">hotelik</i>, <i class="eu">denda handirik</i></td><td>ningún hotel, ninguna tienda grande</td></tr></tbody></table></div></figure>
+<p>En los casos de lugar, el mugagabe lleva <i class="eu">-ta-</i>: <i class="eu">zein herritan</i>, <i class="eu">bi herritan</i>, <i class="eu">zein herritakoa</i>.</p>
+<p class="case-sub">El número del verbo</p>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Liburutegi bat dago.</p><p class="ex-es">Hay una biblioteca.<span class="ex-tag"><i class="eu">bat</i> → singular</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Bi eskola daude.</p><p class="ex-es">Hay dos escuelas.<span class="ex-tag">número → plural</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Taberna asko daude.</p><p class="ex-es">Hay muchos bares.<span class="ex-tag">se cuenta → plural</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Jende asko dago.</p><p class="ex-es">Hay mucha gente.<span class="ex-tag">no se cuenta → singular</span></p></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Zenbat biztanleak?</s> → <i class="eu">Zenbat biztanle?</i> <s class="bad">Taberna askoak</s> → <i class="eu">taberna asko</i>. Y <i class="eu">Bi eskolak daude</i> no significa «hay dos escuelas»: con <i class="eu">-ak</i> se habla de unas escuelas concretas (mira el recuadro siguiente).</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">número + -ak</span></p><p>Si el número va con <i class="eu">-ak</i>, el grupo pasa a ser determinado: <i class="eu">Bi eskola daude</i> (hay dos escuelas) frente a <i class="eu">Bi eskolak plazatik gertu daude</i> (las dos escuelas están cerca de la plaza). Es el paso de la pregunta 4 a la 5: primero las presentas y después ya son conocidas.</p></aside>
+<section class="quiz" aria-labelledby="q8-h"><div class="quiz-top"><h3 id="q8-h">Pruébate</h3><button type="button" class="quiz-all" id="q8-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q8-0"><summary>«¿Cuántas plazas hay?»</summary><div class="ans"><i class="eu">Zenbat plaza daude?</i></div></details></li><li><details id="q8-1"><summary>«En mi pueblo hay tres parques.»</summary><div class="ans"><i class="eu">Nire herrian hiru parke daude.</i></div></details></li><li><details id="q8-2"><summary>«Las dos escuelas están cerca.»</summary><div class="ans"><i class="eu">Bi eskolak gertu daude.</i></div></details></li></ol></section></div></article>
+</section>
+
+<section class="sec" id="p1" aria-labelledby="p1-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">01</span>
+    <div>
+      <p class="sec-kat">Pregunta 1 de la ficha</p>
+      <h2 id="p1-h" class="qh" lang="eu">Nola izena du zure herriak?</h2>
+      <p class="qsub">¿Cómo se llama tu pueblo?</p>
+    </div>
+  </header>
+  <p class="lead">Literalmente, «¿cómo tiene nombre tu pueblo?». En euskera, los pueblos y las personas <i class="eu">tienen</i> nombre, y por eso aparece <i class="eu">ukan</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Nola</span><span class="gw-l">pregunta</span><span class="gw-m">¿cómo?</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">izena</span><span class="gw-l">NOR sg</span><span class="gw-m">el nombre</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">du</span><span class="gw-l">ukan</span><span class="gw-m">tiene</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">zure</span><span class="gw-l">NOREN</span><span class="gw-m">tu</span></div><div class="gw c-nork"><span class="gw-w" lang="eu">herriak</span><span class="gw-l">NORK sg</span><span class="gw-m">tu pueblo (quien tiene)</span></div></div></figure>
+<p>Es la única pregunta de la ficha con <i class="eu">ukan</i>. Si hay un verbo de tener, hay alguien que tiene: <i class="eu">zure herriak</i> es ergativo singular, aunque acabe en <i class="eu">-ak</i> como un plural. Lo que se tiene, <i class="eu">izena</i>, va en NOR.</p>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herriak</i> <span class="blank" aria-label="hueco"></span> <i class="eu">du izena.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herriak Zubialde du izena.</p><p class="mi-es">Mi pueblo se llama Zubialde.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Inguruko herriek izen politak dituzte.</p><p class="mi-es">Los pueblos de alrededor tienen nombres bonitos.</p><p class="mi-n">NORK pl + NOR pl → <i class="eu">dituzte</i></p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herriaren izena ez da Zubieta; Zubialde da.</p><p class="mi-es">El nombre de mi pueblo no es Zubieta; es Zubialde.</p><p class="mi-n">otra estructura: NOREN + <i class="eu">izan</i></p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Auzo berriko kaleek ez dute izenik oraindik.</p><p class="mi-es">Las calles del barrio nuevo todavía no tienen nombre.</p><p class="mi-n">NORK pl + partitivo</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zure herriak Zubialde al du izena?</p><p class="mi-es">¿Tu pueblo se llama Zubialde?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nola dute izena zure herriko auzoek?</p><p class="mi-es">¿Cómo se llaman los barrios de tu pueblo?</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Nire herria Zubialde du izena</s> → <i class="eu">Nire herriak</i>. Con <i class="eu">du</i>, el que tiene lleva <i class="eu">-k</i>. Y <s class="bad">Nire herriak Zubialde da izena</s> mezcla dos estructuras: o <i class="eu">… du izena</i> o <i class="eu">izena … da</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">tres maneras de dar un nombre</span></p><p><i class="eu">Nire herriak Zubialde du izena</i> (NORK + <i class="eu">ukan</i>), <i class="eu">Nire herriaren izena Zubialde da</i> (NOREN + <i class="eu">izan</i>) y <i class="eu">Nire herria Zubialde da</i> (NOR + <i class="eu">izan</i>) significan lo mismo. Con personas igual: <i class="eu">Ane dut izena</i>, <i class="eu">Nire izena Ane da</i>, <i class="eu">Ni Ane naiz</i>. Las tres valen; la primera es la que repite la estructura de la pregunta.</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">el orden</span></p><p>Se oyen <i class="eu">Nola izena du?</i> y <i class="eu">Nola du izena?</i>; la segunda es la más estándar. En la respuesta, el dato nuevo (el nombre) va delante del verbo: <i class="eu">Zubialde du izena</i>.</p></aside>
+</section>
+
+<section class="sec" id="p2" aria-labelledby="p2-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">02</span>
+    <div>
+      <p class="sec-kat">Pregunta 2 de la ficha</p>
+      <h2 id="p2-h" class="qh" lang="eu">Non dago zure herria?</h2>
+      <p class="qsub">¿Dónde está tu pueblo?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Non</i> pide una respuesta en NON (inesivo) y el verbo es <i class="eu">egon</i>, el de la ubicación. <i class="eu">Zure herria</i> va en NOR, porque <i class="eu">egon</i> no lleva ergativo.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Non</span><span class="gw-l">pregunta</span><span class="gw-m">¿dónde?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">dago</span><span class="gw-l">egon</span><span class="gw-m">está</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">zure</span><span class="gw-l">NOREN</span><span class="gw-m">tu</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">herria</span><span class="gw-l">NOR sg</span><span class="gw-m">tu pueblo</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herria</i> <span class="blank" aria-label="hueco"></span><i class="eu">-(e)n dago.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herria Gipuzkoan dago, Oria ibaiaren ondoan.</p><p class="mi-es">Mi pueblo está en Gipuzkoa, junto al río Oria.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Herri horiek mendien artean daude.</p><p class="mi-es">Esos pueblos están entre montes.</p><p class="mi-n">genitivo plural + <i class="eu">artean</i></p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herria ez dago kostaldean; barnealdean dago.</p><p class="mi-es">Mi pueblo no está en la costa; está en el interior.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Herri horiek ez daude urrun; oso gertu daude.</p><p class="mi-es">Esos pueblos no están lejos; están muy cerca.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zure herria Gipuzkoan al dago?</p><p class="mi-es">¿Tu pueblo está en Gipuzkoa?</p><p class="mi-n">— <i class="eu">Bai, Gipuzkoan dago.</i></p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Non daude herri horiek?</p><p class="mi-es">¿Dónde están esos pueblos?</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Nire herria Gipuzkoan da</s> → <i class="eu">dago</i>. La ubicación siempre va con <i class="eu">egon</i>. <i class="eu">izan</i> sirve para decir qué es algo: <i class="eu">Zubialde Gipuzkoako herri bat da</i> (Zubialde es un pueblo de Gipuzkoa).</p></aside>
+<figure class="tbl"><figcaption>Topónimos en NON</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Lugar</th><th scope="col">NON</th><th scope="col">Por qué</th></tr></thead><tbody><tr><th scope="row"><i class="eu">Gipuzkoa</i></th><td><i class="eu">Gipuzkoan</i></td><td>la <i class="eu">-a</i> es de la palabra: solo se añade <i class="eu">-n</i></td></tr><tr><th scope="row"><i class="eu">Euskal Herria</i></th><td><i class="eu">Euskal Herrian</i></td><td>igual</td></tr><tr><th scope="row"><i class="eu">Goierri</i></th><td><i class="eu">Goierrin</i></td><td>tras vocal, <i class="eu">-n</i></td></tr><tr><th scope="row"><i class="eu">Gasteiz</i>, <i class="eu">Irun</i></th><td><i class="eu">Gasteizen</i>, <i class="eu">Irunen</i></td><td>tras consonante, <i class="eu">-e-</i> de enlace</td></tr></tbody></table></div></figure>
+<p>Los topónimos no llevan <i class="eu">-a-</i> ni <i class="eu">-ta-</i>: <i class="eu">Gipuzkoan</i>, no <s class="bad">Gipuzkoaan</s>.</p>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">a qué distancia</span></p><p>Para la distancia se combinan dos casos: NONDIK para el punto de partida y NORA para los kilómetros: <i class="eu">Donostiatik hogeita hamar kilometrora dago</i> (está a treinta kilómetros de Donostia). Para decir de dónde es, NONGO: <i class="eu">Gipuzkoako herri bat da</i>.</p></aside>
+</section>
+
+<section class="sec" id="p3" aria-labelledby="p3-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">03</span>
+    <div>
+      <p class="sec-kat">Pregunta 3 de la ficha</p>
+      <h2 id="p3-h" class="qh" lang="eu">Zenbat jende bizi da?</h2>
+      <p class="qsub">¿Cuánta gente vive?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Zenbat</i> pide el nombre sin determinante (mugagabe): <i class="eu">zenbat jende</i>, no <s class="bad">zenbat jendea</s>. <i class="eu">bizi izan</i> es intransitivo: el sujeto va en NOR y el auxiliar es <i class="eu">izan</i>. El lugar donde se vive va en NON: <i class="eu">nire herrian</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Zenbat</span><span class="gw-l">pregunta</span><span class="gw-m">¿cuánto/a?</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">jende</span><span class="gw-l">mugagabe</span><span class="gw-m">gente</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">bizi da</span><span class="gw-l">bizi izan</span><span class="gw-m">vive</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herrian</i> <span class="blank" aria-label="hueco"></span> <i class="eu">biztanle bizi dira.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian jende asko bizi da.</p><p class="mi-es">En mi pueblo vive mucha gente.</p><p class="mi-n"><i class="eu">jende</i> → verbo en singular</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian zortzi mila biztanle bizi dira.</p><p class="mi-es">En mi pueblo viven ocho mil habitantes.</p><p class="mi-n"><i class="eu">biztanle</i> → verbo en plural</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez da jende askorik bizi.</p><p class="mi-es">En mi pueblo no vive mucha gente.</p><p class="mi-n"><i class="eu">asko</i> → <i class="eu">askorik</i></p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dira hamar mila biztanle bizi; zortzi mila bizi dira.</p><p class="mi-es">En mi pueblo no viven diez mil habitantes; viven ocho mil.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Jende asko bizi al da zure herrian?</p><p class="mi-es">¿Vive mucha gente en tu pueblo?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zenbat biztanle bizi dira zure herrian?</p><p class="mi-es">¿Cuántos habitantes viven en tu pueblo?</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">jende es singular</span></p><p><i class="eu">jende</i> significa «gente», pero gramaticalmente es singular: <i class="eu">Jende asko bizi da</i>, <i class="eu">Zenbat jende bizi da?</i> En cambio, <i class="eu">biztanle</i> (habitante) y <i class="eu">lagun</i> (persona) se cuentan y piden plural: <i class="eu">Zortzi mila biztanle bizi dira</i>. <s class="bad">Zenbat jende bizi dira?</s> → <i class="eu">Zenbat jende bizi da?</i></p></aside>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">sin ergativo</span></p><p><s class="bad">Nik Zubialden bizi naiz</s> → <i class="eu">Ni Zubialden bizi naiz</i>. <i class="eu">bizi izan</i> va con <i class="eu">izan</i>, así que el sujeto no lleva <i class="eu">-k</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">con ukan vuelve el ergativo</span></p><p>Lo mismo se puede decir con <i class="eu">ukan</i>: <i class="eu">Nire herriak zortzi mila biztanle ditu</i> (mi pueblo tiene ocho mil habitantes). El pueblo es quien tiene, así que va en NORK (<i class="eu">herriak</i>); los habitantes son varios, así que <i class="eu">ditu</i>. La pregunta: <i class="eu">Zenbat biztanle ditu zure herriak?</i></p></aside>
+<figure class="tbl"><figcaption>Números grandes</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Cifra</th><th scope="col">Euskera</th></tr></thead><tbody><tr><th scope="row">1.000</th><td><i class="eu">mila</i> (sin <i class="eu">bat</i>)</td></tr><tr><th scope="row">2.000</th><td><i class="eu">bi mila</i></td></tr><tr><th scope="row">8.000</th><td><i class="eu">zortzi mila</i></td></tr><tr><th scope="row">8.500</th><td><i class="eu">zortzi mila eta bostehun</i></td></tr><tr><th scope="row">20.000</th><td><i class="eu">hogei mila</i></td></tr><tr><th scope="row">100.000</th><td><i class="eu">ehun mila</i></td></tr><tr><th scope="row">unos 8.000</th><td><i class="eu">zortzi mila biztanle inguru</i></td></tr></tbody></table></div></figure>
+</section>
+
+<section class="sec" id="p4" aria-labelledby="p4-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">04</span>
+    <div>
+      <p class="sec-kat">Pregunta 4 de la ficha</p>
+      <h2 id="p4-h" class="qh" lang="eu">Zer dago zure herrian?</h2>
+      <p class="qsub">¿Qué hay en tu pueblo?</p>
+    </div>
+  </header>
+  <p class="lead">Aquí <i class="eu">egon</i> no dice dónde está algo, sino que algo existe: es el «hay» del castellano. Lo que hay va en NOR y se presenta con <i class="eu">bat</i>, un número o <i class="eu">asko</i>. El lugar ya viene en la pregunta: <i class="eu">zure herrian</i>, en inesivo.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Zer</span><span class="gw-l">pregunta</span><span class="gw-m">¿qué?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">dago</span><span class="gw-l">egon</span><span class="gw-m">hay</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">zure</span><span class="gw-l">NOREN</span><span class="gw-m">tu</span></div><div class="gw c-non"><span class="gw-w" lang="eu">herrian</span><span class="gw-l">NON sg</span><span class="gw-m">en tu pueblo</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herrian</i> <span class="blank" aria-label="hueco"></span> <i class="eu">bat dago.</i> · <i class="eu">Nire herrian</i> <span class="blank" aria-label="hueco"></span> <i class="eu">eta</i> <span class="blank" aria-label="hueco"></span> <i class="eu">daude.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian liburutegi bat dago.</p><p class="mi-es">En mi pueblo hay una biblioteca.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian bi eskola eta taberna asko daude.</p><p class="mi-es">En mi pueblo hay dos escuelas y muchos bares.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago zinemarik.</p><p class="mi-es">En mi pueblo no hay cine.</p><p class="mi-n">más en la pregunta 7</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago denda handirik.</p><p class="mi-es">En mi pueblo no hay tiendas grandes.</p><p class="mi-n">con <i class="eu">-rik</i>, verbo en singular</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ba al dago liburutegirik zure herrian?</p><p class="mi-es">¿Hay biblioteca en tu pueblo?</p><p class="mi-n">— <i class="eu">Bai, badago.</i></p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Zenbat eskola daude zure herrian?</p><p class="mi-es">¿Cuántas escuelas hay en tu pueblo?</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">«hay» es egon</span></p><p><s class="bad">Nire herrian liburutegi bat da</s> → <i class="eu">dago</i>. «Hay» siempre se dice con <i class="eu">egon</i>.</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">varias cosas, verbo en plural</span></p><p>Si enumeras varias cosas, el verbo va en plural aunque cada una lleve <i class="eu">bat</i>: <i class="eu">Liburutegi bat eta kiroldegi bat daude</i>. Con <i class="eu">asko</i> y algo que se cuenta, también plural: <i class="eu">Taberna asko daude</i>. Con algo que no se cuenta, singular: <i class="eu">Jende asko dago</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">bat para presentar, -a para lo conocido</span></p><p>La primera vez que mencionas algo, con <i class="eu">bat</i>: <i class="eu">Nire herrian liburutegi bat dago</i>. Desde ese momento ya es conocido y lleva <i class="eu">-a</i>: <i class="eu">Liburutegia plazan dago</i>. Eso es justo lo que pasa entre las preguntas 4 y 5 de la ficha. Con <i class="eu">ukan</i> también se puede: <i class="eu">Nire herriak liburutegi bat du</i> (mi pueblo tiene una biblioteca), otra vez con NORK.</p></aside>
+</section>
+
+<section class="sec" id="p5" aria-labelledby="p5-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">05</span>
+    <div>
+      <p class="sec-kat">Pregunta 5 de la ficha</p>
+      <h2 id="p5-h" class="qh" lang="eu">Non daude toki horiek?</h2>
+      <p class="qsub">¿Dónde están esos sitios?</p>
+    </div>
+  </header>
+  <p class="lead">Es la pregunta 2 en plural, aplicada a los sitios que acabas de nombrar. <i class="eu">Horiek</i> ocupa el lugar del determinante (<i class="eu">toki horiek</i>, no <s class="bad">tokiak horiek</s>) y obliga al verbo a ir en plural: <i class="eu">daude</i>. Para responder: NON con posposiciones.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Non</span><span class="gw-l">pregunta</span><span class="gw-m">¿dónde?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">daude</span><span class="gw-l">egon pl</span><span class="gw-m">están</span></div><div class="gw c-det"><span class="gw-w" lang="eu">toki</span><span class="gw-l">nombre</span><span class="gw-m">sitio</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">horiek</span><span class="gw-l">demostrativo pl</span><span class="gw-m">esos</span></div></div></figure>
+<figure class="svgfig"><div class="svg-scroll"><svg class="dg" viewBox="0 0 680 380" role="img" aria-label="Plano de Zubialde: plaza en el centro con el ayuntamiento y la biblioteca enfrente; iglesia, escuelas y centro de salud a la derecha; bares en el casco viejo a la izquierda; polideportivo fuera del pueblo junto al río" xmlns="http://www.w3.org/2000/svg"><g font-family="'IBM Plex Sans', 'DejaVu Sans', system-ui, sans-serif"><rect class="river" x="0" y="334" width="680" height="30"/><text class="lb blue" x="664" y="354" text-anchor="end" font-size="12" font-weight="700" letter-spacing=".05em">Oria ibaia</text><rect class="town" x="16" y="26" width="490" height="296" rx="14" fill="none" stroke-width="1.6" stroke-dasharray="7 6"/><text class="tx" x="34" y="20" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="16" font-style="italic" font-weight="600">Zubialde</text><rect class="old" x="32" y="62" width="132" height="244" rx="6"/><text class="tx" x="98" y="86" text-anchor="middle" font-size="13" font-weight="700">Alde zaharra</text><rect class="bx iron" x="44" y="104" width="50" height="32" rx="2"/><text class="lb iron" x="69" y="124" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><rect class="bx iron" x="106" y="104" width="50" height="32" rx="2"/><text class="lb iron" x="131" y="124" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><rect class="bx iron" x="44" y="148" width="50" height="32" rx="2"/><text class="lb iron" x="69" y="168" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><rect class="bx iron" x="106" y="148" width="50" height="32" rx="2"/><text class="lb iron" x="131" y="168" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><rect class="bx iron" x="44" y="192" width="50" height="32" rx="2"/><text class="lb iron" x="69" y="212" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><rect class="bx iron" x="106" y="192" width="50" height="32" rx="2"/><text class="lb iron" x="131" y="212" text-anchor="middle" font-size="9.5" font-weight="700">taberna</text><text class="mu" x="98" y="252" text-anchor="middle" font-size="12" font-style="italic">taberna asko</text><rect class="bx place" x="182" y="62" width="184" height="244" rx="4"/><rect class="bx q" x="196" y="76" width="156" height="44" rx="3"/><text class="tx" x="274" y="102.68" text-anchor="middle" font-size="13" font-weight="600">Udaletxea</text><rect class="bx q" x="196" y="248" width="156" height="44" rx="3"/><text class="tx" x="274" y="274.68" text-anchor="middle" font-size="13" font-weight="600">Liburutegia</text><text class="tx" x="274" y="182" text-anchor="middle" font-family="'Source Serif 4', 'DejaVu Serif', Georgia, serif" font-size="20" font-style="italic" font-weight="600">Plaza</text><text class="lb gold" x="274" y="202" text-anchor="middle" font-size="11" font-weight="700" letter-spacing=".05em">herriaren erdian</text><line class="ln muted" x1="328" y1="126" x2="328" y2="242" stroke-width="1.4" stroke-dasharray="4 4"/><text class="mu" x="348" y="184" font-size="11" font-style="italic" transform="rotate(90 348 184)" text-anchor="middle">parean</text><rect class="bx q" x="382" y="76" width="110" height="44" rx="3"/><text class="tx" x="437" y="102.68" text-anchor="middle" font-size="13" font-weight="600">Eliza</text><rect class="bx sea" x="382" y="150" width="110" height="64" rx="3"/><text class="tx" x="437" y="187" text-anchor="middle" font-size="13" font-weight="600">Eskolak</text><rect class="bx q" x="382" y="248" width="110" height="44" rx="3"/><text class="tx" x="437" y="274.32" text-anchor="middle" font-size="12" font-weight="600">Osasun-zentroa</text><rect class="bx q" x="530" y="250" width="134" height="52" rx="3"/><text class="tx" x="597" y="273" text-anchor="middle" font-size="13" font-weight="600">Kiroldegia</text><text class="mu" x="597" y="291" text-anchor="middle" font-size="11" font-style="italic">herritik kanpo</text></g></svg></div><figcaption>El pueblo modelo visto desde arriba. Todas las frases de esta pregunta describen este plano.</figcaption></figure>
+<div class="exs"><div class="exr"><p class="ex-eu" lang="eu">Plaza herriaren erdian dago.</p><p class="ex-es">La plaza está en el centro del pueblo.<span class="ex-tag"><i class="eu">erdian</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Udaletxea eta liburutegia plazan daude.</p><p class="ex-es">El ayuntamiento y la biblioteca están en la plaza.<span class="ex-tag">2 cosas → <i class="eu">daude</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Liburutegia udaletxearen parean dago.</p><p class="ex-es">La biblioteca está enfrente del ayuntamiento.<span class="ex-tag"><i class="eu">parean</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Eliza udaletxearen ondoan dago.</p><p class="ex-es">La iglesia está al lado del ayuntamiento.<span class="ex-tag"><i class="eu">ondoan</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Eskolak elizaren eta osasun-zentroaren artean daude.</p><p class="ex-es">Las escuelas están entre la iglesia y el centro de salud.<span class="ex-tag"><i class="eu">artean</i></span></p></div><div class="exr"><p class="ex-eu" lang="eu">Taberna asko alde zaharrean daude.</p><p class="ex-es">Muchos bares están en el casco viejo.<span class="ex-tag">NON</span></p></div><div class="exr"><p class="ex-eu" lang="eu">Kiroldegia herritik kanpo dago, ibaiaren ondoan.</p><p class="ex-es">El polideportivo está fuera del pueblo, junto al río.<span class="ex-tag"><i class="eu">kanpo</i> + NONDIK</span></p></div></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Liburutegia plazan dago, udaletxearen parean.</p><p class="mi-es">La biblioteca está en la plaza, enfrente del ayuntamiento.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Eskolak elizaren eta osasun-zentroaren artean daude.</p><p class="mi-es">Las escuelas están entre la iglesia y el centro de salud.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Kiroldegia ez dago herriaren erdian; herritik kanpo dago.</p><p class="mi-es">El polideportivo no está en el centro; está fuera del pueblo.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Tabernak ez daude plazan; alde zaharrean daude.</p><p class="mi-es">Los bares no están en la plaza; están en el casco viejo.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Non dago kiroldegia?</p><p class="mi-es">¿Dónde está el polideportivo?</p></div><div class="mi"><p class="mi-eu" lang="eu">Eliza udaletxearen ondoan al dago?</p><p class="mi-es">¿La iglesia está al lado del ayuntamiento?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Non daude eskolak?</p><p class="mi-es">¿Dónde están las escuelas?</p></div><div class="mi"><p class="mi-eu" lang="eu">Tabernak alde zaharrean al daude?</p><p class="mi-es">¿Los bares están en el casco viejo?</p></div></div></div>
+<figure class="tbl"><figcaption>Posposiciones para situar</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Posposición</th><th scope="col">Significa</th><th scope="col">Ejemplo</th></tr></thead><tbody><tr><th scope="row"><i class="eu">ondoan</i></th><td>al lado de, junto a</td><td><i class="eu">udaletxearen ondoan</i>, <i class="eu">ibaiaren ondoan</i></td></tr><tr><th scope="row"><i class="eu">parean</i></th><td>enfrente de</td><td><i class="eu">udaletxearen parean</i></td></tr><tr><th scope="row"><i class="eu">aurrean</i></th><td>delante de</td><td><i class="eu">elizaren aurrean</i></td></tr><tr><th scope="row"><i class="eu">atzean</i></th><td>detrás de</td><td><i class="eu">elizaren atzean</i></td></tr><tr><th scope="row"><i class="eu">artean</i></th><td>entre</td><td><i class="eu">mendien artean</i>, <i class="eu">elizaren eta osasun-zentroaren artean</i></td></tr><tr><th scope="row"><i class="eu">erdian</i></th><td>en medio de, en el centro</td><td><i class="eu">herriaren erdian</i></td></tr><tr><th scope="row"><i class="eu">kanpo</i></th><td>fuera de (con NONDIK)</td><td><i class="eu">herritik kanpo</i></td></tr><tr><th scope="row"><i class="eu">eskuinean</i> · <i class="eu">ezkerrean</i></th><td>a la derecha · a la izquierda</td><td><i class="eu">Eliza eskuinean dago.</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span><span class="note-t">el genitivo delante</span></p><p>Con nombres comunes lo más seguro es poner el genitivo: <i class="eu">udaletxearen ondoan</i>, <i class="eu">ibaiaren ondoan</i>. Con <i class="eu">hau</i>, <i class="eu">hori</i>, nombres propios y pronombres es obligatorio: <i class="eu">eliza honen aurrean</i>, <i class="eu">Mikelen etxearen ondoan</i>, <i class="eu">nire ondoan</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">el demostrativo también se declina</span></p><p><i class="eu">toki hori</i> (ese sitio) → <i class="eu">toki horretan</i> (en ese sitio); <i class="eu">toki horiek</i> (esos sitios) → <i class="eu">toki horietan</i> (en esos sitios). Con <i class="eu">hau</i> igual: <i class="eu">herri honetan</i> (en este pueblo), <i class="eu">herri hauetan</i> (en estos pueblos).</p></aside>
+</section>
+
+<section class="sec" id="p6" aria-labelledby="p6-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">06</span>
+    <div>
+      <p class="sec-kat">Pregunta 6 de la ficha</p>
+      <h2 id="p6-h" class="qh" lang="eu">Nolakoa da zure herria?</h2>
+      <p class="qsub">¿Cómo es tu pueblo?</p>
+    </div>
+  </header>
+  <p class="lead"><i class="eu">Nolakoa</i> pide una descripción y va con <i class="eu">izan</i>. La respuesta es un adjetivo que funciona como atributo, y en euskera el atributo lleva determinante: <i class="eu">txikia</i>, <i class="eu">lasaia</i>; en plural, <i class="eu">-ak</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Nolakoa</span><span class="gw-l">pregunta</span><span class="gw-m">¿cómo es? (nola + -ko + -a)</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">da</span><span class="gw-l">izan</span><span class="gw-m">es</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">zure</span><span class="gw-l">NOREN</span><span class="gw-m">tu</span></div><div class="gw c-nor"><span class="gw-w" lang="eu">herria</span><span class="gw-l">NOR sg</span><span class="gw-m">tu pueblo</span></div></div></figure>
+<p><i class="eu">Nolakoa</i> lleva dentro el <i class="eu">-ko</i> de NONGO y la <i class="eu">-a</i> del determinante. Por eso también tiene plural: <i class="eu">nolakoak</i>.</p>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herria</i> <span class="blank" aria-label="hueco"></span><i class="eu">-a eta</i> <span class="blank" aria-label="hueco"></span><i class="eu">-a da.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herria txikia eta lasaia da.</p><p class="mi-es">Mi pueblo es pequeño y tranquilo.</p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herriko kaleak estuak eta zaharrak dira.</p><p class="mi-es">Las calles de mi pueblo son estrechas y viejas.</p><p class="mi-n">NONGO + atributo plural</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herria ez da handia, baina oso polita da.</p><p class="mi-es">Mi pueblo no es grande, pero es muy bonito.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Etxeak ez dira altuak.</p><p class="mi-es">Las casas no son altas.</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Zure herria handia al da?</p><p class="mi-es">¿Tu pueblo es grande?</p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nolakoak dira zure herriko kaleak?</p><p class="mi-es">¿Cómo son las calles de tu pueblo?</p><p class="mi-n"><i class="eu">nolakoa</i> en plural</p></div></div></div>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampa</span></p><p><s class="bad">Nire herria txiki da</s> → <i class="eu">txikia</i>. <s class="bad">Kaleak estua dira</s> → <i class="eu">estuak</i>. El adjetivo atributo lleva <i class="eu">-a</i> o <i class="eu">-ak</i>, según el sujeto.</p></aside>
+<figure class="tbl"><figcaption>Adjetivos para describir un pueblo</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">Adjetivo</th><th scope="col">Contrario</th></tr></thead><tbody><tr><th scope="row"><i class="eu">handia</i> · grande</th><td><i class="eu">txikia</i> · pequeño</td></tr><tr><th scope="row"><i class="eu">polita</i> · bonito</th><td><i class="eu">itsusia</i> · feo</td></tr><tr><th scope="row"><i class="eu">lasaia</i> · tranquilo</th><td><i class="eu">zaratatsua</i> · ruidoso</td></tr><tr><th scope="row"><i class="eu">garbia</i> · limpio</th><td><i class="eu">zikina</i> · sucio</td></tr><tr><th scope="row"><i class="eu">zaharra</i> · viejo</th><td><i class="eu">berria</i> · nuevo</td></tr><tr><th scope="row"><i class="eu">alaia</i> · alegre</th><td><i class="eu">turistikoa</i> · turístico · <i class="eu">industriala</i> · industrial</td></tr></tbody></table></div></figure>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">nola o nolakoa</span></p><p><i class="eu">Nola</i> va con <i class="eu">egon</i> y pregunta por el estado: <i class="eu">Nola zaude? — Ondo nago.</i> <i class="eu">Nolakoa</i> va con <i class="eu">izan</i> y pide una descripción: <i class="eu">Nolakoa zara? — Altua eta alaia naiz.</i></p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">comparar y variar</span></p><p>Para comparar: <i class="eu">Nire herria Donostia baino askoz txikiagoa da</i> (mi pueblo es mucho más pequeño que Donostia). Con <i class="eu">bat</i>, el adjetivo no lleva <i class="eu">-a</i>: <i class="eu">Herri txiki bat da</i> = <i class="eu">Herri txikia da</i>.</p></aside>
+</section>
+
+<section class="sec" id="p7" aria-labelledby="p7-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">07</span>
+    <div>
+      <p class="sec-kat">Pregunta 7 de la ficha</p>
+      <h2 id="p7-h" class="qh" lang="eu">Zer ez dago zure herrian?</h2>
+      <p class="qsub">¿Qué no hay en tu pueblo?</p>
+    </div>
+  </header>
+  <p class="lead">Es la pregunta 4 en negativo, y la respuesta pide el partitivo: lo que no existe se dice con <i class="eu">-rik</i> (<i class="eu">-ik</i> tras consonante). El partitivo no distingue singular y plural, y el verbo va siempre en singular: <i class="eu">ez dago</i>.</p>
+  <figure class="gloss" aria-label="Análisis de la pregunta"><div class="gloss-row"><div class="gw c-q"><span class="gw-w" lang="eu">Zer</span><span class="gw-l">pregunta</span><span class="gw-m">¿qué?</span></div><div class="gw c-verb"><span class="gw-w" lang="eu">ez dago</span><span class="gw-l">egon negativo</span><span class="gw-m">no hay</span></div><div class="gw c-noren"><span class="gw-w" lang="eu">zure</span><span class="gw-l">NOREN</span><span class="gw-m">tu</span></div><div class="gw c-non"><span class="gw-w" lang="eu">herrian</span><span class="gw-l">NON sg</span><span class="gw-m">en tu pueblo</span></div></div></figure>
+<div class="tpl"><span class="tpl-k">Para tu ficha</span><span class="tpl-t" lang="eu"><i class="eu">Nire herrian ez dago</i> <span class="blank" aria-label="hueco"></span><i class="eu">-rik.</i></span></div>
+<h3>Seis formas de responder</h3>
+<div class="mx" role="table" aria-label="Respuestas en seis formas"><div class="mx-h mx-corner" role="columnheader"></div><div class="mx-h" role="columnheader">Singular</div><div class="mx-h" role="columnheader">Plural</div><div class="mx-r r-aff" role="rowheader">Afirmativa</div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ez dago hondartzarik, baina ibai polit bat dago.</p><p class="mi-es">No hay playa, pero hay un río bonito.</p><p class="mi-n">lo que sí hay, con <i class="eu">bat</i></p></div></div><div class="mx-c r-aff" role="cell"><span class="mx-tag">Afirmativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez dago zinemarik, baina mendi asko daude.</p><p class="mi-es">No hay cine, pero hay muchos montes.</p></div></div><div class="mx-r r-neg" role="rowheader">Negativa</div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · singular</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago hondartzarik.</p><p class="mi-es">En mi pueblo no hay playa.</p></div></div><div class="mx-c r-neg" role="cell"><span class="mx-tag">Negativa · plural</span><div class="mi"><p class="mi-eu" lang="eu">Nire herrian ez dago hotelik.</p><p class="mi-es">En mi pueblo no hay hoteles.</p><p class="mi-n"><i class="eu">-ik</i> tras consonante; verbo en singular</p></div></div><div class="mx-r r-q" role="rowheader">Pregunta</div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · singular</span><div class="mi"><p class="mi-eu" lang="eu">Ba al dago hondartzarik zure herrian?</p><p class="mi-es">¿Hay playa en tu pueblo?</p><p class="mi-n">— <i class="eu">Ez, ez dago.</i></p></div></div><div class="mx-c r-q" role="cell"><span class="mx-tag">Pregunta · plural</span><div class="mi"><p class="mi-eu" lang="eu">Ez al dago hotelik zure herrian?</p><p class="mi-es">¿No hay hoteles en tu pueblo?</p></div></div></div>
+<figure class="tbl"><figcaption>Cómo se forma el partitivo</figcaption><div class="tbl-scroll"><table><thead><tr><th scope="col">La palabra acaba en</th><th scope="col">Sufijo</th><th scope="col">Ejemplos</th></tr></thead><tbody><tr><th scope="row">vocal</th><td><i class="eu">-rik</i></td><td><i class="eu">hondartzarik</i>, <i class="eu">unibertsitaterik</i>, <i class="eu">ospitalerik</i>, <i class="eu">aireporturik</i></td></tr><tr><th scope="row">consonante</th><td><i class="eu">-ik</i></td><td><i class="eu">hotelik</i>, <i class="eu">trenik</i></td></tr><tr><th scope="row">nombre + adjetivo</th><td>al final del grupo</td><td><i class="eu">denda handirik</i></td></tr></tbody></table></div></figure>
+<aside class="note n-warn"><p class="note-h"><span class="note-k">Trampas</span></p><p><s class="bad">Ez dago hondartza</s> → <i class="eu">Ez dago hondartzarik</i>. <s class="bad">Ez daude dendarik</s> → <i class="eu">Ez dago dendarik</i>. <s class="bad">Nire herrian ez da hondartzarik</s> → <i class="eu">ez dago</i>.</p></aside>
+<aside class="note n-deep"><p class="note-h"><span class="note-k">Más a fondo</span><span class="note-t">-rik o -a en una negativa</span></p><p><i class="eu">Ez dago liburutegirik</i> significa que no existe ninguna biblioteca. <i class="eu">Liburutegia ez dago plazan</i> significa que la biblioteca existe, pero no está en la plaza. El partitivo es para lo que no hay; el determinante, para algo concreto.</p></aside>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Truco</span><span class="note-t">encadenar</span></p><p><i class="eu">ere</i> añade «tampoco»: <i class="eu">Ospitalerik ere ez dago</i> (tampoco hay hospital). <i class="eu">ezta … ere</i> encadena negativas: <i class="eu">Ez dago hondartzarik, ezta aireporturik ere</i> (no hay playa, ni aeropuerto).</p></aside>
+</section>
+
+<section class="sec" id="fitxa" aria-labelledby="fitxa-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">C</span>
+    <div>
+      <p class="sec-kat">Modelo</p>
+      <h2 id="fitxa-h">La ficha resuelta</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Así podría quedar la ficha con el pueblo modelo. Cada respuesta usa solo estructuras de esta página.</p>
+  <figure class="sheet" aria-label="Ficha Nire herria resuelta"><p class="sheet-t">NIRE HERRIA</p><div class="sheet-item"><p class="sheet-q" lang="eu">Nola izena du zure herriak?</p><p class="sheet-a" lang="eu">Nire herriak Zubialde du izena.</p><details class="sheet-es"><summary>En castellano</summary><p>Mi pueblo se llama Zubialde.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Non dago zure herria?</p><p class="sheet-a" lang="eu">Zubialde Gipuzkoan dago, Oria ibaiaren ondoan. Mendien artean dago, Donostiatik hogeita hamar kilometrora.</p><details class="sheet-es"><summary>En castellano</summary><p>Zubialde está en Gipuzkoa, junto al río Oria. Está entre montes, a treinta kilómetros de Donostia.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zenbat jende bizi da?</p><p class="sheet-a" lang="eu">Nire herrian zortzi mila biztanle inguru bizi dira.</p><details class="sheet-es"><summary>En castellano</summary><p>En mi pueblo viven unos ocho mil habitantes.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zer dago zure herrian?</p><p class="sheet-a" lang="eu">Nire herrian plaza handi bat, udaletxe bat eta eliza bat daude. Gainera, liburutegi bat, kiroldegi bat eta osasun-zentro bat daude. Bi eskola eta taberna asko ere badaude. Larunbatetan azoka dago.</p><details class="sheet-es"><summary>En castellano</summary><p>En mi pueblo hay una plaza grande, un ayuntamiento y una iglesia. Además, hay una biblioteca, un polideportivo y un centro de salud. También hay dos escuelas y muchos bares. Los sábados hay mercado.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Non daude toki horiek?</p><p class="sheet-a" lang="eu">Udaletxea plazan dago, eta liburutegia udaletxearen parean dago. Eliza udaletxearen ondoan dago. Eskolak elizaren eta osasun-zentroaren artean daude. Taberna asko alde zaharrean daude. Kiroldegia herritik kanpo dago, ibaiaren ondoan.</p><details class="sheet-es"><summary>En castellano</summary><p>El ayuntamiento está en la plaza, y la biblioteca, enfrente. La iglesia está al lado del ayuntamiento. Las escuelas están entre la iglesia y el centro de salud. Muchos bares están en el casco viejo. El polideportivo está fuera del pueblo, junto al río.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Nolakoa da zure herria?</p><p class="sheet-a" lang="eu">Nire herria txikia eta lasaia da, baina oso polita da. Kaleak estuak dira eta etxe asko zaharrak dira. Donostia baino askoz txikiagoa da.</p><details class="sheet-es"><summary>En castellano</summary><p>Mi pueblo es pequeño y tranquilo, pero muy bonito. Las calles son estrechas y muchas casas son viejas. Es mucho más pequeño que Donostia.</p></details></div><div class="sheet-item"><p class="sheet-q" lang="eu">Zer ez dago zure herrian?</p><p class="sheet-a" lang="eu">Nire herrian ez dago hondartzarik eta ez dago unibertsitaterik. Zinemarik ere ez dago, ezta ospitalerik ere.</p><details class="sheet-es"><summary>En castellano</summary><p>En mi pueblo no hay playa ni universidad. Tampoco hay cine, ni hospital.</p></details></div></figure>
+<aside class="note n-tip"><p class="note-h"><span class="note-k">Para adaptarla a tu pueblo</span></p><p>Cambia el nombre, la provincia, los habitantes y los lugares, y mantén los verbos: <i class="eu">du izena</i> para el nombre, <i class="eu">dago / daude</i> para dónde está algo y para lo que hay, <i class="eu">bizi dira</i> para la gente, <i class="eu">da / dira</i> para cómo es y <i class="eu">ez dago …-rik</i> para lo que falta.</p></aside>
+</section>
+
+<section class="sec" id="ariketak" aria-labelledby="ariketak-h">
+  <header class="sec-h">
+    <span class="sec-num" aria-hidden="true">D</span>
+    <div>
+      <p class="sec-kat">Ejercicios</p>
+      <h2 id="ariketak-h">Pruébate</h2>
+      
+    </div>
+  </header>
+  <p class="lead">Dieciocho ejercicios sobre las estructuras de la ficha. Las soluciones están ocultas debajo de cada uno.</p>
+  <section class="quiz" aria-labelledby="q9-h"><div class="quiz-top"><h3 id="q9-h">Transforma</h3><button type="button" class="quiz-all" id="q9-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q9-0"><summary>A plural: <i class="eu">Denda plazan dago.</i></summary><div class="ans"><i class="eu">Dendak plazan daude.</i></div></details></li><li><details id="q9-1"><summary>A plural: <i class="eu">Toki hori ez dago urrun.</i></summary><div class="ans"><i class="eu">Toki horiek ez daude urrun.</i></div></details></li><li><details id="q9-2"><summary>A negativa: <i class="eu">Nire herrian zinema bat dago.</i></summary><div class="ans"><i class="eu">Nire herrian ez dago zinemarik.</i> <i class="eu">bat</i> pasa a <i class="eu">-rik</i>.</div></details></li><li><details id="q9-3"><summary>A negativa: <i class="eu">Nire herrian jende asko bizi da.</i></summary><div class="ans"><i class="eu">Nire herrian ez da jende askorik bizi.</i> <i class="eu">ez da</i> va delante y <i class="eu">bizi</i>, al final.</div></details></li><li><details id="q9-4"><summary>A pregunta de sí o no: <i class="eu">Zure herria Bizkaian dago.</i></summary><div class="ans"><i class="eu">Zure herria Bizkaian al dago?</i></div></details></li><li><details id="q9-5"><summary>Haz la pregunta abierta para esta respuesta: <i class="eu">Kiroldegia herritik kanpo dago.</i></summary><div class="ans"><i class="eu">Non dago kiroldegia?</i></div></details></li></ol></section>
+<section class="quiz" aria-labelledby="q10-h"><div class="quiz-top"><h3 id="q10-h">Corrige</h3><button type="button" class="quiz-all" id="q10-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q10-0"><summary><i class="eu">Nire herria Gipuzkoan da.</i></summary><div class="ans"><i class="eu">Nire herria Gipuzkoan dago.</i> La ubicación va con <i class="eu">egon</i>.</div></details></li><li><details id="q10-1"><summary><i class="eu">Zenbat jende bizi dira?</i></summary><div class="ans"><i class="eu">Zenbat jende bizi da?</i> <i class="eu">jende</i> es singular.</div></details></li><li><details id="q10-2"><summary><i class="eu">Nire herrian ez daude hondartzarik.</i></summary><div class="ans"><i class="eu">Nire herrian ez dago hondartzarik.</i> Con <i class="eu">-rik</i>, el verbo va en singular.</div></details></li><li><details id="q10-3"><summary><i class="eu">Nire herria Zubialde du izena.</i></summary><div class="ans"><i class="eu">Nire herriak Zubialde du izena.</i> Con <i class="eu">du</i>, ergativo.</div></details></li><li><details id="q10-4"><summary><i class="eu">Kaleak estua dira.</i></summary><div class="ans"><i class="eu">Kaleak estuak dira.</i></div></details></li><li><details id="q10-5"><summary><i class="eu">Non zure herria dago?</i></summary><div class="ans"><i class="eu">Non dago zure herria?</i> El interrogativo y el verbo van juntos.</div></details></li></ol></section>
+<section class="quiz" aria-labelledby="q11-h"><div class="quiz-top"><h3 id="q11-h">Traduce</h3><button type="button" class="quiz-all" id="q11-btn" aria-pressed="false">Ver todas las soluciones</button></div><ol><li><details id="q11-0"><summary>«Mi pueblo se llama Zubialde y tiene ocho mil habitantes.»</summary><div class="ans"><i class="eu">Nire herriak Zubialde du izena eta zortzi mila biztanle ditu.</i></div></details></li><li><details id="q11-1"><summary>«Las escuelas están detrás de la iglesia.»</summary><div class="ans"><i class="eu">Eskolak elizaren atzean daude.</i></div></details></li><li><details id="q11-2"><summary>«¿Cómo son las casas de tu pueblo?»</summary><div class="ans"><i class="eu">Nolakoak dira zure herriko etxeak?</i></div></details></li><li><details id="q11-3"><summary>«En mi pueblo no hay hoteles, pero hay muchos bares.»</summary><div class="ans"><i class="eu">Nire herrian ez dago hotelik, baina taberna asko daude.</i></div></details></li><li><details id="q11-4"><summary>«¿Hay biblioteca en tu pueblo? — Sí, hay.»</summary><div class="ans"><i class="eu">Ba al dago liburutegirik zure herrian? — Bai, badago.</i></div></details></li><li><details id="q11-5"><summary>«Mi pueblo está a treinta kilómetros de Donostia.»</summary><div class="ans"><i class="eu">Nire herria Donostiatik hogeita hamar kilometrora dago.</i></div></details></li></ol></section>
+</section>
+  </main>
+</div>
+
+<footer>
+  <span>Nire herria · ficha de expresión escrita · nivel A1 · Euskara Armairua</span>
+  <span><a href="gramatika-sakonean.html">Gramatika sakonean</a> · <a href="gramatika.html">Buscador</a></span>
+  <span>&#9888; Claude · por contrastar: explicaciones y frases preparadas por Claude, sin revisar todavía por un hablante.</span>
+</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.quiz').forEach(function(q){
+    var btn = q.querySelector('.quiz-all'), ds = q.querySelectorAll('details');
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-pressed') !== 'true';
+      ds.forEach(function(d){ d.open = open; });
+      btn.setAttribute('aria-pressed', open ? 'true' : 'false');
+      btn.textContent = open ? 'Ocultar soluciones' : 'Ver todas las soluciones';
+    });
+  });
+  var links = {};
+  document.querySelectorAll('.toc a').forEach(function(a){ links[a.dataset.sec] = a; });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) Object.keys(links).forEach(function(k){ links[k].classList.toggle('on', k === e.target.id); });
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    document.querySelectorAll('.sec').forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
+
+</body></html>

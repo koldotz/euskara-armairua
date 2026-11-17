@@ -3,15 +3,15 @@
    el global window.A1_ESALDIAK.
 
    TODAS las frases proceden de los materiales del curso A1 de esta app
-   (koadernos 1–8, Irakurmena, Esapideak del Hiztegia y los simulacros):
-   no hay frases ajenas al temario. La solución en euskera está verificada
-   con el método; el desglose de morfemas (m) y la nota gramatical (g) los
-   ha añadido Claude y conviene contrastarlos con una fuente autoritativa
-   (Euskaltzaindia). Por eso la vista muestra el aviso «por verificar».
+   (koadernos 1–8, Irakurmena, Esapideak del Hiztegia y los simulacros),
+   que ha preparado Claude: no salen de ningún libro de Documentos/EUS.
+   Las frases, el desglose de morfemas (m) y la nota gramatical (g)
+   conviene contrastarlos con una fuente autoritativa (Euskaltzaindia).
+   Por eso la vista las marca con «⚠ Claude».
 
    Esquema de cada entrada:
      es  frase en castellano (lo que se busca)
-     eu  frase en euskera (solución del método)
+     eu  frase en euskera (solución del cuaderno de la app)
      k   etiqueta de caso/estructura, para los filtros y el color
      src origen dentro del curso (koaderno / simulacro / esapideak)
      m   desglose: lista de pares [pieza, glosa]
@@ -150,7 +150,7 @@ window.A1_ESALDIAK = [
 { es:"No he visto nada.", eu:"Ez dut ezer ikusi.", k:"NORK", src:"Koaderno 3",
   m:[["Ez dut","no he (UKAN · nik)"],["ezer","nada"],["ikusi","visto"]],
   g:"«ezer» (nada) exige el verbo en negativa: ez dut … ikusi." },
-{ es:"No hay ningún problema.", eu:"Ez dago arazorik.", k:"NORK", src:"Koaderno 3",
+{ es:"No hay ningún problema.", eu:"Ez dago arazorik.", k:"NOR", src:"Koaderno 3",
   m:[["Ez dago","no hay (EGON · hura)"],["arazo-rik","problema (partitivo)"]],
   g:"«hay/no hay» con EGON (dago). En negativa, partitivo: arazo → arazorik." },
 
@@ -388,7 +388,7 @@ window.A1_ESALDIAK = [
   g:"Las fechas: mes en NOREN + día en NON: abuztuaren hamabostean." },
 
 /* ── Simulacro final · control de gramática ── */
-{ es:"No hay nadie aquí.", eu:"Ez dago inor hemen.", k:"NORK", src:"Simulacro final",
+{ es:"No hay nadie aquí.", eu:"Ez dago inor hemen.", k:"NOR", src:"Simulacro final",
   m:[["ez dago","no hay (EGON)"],["inor","nadie"],["hemen","aquí"]],
   g:"«inor» (nadie) e «inon» (en ningún sitio) exigen negativa, como «ezer»." },
 { es:"Son las tres ahora.", eu:"Hirurak dira orain.", k:"Ordua", src:"Simulacro final",

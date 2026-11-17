@@ -23,9 +23,13 @@
 (function(){
   if (window.KOADERNOA_CHECK) return;
   var FIELDS = 'input.gapf, textarea.ansf';
-  function nrm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[«»"“”¿?¡!.,;:()…*]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function nrm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[«»"“”¿?¡!.,;:()…*]/g, ' ').replace(/\s+/g, ' ').trim().replace(/^[-–]+(?=\S)/, ''); }
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
-  function alts(el){ return String(el.textContent || '').split(/\s+\/\s+|\s+o\s+(?=[a-z])/i).map(nrm).filter(Boolean); }
+  function alts(el){
+    var r = String(el.textContent || '').split(/\s+\/\s+|\s+o\s+(?=[a-z])/i).map(nrm).filter(Boolean);
+    if (r.indexOf('ø') >= 0) r.push('0', '-', '—');     // «Ø» = sin terminación: vale escribir 0 o un guion
+    return r;
+  }
   function AK(){ return window.AKATSAK || null; }
 
   /* ── comprobar un ejercicio ── */
@@ -171,6 +175,16 @@
     simBar(unit);
   }
   /* reloj flotante mientras un simulacro está en marcha y el cuaderno a la vista */
+  /* ir a una unidad: el cuaderno maqueta al acercarse (content-visibility), así
+     que tras el salto se corrige hasta que la posición se asienta */
+  function goTo(u){
+    var n = 0;
+    u.scrollIntoView({ block: 'start' });
+    (function fix(){ requestAnimationFrame(function(){
+      var want = parseFloat(getComputedStyle(u).scrollMarginTop) || 0;
+      if (Math.abs(u.getBoundingClientRect().top - want) > 4 && n++ < 6) { u.scrollIntoView({ block: 'start' }); fix(); }
+    }); })();
+  }
   function renderClock(){
     var S = sload(), live = null;
     Object.keys(S).forEach(function(k){ if (S[k] && S[k].start && !S[k].done && CFG.exams[k]) live = k; });
@@ -178,7 +192,7 @@
       clock = document.createElement('div'); clock.className = 'sim-clock'; clock.setAttribute('role', 'timer'); clock.hidden = true; document.body.appendChild(clock);
       clock.addEventListener('click', function(e){
         var u = clock.getAttribute('data-u') && document.getElementById(clock.getAttribute('data-u')), b = e.target.closest('button[data-s]');
-        if (b && u) act(u, b.getAttribute('data-s')); else if (u) u.scrollIntoView({ block: 'start' });
+        if (b && u) act(u, b.getAttribute('data-s')); else if (u) goTo(u);
       });
     }
     var unit = live && document.getElementById(live), vis = unit && !(root && root.closest('[hidden]'));

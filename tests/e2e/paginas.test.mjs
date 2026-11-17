@@ -3,7 +3,8 @@
 // desbordamiento horizontal (la página no debe moverse de lado en el móvil).
 const PAGES = [['index.html', ['']], ['a1.html', ['egutegia', 'hiztegia', 'koadernoa', 'mintzamena', 'jokoa']],
   ['a2.html', ['orokorra', 'materialak', 'koadernoa']], ['gramatika.html', ['']], ['glosario.html', ['']],
-  ['geruzak.html', ['']], ['ikasgela.html', ['']]];
+  ['geruzak.html', ['']], ['ikasgela.html', ['']],
+  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']]];
 
 export default async function(t){
   for (const [w, mobile] of [[1280, false], [390, true], [320, true]]) {
@@ -18,7 +19,7 @@ export default async function(t){
         const dup = await p.ev(`(function(){ var s = {}, d = []; document.querySelectorAll('[id]').forEach(function(e){ if (s[e.id]) d.push(e.id); s[e.id] = 1; }); return d.join(','); })()`);
         t.ok(!dup, where + ': sin ids repetidos' + (dup ? ' (' + dup + ')' : ''));
       }
-      const bad = await p.ev(`JSON.stringify(performance.getEntriesByType('resource').filter(function(e){ return e.name.indexOf(location.origin) === 0 && e.responseStatus >= 400; }).map(function(e){ return e.name.replace(location.origin, '') + ' ' + e.responseStatus; }))`);
+      const bad = await p.ev(`JSON.stringify(performance.getEntriesByType('resource').filter(function(e){ return e.name.indexOf(location.origin) === 0 && e.responseStatus >= 400 && e.name.indexOf('/pribatua/') < 0; }).map(function(e){ return e.name.replace(location.origin, '') + ' ' + e.responseStatus; }))`);
       t.ok(bad === '[]', w + 'px ' + page + ': todos los recursos locales cargan' + (bad !== '[]' ? ' — ' + bad : ''));
       t.ok(!p.errs.length, w + 'px ' + page + ': sin errores de JavaScript' + (p.errs.length ? ' — ' + p.errs.slice(0, 2).join(' | ') : ''));
       await p.close();

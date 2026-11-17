@@ -17,7 +17,8 @@
    exportación, y lo apunta para la siguiente.
    LIBRETA.koadernoa(raíz) construye el apartado de ejercicios de cualquier
    nivel con el cuaderno editable (section.unit > .ar, huecos .gapf,
-   respuestas .ansf, puntuaciones .scoref y soluciones .sol).
+   respuestas .ansf, puntuaciones .scoref, soluciones .sol y, en las hojas
+   de respuestas, casillas de opción y de marca .orf).
    ══════════════════════════════════════════════════════════════════════ */
 (function(){
   if (window.LIBRETA) return;
@@ -134,14 +135,14 @@
   /* ── apartado genérico: el cuaderno de ejercicios ── */
   function koadernoa(root, opts){
     opts = opts || {};
-    var FIELDS = 'input.gapf, textarea.ansf, input.scoref';
+    var FIELDS = 'input.gapf, textarea.ansf, input.scoref, .orf';
     function filled(clone, src){
       var a = src.querySelectorAll(FIELDS), b = clone.querySelectorAll(FIELDS);
       Array.prototype.forEach.call(b, function(el, i){
-        var v = ((a[i] && a[i].value) || '').trim(), area = el.tagName === 'TEXTAREA';
+        var v = ((a[i] && a[i].value) || '').trim(), area = el.tagName === 'TEXTAREA', chk = el.classList.contains('or-chk');
         var sp = document.createElement(area ? 'div' : 'span');
         sp.className = (area ? 'lb-area' : 'lb-ans') + (v ? '' : ' empty');
-        sp.textContent = v || (area ? '—' : '…');
+        sp.textContent = chk ? (v ? '☑' : '☐') + (el.textContent.trim() ? ' ' + el.textContent.trim() : '') : v || (area ? '—' : '…');   // marca: ☑/☐ y su rótulo
         el.parentNode.replaceChild(sp, el);
       });
       clone.querySelectorAll('[id]').forEach(function(e){ e.removeAttribute('id'); });
@@ -159,6 +160,7 @@
           done++;
           var badge = h.mark(sec.id + ':' + k, h.hash(vals.join('\u0001')));
           var hd = ar.querySelector('.h'), num = hd && hd.querySelector('.k'), tit = hd && hd.querySelector('h3');
+          var orr = hd && hd.querySelector('.or-orr'), egin = hd && hd.querySelector('.or-done');     // hojas de respuestas: página y «Eginda»
           var bsrc = ar.querySelector('.b') || ar, b = filled(bsrc.cloneNode(true), bsrc);
           Array.prototype.forEach.call(b.querySelectorAll('details'), function(d){ d.open = true; });
           var solHtml = '', sol = ar.querySelector('.sol .in');
@@ -172,12 +174,14 @@
             } else solHtml = '<div class="lb-solbox"><div class="lb-solt">Erantzunak · soluciones</div>' + sol.innerHTML + '</div>';
           }
           items.push('<div class="lb-ar"><div class="lb-arh">' + (num ? '<span class="lb-k">' + h.esc(num.textContent) + '</span>' : '')
-            + '<h4>' + h.esc(tit ? tit.textContent : '') + '</h4>' + badge + '</div>' + b.innerHTML + solHtml + '</div>');
+            + '<h4>' + h.esc(tit ? tit.textContent : '') + '</h4>' + (orr ? '<span class="lb-orr">' + h.esc(orr.textContent) + (egin && egin.value ? ' · eginda' : '') + '</span>' : '') + badge + '</div>' + b.innerHTML + solHtml + '</div>');
         });
         var scores = Array.prototype.map.call(sec.querySelectorAll('.score'), function(sc){ return filled(sc.cloneNode(true), sc).textContent.trim(); }).filter(function(t){ return /\d/.test(t.split('/')[0]); });
         if (!items.length && !scores.length) return;
+        var itb = uh && uh.querySelector('.itb');          // procedencia: «⚠ Claude» o el libro y sus páginas
         out.push('<h3 class="lb-unit"><span class="lb-un">' + h.esc(uh && uh.querySelector('.n') ? uh.querySelector('.n').textContent : '') + '</span>'
-          + h.esc(uh && uh.querySelector('h2') ? uh.querySelector('h2').textContent : sec.id) + '</h3>'
+          + h.esc(uh && uh.querySelector('h2') ? uh.querySelector('h2').textContent : sec.id)
+          + (itb ? '<small class="lb-src">' + h.esc(itb.textContent) + '</small>' : '') + '</h3>'
           + items.join('') + scores.map(function(t){ return '<p class="lb-score">' + h.esc(t) + '</p>'; }).join(''));
       });
       return { html: out.join(''), n: done + ' / ' + total + ' ejercicios' };
@@ -242,8 +246,12 @@
     '#lbDoc .lb-card .say{font-family:var(--f-mono,monospace);font-size:9.5pt;margin-top:3px}',
     '#lbDoc .lb-unit{display:flex;gap:8px;align-items:baseline;border-bottom:1px solid var(--l);padding-bottom:3px}',
     '#lbDoc .lb-un{font-family:var(--f-mono,monospace);font-size:9pt;color:#fff;background:var(--s);border-radius:2px;padding:0 5px}',
+    '#lbDoc .lb-src{margin-left:auto;font-family:var(--f-mono,monospace);font-size:7.5pt;font-weight:400;color:#6b6b6b;white-space:nowrap}',
     '#lbDoc .lb-ar{margin:8px 0 12px;padding-left:10px;border-left:2px solid var(--l);break-inside:avoid-page}',
     '#lbDoc .lb-arh{display:flex;gap:6px;align-items:baseline;margin-bottom:3px}#lbDoc .lb-k{font-family:var(--f-mono,monospace);font-size:9pt;color:var(--r)}',
+    '#lbDoc .lb-orr{font-family:var(--f-mono,monospace);font-size:8pt;color:var(--m);white-space:nowrap}',
+    '#lbDoc .or-grid{display:flex;flex-wrap:wrap;gap:2px 14px}#lbDoc .or-it{display:inline-flex;gap:5px;align-items:baseline;flex-wrap:wrap}#lbDoc .or-it .l,#lbDoc .or-sub{font-family:var(--f-mono,monospace);font-size:8.5pt;color:var(--m)}',
+    '#lbDoc .or-hint{display:none}#lbDoc .or-adib,#lbDoc .or-adibl{font-family:var(--f-ui,sans-serif);font-size:8.5pt;color:var(--m)}#lbDoc .or-taula td,#lbDoc .or-taula th{border:1px solid var(--l);text-align:center}',
     '#lbDoc .lb-ar p{margin:3px 0}#lbDoc .lb-ar ol,#lbDoc .lb-ar ul{margin:3px 0 3px 18px;padding:0}#lbDoc .lb-ar li{margin:2px 0}',
     '#lbDoc .lb-ar .instr{font-family:var(--f-ui,sans-serif);font-size:9pt;color:var(--m)}',
     '#lbDoc .lb-ans{font-family:var(--f-mono,monospace);font-size:9.5pt;color:var(--s);font-weight:600;border-bottom:1px solid var(--s);padding:0 3px}',

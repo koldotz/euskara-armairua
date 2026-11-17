@@ -35,7 +35,7 @@
     var root = document.getElementById('app-koadernoa'), n = 0, tot = 0;
     if (root) root.querySelectorAll('section.unit .ar').forEach(function(ar){
       tot++;
-      if (Array.prototype.some.call(ar.querySelectorAll('input.gapf, textarea.ansf, input.scoref'), function(f){ return (f.value || '').trim(); })) n++;
+      if (Array.prototype.some.call(ar.querySelectorAll('input.gapf, textarea.ansf, input.scoref, .orf'), function(f){ return (f.value || '').trim(); })) n++;
     });
     return { n: n, tot: tot };
   }

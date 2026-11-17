@@ -16,9 +16,12 @@ export default async function(t){
   t.ok(a && /an:NONSG/.test(a.p), 'terminaciones escritas con paréntesis: kafetegi-an');
   t.ok((await an('Idoia')) === null, 'un nombre propio desconocido no se inventa');
 
-  // tocar una palabra del cuaderno
+  // tocar una palabra del cuaderno (se espera a que acabe el scroll: el evento
+  // «scroll» llega un fotograma después y cerraría la ficha recién abierta)
   const tap = async (sel, word) => {
-    const r = JSON.parse(await p.ev(`(function(){ var el = [...document.querySelectorAll(${JSON.stringify(sel)})].find(e => e.offsetParent && e.textContent.indexOf(${JSON.stringify(word)}) >= 0); if (!el) return 'null'; el.scrollIntoView({ block: 'center' }); var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n; while ((n = w.nextNode())) { var i = n.data.indexOf(${JSON.stringify(word)}); if (i >= 0) { var rg = document.createRange(); rg.setStart(n, i); rg.setEnd(n, i + 1); var b = rg.getBoundingClientRect(); return JSON.stringify({ x: b.left + b.width / 2, y: b.top + b.height / 2 }); } } return 'null'; })()`));
+    const find = `[...document.querySelectorAll(${JSON.stringify(sel)})].find(e => e.offsetParent && e.textContent.indexOf(${JSON.stringify(word)}) >= 0)`;
+    await p.ev(`(function(){ var el = ${find}; if (el) el.scrollIntoView({ block: 'center' }); })()`); await p.sleep(150);
+    const r = JSON.parse(await p.ev(`(function(){ var el = ${find}; if (!el) return 'null'; var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n; while ((n = w.nextNode())) { var i = n.data.indexOf(${JSON.stringify(word)}); if (i >= 0) { var rg = document.createRange(); rg.setStart(n, i); rg.setEnd(n, i + 1); var b = rg.getBoundingClientRect(); return JSON.stringify({ x: b.left + b.width / 2, y: b.top + b.height / 2 }); } } return 'null'; })()`));
     if (!r) return false;
     await p.click(r.x, r.y); await p.sleep(250); return true;
   };

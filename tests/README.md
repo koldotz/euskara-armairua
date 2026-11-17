@@ -12,7 +12,7 @@ Comprueban la web tal como se publica, sin tocar nunca el Supabase de verdad: el
 
 | Orden | Qué hace | Tiempo |
 |---|---|---|
-| `npm test` | todas las pruebas | ~3 min |
+| `npm test` | todas las pruebas | ~8 min |
 | `npm run test:rapido` | solo las que no necesitan navegador (SQL, funciones, datos) | ~3 s |
 | `node tests/run.mjs perfiles` | solo las que tengan «perfiles» en su ruta (vale cualquier trozo) | — |
 | `node tests/run.mjs -v` | mostrando también cada comprobación que pasa | — |
@@ -27,11 +27,16 @@ Si algo falla, el proceso termina con código 1 y se lista cada comprobación fa
 | `sql/seguridad` | que todo PIN erróneo cuente para el bloqueo (la fuerza bruta se corta a los 6 intentos) y que la función interna del PIN no se pueda llamar desde fuera |
 | `sql/fusion` | que el servidor rechace un cambio que parte de una versión vieja (para que el navegador fusione) y la compatibilidad con navegadores antiguos |
 | `unit/fusion-cliente` | la fusión a tres bandas de `armairua-cloud.js` (extraída del fichero real) |
-| `datos/datos` | integridad de Hiztegia, Esaldiak, Mintzamena y Ostalaritza; que los totales que se muestran (1.239 palabras) sean los reales; que existan los PDF |
+| `datos/datos` | integridad de Hiztegia, Esaldiak, Mintzamena y Ostalaritza; que los totales que se muestran (1.457 palabras) sean los reales; que existan los PDF |
 | `datos/gafas` | que el diccionario de las gafas sea coherente y que el fichero publicado coincida con el generador |
 | `datos/config` | que `config.js` lleve solo la clave pública y que la tarea que mantiene despierto Supabase pueda leerlo |
+| `datos/plan` | el plan de 28 días: fechas y días de la semana; que los temas del Hiztegia, los ejercicios del cuaderno y las secciones de la guía que cita existan (con su título y su enlace); que todo ejercicio tenga día; pruebas, retos e hitos en días válidos |
 | `datos/service-worker` | que todo lo precacheado exista y que todo lo que cargan las páginas esté precacheado (uso sin conexión) |
+| `datos/orriak` | las hojas de respuestas: doce unidades bien formadas (clave, tipo, página dentro de la unidad), rótulos que no son frases (no llevan el texto del libro), que estén precacheadas y que el visor del libro solo se cargue en local |
+| `datos/iturriak` | procedencia: que ningún texto atribuya a un libro lo que ha preparado Claude, y que las transcripciones personales de libros (`pribatua/`) sigan fuera del repositorio, del service worker y de la web publicada; si la carpeta existe en este ordenador, que sus datos sean coherentes |
 | `e2e/paginas` | las 7 páginas y sus pestañas a 1280, 390 y 320 px: sin errores de JavaScript, sin recursos que falten, sin ids repetidos, sin desbordamiento horizontal |
+| `e2e/botoiak` | prueba «de mono»: en cada página, pestaña y subapartado (Jokoa, Esaldiak…), a 1280 y 390 px, pulsa todos los botones que aparecen, sin errores de JavaScript (confirm responde «no», así que no borra nada) |
+| `e2e/enlaces` | los enlaces internos de todas las páginas y vistas (plan, cuaderno, Mintzamena, Ostalaritza): que exista la página o el PDF, que el ancla lleve a algo y que `#page=N` no pase del final del PDF |
 | `e2e/perfiles-dos-dispositivos` | el recorrido normal: crear perfil, entrar en otro dispositivo (PIN erróneo y bueno), progreso en los dos sentidos, salir |
 | `e2e/perfiles-salir-cambiar` | salir o cambiar de perfil sin conexión avisa antes de borrar; un PIN caducado no bloquea el perfil |
 | `e2e/perfiles-concurrencia` | dos dispositivos a la vez, uno sin conexión: nada se pisa, fichas de palabra enteras, reinicios, datos de la versión anterior |
@@ -39,6 +44,12 @@ Si algo falla, el proceso termina con código 1 y se lista cada comprobación fa
 | `e2e/hiztegia-idatzi` | el modo «Idatzi» de Hiztegia: corrección (mayúsculas, signos, artículo de más, erratas, sinónimos), nota propuesta con Intro, cola del repaso, modo recordado, móvil |
 | `e2e/libreta` | la libreta del A1: contenido de cada apartado, oraciones que se registran al acertar, quitar apartados, PDF real de Chrome, nombre de archivo, marcas «Berria» tras confirmar el guardado, móvil |
 | `e2e/geruzak-gafas` | las gafas de Geruzak: desglose, lectura en tablas, ficha, leyenda, estado recordado, HTML intacto al quitarlas, móvil |
+| `e2e/koadernoa-egiaztatu` | «Egiaztatu» en el cuaderno: compara con la solución sin dar por errónea una respuesta abierta distinta, y manda los fallos a «Nire akatsak» |
+| `e2e/simulazioa` | los simulacros cronometrados: tiempo, soluciones cerradas mientras corre, entrega con corrección, total y aprobado, y la nota en el plan |
+| `e2e/akatsak` | «Nire akatsak»: fallos de juegos, cuaderno y palabras difíciles en un solo repaso; lo acertado después sale de la lista |
+| `e2e/hitza` | tocar una palabra en euskera del cuaderno, Mintzamena o Esaldiak abre su desglose |
+| `e2e/iturriak` | la procedencia en la app: «⚠ Claude» en lo propio, la etiqueta del libro en las hojas de respuestas, la fuente en cada ficha del Hiztegia y en cada frase de Esaldiak, y el filtro por fuente; si hay `pribatua/` en este ordenador, que sus unidades funcionen como el resto del cuaderno |
+| `e2e/orriak` | las hojas de respuestas de Arian A1: las doce en el cuaderno, sin «Egiaztatu»; escribir en cada tipo de casilla, recuento, guardado, recarga, libreta, subida al perfil y llegada a otro dispositivo, móvil sin desbordes; y, si tu libro está enlazado en `pribatua/`, que la página de cada ejercicio abra tu PDF |
 
 ## Probar a mano con el Supabase emulado
 

@@ -10,6 +10,7 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <title>Euskara Armairua · A2</title>
+<script src="armairua-iturriak.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style>
 </head>
@@ -1024,7 +1025,7 @@ html{scroll-padding-top:calc(var(--topbar) + 16px)}
 </div></section>
 
 <div class="wrap">
-  <footer><p><b>Ariketen Koadernoa · A2</b> — 9 cuadernos de nivel A2 basados en <i>Ostalaritza · Jatetxean</i> (HABE/Elhuyar). Las respuestas se guardan en tu perfil, separadas de A1.</p></footer>
+  <footer><p><b>Ariketen Koadernoa · A2</b> — 9 cuadernos de nivel A2 preparados por Claude (&#9888;) sobre los temas y el vocabulario de <i>Ostalaritza · Jatetxean</i> (HABE/Elhuyar); el método, transcrito y con su fuente, está en Materialak. Las respuestas se guardan en tu perfil, separadas de A1.</p></footer>
 </div>
 </main>
 </div>
@@ -1132,6 +1133,12 @@ window.HUB = (function(){
 })();
 </script>
 
+<script src="armairua-koadernoa-iturriak.js"></script>
+<script>
+/* procedencia: los cuadernos del A2 los ha preparado Claude (⚠) sobre los temas de
+   Ostalaritza; el método transcrito, con su fuente, está en Materialak */
+if (window.KOADERNOA_ITURRIAK) KOADERNOA_ITURRIAK.render({ root: '#app-koadernoa', data: { unitateak: [] } });
+</script>
 <script>
 /* ── koadernoa A2 editable · claves namespaceadas (koadernoa-a2:*) ── */
 (function(){

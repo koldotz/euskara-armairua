@@ -26,7 +26,8 @@ export default async function(t){
   const secs = await p.ev(`[...document.querySelectorAll('#lbDoc .lb-sec h2')].map(h => h.textContent).join('|')`);
   t.ok(secs.split('|').length === 7, 'siete apartados: ' + secs);
   const stats = await p.ev(`[...document.querySelectorAll('#lbDoc .lb-stats div')].map(d => d.textContent).join(' | ')`);
-  t.ok(/1 \/ 28días del plan/.test(stats) && /6 \/ 136tareas/.test(stats) && /1 \/ 45ejercicios/.test(stats) && /^.*3 \(0\)palabras/.test(stats), 'portada con las cifras reales: ' + stats);
+  const nAr = await p.ev(`document.querySelectorAll('#app-koadernoa section.unit .ar').length`);   // los del cuaderno y los de los libros
+  t.ok(/1 \/ 28días del plan/.test(stats) && /6 \/ 136tareas/.test(stats) && new RegExp('1 / ' + nAr + 'ejercicios').test(stats) && /^.*3 \(0\)palabras/.test(stats), 'portada con las cifras reales: ' + stats);
   t.ok(/Maialen/.test(await p.ev(`document.querySelector('#lbDoc .lb-who').textContent`)), 'portada con el nombre del perfil');
   // cuaderno: solo lo trabajado, con la respuesta y la solución al lado
   t.ok((await p.ev(`document.querySelectorAll('#lbDoc .lb-ar').length`)) === 1, 'cuaderno: solo el ejercicio con respuestas');
