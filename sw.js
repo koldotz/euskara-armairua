@@ -2,12 +2,13 @@
    Cachea las páginas y datos del sitio para que funcione sin conexión
    (uso en clase). Estrategia: stale-while-revalidate para el mismo origen;
    las fuentes/CDN y Supabase van siempre a la red (fuera de scope).      */
-var CACHE = 'armairua-v20';
+var CACHE = 'armairua-v21';
 var ASSETS = [
   'index.html', 'ikasgela.html', 'gramatika.html', 'glosario.html', 'geruzak.html',
   'a1.html', 'a2.html',
   'kasuen-zuhaitza.html', 'nire-herria.html', 'nor-naiz.html', 'esaldi-eraikitzailea.html', 'kasuak-aurkezpena.html',
-  'gramatika-sakonean.html',
+  'gramatika-sakonean.html', 'bakarka-hiztegia.html', 'bakarka-hiztegia.json',
+  'bakarka-1-sintesia.html', 'bakarka-3-sintesia.html',
   'armairua-gramatika-data.js', 'armairua-glosario.js', 'armairua-export.js',
   'armairua-a1-plan.js', 'armairua-a1-data.js', 'armairua-esaldiak-data.js',
   'armairua-a1-mintzamena-data.js',
@@ -30,7 +31,9 @@ self.addEventListener('install', function(e){
 self.addEventListener('activate', function(e){
   e.waitUntil(
     caches.keys().then(function(ks){
-      return Promise.all(ks.map(function(k){ return k === CACHE ? null : caches.delete(k); }));
+      // solo las versiones viejas de ESTE sitio: koldotz.github.io también aloja arian-a1
+      // (mismo origen, mismas cachés), y su caché «koadernoa-…» no se toca
+      return Promise.all(ks.map(function(k){ return k.indexOf('armairua-') === 0 && k !== CACHE ? caches.delete(k) : null; }));
     }).then(function(){ return self.clients.claim(); })
   );
 });

@@ -9,7 +9,7 @@ import { execFileSync } from 'child_process';
 const PAGES = [['index.html', ['']], ['a1.html', ['egutegia', 'hiztegia', 'koadernoa', 'mintzamena', 'mz-bilatu', 'jokoa']],
   ['a2.html', ['orokorra', 'materialak', 'koadernoa']], ['gramatika.html', ['']], ['glosario.html', ['']],
   ['geruzak.html', ['']], ['ikasgela.html', ['']],
-  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']]];
+  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']], ['bakarka-hiztegia.html', ['']], ['bakarka-1-sintesia.html', ['']], ['bakarka-3-sintesia.html', ['']]];
 
 /* páginas de un PDF: Spotlight en macOS; en otros sistemas no se comprueba */
 function pdfPages(file){
@@ -70,7 +70,9 @@ export default async function(t){
     if (!fpath.endsWith('.html') || !hash) continue;
     if (loaded !== fpath) { await q.go(t.base + '/' + fpath + '#' + hash, 1200); loaded = fpath; }
     else { await q.ev(`location.hash = ${JSON.stringify('#' + hash)}`); await q.sleep(120); }
-    const ok = await q.ev(TARGET_OK + '(' + JSON.stringify(decodeURIComponent(hash)) + ')');
+    let ok = await q.ev(TARGET_OK + '(' + JSON.stringify(decodeURIComponent(hash)) + ')');
+    // con la máquina cargada (npm test entero) el mural aún no ha preparado sus anclas a los 1,2 s: se mira otra vez
+    if (ok !== true) { await q.sleep(1500); ok = await q.ev(TARGET_OK + '(' + JSON.stringify(decodeURIComponent(hash)) + ')'); }
     // las vistas de Mintzamena (#mz-…) y de Ostalaritza (#ost-…) no son ids: cada módulo guarda
     // la vista que ha pintado, y si la pedida no existe cae a su portada
     const LAST = /^mz-/.test(hash) ? 'euskara-a1-mz-last' : /^ost-/.test(hash) ? 'euskara-a2-mat-last' : null;

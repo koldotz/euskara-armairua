@@ -7,6 +7,9 @@ import path from 'path';
 export default async function(t){
   const sw = fs.readFileSync(path.join(t.root, 'sw.js'), 'utf8');
   t.ok(/var CACHE = 'armairua-v\d+';/.test(sw), 'sw.js tiene versión de caché (' + (sw.match(/armairua-v\d+/) || [''])[0] + ')');
+  // koldotz.github.io aloja también arian-a1 (mismo origen = mismas cachés): al activarse,
+  // este service worker solo puede borrar sus propias versiones viejas
+  t.ok(/k\.indexOf\('armairua-'\) === 0 && k !== CACHE \? caches\.delete\(k\)/.test(sw), 'sw.js solo borra sus propias cachés (no las de arian-a1, que comparte origen)');
   const ASSETS = new Function('return ' + sw.match(/var ASSETS = (\[[\s\S]*?\]);/)[1])();
   const missing = ASSETS.filter(f => !fs.existsSync(path.join(t.root, f)));
   t.ok(!missing.length, 'todos los ficheros precacheados existen' + (missing.length ? ': faltan ' + missing.join(', ') : ''));

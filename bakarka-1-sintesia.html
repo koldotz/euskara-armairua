@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Bakarka 1 · síntesis — las catorce lecciones del libro resumidas: teoría con ejemplos, error típico, vocabulario y los diálogos y lecturas contados en castellano y en euskera sencillo.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<title>Bakarka 1 · síntesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400;1,7..72,600&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* VOICE: el mismo cuaderno de estudio que «Kasuen zuhaitza»
+   IDEA: el libro como una rama: cada lección es un fruto
+   PICTURE: rama con 14 frutos coloreados por familia gramatical
+   COLOUR and TYPE: paleta tierra del mural; Fraunces, Literata, Work Sans
+   LAYOUT: cabecera, filtros fijos, rama, ficha, banco de textos, resumen; leyenda lateral */
+
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+:root{
+  --ground:#F1EEE4; --surface:#FBF9F2; --surface-2:#E7E2D3;
+  --ink:#1E1C17; --ink-2:#46423A; --muted:#716B5E;
+  --line:#DAD3C2; --line-strong:#BDB5A1; --leaf:#6F8A4C;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2;
+  --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC;
+  --plum:#6A4C93; --plum-soft:#EAE2F3;
+  --blue:#2D5F8B; --blue-soft:#DDE7F1;
+  --rose:#9C3D6B; --rose-soft:#F2DDE7;
+  --teal:#1E6E7A; --teal-soft:#D7ECEE;
+  --mug:#5B6259; --mug-soft:#E1E4DD; --bark:#8B7658; --olive:#5F7A2E; --olive-soft:#E3EBD2; --brown:#8B5E3C; --brown-soft:#EDE0D3;
+  --crit:#A33325;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-body:"Literata", Georgia, serif;
+  --f-ui:"Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:4px; --fbar-h:64px; --gut-l:max(16px, env(safe-area-inset-left, 0px)); --gut-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#15140F; --surface:#1D1B15; --surface-2:#29261E;
+    --ink:#EDE9DE; --ink-2:#CCC6B7; --muted:#989182;
+    --line:#332F26; --line-strong:#4B4639; --leaf:#93AF70;
+    --sea:#63C0A0; --sea-soft:#1B3830;
+    --iron:#E08A6B; --iron-soft:#3A2620;
+    --gold:#D3AE5A; --gold-soft:#33290F;
+    --plum:#B99BE0; --plum-soft:#2D2339;
+    --blue:#8DB6DE; --blue-soft:#1C2A38;
+    --rose:#E58FB8; --rose-soft:#3A2230;
+    --teal:#6CC3CF; --teal-soft:#18333A;
+    --mug:#AEB5AB; --mug-soft:#272C27; --bark:#A89276; --olive:#A9C473; --olive-soft:#263318; --brown:#C9A07E; --brown-soft:#35271C;
+    --crit:#E0776A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#15140F; --surface:#1D1B15; --surface-2:#29261E;
+  --ink:#EDE9DE; --ink-2:#CCC6B7; --muted:#989182;
+  --line:#332F26; --line-strong:#4B4639; --leaf:#93AF70;
+  --sea:#63C0A0; --sea-soft:#1B3830;
+  --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F;
+  --plum:#B99BE0; --plum-soft:#2D2339;
+  --blue:#8DB6DE; --blue-soft:#1C2A38;
+  --rose:#E58FB8; --rose-soft:#3A2230;
+  --teal:#6CC3CF; --teal-soft:#18333A;
+  --mug:#AEB5AB; --mug-soft:#272C27; --bark:#A89276; --olive:#A9C473; --olive-soft:#263318; --brown:#C9A07E; --brown-soft:#35271C;
+  --crit:#E0776A;
+  color-scheme:dark;
+}
+.k-nor{--c:var(--sea);--cs:var(--sea-soft)}
+.k-nork{--c:var(--plum);--cs:var(--plum-soft)}
+.k-nori{--c:var(--rose);--cs:var(--rose-soft)}
+.k-noren{--c:var(--blue);--cs:var(--blue-soft)}
+.k-norekin{--c:var(--teal);--cs:var(--teal-soft)}
+.k-norentzat{--c:var(--blue);--cs:var(--blue-soft)}
+.k-zerez{--c:var(--olive);--cs:var(--olive-soft)}
+.k-non{--c:var(--gold);--cs:var(--gold-soft)}
+.k-nongo{--c:var(--gold);--cs:var(--gold-soft)}
+.k-nondik{--c:var(--gold);--cs:var(--gold-soft)}
+.k-nora{--c:var(--gold);--cs:var(--gold-soft)}
+.k-norako{--c:var(--gold);--cs:var(--gold-soft)}
+.k-norengan{--c:var(--brown);--cs:var(--brown-soft)}
+.k-norengana{--c:var(--brown);--cs:var(--brown-soft)}
+.k-norengandik{--c:var(--brown);--cs:var(--brown-soft)}
+.k-mugagabe{--c:var(--mug);--cs:var(--mug-soft)}
+.k-rik{--c:var(--iron);--cs:var(--iron-soft)}
+.r-aff{--rc:var(--sea)} .r-neg{--rc:var(--iron)} .r-q{--rc:var(--blue)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--fbar-h) + 12px)}
+body{background:var(--ground);color:var(--ink);font:400 16px/1.55 var(--f-body);-webkit-text-size-adjust:100%;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--ground)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--sea);text-underline-offset:.18em}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+s.bad{color:var(--crit);text-decoration-thickness:1.5px}
+i{font-family:var(--f-body)}
+
+/* ── cabecera ── */
+.mast{max-width:1480px;margin:0 auto;padding-block:40px 26px;display:grid;gap:16px}
+.crumbs{font:500 12px/1.4 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.mast h1{font:600 clamp(2.6rem, 6.8vw, 4.6rem)/1 var(--f-display);letter-spacing:-.015em;font-variation-settings:'opsz' 144;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.sprig{width:clamp(44px, 7vw, 70px);height:auto;flex:none;margin-bottom:.08em}
+.sprig .st{fill:none;stroke:var(--bark);stroke-width:2.2;stroke-linecap:round}
+.sprig .lv{fill:var(--leaf)}
+.sprig .fr{fill:var(--sea)}
+.mast h1 em{font:italic 400 1em/1 var(--f-display);color:var(--sea)}
+.intro{max-width:64ch;font-size:1.1rem;color:var(--ink-2)}
+.strata{display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));max-width:720px;border:1px solid var(--line-strong);box-shadow:inset 0 0 0 3px var(--surface), inset 0 0 0 4px var(--line);border-radius:var(--r);overflow:hidden}
+.strata div{padding:9px 12px;font:500 12px/1.35 var(--f-ui);color:var(--ink-2);border-right:1px solid var(--line);background:var(--surface)}
+.strata div:last-child{border-right:0}
+.strata b{display:block;font:600 1.4rem/1.1 var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.mast-links{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 13.5px/1.4 var(--f-ui)}
+.how{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 13.5px/1.45 var(--f-ui);color:var(--ink-2);max-width:900px}
+.how > span{display:inline}
+.how mark,.ex-mark{background:var(--sea-soft);border-bottom:2px solid var(--sea);color:inherit;padding:0 .15em;border-radius:2px;font:italic 400 14.5px var(--f-body)}
+.how .vw{font:italic 600 14.5px var(--f-body)}
+
+/* ── barra de filtros ── */
+.fbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--ground);border-block:1px solid var(--line-strong);margin-left:calc(-1 * var(--gut-l));margin-right:calc(-1 * var(--gut-r));padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.fbar-in{max-width:1480px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding-block:9px}
+.fgroups{display:flex;flex-wrap:wrap;gap:8px 22px;flex:1 1 640px;min-width:0}
+.fg{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.fg-l{font:700 10.5px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:4.4em}
+.chips{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:0}
+.chip{font:500 12px/1 var(--f-ui);letter-spacing:.03em;padding:7px 11px 7px;border-radius:2px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:inset 0 0 0 2px var(--surface), inset 0 0 0 3px var(--line);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.chip i{font-size:13.5px;letter-spacing:0}
+.chip:hover{border-color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground);box-shadow:inset 0 0 0 2px var(--ink), inset 0 0 0 3px color-mix(in srgb, var(--ground) 45%, transparent)}
+.chip.r-aff::before,.chip.r-neg::before,.chip.r-q::before{content:"";width:8px;height:8px;border-radius:50% 0;transform:rotate(-45deg);background:var(--rc)}
+.chip-fam{font:600 10.5px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase}
+.vgrp{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;padding-left:8px;margin-left:2px;border-left:1px solid var(--line-strong)}
+.fmeta{display:flex;gap:10px;align-items:center;margin-left:auto}
+#fcount{font:600 12.5px/1 var(--f-ui);font-variant-numeric:tabular-nums;color:var(--ink)}
+.btn-ghost{font:500 12.5px/1 var(--f-ui);padding:6px 10px;border-radius:2px;border:1px dashed var(--line-strong);background:transparent;color:var(--ink-2);cursor:pointer}
+.btn-ghost:hover{border-style:solid}
+.bl-short{display:none}
+@media (max-width:900px){ .bl-short{display:inline} }
+.fbar-toggle{display:none;align-items:center;gap:8px;padding:7px 12px;border-radius:2px;border:1px solid var(--ink);background:var(--surface);cursor:pointer;min-width:0;max-width:100%}
+.ft-l{font:700 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase}
+.ft-s{font:500 12.5px/1.2 var(--f-ui);color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ft-i{font-size:11px;transition:transform .15s}
+.fbar.open .ft-i{transform:rotate(180deg)}
+@media (max-width:900px){
+  .fbar-in{flex-wrap:wrap;gap:8px 10px}
+  .fbar-toggle{display:inline-flex;flex:1 1 0;min-width:0}
+  .bl-long{display:none}
+  .fgroups{display:none;flex-basis:100%;flex-direction:column;gap:12px;padding-block:4px 6px;max-height:min(62vh, 520px);overflow:auto}
+  .fbar.open .fgroups{display:flex}
+  .fg{align-items:flex-start;flex-direction:column;gap:6px}
+  .vgrp{border-left:0;padding-left:0;margin-left:0}
+  .fmeta{margin-left:0;flex:none}
+  .fgroups{order:3}
+}
+
+/* ── bloques ── */
+.layout{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:36px;align-items:start;padding-block:34px 40px}
+main{display:grid;gap:56px;min-width:0}
+@media (max-width:1199px){ .layout{grid-template-columns:minmax(0,1fr);gap:28px} .side{order:-1} }
+.blk{display:grid;gap:18px;min-width:0}
+.blk-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;border-top:3px double var(--ink);padding-top:12px}
+.blk-h h2{font:600 clamp(1.7rem, 3.6vw, 2.35rem)/1.05 var(--f-display);font-variation-settings:'opsz' 96}
+.blk-h h2 small{font:500 13px/1 var(--f-ui);color:var(--muted);margin-left:10px;letter-spacing:.04em}
+.blk-h p{font:400 14px/1.45 var(--f-ui);color:var(--ink-2);max-width:62ch}
+
+/* ── leyenda lateral ── */
+.side{position:sticky;top:calc(var(--fbar-h) + env(safe-area-inset-top,0px) + 16px);max-height:calc(100vh - var(--fbar-h) - 32px);overflow:auto;background:var(--surface);border:1px solid var(--line-strong);box-shadow:inset 0 0 0 4px var(--surface), inset 0 0 0 5px var(--line);border-radius:var(--r);overscroll-behavior:contain}
+.side-d > summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:16px 18px 12px;border-bottom:1px solid var(--line);margin-inline:5px}
+.side-d > summary::-webkit-details-marker{display:none}
+.side-k{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.side-t{grid-column:1;font:600 1.3rem/1.1 var(--f-display)}
+.side-i{grid-row:1 / span 2;grid-column:2;align-self:center;font-size:12px;color:var(--muted);transition:transform .15s}
+.side-d:not([open]) .side-i{transform:rotate(-90deg)}
+.side-b{display:grid;gap:16px;padding:14px 18px 20px}
+.side-intro{font:italic 400 14.5px/1.5 var(--f-body);color:var(--ink-2)}
+.sg{display:grid;gap:9px;padding-top:12px;border-top:1px solid var(--line)}
+.sg h3{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.sg-p{font:400 13px/1.45 var(--f-ui);color:var(--muted)}
+.si{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start}
+.si-s{grid-template-columns:30px minmax(0,1fr);align-items:center}
+.sn{font:600 13.5px/1.25 var(--f-ui);letter-spacing:.03em}
+.sn i{font:italic 400 14px/1.2 var(--f-body);letter-spacing:0;color:var(--muted)}
+.sx{font:400 13px/1.45 var(--f-ui);color:var(--ink-2);margin-top:2px}
+.si-s .sx{margin-top:0}
+.si-s > div{display:flex;flex-wrap:wrap;gap:0 6px;align-items:baseline}
+.sx i,.sm i{font-size:14px}
+.sw{width:30px;height:30px;display:block}
+.sw-b{fill:var(--c)} .sw-g{fill:#fff;opacity:.25} .sw-st{fill:none;stroke:var(--bark);stroke-width:1.6;stroke-linecap:round} .sw-lf{fill:var(--leaf)}
+.sw-bud{fill:var(--surface);stroke:var(--ac);stroke-width:2.4} .sw-bin{fill:var(--ac)}
+.sw-blade{fill:var(--rc)} .sw-vein{fill:none;stroke:var(--surface);stroke-width:.9;opacity:.75}
+.r-n{--rc:var(--ink-2)}
+.sm{font:400 13px/1.4 var(--f-ui);color:var(--ink-2);display:flex;gap:8px;align-items:baseline}
+.lgm{background:var(--sea-soft);border-bottom:2px solid var(--sea);color:inherit;padding:0 .15em;border-radius:2px;font:italic 400 14.5px var(--f-body)}
+.lgv{font:italic 600 14.5px var(--f-body);min-width:3.3em}
+@media (max-width:1199px){ .side{position:static;max-height:none;overflow:visible} }
+
+/* ── árbol genealógico ── */
+.a-nor{--ac:var(--sea)} .a-nori{--ac:var(--rose)} .a-nork{--ac:var(--plum)} .a-nnn{--ac:var(--plum)} .a-nnn .bud-in,.a-nnn .sw-bin{fill:var(--rose)} .a-nnn.is-on .bud-in{fill:var(--rose)}
+.treesec{position:relative}
+.tree-intro{font:400 14.5px/1.55 var(--f-ui);color:var(--ink-2);max-width:86ch}
+.lg{display:inline-flex;align-items:center;gap:4px}
+.lg svg{width:20px;height:20px;flex:none}
+.lg-case circle{fill:var(--ink-2)}
+.lg-verb circle{fill:var(--surface);stroke:var(--ac);stroke-width:3}
+.lg-leaf circle{fill:var(--rc)}
+.lg-leaf circle.ring{fill:none;stroke:var(--rc);stroke-width:1.6}
+.lg-n{--rc:var(--ink-2)}
+.hibpanel{display:grid;gap:10px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface)}
+.hib-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.hib-row .fg-l{min-width:9.5em}
+.chip.kc{color:var(--ink);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:11.5px;padding-left:9px}
+.chip.kc::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px var(--surface), 0 0 0 3px var(--c)}
+.chip.kc[aria-pressed="true"]{background:var(--cs);color:var(--ink);border-color:var(--c);box-shadow:inset 0 0 0 2px var(--cs), inset 0 0 0 3px var(--c)}
+.chip.kc[aria-pressed="true"]::before{box-shadow:0 0 0 2px var(--cs), 0 0 0 3px var(--c)}
+.chip.sug b{font-weight:700;color:var(--c);letter-spacing:.04em}
+.chip.sug span{font:600 11px/1 var(--f-ui);color:var(--muted);margin-left:2px}
+.chip.sug[aria-pressed="true"] b,.chip.sug[aria-pressed="true"] span{color:var(--ground)}
+.hib-note{font:400 13px/1.45 var(--f-ui);color:var(--muted);max-width:90ch}
+.forest{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
+.forest.single{grid-template-columns:minmax(0,1fr)}
+@media (max-width:1050px){ .forest{grid-template-columns:minmax(0,1fr)} }
+.tcard{margin:0;background:var(--surface);border:1px solid var(--line-strong);box-shadow:inset 0 0 0 5px var(--surface), inset 0 0 0 6px var(--line);border-radius:var(--r);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.tc-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:14px 18px 10px;border-bottom:1px solid var(--line);margin-inline:6px}
+.tc-title{font:600 1.3rem/1.1 var(--f-display);background:none;border:0;padding:0;color:var(--ink)}
+button.tc-title{cursor:pointer;text-decoration:underline;text-decoration-color:var(--line-strong);text-decoration-thickness:1.5px;text-underline-offset:.22em}
+button.tc-title:hover{text-decoration-color:var(--ink)}
+.tc-sub{font:italic 400 14px/1.3 var(--f-body);color:var(--muted)}
+.tc-ks{display:flex;flex-wrap:wrap;gap:4px;margin-left:auto}
+.tc-k{font:600 10.5px/1 var(--f-ui);letter-spacing:.08em;color:var(--ink-2);display:inline-flex;align-items:center;gap:5px}
+.tc-k::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.tc-back{display:flex}
+.swipe{display:none;font:500 12px/1.3 var(--f-ui);color:var(--muted)}
+@media (max-width:620px){ .swipe{display:block} .tsvg{min-width:520px} }
+.tscroll{overflow-x:auto;padding:4px 6px 8px;display:flex;align-items:center}
+.tsvg{display:block;width:100%;height:auto;min-width:560px;margin:0 auto}
+.forest.single .tsvg{max-width:1060px;max-height:900px}
+.tsvg text{font-family:var(--f-ui)}
+.soil{fill:var(--surface-2)}
+.trunk,.root-flare{fill:var(--bark)}
+.axis{fill:var(--bark);opacity:.4}
+.br{fill:var(--c)}
+.br.d2{opacity:.88}
+.br.d3{opacity:.55}
+.lk.strand{fill:none;stroke:var(--c);stroke-width:1.6px;opacity:.6;stroke-linecap:round;stroke-linejoin:round}
+.tn{cursor:pointer}
+.tn-root .seed{fill:var(--bark)}
+.tn-root .rim,.tn-root.hib .rim{fill:none;stroke:var(--bark);stroke-width:1.2px;stroke-dasharray:2 3}
+.tr-n{fill:var(--surface);font:600 19px/1 var(--f-display);text-anchor:middle}
+.tr-s{fill:var(--surface);font:italic 400 9px/1 var(--f-body);text-anchor:middle;opacity:.85}
+.tn-root.hib .pie{fill:var(--c);stroke:var(--surface);stroke-width:2px}
+.tn-root.hib .core{fill:var(--surface)}
+.tr-h{fill:var(--ink);font:600 15px/1 var(--f-display);text-anchor:middle}
+.tn-case .body{fill:var(--c)}
+.tn-case .rim{fill:none;stroke:var(--c);stroke-width:1.1px;opacity:.7}
+.tn-case .gloss{fill:#fff;opacity:.22}
+.tn-case .stem{fill:none;stroke:var(--bark);stroke-width:2.4px;stroke-linecap:round}
+.tn-case .fleaf{fill:var(--leaf)}
+.tn-case .halo{fill:none;stroke:var(--ink);stroke-width:1.5px;opacity:0;stroke-dasharray:4 4}
+.tn-case.is-sel .halo{opacity:.8}
+.tn-case:hover .halo{opacity:.45}
+.tc-n{fill:var(--surface);font-family:var(--f-display);font-weight:600;text-anchor:middle;letter-spacing:.02em}
+.tc-c{fill:var(--surface);font:italic 400 11.5px/1 var(--f-body);text-anchor:middle;opacity:.9}
+.tn-case.is-empty{opacity:.32}
+.tn-verb .bud{fill:var(--surface);stroke:var(--ac);stroke-width:2.6px}
+.tn-verb .bud-in{fill:var(--ac)}
+.tn-verb.is-on .bud{fill:var(--ac)}
+.tn-verb.is-on .bud-in{fill:var(--surface)}
+.tn-verb:hover .bud{stroke-width:4px}
+.tv-n{font:italic 600 15px/1 var(--f-body);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.tv-c{font:500 11px/1 var(--f-ui);fill:var(--muted);font-style:normal}
+.lf{cursor:pointer}
+.lf-z{transform-box:fill-box;transform-origin:center;transition:transform .12s}
+.lf .blade{fill:var(--rc);stroke:var(--surface);stroke-width:.8px}
+.lf .vein{fill:none;stroke:var(--surface);stroke-width:.9px;opacity:.75;stroke-linecap:round}
+.lf:hover .lf-z,.lf:focus .lf-z,.lf.is-pin .lf-z{transform:scale(1.55)}
+.lf.is-pin .blade,.lf:focus-visible .blade{stroke:var(--ink);stroke-width:1px}
+.tsvg :focus{outline:none}
+.tn:focus-visible .body,.tn:focus-visible .bud,.tn:focus-visible .seed{stroke:var(--ink);stroke-width:3px}
+.tip{position:absolute;z-index:15;width:min(380px, calc(100% - 8px));background:var(--surface);border:1px solid var(--line-strong);border-top:4px solid var(--c);border-radius:var(--r);box-shadow:0 14px 30px -14px rgba(0,0,0,.5);padding:10px 30px 11px 13px;display:grid;gap:3px}
+.tip .eu{font-size:1.06rem}
+.tip .mi-n{display:block}
+.tip-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.tip-go{justify-self:start;margin-top:6px;font:600 12.5px/1.2 var(--f-ui);background:none;border:0;padding:0;color:var(--c);cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
+.tip-x{position:absolute;top:3px;right:6px;border:0;background:none;font:400 20px/1 var(--f-ui);color:var(--muted);cursor:pointer;padding:4px}
+.hiblist{display:grid}
+.hib-h{cursor:default}
+
+/* ── ficha del caso ── */
+.card{background:var(--surface);border:1px solid var(--line-strong);border-top:6px solid var(--c);box-shadow:inset 0 0 0 5px var(--surface), inset 0 0 0 6px var(--line);border-radius:var(--r);padding:clamp(16px, 3vw, 28px);display:grid;gap:24px;scroll-margin-top:calc(var(--fbar-h) + 14px);min-width:0}
+.card-h{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px 30px;align-items:start}
+.card-id{display:grid;gap:12px;align-content:start}
+.hlabel{display:grid;gap:4px;justify-self:start;padding:14px 20px 15px;border:1px solid var(--ink-2);box-shadow:inset 0 0 0 3px var(--surface), inset 0 0 0 4px var(--line-strong);background:var(--surface);min-width:min(320px, 100%)}
+.hl-top{display:flex;justify-content:space-between;gap:16px;font:600 10.5px/1.2 var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:6px}
+.card-fam{font:700 11px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card-id h2{font:600 clamp(2.4rem, 6vw, 3.7rem)/1 var(--f-display);font-variation-settings:'opsz' 144;color:var(--c);word-break:break-word;margin-top:4px}
+.card-tipo{font:italic 400 1.1rem/1.35 var(--f-body);color:var(--ink-2)}
+.card-tipo i{font-size:1.05rem}
+.card-key{font-size:1.1rem;line-height:1.55;max-width:62ch;margin-top:8px}
+.typ{background:var(--cs);border-radius:var(--r);padding:12px 16px 13px;display:grid;gap:3px;border-left:3px solid var(--c)}
+.lbl{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.eu{font:italic 400 1.1rem/1.4 var(--f-body);color:var(--ink)}
+.es{font:400 13.5px/1.4 var(--f-ui);color:var(--muted)}
+.typ .ans{margin-top:6px}
+.lineage{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--leaf);border-radius:var(--r);background:var(--ground)}
+.lin-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.lin-chip{font:600 11.5px/1 var(--f-ui);letter-spacing:.06em;padding:7px 11px;border-radius:2px;border:1px solid var(--c);box-shadow:inset 0 0 0 2px var(--surface), inset 0 0 0 3px var(--cs);color:var(--c);background:var(--surface);cursor:pointer}
+.lin-chip.is-me{background:var(--c);color:var(--surface);box-shadow:inset 0 0 0 2px var(--c), inset 0 0 0 3px color-mix(in srgb, var(--surface) 50%, transparent);cursor:default}
+.lin-arrow{font:400 13px/1 var(--f-ui);color:var(--muted)}
+.lineage p:not(.lbl){font:400 14.5px/1.5 var(--f-ui);color:var(--ink-2);max-width:80ch}
+.lineage p i{font-size:15.5px}
+.fund{border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--r) var(--r) 0;background:var(--surface)}
+.fund > summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:11px 14px}
+.fund > summary::-webkit-details-marker{display:none}
+.fund-k{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--plum)}
+.fund-t{font:italic 400 13.5px/1.3 var(--f-body);color:var(--muted)}
+.fund-i{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .15s}
+.fund[open] .fund-i{transform:rotate(180deg)}
+.fund-b{padding:0 14px 13px;font:400 15px/1.55 var(--f-ui);color:var(--ink-2);max-width:70ch}
+.fund-b i{font:italic 400 15.5px var(--f-body);color:var(--ink)}
+.fund-b strong{color:var(--ink)}
+.nw{white-space:nowrap}
+.card-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 30px}
+.sh{font:700 11.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.sh small{font:500 12px/1.2 var(--f-ui);letter-spacing:0;text-transform:none;color:var(--muted)}
+@media (max-width:900px){ .card-h,.card-grid{grid-template-columns:minmax(0,1fr)} }
+
+.dt-wrap{overflow-x:auto;border:1px solid var(--line-strong);border-radius:var(--r)}
+table.dt{border-collapse:collapse;width:100%;font:400 14px/1.35 var(--f-ui)}
+.dt th,.dt td{padding:7px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.dt tr:last-child > *{border-bottom:0}
+.dt thead th{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.dt .grp th{font:700 10px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--c);background:var(--cs);padding-block:5px}
+.dt .suf td{font:600 14px/1.3 var(--f-mono);color:var(--c)}
+.dt .suf th,.dt .w th{font:500 12.5px/1.35 var(--f-ui);color:var(--ink-2);white-space:nowrap}
+.dt .w td{font:italic 400 15px/1.35 var(--f-body)}
+.dt .w th i{font-size:14px}
+.dt.hide-sg .col-sg,.dt.hide-pl .col-pl{display:none}
+.dt-note{font:400 12.5px/1.4 var(--f-ui);color:var(--muted);margin-top:8px}
+
+.st{display:grid;border-top:1px solid var(--line)}
+.st-row{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid var(--line);transition:opacity .15s}
+.st-row.dim{opacity:.35}
+.st-k{font:600 13px/1.3 var(--f-ui);display:flex;gap:7px;align-items:baseline}
+.st-k::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--rc)}
+.st-pats{display:grid;gap:7px;min-width:0}
+.pat{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px}
+.pt{font:600 12px/1 var(--f-ui);padding:5px 8px;border-radius:3px;white-space:nowrap}
+.pt-case{background:var(--cs);color:var(--c);border:1px solid var(--c)}
+.pt-verb{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);font:600 12.5px/1 var(--f-mono)}
+.pt-part{color:var(--iron);font:700 13px/1 var(--f-mono);padding-inline:2px}
+.pt-eu{font:italic 400 14.5px/1 var(--f-body)}
+.pt-txt{font:400 12.5px/1.2 var(--f-ui);color:var(--ink-2)}
+.pt-plus{color:var(--muted);font:400 12px/1 var(--f-ui)}
+.pt-q{font:600 14px/1 var(--f-ui);color:var(--ink-2)}
+.typ-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-top:10px;font:400 13px/1.4 var(--f-ui);color:var(--ink-2)}
+
+.vlist{display:flex;flex-wrap:wrap;gap:10px}
+.vcard{border:1px solid var(--line-strong);border-radius:var(--r);padding:8px 12px 9px;background:var(--ground);display:grid;gap:3px;min-width:0;max-width:100%;cursor:pointer;text-align:left;transition:opacity .15s}
+.vcard:hover{border-color:var(--ink-2)}
+.vcard[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--surface-2)}
+.vcard.dim{opacity:.4}
+.vc-top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.vc-n{font:italic 600 1.08rem/1.2 var(--f-body)}
+.vc-fam{font:600 10.5px/1 var(--f-mono);color:var(--muted)}
+.vc-c{font:600 11px/1 var(--f-ui);margin-left:auto;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.vc-f{font:400 12.5px/1.4 var(--f-mono);color:var(--ink-2)}
+.vc-f span{color:var(--muted);font-family:var(--f-ui);font-size:11.5px}
+
+.mx{display:grid;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.mx-h{font:600 11px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:9px 14px;border-bottom:1px solid var(--line-strong)}
+.mx-h + .mx-h{border-left:1px solid var(--line)}
+.mx-r{display:flex;align-items:flex-start;gap:8px;font:600 13.5px/1.3 var(--f-ui);padding:14px;border-bottom:1px solid var(--line);background:var(--ground)}
+.mx-r::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;margin-top:5px;background:var(--rc)}
+.mx-c{padding:12px 15px;border-bottom:1px solid var(--line);border-left:1px solid var(--line);display:grid;gap:13px;align-content:start;min-width:0}
+.mx-last{border-bottom:0}
+.mx-tag{display:none}
+.mi{display:grid;gap:2px;min-width:0}
+.mi .eu{font-size:1.08rem}
+.mi-f{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline;margin-top:3px}
+.mi-n{font:500 12.5px/1.35 var(--f-ui);color:var(--sea);margin-right:4px}
+.mi-n i{font-size:13.5px}
+.mi-empty{font:400 13.5px/1.45 var(--f-ui);color:var(--ink-2);border:1px dashed var(--line-strong);border-radius:var(--r);padding:8px 10px}
+.mi-empty i{font-size:14.5px}
+.mi-none{font:400 13px/1.4 var(--f-ui);color:var(--muted)}
+mark.cw{background:var(--cs);color:inherit;border-bottom:2px solid var(--c);padding:0 .12em;border-radius:2px}
+.vw{font-weight:600;text-decoration:underline;text-decoration-color:var(--iron);text-decoration-thickness:1.5px;text-underline-offset:.22em}
+.tg{font:500 11px/1.2 var(--f-ui);padding:2px 6px;border-radius:3px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.tg-M{background:transparent;border:1px dashed var(--line-strong)}
+.tg-AR,.tg-A2{background:var(--leaf);color:var(--surface)}
+.tg-x{background:var(--plum-soft);color:var(--plum)}
+.tg-k::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--rc);margin-right:5px;vertical-align:.04em}
+.tg-also{background:transparent;border:1px solid var(--c);color:var(--c);font-weight:600}
+@media (max-width:700px){
+  .mx{grid-template-columns:minmax(0,1fr)!important}
+  .mx-h,.mx-r{display:none}
+  .mx-c{border-left:0;border-bottom:1px solid var(--line)}
+  .mx-c.mx-end{border-bottom:0}
+  .mx-tag{display:flex;align-items:center;gap:7px;font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .mx-tag::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--rc)}
+}
+.trap{border-left:3px double var(--iron);background:var(--iron-soft);padding:11px 15px;border-radius:0 var(--r) var(--r) 0;font:400 14.5px/1.5 var(--f-ui);color:var(--ink)}
+.trap b{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--iron);margin-right:8px}
+.trap i{font-size:15.5px}
+
+/* ── banco ── */
+.seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:2px;box-shadow:inset 0 0 0 2px var(--surface);overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:8px 13px;font:500 12px/1 var(--f-ui);letter-spacing:.04em;color:var(--ink-2);cursor:pointer}
+.seg button + button{border-left:1px solid var(--line-strong)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.bank{display:grid;gap:12px}
+.bgrp{border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);overflow:hidden;min-width:0}
+.bgrp-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;width:100%;padding:10px 14px;background:var(--cs);border:0;border-left:5px solid var(--c);cursor:pointer;text-align:left}
+.bgrp-n{font:600 1.25rem/1 var(--f-display);color:var(--c)}
+.bgrp-t{font:italic 400 14px/1.3 var(--f-body);color:var(--ink-2)}
+.bgrp-c{margin-left:auto;font:600 12px/1 var(--f-ui);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.brow{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,auto);gap:4px 18px;padding:10px 14px;border-top:1px solid var(--line);align-items:baseline}
+.brow .es{font-size:13.5px}
+.brow .mi-n{display:block;margin-top:2px}
+.btags{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;max-width:300px}
+.brow-empty{grid-template-columns:minmax(0,1fr)}
+.empty{font:400 14px/1.5 var(--f-ui);color:var(--muted);padding:18px;border:1px dashed var(--line-strong);border-radius:var(--r);text-align:center}
+@media (max-width:820px){
+  .brow{grid-template-columns:minmax(0,1fr)}
+  .btags{justify-content:flex-start;max-width:none}
+}
+
+/* ── tabla general ── */
+.gt-wrap{overflow-x:auto;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface)}
+table.gt{border-collapse:collapse;width:100%;min-width:980px;font:400 13.5px/1.3 var(--f-ui)}
+.gt th,.gt td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.gt thead th{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.gt thead tr:first-child th{color:var(--ink-2)}
+.gt .gsep{border-left:2px solid var(--line-strong)}
+.gt tbody tr:last-child > *{border-bottom:0}
+.gt-th{display:flex;align-items:flex-start;gap:8px}
+.gt-exp{flex:none;width:22px;height:22px;border:1px solid var(--line-strong);border-radius:3px;background:var(--surface);color:var(--c);font-size:11px;line-height:1;cursor:pointer;margin-top:2px}
+.gt-exp[aria-expanded="true"]{background:var(--cs);border-color:var(--c)}
+.gt-case{display:grid;gap:2px;text-align:left;background:transparent;border:0;padding:0;cursor:pointer}
+.gt-det > td{background:var(--ground);border-bottom:1px solid var(--line-strong);padding:0 10px 14px}
+.gt-det .gd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-top:10px}
+.gt-det .gd-c{border:1px solid var(--line);border-left:3px solid var(--c);border-radius:0 var(--r) var(--r) 0;background:var(--surface);padding:9px 12px;display:grid;gap:3px;align-content:start;min-width:0}
+.gt-det .gd-l{font:700 10px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.gt-det .gd-l::before{content:"";width:8px;height:8px;border-radius:50% 0;transform:rotate(-45deg);background:var(--rc, var(--c))}
+.gt-det .gd-c .eu{font:italic 400 15px/1.3 var(--f-body)}
+.gt-det .gd-c .es{font:400 12.5px/1.3 var(--f-ui);color:var(--muted)}
+.gt-det .gd-t{justify-self:start;font:600 10px/1.2 var(--f-ui);letter-spacing:.04em;padding:2px 7px;border-radius:999px;background:var(--cs);color:var(--c)}
+.gt-det .gd-none{font:400 13px/1.3 var(--f-ui);color:var(--muted)}
+.gt-det .gd-note{font:400 12px/1.4 var(--f-ui);color:var(--muted);margin-top:8px}
+@media (max-width:700px){ .gt-det .gd{grid-template-columns:minmax(0,1fr)} }
+.gt-case b{font:600 1.05rem/1 var(--f-display);color:var(--c)}
+.gt-case span{font:500 11.5px/1.25 var(--f-ui);color:var(--muted)}
+.gt tbody th{border-left:4px solid var(--c)}
+.gs{display:block;font:600 13px/1.2 var(--f-mono);color:var(--c)}
+.gw{display:block;font:italic 400 14px/1.3 var(--f-body);color:var(--ink);margin-top:2px}
+.gna{color:var(--muted)}
+.gex .eu{font-size:14.5px}
+.gex .es{font-size:12.5px}
+.gt.hide-sg .col-sg,.gt.hide-pl .col-pl{display:none}
+.gt .gd-diff{background:color-mix(in srgb, var(--iron) 12%, transparent)}
+.gt .gd-diff .gs{color:var(--iron);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:2px}
+.gt-note{margin-top:10px;font:400 13px/1.5 var(--f-ui);color:var(--ink-2);max-width:84ch;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.gt-note .gt-sw{width:14px;height:14px;border-radius:3px;background:color-mix(in srgb, var(--iron) 12%, transparent);border:1px solid var(--iron);flex:none}
+.gt-note b{color:var(--ink)} .gt-note i{font:italic 400 14px var(--f-body)}
+.pn-head{margin-top:28px;display:grid;gap:4px}
+.pn-head h3{font:600 1.15rem/1.1 var(--f-display)}
+.pn-head h3 small{font:italic 400 14px/1 var(--f-body);color:var(--muted);margin-left:8px}
+.pn-head p{font:400 13.5px/1.5 var(--f-ui);color:var(--ink-2);max-width:80ch}
+.pn-head i{font:italic 400 14.5px var(--f-body)} .pn-head b{color:var(--sea)}
+table.pn{border-collapse:collapse;width:100%;min-width:560px;font:400 14px/1.3 var(--f-ui)}
+.pn th,.pn td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:baseline}
+.pn thead th{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.pn thead th i{font:italic 600 13px var(--f-body);text-transform:none;letter-spacing:0;color:var(--ink-2)}
+.pn tbody tr:last-child > *{border-bottom:0}
+.pn tbody th{border-left:4px solid var(--c);background:var(--surface)}
+.pn .gt-case b{font:600 1rem/1 var(--f-display);color:var(--c)}
+.pn .gt-case span{font:500 11px/1.2 var(--f-ui);color:var(--muted)}
+.pn td{font:italic 400 15.5px/1.3 var(--f-body);color:var(--ink)}
+.pn-i{font:500 11px/1.2 var(--f-ui);color:var(--iron);font-style:normal;white-space:nowrap}
+.pn-note{margin-top:12px;font:400 13.5px/1.6 var(--f-ui);color:var(--ink-2);max-width:82ch}
+.pn-note b{color:var(--ink)} .pn-note i{font:italic 400 14.5px var(--f-body)}
+.pn-p{white-space:nowrap} .pn-p i{font:italic 600 15px var(--f-body);color:var(--c)} .pn-p small{font:400 11.5px var(--f-ui);color:var(--muted)}
+.gt tr.is-off{display:none}
+.gt tbody tr.is-sel{background:var(--cs)}
+
+footer{max-width:1480px;margin:0 auto;padding-block:22px 40px;border-top:1px solid var(--line-strong);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font:400 13px/1.5 var(--f-ui);color:var(--muted)}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+
+
+
+/* ── Bakarka: familias ── */
+.f-fon{--c:var(--mug);--cs:var(--mug-soft)}
+.f-sin{--c:var(--blue);--cs:var(--blue-soft)}
+.f-adi{--c:var(--sea);--cs:var(--sea-soft)}
+.f-kas{--c:var(--gold);--cs:var(--gold-soft)}
+.f-par{--c:var(--rose);--cs:var(--rose-soft)}
+.f-men{--c:var(--plum);--cs:var(--plum-soft)}
+.f-den{--c:var(--olive);--cs:var(--olive-soft)}
+.t-elk{--rc:var(--teal)} .t-irak{--rc:var(--iron)} .t-teo{--rc:var(--ink-2)}
+.how{display:flex;flex-wrap:wrap;gap:6px 18px;font:400 13px/1.45 var(--f-ui);color:var(--ink-2)}
+.how mark{background:var(--sea-soft);border-bottom:2px solid var(--sea);color:inherit;padding:0 .15em;font:italic 400 14px var(--f-body)}
+.mast-links{display:flex;flex-wrap:wrap;gap:6px 16px;font:500 13px/1.4 var(--f-ui)}
+.strata b{display:block;font:600 1.5rem/1.1 var(--f-display);color:var(--ink)}
+.qsearch{font:400 16px/1 var(--f-ui);padding:7px 10px;border:1px solid var(--line-strong);border-radius:2px;background:var(--surface);color:var(--ink);width:min(220px,100%)}
+/* rama */
+#gt{min-width:760px}
+.rama{min-width:0;background:var(--surface);border:1px solid var(--line-strong);box-shadow:inset 0 0 0 5px var(--surface), inset 0 0 0 6px var(--line);border-radius:var(--r);padding:8px 6px}
+.rscroll{overflow-x:auto}
+.rsvg{display:block;width:100%;min-width:760px;height:auto}
+.rsvg text{font-family:var(--f-ui)}
+.r-branch{fill:none;stroke:var(--bark);stroke-linecap:round}
+.r-twig{fill:none;stroke:var(--bark);stroke-width:2;stroke-linecap:round}
+.r-node{cursor:pointer}
+.r-node .body{fill:var(--c)}
+.r-node .gloss{fill:#fff;opacity:.22}
+.r-node .halo{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 4;opacity:0}
+.r-node.is-sel .halo{opacity:.85}
+.r-node:hover .halo{opacity:.4}
+.r-node.dim{opacity:.25}
+.r-num{fill:var(--surface);font:600 17px/1 var(--f-display);text-anchor:middle}
+.r-t{font:italic 600 13px/1 var(--f-body);fill:var(--ink);text-anchor:middle;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.r-s{font:500 10.5px/1 var(--f-ui);fill:var(--muted);text-anchor:middle}
+.r-lf{fill:var(--rc)}
+.r-node:focus{outline:none}.r-node:focus-visible .body{stroke:var(--ink);stroke-width:3}
+.rlist{display:none}
+/* ficha */
+.teo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 30px}
+@media (max-width:900px){.teo-grid{grid-template-columns:minmax(0,1fr)}}
+.teo{display:grid;gap:8px;align-content:start;padding-top:12px;border-top:1px solid var(--line)}
+.teo h3{font:600 1.08rem/1.2 var(--f-display);color:var(--c)}
+.teo-p{font:400 15px/1.55 var(--f-ui);color:var(--ink-2)}
+.teo-p i,.ohar i,.trap i,.card-key i,.bsin i{font:italic 400 1.03em var(--f-body);color:var(--ink)}
+.exl{display:grid;gap:7px;margin:4px 0 0;padding:0;list-style:none}
+.exl li{display:grid;gap:1px;padding-left:12px;border-left:2px solid var(--cs)}
+.exl .eu{font-size:1.04rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ftag{font:600 11px/1 var(--f-ui);letter-spacing:.05em;padding:5px 9px;border-radius:2px;border:1px solid var(--c);color:var(--c);background:var(--surface);display:inline-flex;gap:6px;align-items:center}
+.ftag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.nav-l{display:flex;gap:8px;flex-wrap:wrap}
+.hz{display:flex;flex-wrap:wrap;gap:6px}
+.hz span{font:400 13px/1.3 var(--f-ui);padding:5px 9px;border:1px solid var(--line);border-radius:3px;background:var(--ground);color:var(--ink-2)}
+.hz b{font:italic 600 14.5px var(--f-body);color:var(--ink);margin-right:5px}
+.txl{display:grid;gap:8px}
+.txb{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--rc);border-radius:0 var(--r) var(--r) 0;background:var(--ground);text-align:left;cursor:pointer;width:100%;font:inherit;color:inherit}
+.txb:hover{border-color:var(--ink-2);border-left-color:var(--rc)}
+.txk{font:700 10px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--rc)}
+.txt{font:600 15px/1.3 var(--f-display)}
+.txs{font:400 13px/1.4 var(--f-ui);color:var(--muted);flex-basis:100%}
+.ohar{font:400 14.5px/1.55 var(--f-ui);color:var(--ink-2)}
+/* banco */
+.bitem{padding:14px 16px;border-top:1px solid var(--line);display:grid;gap:10px;scroll-margin-top:calc(var(--fbar-h) + 14px)}
+.bitem.flash{animation:fl 1.4s ease-out}
+@keyframes fl{from{background:var(--cs)}to{background:transparent}}
+.bhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.bk{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--rc);display:inline-flex;gap:6px;align-items:center}
+.bk::before{content:"";width:9px;height:9px;border-radius:50% 0;transform:rotate(-45deg);background:var(--rc)}
+.bt{font:600 1.15rem/1.2 var(--f-display)}
+.bsin{font:400 14.5px/1.55 var(--f-ui);color:var(--ink-2);max-width:78ch}
+.beu{font:italic 400 1.05rem/1.5 var(--f-body);color:var(--ink);background:var(--cs);border-left:3px solid var(--c);padding:9px 13px;border-radius:0 var(--r) var(--r) 0;max-width:78ch}
+.beu small{display:block;font:700 10px/1.2 var(--f-ui);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.bfr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:8px 18px}
+.bfr div{display:grid;gap:1px;padding-left:10px;border-left:2px solid var(--line-strong)}
+.bgl{font:400 13px/1.5 var(--f-ui);color:var(--muted)}
+.bgl b{font:italic 600 14px var(--f-body);color:var(--ink-2)}
+.bgrp-b[hidden]{display:none}
+.vt{border-collapse:collapse;width:100%;min-width:760px;font:400 14px/1.3 var(--f-ui)}
+.vt th,.vt td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.vt thead th{font:600 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.vt tbody th{border-left:4px solid var(--c);font:600 14px/1.25 var(--f-ui)}
+.vt tbody th span{display:block;font:italic 400 13px/1.2 var(--f-body);color:var(--muted)}
+.vt td{font:italic 400 15.5px/1.2 var(--f-body)}
+.vt td.ln{font:500 12px/1.2 var(--f-ui);color:var(--muted);font-style:normal;white-space:nowrap}
+.vt tbody tr:last-child>*{border-bottom:0}
+.lnk{background:none;border:0;padding:0;font:600 12px/1.2 var(--f-ui);color:var(--sea);cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
+@media (max-width:620px){.r-hint{display:block!important}}
+
+</style>
+</head>
+<body>
+<header class="mast">
+  <nav class="crumbs" aria-label="Ruta"><a href="index.html">Euskara Armairua</a><span aria-hidden="true">/</span><a href="index.html#hiztegiak">Hiztegia · Bakarka</a><span aria-hidden="true">/</span><span>Bakarka 1</span></nav>
+  <h1><span>Bakarka <em>bat</em></span><svg class="sprig" viewBox="0 0 70 80" aria-hidden="true"><path class="st" d="M20 78 C24 58 30 40 46 14"/><path class="st" d="M27 50 C36 46 44 44 54 46"/><path class="st" d="M24 62 C18 56 12 54 6 55"/><path class="lv" d="M46 14 C46 6 52 1 60 2 C58 10 53 14 46 14 Z"/><path class="lv" d="M54 46 C58 39 65 38 69 41 C65 47 60 48 54 46 Z"/><path class="lv" d="M6 55 C3 49 4 43 8 40 C11 46 10 51 6 55 Z"/><path class="lv" d="M35 34 C30 30 29 24 31 20 C36 23 37 29 35 34 Z"/><circle class="fr" cx="40" cy="55" r="7"/><circle class="fr" cx="50" cy="60" r="5.5" style="fill:var(--iron)"/><circle class="fr" cx="45" cy="70" r="4.5" style="fill:var(--gold)"/></svg></h1>
+  <p class="intro">Síntesis de las catorce lecciones del método autodidacta <i>Bakarka 1</i> (J. A. Letamendia, Elkar): la teoría esencial de cada <i>ikasgaia</i> con ejemplos breves, los diálogos y las lecturas resumidos en castellano y en euskera sencillo, y un resumen final de casos y verbos. Pulsa una lección en la rama para abrir su ficha; filtra por familia gramatical o por tipo de texto.</p>
+  <div class="strata" aria-label="Contenido">
+    <div><b>14</b>lecciones</div>
+    <div><b>70</b>puntos de teoría</div>
+    <div><b>15</b>diálogos</div>
+    <div><b>16</b>lecturas</div>
+    <div><b>233</b>frases</div>
+  </div>
+  <p class="how"><span><i>etxea</i> en cursiva: euskera</span><span><s class="bad">forma</s> error típico</span><span>Cada texto: resumen en castellano, <mark>laburpena</mark> en euskera y frases clave</span></p>
+  <p class="mast-links"><a href="bakarka-hiztegia.html">Bakarka · hiztegia</a><a href="bakarka-3-sintesia.html">Bakarka 3 · síntesis</a><a href="kasuen-zuhaitza.html">Kasuen zuhaitza</a><a href="nire-herria.html">Nire herria</a><a href="nor-naiz.html">Nor naiz?</a></p>
+</header>
+
+<div class="fbar" id="fbar">
+  <div class="fbar-in">
+    <button type="button" class="fbar-toggle" id="ftoggle" aria-expanded="false" aria-controls="fgroups"><span class="ft-l">Filtros</span><span class="ft-s" id="fsum">ninguno</span><span class="ft-i" aria-hidden="true">▾</span></button>
+    <div class="fgroups" id="fgroups">
+      <div class="fg" role="group" aria-labelledby="fl-fam"><span class="fg-l" id="fl-fam">Familia</span><div class="chips"><button type="button" class="chip" data-f="fam" data-v="all" aria-pressed="true">Todas</button><button type="button" class="chip kc f-fon" data-f="fam" data-v="fon" aria-pressed="false">Fonética</button><button type="button" class="chip kc f-sin" data-f="fam" data-v="sin" aria-pressed="false">Sintagma</button><button type="button" class="chip kc f-adi" data-f="fam" data-v="adi" aria-pressed="false">Verbo</button><button type="button" class="chip kc f-kas" data-f="fam" data-v="kas" aria-pressed="false">Casos</button><button type="button" class="chip kc f-par" data-f="fam" data-v="par" aria-pressed="false">Partículas</button><button type="button" class="chip kc f-men" data-f="fam" data-v="men" aria-pressed="false">Subordinación</button><button type="button" class="chip kc f-den" data-f="fam" data-v="den" aria-pressed="false">Números y tiempo</button></div></div>
+      <div class="fg" role="group" aria-labelledby="fl-txt"><span class="fg-l" id="fl-txt">Texto</span><div class="chips"><button type="button" class="chip" data-f="txt" data-v="all" aria-pressed="true">Todos</button><button type="button" class="chip r-q t-elk" data-f="txt" data-v="elk" aria-pressed="false" style="--rc:var(--teal)">Elkarrizketak</button><button type="button" class="chip r-q t-irak" data-f="txt" data-v="irak" aria-pressed="false" style="--rc:var(--iron)">Irakurgaiak</button></div></div>
+      <div class="fg"><span class="fg-l"><label for="q">Buscar</label></span><input id="q" class="qsearch" type="search" placeholder="palabra o frase" autocomplete="off"></div>
+    </div>
+    <div class="fmeta"><span id="fcount"></span><button type="button" class="btn-ghost" id="freset">Quitar filtros</button></div>
+  </div>
+</div>
+
+<div class="layout">
+<main>
+  <section class="blk" aria-labelledby="h-rama">
+    <div class="blk-h"><h2 id="h-rama">La rama</h2><p>Cada fruto es una lección, con el color de su familia principal. Las hojas pequeñas marcan sus textos: verde azulado los diálogos, óxido las lecturas.</p></div>
+    <div class="rama"><div class="rscroll"><svg class="rsvg" id="rsvg" viewBox="0 0 1100 362" role="group" aria-label="Lecciones de Bakarka 1"></svg></div></div>
+    <p class="swipe r-hint">Desliza la rama hacia los lados para verla entera.</p>
+  </section>
+
+  <section class="blk" aria-labelledby="h-ficha">
+    <div class="blk-h"><h2 id="h-ficha">Ficha de la lección</h2><p>Idea clave, teoría con ejemplos, error típico, palabras clave y textos de la lección.</p></div>
+    <article id="ficha" class="card" aria-live="polite"></article>
+  </section>
+
+  <section class="blk" aria-labelledby="h-bank">
+    <div class="blk-h"><h2 id="h-bank">Banco de textos <small id="bank-n"></small></h2><div class="seg" role="group" aria-label="Alcance"><button type="button" data-scope="all" aria-pressed="true">Todas las lecciones</button><button type="button" data-scope="one" aria-pressed="false" id="scope-one">Solo la lección 2</button></div></div>
+    <div class="bank" id="bank"></div>
+  </section>
+
+  <section class="blk" aria-labelledby="h-lab">
+    <div class="blk-h"><h2 id="h-lab">Laburpena</h2><p>Los casos del curso (en singular, como los estudia el libro) y los verbos conjugados, con la lección en que aparecen.</p></div>
+    <div class="gt-wrap"><table class="gt" id="gt"><thead><tr><th scope="col">Caso</th><th scope="col" class="gsep">Nombre común</th><th scope="col">Propio · vocal</th><th scope="col">Propio · consonante</th><th scope="col" class="gsep">Demostrativos</th><th scope="col" class="gsep">En una frase</th></tr></thead><tbody id="gtb"></tbody></table></div>
+    <div class="gt-wrap" style="margin-top:18px"><table class="vt"><thead><tr><th scope="col">Verbo</th><th scope="col">ni · nik</th><th scope="col">zu · zuk</th><th scope="col">hura · hark</th><th scope="col">gu · guk</th><th scope="col">zuek</th><th scope="col">haiek</th><th scope="col">Lección</th></tr></thead><tbody id="vtb"></tbody></table></div>
+  </section>
+</main>
+
+<aside class="side" aria-label="Leyenda">
+<details class="side-d" open>
+<summary><span class="side-k">Leyenda</span><span class="side-t">Cómo leer la rama</span><span class="side-i" aria-hidden="true">▾</span></summary>
+<div class="side-b">
+<p class="side-intro">Cada lección del libro tiene cinco partes: teoría, estructuras, ejercicios, diálogo y lectura. Aquí quedan la teoría resumida, los diálogos y las lecturas; los ejercicios y las imágenes se omiten.</p>
+<section class="sg"><h3>Familias · el color del fruto</h3><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-fon"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Fonética</p><p class="sx">Sonidos, letras y pronunciación en la frase.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-sin"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Sintagma</p><p class="sx">Orden de la frase, determinantes, adjetivos y numerales.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-adi"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Verbo</p><p class="sx">izan, ukan y los sintéticos; tiempos y perífrasis.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-kas"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Casos</p><p class="sx">Las terminaciones que sustituyen a las preposiciones.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-par"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Partículas</p><p class="sx">ba-, al, omen, ere, bait-… pequeñas piezas que matizan.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-men"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Subordinación</p><p class="sx">-(e)la, -(e)n, -elako, -t(z)eko, -(e)nean, ba-.</p></div></div><div class="si"><svg viewBox="-13 -16 26 29" aria-hidden="true" class="sw f-den"><path class="sw-st" d="M0 -9 C1 -12 2 -13 4 -14"/><path class="sw-lf" d="M3 -13.5 C6 -17 10 -17 12 -15 C9 -12.5 6 -12 3 -13.5 Z"/><circle class="sw-b" r="9.5"/><ellipse class="sw-g" cx="-3.5" cy="-4" rx="3" ry="1.8" transform="rotate(-35 -3.5 -4)"/></svg><div><p class="sn">Números y tiempo</p><p class="sx">Cardinales, ordinales, horas y días.</p></div></div></section>
+<section class="sg"><h3>Textos · las hojas</h3>
+<div class="si si-s"><svg viewBox="-3 -12 26 24" aria-hidden="true" class="sw t-elk"><path class="sw-blade" d="M0 0 C3.5 -4.2 11 -4.6 17 0 C11 4.6 3.5 4.2 0 0 Z"/><path class="sw-vein" d="M1.5 0 L14.5 0"/></svg><div><p class="sn">Elkarrizketa</p><p class="sx">diálogo ilustrado de la lección.</p></div></div>
+<div class="si si-s"><svg viewBox="-3 -12 26 24" aria-hidden="true" class="sw t-irak"><path class="sw-blade" d="M0 0 C3.5 -4.2 11 -4.6 17 0 C11 4.6 3.5 4.2 0 0 Z"/><path class="sw-vein" d="M1.5 0 L14.5 0"/></svg><div><p class="sn">Irakurgaia</p><p class="sx">lectura final, con su glosario.</p></div></div>
+</section>
+<section class="sg"><h3>Marcas</h3>
+<p class="sm"><i>etxea</i> palabra o frase en euskera</p>
+<p class="sm"><s class="bad">bi emakumeak</s> forma incorrecta</p>
+<p class="sm"><span class="tg">laburpena</span> resumen propio en euskera A1</p>
+</section>
+</div>
+</details>
+</aside>
+</div>
+<footer>
+  <span>Bakarka 1 · síntesis por lecciones · nivel A1 · Euskara Armairua</span>
+  <span>Resumen de estudio a partir de <i>Bakarka 1</i> (J. A. Letamendia, Elkar). Los textos están resumidos; las frases clave y parte de los ejemplos son citas breves del libro.</span>
+  <span>&#9888; Claude · por contrastar: resúmenes, explicaciones y laburpenak preparados por Claude, sin revisar todavía por un hablante.</span>
+</footer>
+
+<script type="application/json" id="bk-data">{"FAM": [{"id": "fon", "name": "Fonética", "col": "mug", "desc": "Sonidos, letras y pronunciación en la frase."}, {"id": "sin", "name": "Sintagma", "col": "blue", "desc": "Orden de la frase, determinantes, adjetivos y numerales."}, {"id": "adi", "name": "Verbo", "col": "sea", "desc": "izan, ukan y los sintéticos; tiempos y perífrasis."}, {"id": "kas", "name": "Casos", "col": "gold", "desc": "Las terminaciones que sustituyen a las preposiciones."}, {"id": "par", "name": "Partículas", "col": "rose", "desc": "ba-, al, omen, ere, bait-… pequeñas piezas que matizan."}, {"id": "men", "name": "Subordinación", "col": "plum", "desc": "-(e)la, -(e)n, -elako, -t(z)eko, -(e)nean, ba-."}, {"id": "den", "name": "Números y tiempo", "col": "olive", "desc": "Cardinales, ordinales, horas y días."}], "L": [{"n": 1, "eu": "Hotsak eta letrak", "es": "Sonidos y letras", "fam": "fon", "tags": ["fon"], "key": "El alfabeto vasco es casi fonético: cada letra suena siempre igual. Lo difícil son las sibilantes (<i lang=\"eu\">s</i>, <i lang=\"eu\">z</i>, <i lang=\"eu\">x</i>, <i lang=\"eu\">ts</i>, <i lang=\"eu\">tz</i>, <i lang=\"eu\">tx</i>), que distinguen palabras.", "typ": ["Su ala zu?", "¿Fuego o tú?", "Su: fuego · zu: tú", "Un sonido, otra palabra."], "teo": [{"h": "El alfabeto", "p": "Letras básicas: <i lang=\"eu\">a b d e f g h i j k l m n ñ o p r s t u x z</i> y los dígrafos <i lang=\"eu\">dd, ll, rr, ts, tt, tx, tz</i>. <i lang=\"eu\">c, ç, q, v, w, y</i> solo se usan en nombres extranjeros (<i lang=\"eu\">Venezuela</i>, <i lang=\"eu\">New York</i>); en palabras adaptadas se escribe <i lang=\"eu\">k</i>: <i lang=\"eu\">Korea</i>, <i lang=\"eu\">Afrika</i>.", "ex": []}, {"h": "Letras que suenan distinto que en castellano", "p": "<i lang=\"eu\">g</i> es siempre suave, también ante <i lang=\"eu\">e, i</i> (<i lang=\"eu\">gerra</i> = «guerra»). <i lang=\"eu\">h</i> se aspira en el norte y es muda en el resto. <i lang=\"eu\">j</i> suena como la <i lang=\"eu\">y</i> (en parte de Gipuzkoa, como jota).", "ex": [["gela", "habitación"], ["gitarra", "guitarra"], ["jai", "fiesta"]]}, {"h": "Las sibilantes", "p": "Dos series: fricativas <i lang=\"eu\">s, z, x</i> y africadas <i lang=\"eu\">ts, tz, tx</i>. <i lang=\"eu\">z</i> es como la <i lang=\"eu\">s</i> castellana; <i lang=\"eu\">s</i> se dice con la punta de la lengua más arriba (ápico-alveolar); <i lang=\"eu\">x</i> como el <i lang=\"eu\">sh</i> inglés; <i lang=\"eu\">tx</i> como la <i lang=\"eu\">ch</i> castellana. Hay que distinguirlas porque cambian el significado.", "ex": [["su / zu", "fuego / tú"], ["atso / atzo", "anciana / ayer"], ["hots / hotz", "ruido / frío"], ["hits / hitz", "ajado / palabra"]]}, {"h": "Palatalización expresiva", "p": "<i lang=\"eu\">x</i> (y <i lang=\"eu\">tt</i>, <i lang=\"eu\">dd</i>) da un matiz diminutivo o cariñoso. Tras <i lang=\"eu\">i</i>, en zonas occidentales <i lang=\"eu\">l, n, s</i> suenan <i lang=\"eu\">ll, ñ, x</i> sin valor diminutivo.", "ex": [["gozo → goxo", "dulce → confite"], ["zahar → xahar", "viejo → viejecillo"], ["Antton, Maddalen", "formas cariñosas"], ["inor → iñor", "se escribe inor"]]}, {"h": "Acento y entonación", "p": "No hay tilde ni norma fija de acento: varía según la zona. El libro recomienda escuchar mucho euskera (radio, televisión) desde el principio.", "ex": []}], "trap": "Escribir como se pronuncia: <s class=\"bad\">iñor</s>, <s class=\"bad\">gaixo</s> → <i lang=\"eu\">inor</i>, <i lang=\"eu\">gaiso</i> (aunque se digan así en algunas zonas).", "ohar": "La primera lección no tiene diálogo ni lectura: se trabaja con listas de palabras y con dos poemas fonéticos de Joxe Antonio Artze. Los pares mínimos (<i lang=\"eu\">sail/zail</i>, <i lang=\"eu\">hasi/hazi</i>, <i lang=\"eu\">esker/ezker</i>) son el mejor ejercicio.", "hitz": [["zu", "tú, usted"], ["zor", "deuda"], ["zoro", "loco"], ["zail", "difícil"], ["hazi", "crecer, semilla"], ["ezker", "izquierda"], ["etzi", "pasado mañana"], ["iritzi", "opinión"]], "elk": null, "irak": []}, {"n": 2, "eu": "Zer da hau?", "es": "¿Qué es esto?", "fam": "sin", "tags": ["sin", "adi", "fon"], "key": "Demostrativos (<i lang=\"eu\">hau</i>, <i lang=\"eu\">hori</i>, <i lang=\"eu\">hura</i>), el verbo <i lang=\"eu\">izan</i> en singular (<i lang=\"eu\">naiz</i>, <i lang=\"eu\">zara</i>, <i lang=\"eu\">da</i>) y la regla de oro del orden: lo importante va justo delante del verbo.", "typ": ["Zer da hori?", "¿Qué es eso?", "Hori, etxea da.", "Eso es una casa."], "teo": [{"h": "Demostrativos", "p": "<i lang=\"eu\">hau</i> (esto, cerca de quien habla), <i lang=\"eu\">hori</i> (eso, cerca de quien escucha), <i lang=\"eu\">hura</i> (aquello). No existen «él/ella»: se usan los demostrativos.", "ex": [["Nor da hau?", "¿Quién es este?"]]}, {"h": "izan (ser, estar) · singular", "p": "<i lang=\"eu\">ni naiz</i> (yo soy), <i lang=\"eu\">zu zara</i> (tú eres), <i lang=\"eu\">hura da</i> (él es). <i lang=\"eu\">zu</i> vale para «tú» y «usted»; el trato de <i lang=\"eu\">hi</i> no se estudia aquí.", "ex": [["Ni Aitor naiz.", "Yo soy Aitor."], ["Zu Mikel zara?", "¿Tú eres Mikel?"]]}, {"h": "Interrogativos y orden", "p": "<i lang=\"eu\">nor</i> (quién), <i lang=\"eu\">zer</i> (qué), <i lang=\"eu\">zein</i> (cuál). En la respuesta afirmativa, el elemento que responde va inmediatamente antes del verbo. En la negativa, lo negado va mejor detrás.", "ex": [["Hau, Antton da.", "Este es Antton."], ["Antton da hau.", "Antton es este (el que es Antton)."], ["Hau ez da neska; mutila da.", "No es una chica; es un chico."]]}, {"h": "El sintagma nominal", "p": "Orden fijo: nombre + adjetivo + determinante. Los determinantes son el artículo <i lang=\"eu\" class=\"nw\">-a</i> y los demostrativos. Si la palabra acaba en <i lang=\"eu\" class=\"nw\">-a</i>, no se duplica (<i lang=\"eu\">neska</i>). <i lang=\"eu\">bat</i> (un) también va al final, y se usa menos que en castellano.", "ex": [["neska txikia", "la chica pequeña"], ["etxe handi hura", "aquella casa grande"], ["mutil gazte bat", "un chico joven"]]}, {"h": "Fonética y ortografía", "p": "<i lang=\"eu\">ez</i> + <i lang=\"eu\">naiz, zara, da</i> se pronuncia <i lang=\"eu\">enaiz, etzara, ezta</i>. Los signos de interrogación y admiración solo van al final.", "ex": [["Hau ez da etxea (ezta).", "Esto no es una casa."], ["Kaixo, Edurne!", "¡Hola, Edurne!"]]}], "trap": "<s class=\"bad\">Begoñaa</s> → <i lang=\"eu\">Begoña da</i>: si el nombre acaba en <i lang=\"eu\" class=\"nw\">-a</i>, el artículo se funde con ella.", "ohar": "Con solo <i lang=\"eu\">hau / hori / hura</i>, <i lang=\"eu\">naiz / zara / da</i> y <i lang=\"eu\">nor / zer / zein</i> el libro ya construye preguntas y respuestas completas. Todo lo demás del curso descansa sobre la regla del elemento clave antes del verbo.", "hitz": [["gizon", "hombre"], ["emakume", "mujer"], ["mutil", "chico"], ["neska", "chica"], ["buru", "cabeza"], ["begi", "ojo"], ["esku", "mano"], ["liburu", "libro"], ["herri", "pueblo"], ["bide", "camino"], ["mendi", "monte"], ["etxe", "casa"], ["gazte", "joven"], ["zahar", "viejo"], ["berri", "nuevo"], ["polit", "bonito"], ["itsusi", "feo"], ["handi", "grande"], ["txiki", "pequeño"]], "elk": [{"t": "Kaixo, Edurne!", "sin": "Un señor saluda a un chico creyendo que es Edurne; el chico le saca del error.", "sin_eu": "Gizon batek «Kaixo, Edurne!» esaten du, baina mutila ez da Edurne: Aitor da.", "fr": [["Kaixo, Edurne!", "¡Hola, Edurne!"], ["Ni ez naiz Edurne.", "Yo no soy Edurne."], ["Ni Aitor naiz.", "Yo soy Aitor."]]}, {"t": "Zer moduz?", "sin": "Dos adultos se saludan; él pregunta por el niño, que es el hijo de ella, y el niño responde con gracia.", "sin_eu": "Bi lagunek agurtzen dute elkar. Mutikoa Martin da, emakumearen semea.", "fr": [["Egunon! Zer moduz?", "¡Buenos días! ¿Qué tal?"], ["Nahiko ondo ni ere.", "Bastante bien yo también."], ["Nor da hau?", "¿Quién es este?"]]}], "irak": [{"t": "Itziar eta Joxe · Irun eta Hondarribia", "sin": "Dos textos brevísimos de práctica: se presentan personas (Itziar es joven, Joxe viejo y bajo) y pueblos de la costa (Irun grande; Hondarribia pequeño pero bonito; Hendaia; el monte Jaizkibel).", "sin_eu": "Itziar gaztea da eta Joxe gizon zahar eta txikia. Irun herri handia da; Hondarribia, berriz, txikia baina polita. Jaizkibel ez da mendi handia.", "fr": [["Itziar gaztea da.", "Itziar es joven."], ["Hondarribia herri txiki baina polita da.", "Hondarribia es un pueblo pequeño pero bonito."]], "gl": []}]}, {"n": 3, "eu": "Hauek etxeak dira", "es": "Estas son casas", "fam": "sin", "tags": ["sin", "adi", "par", "den"], "key": "El plural: <i lang=\"eu\">hauek / horiek / haiek</i>, <i lang=\"eu\">gara / zarete / dira</i> y el determinante <i lang=\"eu\" class=\"nw\">-ak</i>. Con los numerales el nombre va sin artículo (<i lang=\"eu\">bi etxe</i>).", "typ": ["Nolakoak dira etxe horiek?", "¿Cómo son esas casas?", "Etxe horiek handiak dira.", "Esas casas son grandes."], "teo": [{"h": "Plural de demostrativos e izan", "p": "<i lang=\"eu\">hauek</i> (estos), <i lang=\"eu\">horiek</i> (esos), <i lang=\"eu\">haiek</i> (aquellos). <i lang=\"eu\">gu gara</i>, <i lang=\"eu\">zuek zarete</i>, <i lang=\"eu\">haiek dira</i>. El determinante plural es <i lang=\"eu\" class=\"nw\">-ak</i>, y el adjetivo final lo lleva por todo el sintagma.", "ex": [["Hauek etxeak dira.", "Estas son casas."], ["Neska hauek gazteak dira.", "Estas chicas son jóvenes."]]}, {"h": "nolako(a)?", "p": "<i lang=\"eu\">nolako</i> (cómo, qué clase de) va delante del nombre. Si se suprime el nombre, el determinante se une a <i lang=\"eu\">nolako</i>: <i lang=\"eu\">nolakoa</i>, <i lang=\"eu\">nolakoak</i>.", "ex": [["Nolako bidea da hori?", "¿Qué tal camino es ese?"], ["Nolakoa da Koro?", "¿Cómo es Koro?"]]}, {"h": "La partícula al", "p": "Marca las preguntas de sí/no. No es obligatoria (es de uso guipuzcoano), pero ayuda a marcar la pregunta.", "ex": [["Euskaldunak al zarete?", "¿Sois vascos/vascohablantes?"]]}, {"h": "Cardinales", "p": "Con número el nombre va en forma indeterminada (sin <i lang=\"eu\" class=\"nw\">-a</i> ni <i lang=\"eu\" class=\"nw\">-ak</i>). <i lang=\"eu\">bat</i> va al final; su plural es <i lang=\"eu\">batzuk</i> (unos). <i lang=\"eu\">bi</i> puede ir delante o detrás; los demás, delante.", "ex": [["bi emakume", "dos mujeres"], ["hiru etxe", "tres casas"], ["gizon batzuk", "unos hombres"], ["haur txiki bi", "dos niños pequeños"]]}, {"h": "oso y beste", "p": "<i lang=\"eu\">oso</i> (muy) va delante del adjetivo, o delante del nombre si hay adjetivo. <i lang=\"eu\">beste</i> (otro) va delante del nombre: <i lang=\"eu\">bestea</i>, <i lang=\"eu\">beste etxea</i>, <i lang=\"eu\">beste bat</i>.", "ex": [["oso gizon ona", "un hombre muy bueno"], ["beste etxe hura", "aquella otra casa"], ["beste batzuk", "otros"]]}, {"h": "Fonética", "p": "<i lang=\"eu\">ez zarete</i>, <i lang=\"eu\">ez dira</i> se pronuncian <i lang=\"eu\">etzarete</i>, <i lang=\"eu\">eztira</i>. <i lang=\"eu\">horiek</i> suele sonar <i lang=\"eu\">hoiek</i>.", "ex": []}], "trap": "<s class=\"bad\">bi emakumeak</s> cuando se quiere decir «dos mujeres»: con número va <i lang=\"eu\">bi emakume</i> (con <i lang=\"eu\" class=\"nw\">-ak</i> significa «las dos mujeres»).", "ohar": "Los gentilicios aparecen aquí: <i lang=\"eu\">tolosarra</i>, <i lang=\"eu\">eibartarra</i>, <i lang=\"eu\">donostiarra</i>, <i lang=\"eu\">gipuzkoarra</i>. Se forman con <i lang=\"eu\" class=\"nw\">-(t)ar</i> + artículo.", "hitz": [["langile", "trabajador"], ["lantegi", "taller, fábrica"], ["ikasle", "estudiante"], ["eskola", "escuela"], ["baserri", "caserío"], ["kale", "calle"], ["mahai", "mesa"], ["ate", "puerta"], ["garbi", "limpio"], ["zikin", "sucio"], ["on", "bueno"], ["gurasoak", "padres"], ["haur", "niño"], ["iturri", "fuente"], ["baizik", "sino"]], "elk": [{"t": "Parisen", "sin": "Dos jóvenes donostiarras llegan a París y oyen a dos chicas hablando euskera: son de Tolosa y Eibar. Acaban invitándolas a cenar.", "sin_eu": "Koro eta Alberto Parisen daude. Bi neska euskaraz ari dira: tolosarra eta eibartarra. Mundua txikia da!", "fr": [["Parisen gara azkenean!", "¡Por fin estamos en París!"], ["Euskaldunak al zarete?", "¿Sois vascas?"], ["Mundu hau benetan txikia da.", "Este mundo es francamente pequeño."]]}], "irak": [{"t": "Parisen", "sin": "Versión narrada del diálogo. Koro (delineante) y Alberto (mecánico) viajan a París, ven la torre Eiffel y se encuentran con dos chicas vascas. ¡Qué suerte! Cenarán juntos.", "sin_eu": "Koro eta Alberto langileak dira. Parisera joan dira. Kalean bi neska euskaldun ikusten dituzte eta elkarrekin afalduko dute.", "fr": [["Paris hiri handi eta ederra da.", "París es una ciudad grande y hermosa."], ["Denak gipuzkoarrak dira.", "Todos son guipuzcoanos."]], "gl": [["berriz", "en cambio"], ["elkarrekin", "juntos"], ["afaldu", "cenar"]]}]}, {"n": 4, "eu": "Nork du liburua?", "es": "¿Quién tiene el libro?", "fam": "kas", "tags": ["kas", "adi", "par"], "key": "<i lang=\"eu\">izan</i> transitivo significa «tener» (<i lang=\"eu\">dut, duzu, du…</i>) y su sujeto lleva <i lang=\"eu\" class=\"nw\">-k</i>: es el caso NORK (ergativo). Además, <i lang=\"eu\">ba-</i> afirmativo y el partitivo <i lang=\"eu\" class=\"nw\">-(r)ik</i>.", "typ": ["Ba al duzu dirurik?", "¿Tienes dinero?", "Ez, ez dut dirurik.", "No, no tengo dinero."], "teo": [{"h": "izan transitivo · presente", "p": "<i lang=\"eu\">nik dut</i>, <i lang=\"eu\">zuk duzu</i>, <i lang=\"eu\">hark du</i>, <i lang=\"eu\">guk dugu</i>, <i lang=\"eu\">zuek duzue</i>, <i lang=\"eu\">haiek dute</i>. Más adelante será también auxiliar.", "ex": [["Nik liburua dut.", "Yo tengo un libro."], ["Haiek baserria dute.", "Ellos tienen un caserío."]]}, {"h": "Dos sujetos: NOR y NORK", "p": "Con verbo intransitivo (<i lang=\"eu\">naiz</i>) el sujeto va en NOR, sin marca. Con verbo transitivo (<i lang=\"eu\">dut</i>) va en NORK, con <i lang=\"eu\" class=\"nw\">-k</i>. Demostrativos en NORK: <i lang=\"eu\">honek</i>, <i lang=\"eu\">horrek</i>, <i lang=\"eu\">hark</i> (el plural no cambia: <i lang=\"eu\">hauek</i>…).", "ex": [["Ni gizona naiz. / Nik autoa dut.", "Soy un hombre. / Tengo coche."], ["Honek irratia du.", "Este tiene la radio."]]}, {"h": "Formas de la -k", "p": "Nombres propios: <i lang=\"eu\" class=\"nw\">-k</i> tras vocal, <i lang=\"eu\" class=\"nw\">-ek</i> tras consonante (<i lang=\"eu\">Lolik</i>, <i lang=\"eu\">Izaskunek</i>, <i lang=\"eu\">Aitorrek</i>). Comunes singular: <i lang=\"eu\" class=\"nw\">-ak</i> (<i lang=\"eu\">gizonak</i>). Plural: <i lang=\"eu\" class=\"nw\">-ek</i> (<i lang=\"eu\">gizonek</i>); si acaba en <i lang=\"eu\" class=\"nw\">-a</i>, esta se funde: <i lang=\"eu\">neskek</i>.", "ex": [["Gizonak liburua du.", "El hombre tiene un libro."], ["Gizonek liburua dute.", "Los hombres tienen un libro."]]}, {"h": "ba- afirmativo", "p": "Delante del verbo, refuerza la afirmación (como «ya»). Hace de elemento clave, así que el verbo puede ir al principio.", "ex": [["Bai, badut.", "Sí, (ya) tengo."], ["Badugu liburua.", "Ya tenemos el libro."]]}, {"h": "El partitivo -(r)ik", "p": "En preguntas y negativas, con sentido indeterminado («ningún»). Tras vocal, <i lang=\"eu\" class=\"nw\">-rik</i>.", "ex": [["Ez dut libururik.", "No tengo (ningún) libro."], ["Ba al da urik?", "¿Hay agua?"]]}], "trap": "<i lang=\"eu\">gizonak</i> puede ser NOR plural («los hombres») o NORK singular («el hombre»): lo decide el verbo (<i lang=\"eu\">dira</i> / <i lang=\"eu\">du</i>).", "ohar": "Fonética: <i lang=\"eu\">ez dute</i> se pronuncia <i lang=\"eu\">eztute</i>. <i lang=\"eu\">Ez dut libroa</i> = no tengo el libro (uno concreto); <i lang=\"eu\">ez dut libururik</i> = no tengo libros.", "hitz": [["ile", "pelo"], ["gutxi", "poco"], ["indar", "fuerza"], ["txar", "malo"], ["andre", "señora"], ["alaba", "hija"], ["aita", "padre"], ["ama", "madre"], ["ogi", "pan"], ["itsaso", "mar"], ["ur", "agua"], ["diru", "dinero"], ["asko", "mucho"], ["irakasle", "profesor"], ["bilera", "reunión"], ["egunkari", "periódico"]], "elk": [{"t": "Zer nahi duzu?", "sin": "Un caradura pide tabaco a un conocido; luego, dinero para comprarlo; y al final, fuego.", "sin_eu": "Paskualek ez du tabakorik eta ez du dirurik. Lagunak dirua ematen dio, eta gero... sua eskatzen du!", "fr": [["Ba al duzu tabakorik?", "¿Tienes tabaco?"], ["Honek du aurpegia!", "¡Este sí que tiene cara!"], ["Zer nahi duzu orain?", "¿Qué quieres ahora?"]]}], "irak": [{"t": "Pello eta Paskual", "sin": "Dos viejos amigos muy distintos: Pello, grande, fuerte y serio; Paskual, pequeño, con pelo largo y bastante sinvergüenza. Paskual quiere fumar, pero no tiene tabaco ni dinero; Pello, de mal genio, le da diez duros… y Paskual vuelve a pedir fuego.", "sin_eu": "Pello handia eta serioa da; Paskual txikia eta lotsagabea. Paskualek erre nahi du, baina ez du ezer. Pellok dirua ematen dio.", "fr": [["Pellok ez du ilerik buruan.", "Pello no tiene pelo en la cabeza."], ["Paskualek erre nahi du.", "Paskual quiere fumar."]], "gl": [["ordea", "en cambio"], ["lotsagabe", "sinvergüenza"], ["erre", "fumar"], ["ezin dut", "no puedo"], ["haserre", "enfadado"], ["gogor", "duro"]]}]}, {"n": 5, "eu": "Zenbat urte dituzu?", "es": "¿Cuántos años tienes?", "fam": "adi", "tags": ["adi", "den"], "key": "Con objeto plural el verbo cambia: <i lang=\"eu\">ditut, dituzu, ditu, ditugu, dituzue, dituzte</i>. Números vigesimales y los verbos <i lang=\"eu\">nahi</i>, <i lang=\"eu\">behar</i> y <i lang=\"eu\">balio izan</i>.", "typ": ["Zenbat urte dituzu?", "¿Cuántos años tienes?", "Zazpi urte ditut.", "Tengo siete años."], "teo": [{"h": "Objeto singular / plural", "p": "<i lang=\"eu\">izan</i> transitivo con objeto plural toma <i lang=\"eu\" class=\"nw\">-it-</i>: <i lang=\"eu\">ditut</i>… y la 3.ª plural, <i lang=\"eu\">dituzte</i>.", "ex": [["Nik liburua dut.", "Tengo un libro."], ["Nik liburuak ditut.", "Tengo libros."], ["Asteak zazpi egun ditu.", "La semana tiene siete días."]]}, {"h": "Los números", "p": "Sistema vigesimal: <i lang=\"eu\">hogei</i> (20), <i lang=\"eu\">hogeita hamar</i> (20 + 10 = 30), <i lang=\"eu\">berrogei</i> (2 × 20), <i lang=\"eu\">hirurogei</i> (60), <i lang=\"eu\">laurogei</i> (80), <i lang=\"eu\">ehun</i> (100), <i lang=\"eu\">mila</i> (1000). Tras las decenas, <i lang=\"eu\">eta</i> se reduce a <i lang=\"eu\" class=\"nw\">-ta</i> unido; tras <i lang=\"eu\">ehun</i>, <i lang=\"eu\">eta</i> va separado.", "ex": [["hogeita bat", "21"], ["berrogeita hamabost", "55"], ["ehun eta bat", "101"], ["mila bederatziehun eta laurogeita hamabost", "1995"]]}, {"h": "nahi, behar, balio izan", "p": "Llevan <i lang=\"eu\">izan</i> transitivo (sujeto NORK). En negativa se invierte el orden y lo negado queda en medio.", "ex": [["Nik zigarroa nahi dut.", "Quiero un cigarro."], ["Zuk bi ogi behar dituzu.", "Necesitas dos panes."], ["Ez dut zigarrorik nahi.", "No quiero ningún cigarro."], ["Horrek ez du asko balio.", "Eso no vale mucho."]]}], "trap": "Con <i lang=\"eu\">zenbat</i> y con números el nombre va sin artículo, pero el verbo concuerda en plural: <i lang=\"eu\">zazpi urte ditut</i>, no <s class=\"bad\">zazpi urte dut</s>.", "ohar": "18 se dice <i lang=\"eu\">hemezortzi</i> (o <i lang=\"eu\">hamazortzi</i>) y 19 <i lang=\"eu\">hemeretzi</i>. <i lang=\"eu\">Nola duzu izena?</i> = ¿cómo te llamas? (literalmente, ¿cómo tienes el nombre?).", "hitz": [["aldizkari", "revista"], ["irudi", "imagen"], ["gela", "habitación"], ["leiho", "ventana"], ["estu", "estrecho"], ["zabal", "ancho"], ["betaurrekoak", "gafas"], ["beltz", "negro"], ["aho", "boca"], ["belarri", "oreja"], ["hanka", "pierna"], ["beso", "brazo"], ["motz", "corto"], ["egun", "día"], ["aste", "semana"], ["ordu", "hora"], ["seme-alabak", "hijos"]], "elk": [{"t": "Zenbat urte dituzu?", "sin": "Una señora mayor pregunta a un niño su nombre y su edad. Tiene vacaciones hasta Reyes y, según él, se acaban enseguida.", "sin_eu": "Andre zahar batek mutiko bati izena eta urteak galdetzen dizkio. Enekok zazpi urte ditu eta oporrak ditu.", "fr": [["Nola duzu izena?", "¿Cómo te llamas?"], ["Eskolara joaten zara?", "¿Vas a la escuela?"], ["Berehala bukatzen dira, ordea…", "Pero se acaban enseguida…"]]}], "irak": [{"t": "Dolores eta Eneko", "sin": "Dolores, una señora mayor con abrigo negro y gafas, encuentra en la calle a Eneko, de siete años, que lleva pantalón corto y un caramelo en la boca. Tiene quince días de vacaciones, pero el niño se pone triste: se acaban enseguida.", "sin_eu": "Dolores kalean dabil eta Eneko ikusten du. Mutikoak zazpi urte ditu. Errege eguna arte oporrak ditu.", "fr": [["Mutikoak goxoki bat du ahoan.", "El chaval tiene un caramelo en la boca."], ["Hamabost egun! Bi aste!", "¡Quince días! ¡Dos semanas!"]], "gl": [["dabil", "anda"], ["oraindik", "todavía"], ["prakak", "pantalón"], ["goxoki", "caramelo"], ["Zein ederki!", "¡Qué bien!"], ["jartzen da", "se pone"]]}]}, {"n": 6, "eu": "Non bizi zara?", "es": "¿Dónde vives?", "fam": "kas", "tags": ["kas", "adi"], "key": "El caso NON (inesivo, «en»): <i lang=\"eu\" class=\"nw\">-an</i> / <i lang=\"eu\" class=\"nw\">-ean</i> en comunes, <i lang=\"eu\" class=\"nw\">-n</i> / <i lang=\"eu\" class=\"nw\">-en</i> en nombres de lugar. Con <i lang=\"eu\">bizi izan</i> (vivir) y las negativas <i lang=\"eu\">ezer ez</i>, <i lang=\"eu\">inor ez</i>, <i lang=\"eu\">inon ez</i>.", "typ": ["Non bizi zara?", "¿Dónde vives?", "Gasteizen bizi naiz.", "Vivo en Vitoria."], "teo": [{"h": "NON en nombres comunes", "p": "El sufijo <i lang=\"eu\" class=\"nw\">-n</i> va tras el artículo: <i lang=\"eu\" class=\"nw\">-an</i>. Tras consonante, <i lang=\"eu\" class=\"nw\">-ean</i>.", "ex": [["etxean", "en casa"], ["mahai txikian", "en la mesa pequeña"], ["lurrean", "en el suelo"], ["autobusean", "en el autobús"]]}, {"h": "NON en nombres de lugar", "p": "Sin artículo: <i lang=\"eu\" class=\"nw\">-n</i> tras vocal, <i lang=\"eu\" class=\"nw\">-en</i> tras consonante.", "ex": [["Bilbon, Donostian", "en Bilbao, en San Sebastián"], ["Gasteizen, Eibarren, Parisen", "en Vitoria, Eibar, París"]]}, {"h": "Demostrativos y adverbios", "p": "<i lang=\"eu\">honetan</i>, <i lang=\"eu\">horretan</i>, <i lang=\"eu\">hartan</i> (en este, ese, aquel). Adverbios: <i lang=\"eu\">hemen</i> (aquí), <i lang=\"eu\">hor</i> (ahí), <i lang=\"eu\">han</i> (allí).", "ex": [["Etxe horretan nire laguna bizi da.", "En esa casa vive mi amigo."]]}, {"h": "bizi izan", "p": "Su auxiliar es intransitivo: sujeto NOR. En negativa se invierte y lo negado queda entre ambas partes.", "ex": [["Ni Lekeition bizi naiz.", "Vivo en Lekeitio."], ["Ez naiz Zumarragan bizi.", "No vivo en Zumarraga."]]}, {"h": "ezer ez · inor ez · inon ez", "p": "Nada, nadie, en ninguna parte. Con verbo, van separados y en orden inverso; sin verbo, juntos. <i lang=\"eu\">ez</i> aparece una sola vez en la frase.", "ex": [["Ez dut ezer.", "No tengo nada."], ["Hemen ez da inor bizi.", "Aquí no vive nadie."], ["Inon ez.", "En ninguna parte."]]}], "trap": "Doble negación: <s class=\"bad\">Hemen ez da inor ez bizi</s> → <i lang=\"eu\">Hemen ez da inor bizi</i>.", "ohar": "<i lang=\"eu\">dago</i> (está, hay) aparece ya como léxico: <i lang=\"eu\">Zer dago Donostian? Hondartza dago.</i> Su conjugación completa llega en la lección 10.", "hitz": [["non", "dónde"], ["dago", "está, hay"], ["zubi", "puente"], ["plaza", "plaza"], ["hondartza", "playa"], ["poltsa", "bolsa"], ["aitona / amona", "abuelo / abuela"], ["sudur", "nariz"], ["arrain", "pez"], ["txori", "pájaro"], ["udaletxe", "ayuntamiento"], ["eliza", "iglesia"], ["auzo", "barrio"]], "elk": [{"t": "Lupe hemen bizi da?", "sin": "De noche, un hombre pregunta por Lupe Ugarte en una casa. La señora le indica que vive cerca, sobre una tienda pequeña, y que hay luz: alguien habrá en casa.", "sin_eu": "Fermin Luperen etxea bilatzen ari da. Emakume batek esaten dio Lupe ez dela urruti bizi.", "fr": [["Gabon, etxekoandre!", "Buenas noches, señora."], ["Ez, baina ez da urruti bizi.", "No, pero no vive lejos."], ["Argia piztua dago.", "La luz está encendida."]]}], "irak": [{"t": "Fermin eta Lupe", "sin": "Fermin, navarro de 31 años, vive en Pamplona y trabaja en un taller; Lupe, de Elizondo, es maestra. Al salir del trabajo Fermin busca su casa, llama a una puerta equivocada y una señora joven le orienta.", "sin_eu": "Fermin nafarra da eta Iruñean bizi da. Luperen etxea aurkitu nahi du. Emakume batek bidea erakusten dio.", "fr": [["Fermin nafarra da eta Iruñean bizi da.", "Fermin es navarro y vive en Pamplona."], ["Lasai, gizona. Ez da ezer.", "Tranquilo, hombre. No es nada."]], "gl": [["bere", "su"], ["aspalditik", "desde hace tiempo"], ["lan egiten du", "trabaja"], ["aurkitu", "encontrar"], ["goian", "arriba"], ["handik", "por allí"], ["mila esker", "muchas gracias"]]}]}, {"n": 7, "eu": "Nik ikusi dut", "es": "Yo lo he visto", "fam": "adi", "tags": ["adi", "men", "par"], "key": "<i lang=\"eu\">izan</i> como auxiliar: participio + <i lang=\"eu\">naiz</i> (intransitivos) o + <i lang=\"eu\">dut</i> (transitivos) da el pretérito perfecto. Además, la subordinada <i lang=\"eu\" class=\"nw\">-(e)la</i> («que») y <i lang=\"eu\">bait-</i> («pues»).", "typ": ["Etorri al da aitona?", "¿Ha venido el abuelo?", "Ez, etxean gelditu da.", "No, se ha quedado en casa."], "teo": [{"h": "Participio + auxiliar", "p": "<i lang=\"eu\">ikusi dut</i> (he visto), <i lang=\"eu\">erosi du</i> (lo ha comprado): transitivos, con <i lang=\"eu\">dut</i> y sujeto NORK. <i lang=\"eu\">etorri dira</i> (han venido), <i lang=\"eu\">ibili naiz</i> (he andado): intransitivos, con <i lang=\"eu\">naiz</i> y sujeto NOR. El auxiliar puede cambiar el sentido.", "ex": [["sartu naiz / sartu dut", "he entrado / he metido"], ["atera naiz / atera dut", "he salido / he sacado"], ["izan naiz / izan dut", "he sido, estado / he tenido"]]}, {"h": "Negativa y foco", "p": "La negativa invierte el orden: <i lang=\"eu\">ez dut ikusi</i>. Para negar un elemento concreto, se coloca entre las dos piezas.", "ex": [["Ez da etorri aitona.", "No ha venido el abuelo (niego la acción)."], ["Ez da aitona etorri; amona etorri da.", "No es el abuelo quien ha venido."]]}, {"h": "Verbos transitivos frecuentes", "p": "<i lang=\"eu\">egin, erabili, hartu, utzi, bildu, erosi, prestatu, jan, idatzi, irakurri, ireki, itxi, ikusi, entzun, sartu, atera, esan, galdetu, erantzun, ekarri, eraman, galdu, aurkitu, ezagutu, jarri, bete, ikasi, jarraitu, eskatu, eman</i>.", "ex": [["lan egin / hitz egin", "trabajar / hablar"]]}, {"h": "-(e)la: «que»", "p": "Subordina oraciones sustantivas (lo que se dice, se cree…).", "ex": [["Etxe polita dela esan du.", "Ha dicho que es una casa bonita."], ["Hor dagoela uste dut.", "Creo que está ahí."]]}, {"h": "bait- y eta: «pues, ya que»", "p": "<i lang=\"eu\">bait-</i> va pegado al verbo y cambia según el sonido: <i lang=\"eu\">bainaiz</i>, <i lang=\"eu\">baita</i>, <i lang=\"eu\">baitu</i>, <i lang=\"eu\">baikara</i>, <i lang=\"eu\">baitzara</i>. Lo mismo se expresa con <i lang=\"eu\">eta</i> al final de la segunda oración.", "ex": [["Ez dut ikusi, kanpoan izan bainaiz.", "No lo he visto, pues he estado fuera."], ["Presa dut, berandu da eta.", "Tengo prisa, que es tarde."]]}], "trap": "<s class=\"bad\">Nik etorri dut</s> → <i lang=\"eu\">Ni etorri naiz</i>: <i lang=\"eu\">etorri, joan, ibili, egon</i> son intransitivos y no llevan NORK.", "ohar": "La Academia (1992) recomienda escribir <i lang=\"eu\">bait-</i> unido al verbo y con los cambios fonéticos (<i lang=\"eu\">bainaiz</i>, no <s class=\"bad\">bait naiz</s>).", "hitz": [["goizean", "por la mañana"], ["eguerdian", "al mediodía"], ["arratsaldean", "por la tarde"], ["gauean", "por la noche"], ["janari", "comida"], ["bazkari", "comida (mediodía)"], ["bitartean", "mientras"], ["taberna", "bar"], ["edari", "bebida"], ["ohe", "cama"], ["lo gelditu", "dormirse"]], "elk": [{"t": "Gizon orratza", "sin": "Guion ilustrado del día de Kepa: trabaja por la mañana, compra comida, prepara la comida, sigue trabajando, toma algo en un bar con un amigo y se acuesta.", "sin_eu": "Kepak goizean lan egin du, janaria erosi du, bazkaria prestatu du eta gauean oheratu da.", "fr": [["Goizean Kepak lan egin du.", "Por la mañana Kepa ha trabajado."], ["Taberna batean edari bat eskatu du.", "Ha pedido una bebida en un bar."], ["Ohean sartu da eta lo gelditu da.", "Se ha acostado y se ha dormido."]]}, {"t": "Nork hartu du makina?", "sin": "En la oficina falta la máquina de escribir. Lurdes la usó antes pero la dejó en su sitio; quizá se la ha llevado Garbiñe.", "sin_eu": "Anak idazmakina behar du, baina ez dago. Lurdesek uste du Garbiñek eraman duela.", "fr": [["Nork hartu du idazmakina?", "¿Quién ha cogido la máquina de escribir?"], ["Beharbada Garbiñek eraman du.", "Quizá se la ha llevado Garbiñe."], ["Berari galdegiozu.", "Pregúntaselo a ella."]]}], "irak": [{"t": "Kepa Basterretxea (I)", "sin": "Kepa, de Ondarroa, vive solo en Bilbao y es escritor. Tras toda la mañana escribiendo, sale a comprar: pan pequeño, leche en botella, una chuleta y patatas. Paga 530 pesetas.", "sin_eu": "Kepa idazlea da eta Bilbon bizi da. Eguerdian dendara joan da eta ogia, esnea, haragia eta patatak erosi ditu.", "fr": [["Liburu batzuk idatzi ditu.", "Ha escrito algunos libros."], ["Janari batzuk behar ditut.", "Necesito algunos alimentos."]], "gl": [["idazle", "escritor"], ["idatzi", "escribir"], ["gelditu gabe", "sin parar"], ["utzi", "dejar"], ["esne", "leche"], ["mesedez", "por favor"], ["haragi", "carne"]]}, {"t": "Kepa Basterretxea (II)", "sin": "Kepa cocina mientras escucha la radio, come poco porque quiere trabajar por la tarde y lee el periódico. A las seis sale, entra en un bar y se encuentra con su viejo amigo Imanol, que está de vacaciones. Charlan hasta las diez.", "sin_eu": "Arratsaldean lan egin du eta gero tabernan Imanol lagun zaharra aurkitu du. Hizketan aritu dira berandu arte.", "fr": [["Bitartean irratia entzun du.", "Mientras, ha escuchado la radio."], ["Hizketan hasi dira.", "Se han puesto a hablar."]], "gl": [["bete", "llenar"], ["sukalde", "cocina"], ["horregatik", "por eso"], ["edari", "bebida"], ["ezagutu", "conocer"], ["behintzat", "al menos"]]}, {"t": "Idazmakina", "sin": "Ana llega pronto a la oficina para escribir unas cartas urgentes y descubre que falta la máquina. Lurdes le explica que la usó y la devolvió; sospecha de Garbiñe, que ha pasado por allí.", "sin_eu": "Anak eskutitzak idatzi behar ditu, baina idazmakina falta da. Lurdesek ez daki nork hartu duen.", "fr": [["Idazmakina falta da!", "¡Falta la máquina de escribir!"], ["Hor dabilela uste dut.", "Creo que anda por ahí."]], "gl": [["bulego", "oficina"], ["haserretu", "enfadarse"], ["noski", "claro"], ["presa", "prisa"], ["uste izan", "creer"], ["itzal", "sombra"]]}]}, {"n": 8, "eu": "Norena da giltza?", "es": "¿De quién es la llave?", "fam": "kas", "tags": ["kas", "sin", "par"], "key": "El genitivo posesivo NOREN (<i lang=\"eu\" class=\"nw\">-(r)en</i>): el poseedor va siempre delante de lo poseído. Si se omite el nombre, el determinante pasa al genitivo: <i lang=\"eu\">neskarena</i>.", "typ": ["Norena da liburua?", "¿De quién es el libro?", "Liburua, nirea da.", "El libro es mío."], "teo": [{"h": "Formas de NOREN", "p": "Comunes: <i lang=\"eu\" class=\"nw\">-aren</i> (<i lang=\"eu\">mutilaren gela</i>). Propios: <i lang=\"eu\" class=\"nw\">-en</i> tras consonante, <i lang=\"eu\" class=\"nw\">-ren</i> tras vocal (<i lang=\"eu\">Mikelen</i>, <i lang=\"eu\">Pilirena</i>). Pronombres: <i lang=\"eu\">nire, zure, gure, zuen</i>. Demostrativos: <i lang=\"eu\">honen, horren, haren</i>. <i lang=\"eu\">bere</i> = su (de él mismo).", "ex": [["neskaren izena", "el nombre de la chica"], ["Albertoren irakaslea", "el profesor de Alberto"], ["Mirenek bere ahizpa ikusi du.", "Miren ha visto a su (propia) hermana."]]}, {"h": "Posición en el sintagma", "p": "El genitivo va a la izquierda del núcleo.", "ex": [["Isabelen seme txiki hori", "ese hijo pequeño de Isabel"], ["gizon horren etxea", "la casa de ese hombre"]]}, {"h": "Elipsis del núcleo", "p": "Sin el nombre, el determinante se une al genitivo: <i lang=\"eu\">neskaren liburua → neskarena</i>; <i lang=\"eu\">zure begiak → zureak</i>.", "ex": [["Hau nirea da.", "Esto es mío."], ["Ez da gurea, harena da.", "No es nuestro, es de aquel."]]}, {"h": "Dos preguntas", "p": "<i lang=\"eu\">Norena da…?</i> pregunta por el dueño; <i lang=\"eu\">Noren … da?</i> pregunta con el objeto dentro. También <i lang=\"eu\">zeinena</i> (de cuál).", "ex": [["Norenak dira betaurrekoak?", "¿De quién son las gafas?"], ["Noren betaurrekoak dira hauek?", "¿De quién son estas gafas?"]]}, {"h": "hara · bezala · bezalako", "p": "<i lang=\"eu\">Hara!</i> expresa sorpresa (¡caramba!); como adverbio, «allá». <i lang=\"eu\">bezala</i> compara acciones (como), <i lang=\"eu\">bezalako</i> compara cualidades (como, igual que).", "ex": [["Eneko Julen bezala dabil.", "Eneko anda como Julen."], ["Nire etxea zurea bezalakoa da.", "Mi casa es como la tuya."]]}], "trap": "Orden castellano: <s class=\"bad\">liburua neskaren</s> → <i lang=\"eu\">neskaren liburua</i>. El dueño siempre delante.", "ohar": "Parentesco: <i lang=\"eu\">arreba</i> es la hermana de un hombre y <i lang=\"eu\">ahizpa</i> la de una mujer; <i lang=\"eu\">anaia</i>, hermano. <i lang=\"eu\">bakoitzak bere etxea du</i> = cada uno tiene su casa.", "hitz": [["arreba", "hermana (de él)"], ["ahizpa", "hermana (de ella)"], ["anaia", "hermano"], ["jostailu", "juguete"], ["lore", "flor"], ["zakur", "perro"], ["giltza", "llave"], ["alkandora", "camisa"], ["gorri", "rojo"], ["urdin", "azul"], ["zuri", "blanco"], ["bakoitz", "cada uno"]], "elk": [{"t": "Nirea bezalakoa!", "sin": "Dos amigas descubren que llevan el mismo vestido, comprado en la tienda de Marisa: buenos precios… pero todos los modelos iguales.", "sin_eu": "Martinaren eta Karmeleren soinekoak berdinak dira. Biak Marisaren dendan erosi dituzte.", "fr": [["Zure soinekoa nirea bezalakoa da!", "¡Tu vestido es como el mío!"], ["Marisaren dendan erosi duzu, noski.", "Lo has comprado en la tienda de Marisa, claro."], ["Baina modelo guztiak, berdinak!", "¡Pero todos los modelos, iguales!"]]}], "irak": [{"t": "Martina", "sin": "Martina compra comida, la guarda en casa y vuelve a salir a por un vestido. En la tienda de Marisa elige uno azul con flores rojas (7.000 pesetas), se lo prueba y sale contenta… hasta que se encuentra con su amiga Karmele, que lleva el mismo.", "sin_eu": "Martinak soineko berri bat erosi du Marisaren dendan. Bidean Karmele aurkitu du, eta haren soinekoa berea bezalakoa da!", "fr": [["Soineko berri bat behar du.", "Necesita un vestido nuevo."], ["Zuretzat egokia dela uste dut.", "Creo que es adecuado para ti."]], "gl": [["hozkailu", "nevera"], ["aukeratu", "elegir"], ["garesti", "caro"], ["merke", "barato"], ["ispilu", "espejo"], ["arrazoi", "razón"], ["adiskide", "amigo"]]}]}, {"n": 9, "eu": "Nongoa zara zu?", "es": "¿De dónde eres?", "fam": "kas", "tags": ["kas", "sin", "par", "den", "men"], "key": "El genitivo locativo NONGO (<i lang=\"eu\" class=\"nw\">-ko</i>, «de» lugar o tiempo), que también va delante del núcleo. Con él: palabras de situación (<i lang=\"eu\">aurrean</i>, <i lang=\"eu\">atzean</i>…), <i lang=\"eu\">omen</i>, ordinales y <i lang=\"eu\">zergatik? -elako</i>.", "typ": ["Nongoa da neska hori?", "¿De dónde es esa chica?", "Bilbokoa da.", "Es de Bilbao."], "teo": [{"h": "NONGO en comunes", "p": "<i lang=\"eu\" class=\"nw\">-ko</i> sin artículo tras vocal; <i lang=\"eu\" class=\"nw\">-eko</i> tras consonante (y con <i lang=\"eu\">gau</i>). También para el tiempo: <i lang=\"eu\">noizko?</i>.", "ex": [["etxeko zakurra", "el perro de casa"], ["autobuseko jendea", "la gente del autobús"], ["gaueko izarrak", "las estrellas de la noche"], ["arratsaldeko bilera", "la reunión de la tarde"]]}, {"h": "NONGO en nombres de lugar", "p": "<i lang=\"eu\" class=\"nw\">-ko</i> (<i lang=\"eu\">Bilboko</i>, <i lang=\"eu\">Eibarko</i>); tras <i lang=\"eu\" class=\"nw\">-l</i> o <i lang=\"eu\" class=\"nw\">-n</i>, <i lang=\"eu\" class=\"nw\">-go</i> (<i lang=\"eu\">Usurbilgo</i>, <i lang=\"eu\">Baztango</i>). Si la <i lang=\"eu\" class=\"nw\">-a</i> final es artículo, cae (<i lang=\"eu\">Bizkaiko</i>, <i lang=\"eu\">Iruñeko</i>); si es de la palabra, se queda (<i lang=\"eu\">Donostiako</i>).", "ex": [["Gasteizko jaiak", "las fiestas de Vitoria"], ["Idiazabalgo gazta", "el queso de Idiazabal"], ["Hondarribiko aireportua", "el aeropuerto de Hondarribia"]]}, {"h": "Demostrativos y adverbios", "p": "<i lang=\"eu\">honetako, horretako, hartako</i>; <i lang=\"eu\">hemengo, horko, hango</i>; <i lang=\"eu\">atzoko, gaurko, lehengo, oraingo, geroko, biharko</i>.", "ex": [["gaurko egunkaria", "el periódico de hoy"], ["hango etxe hura", "aquella casa de allí"]]}, {"h": "Elipsis", "p": "Sin núcleo, el determinante pasa a <i lang=\"eu\" class=\"nw\">-ko</i>: <i lang=\"eu\">Bilboko taldea → Bilbokoa</i>.", "ex": [["Hau etxekoa da.", "Este es de casa."]]}, {"h": "Situación: aurre, atze, erdi, goi, behe…", "p": "Con NON: <i lang=\"eu\">aurrean</i> (delante), <i lang=\"eu\">atzean</i> (detrás), <i lang=\"eu\">erdian</i> (en medio), <i lang=\"eu\">goian</i> (arriba), <i lang=\"eu\">behean</i> (abajo), <i lang=\"eu\">gainean</i> (encima), <i lang=\"eu\">azpian</i> (debajo), <i lang=\"eu\">barruan</i> (dentro), <i lang=\"eu\">kanpoan</i> (fuera), <i lang=\"eu\">ondoan</i> (al lado), <i lang=\"eu\">inguruan</i> (alrededor), <i lang=\"eu\">ezkerrean / eskuinean</i>.", "ex": [["Etxe ondoan zakurra dago.", "Junto a la casa hay un perro."], ["Teilatu gainean tximinia dago.", "Sobre el tejado hay una chimenea."]]}, {"h": "omen · ordinales · -elako · nahiko / samar", "p": "<i lang=\"eu\">omen</i> = «dicen que, por lo visto», delante del auxiliar. Ordinales con <i lang=\"eu\" class=\"nw\">-garren</i> (<i lang=\"eu\">bigarren</i>), salvo <i lang=\"eu\">lehen(engo)</i> y <i lang=\"eu\">azken</i>. <i lang=\"eu\">Zergatik?</i> se responde con <i lang=\"eu\" class=\"nw\">-elako</i> (porque). <i lang=\"eu\">nahiko</i> va delante; <i lang=\"eu\">samar</i>, solo detrás del adjetivo.", "ex": [["Oso ona omen da.", "Dicen que es muy bueno."], ["hogeigarren mendea", "el siglo XX"], ["Berandu delako.", "Porque es tarde."], ["handi samarra / nahiko handia", "bastante grande"]]}], "trap": "NON y NONGO no son lo mismo: <i lang=\"eu\">etxean</i> (en casa) frente a <i lang=\"eu\">etxeko</i> (de casa). NONGO siempre acompaña a un nombre, expreso u omitido.", "ohar": "<i lang=\"eu\">harrizko</i> (de piedra) y <i lang=\"eu\">egurrezko</i> (de madera) usan <i lang=\"eu\" class=\"nw\">-zko</i> para la materia. <i lang=\"eu\">Analfabetoa naizelako</i> = porque soy analfabeto.", "hitz": [["udaletxe", "ayuntamiento"], ["katedral", "catedral"], ["arbola / zuhaitz", "árbol"], ["talde", "grupo"], ["jende", "gente"], ["osaba", "tío"], ["atzo", "ayer"], ["gaur", "hoy"], ["partidu", "partido"], ["igande", "domingo"], ["alde", "lado, parte"]], "elk": [{"t": "Hormako irudiak", "sin": "Un guía enseña una casa del siglo XVII y sus pinturas: el señor y la señora de la casa, un barco y una inscripción que él no sabe leer… no por estar en latín, sino porque es analfabeto.", "sin_eu": "Etxe hau oso zaharra omen da. Hormako irudietan etxeko nagusia eta andrea daude. Gidak ezin du idatzia ulertu.", "fr": [["Etxe hau hamazazpigarren mendekoa da.", "Esta casa es del siglo XVII."], ["Herriko zaharrena omen da.", "Dicen que es la más antigua del pueblo."], ["Zergatik? Latinez dagoelako?", "¿Por qué? ¿Porque está en latín?"]]}], "irak": [{"t": "Azpilikueta", "sin": "Azpilikueta, en el camino de Pamplona, es un pueblo pequeño: plaza con ayuntamiento, iglesia y bar, frontón bajo el ayuntamiento. Una fábrica nueva ha traído gente. Un profesor de Bilbao visita el viejo palacio con Anbrosio, empleado municipal, que explica las pinturas… y confiesa que es analfabeto.", "sin_eu": "Azpilikueta herri txikia da. Bilboko irakasle batek jauregi zaharra ikusi nahi du. Anbrosiok erakusten dio.", "fr": [["Plaza erdian dago.", "La plaza está en el centro."], ["Bilboko irakaslea omen da.", "Dicen que es profesor de Bilbao."]], "gl": [["samar", "bastante"], ["itxura", "aspecto"], ["antzinako", "antiguo"], ["jauregi", "palacio"], ["jabe", "dueño"], ["gutxienez", "por lo menos"], ["aitortu", "confesar"]]}]}, {"n": 10, "eu": "Nola dago haurra?", "es": "¿Cómo está el niño?", "fam": "adi", "tags": ["adi", "kas", "men"], "key": "Los verbos sintéticos se conjugan sin auxiliar: <i lang=\"eu\">egon</i> (estar) y <i lang=\"eu\">ibili</i> (andar). Respuestas a <i lang=\"eu\">nola?</i>, el instrumental <i lang=\"eu\" class=\"nw\">-z</i> y las interrogativas indirectas con <i lang=\"eu\" class=\"nw\">-(e)n</i>.", "typ": ["Nola dago haurra?", "¿Cómo está el niño?", "Haurra pozik dago.", "El niño está contento."], "teo": [{"h": "egon y ibili · presente", "p": "<i lang=\"eu\">egon</i>: <i lang=\"eu\">nago, zaude, dago, gaude, zaudete, daude</i>. <i lang=\"eu\">ibili</i>: <i lang=\"eu\">nabil, zabiltza, dabil, gabiltza, zabiltzate, dabiltza</i>. <i lang=\"eu\">egon</i> es un estar estático; <i lang=\"eu\">izan</i> también es «estar» (<i lang=\"eu\">Londresen izan naiz</i>).", "ex": [["Gu nekatuak gaude.", "Estamos cansados."], ["Gazteak mendian dabiltza.", "Los jóvenes andan por el monte."]]}, {"h": "Respuestas a nola?", "p": "Con adverbios, adjetivos, participios y otras formas: <i lang=\"eu\">ondo, gaizki, bakarrik, zutik, lo, pozik, haserre, eserita, azkar, lasai</i>. <i lang=\"eu\">Así</i>: <i lang=\"eu\">honela, horrela, hala</i> (de esta, esa, aquella manera).", "ex": [["Ruperto zutik dago.", "Ruperto está de pie."], ["Ni honela nabil.", "Yo ando así."]]}, {"h": "nekatua / nekatuta · gaixo / gaixorik", "p": "<i lang=\"eu\">nekatua</i> concuerda en número (<i lang=\"eu\">nekatuak</i>); <i lang=\"eu\">nekatuta</i> es invariable. Con algunos adjetivos <i lang=\"eu\" class=\"nw\">-ik</i> es opcional: <i lang=\"eu\">gaixo(rik) dago</i>, <i lang=\"eu\">hutsik daude</i>.", "ex": [["Neskak nekatuak / nekatuta daude.", "Las chicas están cansadas."]]}, {"h": "Instrumental -z", "p": "Medio, instrumento, materia o lengua: <i lang=\"eu\" class=\"nw\">-z</i> (tras consonante, <i lang=\"eu\" class=\"nw\">-ez</i>).", "ex": [["oinez, trenez", "a pie, en tren"], ["eskuz, makinaz", "a mano, a máquina"], ["harriz, egurrez", "de piedra, de madera"], ["euskaraz, telefonoz", "en euskera, por teléfono"]]}, {"h": "Interrogativas indirectas -(e)n", "p": "Si la subordinada es una pregunta, el sufijo es <i lang=\"eu\" class=\"nw\">-(e)n</i> (no <i lang=\"eu\" class=\"nw\">-(e)la</i>).", "ex": [["Hori zer den galdetu du.", "Ha preguntado qué es eso."], ["Badakizu non bizi garen.", "Ya sabes dónde vivimos."]]}], "trap": "<s class=\"bad\">Neskak nekatutak daude</s> → <i lang=\"eu\">nekatuak</i> o <i lang=\"eu\">nekatuta</i>. La forma en <i lang=\"eu\" class=\"nw\">-ta</i> no admite plural.", "ohar": "Distingue <i lang=\"eu\">izan</i> y <i lang=\"eu\">egon</i>: <i lang=\"eu\">Londresen izan naiz</i> (he estado en Londres, de paso) / <i lang=\"eu\">gaixorik egon naiz</i> (he estado enfermo, una situación).", "hitz": [["isilik", "callado"], ["eserita", "sentado"], ["lotua / askatua", "atado / suelto"], ["aspertuta", "aburrido"], ["presaka", "deprisa"], ["poliki", "despacio"], ["bizkor", "ágil, bien"], ["bero / hotz", "caliente / frío"], ["bete / huts", "lleno / vacío"], ["ireki / itxi", "abierto / cerrado"], ["eguraldi", "tiempo (clima)"]], "elk": [{"t": "Nola zaude orain?", "sin": "Una tía encuentra a su sobrino Imanol tras su enfermedad. Está algo cansado; sus padres están de vacaciones en Marbella y él solo en casa. Ella le ofrece su casa.", "sin_eu": "Imanol gaixorik egon da. Orain hobeto dago, baina bakarrik dago etxean. Izebak laguntza eskaintzen dio.", "fr": [["Badakit gaixorik egon zarela.", "Ya sé que has estado enfermo."], ["Nekatu samarra… Nahiko ondo, hala ere.", "Algo cansado… Bastante bien, de todos modos."], ["Etorri nahi duzunean.", "Ven cuando quieras."]]}], "irak": [{"t": "Alizia eta Imanol", "sin": "Alizia, tía de Imanol, trabaja en una oficina de Vitoria; él estudia Magisterio. Tras un mes enfermo, Imanol ha vuelto a clase, bien abrigado y a pie. Sus padres están en Marbella; él come en el bar de al lado, cuyo dueño le trata como a un hijo.", "sin_eu": "Imanol hobeto dago eta berriz hasi da eskolan. Gurasoak oporretan daude. Imanolek tabernan bazkaltzen du.", "fr": [["Oinez dabil.", "Anda a pie."], ["Gure etxea zurea dela badakizu.", "Ya sabes que nuestra casa es la tuya."]], "gl": [["izeba / iloba", "tía / sobrino"], ["hobeto", "mejor"], ["eguraldi hotza", "tiempo frío"], ["jubilatua", "jubilado"], ["moldatu", "arreglarse"]]}]}, {"n": 11, "eu": "Zertara zatozte?", "es": "¿A qué venís?", "fam": "kas", "tags": ["kas", "adi", "men"], "key": "<i lang=\"eu\">joan</i> (ir) y <i lang=\"eu\">etorri</i> (venir) sintéticos con los casos NORA (<i lang=\"eu\" class=\"nw\">-ra</i>, a dónde) y NONDIK (<i lang=\"eu\" class=\"nw\">-tik</i>, de dónde). Finalidad con <i lang=\"eu\" class=\"nw\">-t(z)era</i>, mandatos indirectos con <i lang=\"eu\" class=\"nw\">-t(z)eko</i> y tiempo con <i lang=\"eu\" class=\"nw\">-(e)nean</i>.", "typ": ["Nora zoaz?", "¿A dónde vas?", "Mendira noa.", "Voy al monte."], "teo": [{"h": "joan y etorri · presente", "p": "<i lang=\"eu\">joan</i>: <i lang=\"eu\">noa, zoaz, doa, goaz, zoazte, doaz</i>. <i lang=\"eu\">etorri</i>: <i lang=\"eu\">nator, zatoz, dator, gatoz, zatozte, datoz</i>.", "ex": [["Langileak lanera doaz.", "Los trabajadores van al trabajo."], ["Ni eskolatik nator.", "Vengo de la escuela."]]}, {"h": "NORA (adlativo)", "p": "<i lang=\"eu\" class=\"nw\">-ra</i>; tras consonante, <i lang=\"eu\" class=\"nw\">-era</i> (<i lang=\"eu\">lanera</i>). Lugares en consonante: <i lang=\"eu\" class=\"nw\">-a</i> o <i lang=\"eu\" class=\"nw\">-era</i> (<i lang=\"eu\">Gasteiza</i>, <i lang=\"eu\">Parisera</i>). <i lang=\"eu\">honetara, horretara, hartara</i>; <i lang=\"eu\">hona, horra, hara</i>.", "ex": [["Bilbora noa.", "Voy a Bilbao."], ["Ekarri paperak hona.", "Trae los papeles aquí."]]}, {"h": "NONDIK (ablativo)", "p": "<i lang=\"eu\" class=\"nw\">-tik</i>; tras consonante, <i lang=\"eu\" class=\"nw\">-etik</i>. Lugares: <i lang=\"eu\" class=\"nw\">-tik</i> (<i lang=\"eu\">Gasteiztik</i>); tras <i lang=\"eu\" class=\"nw\">-l, -n</i>, <i lang=\"eu\" class=\"nw\">-dik</i> (<i lang=\"eu\">Irundik</i>). <i lang=\"eu\">honetatik, horretatik, hartatik</i>; <i lang=\"eu\">hemendik, hortik, handik</i>. Con tiempo: <i lang=\"eu\">noiztik?</i> (<i lang=\"eu\">atzotik</i>, desde ayer).", "ex": [["Trena Irundik iritsi da.", "El tren ha llegado de Irun."], ["Jendea batetik bestera dabil.", "La gente va de un lado a otro."]]}, {"h": "-t(z)era: «a» + infinitivo", "p": "Finalidad con verbos de movimiento; pregunta <i lang=\"eu\">zertara?</i>. <i lang=\"eu\" class=\"nw\">-tera</i> tras participios en <i lang=\"eu\">-n, -si, -zi, -tsi, -tzi, -txi</i> (<i lang=\"eu\">egitera, erostera</i>); el resto <i lang=\"eu\" class=\"nw\">-tzera</i> (<i lang=\"eu\">garbitzera</i>).", "ex": [["Lan egitera dator.", "Viene a trabajar."], ["Zuri laguntzera nator!", "¡Vengo a ayudarte!"]]}, {"h": "-t(z)eko esan y -(e)nean", "p": "Un mandato referido se subordina con <i lang=\"eu\" class=\"nw\">-t(z)eko</i>. <i lang=\"eu\" class=\"nw\">-(e)nean</i> = cuando.", "ex": [["Amak etortzeko esan dio alabari.", "La madre le ha dicho a la hija que venga."], ["Lana bukatu duenean atera da.", "Ha salido cuando ha terminado el trabajo."]]}], "trap": "Confundir NON y NORA: <s class=\"bad\">Etxean noa</s> → <i lang=\"eu\">Etxera noa</i> (con movimiento hacia, NORA).", "ohar": "Infinitivos con <i lang=\"eu\" class=\"nw\">-te</i>: <i lang=\"eu\">ematera, jatera, ikustera, uztera, ixtera</i>; con <i lang=\"eu\" class=\"nw\">-tze</i>: <i lang=\"eu\">ateratzera, hartzera, jotzera, laguntzera</i>.", "hitz": [["lan", "trabajo"], ["ohe", "cama"], ["eskailera", "escalera"], ["haize", "viento"], ["sagu", "ratón"], ["zulo", "agujero"], ["hegazkin", "avión"], ["euria", "lluvia"], ["arrautza", "huevo"], ["txoko", "rincón"], ["azal", "piel, cáscara"]], "elk": [{"t": "Laguntza ederra", "sin": "Un niño entra en la tienda de su padre diciendo que viene a ayudar. Al llevar una caja de huevos, el padre resbala con la piel de plátano que el niño tiró al suelo.", "sin_eu": "Xabier aitari laguntzera dator. Arrautzak eramaten ari direla, aita erori egin da platano azalarekin.", "fr": [["Zertara zatoz hona?", "¿A qué vienes aquí?"], ["Nork arraio bota du azal hau lurrera?", "¿Quién rayos ha echado esta piel al suelo?"], ["Laguntza ederra eman didazu!", "¡Menuda ayuda me has dado!"]]}], "irak": [{"t": "Xabier", "sin": "Xabier, nueve años, listo pero algo travieso. Es sábado: se aburre en la calle y va a la tienda de comestibles de su padre, en la Calle Mayor. Se come un plátano, tira la piel y, al ayudar con los huevos, su padre resbala. Todo acaba en el suelo, roto y sucio.", "sin_eu": "Xabierrek bederatzi urte ditu. Aitaren dendara joan da laguntzera, baina platano azala lurrera bota du eta aita erori da.", "fr": [["Ez du euria ari.", "No llueve."], ["Goitik behera zikindu da.", "Se ha manchado de arriba abajo."]], "gl": [["bihurri", "travieso"], ["larunbata", "sábado"], ["gosaldu", "desayunar"], ["erabaki", "decidir"], ["irristatu", "resbalar"], ["puskatu", "romperse"], ["zapaldu", "pisar"], ["baldar", "torpe"]]}]}, {"n": 12, "eu": "Egunero etortzen naiz", "es": "Vengo todos los días", "fam": "adi", "tags": ["adi", "den"], "key": "El presente habitual: nombre verbal + <i lang=\"eu\" class=\"nw\">-n</i> + auxiliar (<i lang=\"eu\">etortzen naiz</i>, <i lang=\"eu\">egiten du</i>). Días de la semana, horas en punto y la perífrasis <i lang=\"eu\">ari izan</i> (estar haciendo).", "typ": ["Zer ordutan bazkaltzen duzu?", "¿A qué hora comes?", "Ordu bietan.", "A las dos."], "teo": [{"h": "Presente habitual", "p": "Al participio se añade <i lang=\"eu\" class=\"nw\">-tzen</i> o <i lang=\"eu\" class=\"nw\">-ten</i>: <i lang=\"eu\" class=\"nw\">-ten</i> si acaba en <i lang=\"eu\" class=\"nw\">-n</i>, sibilante + <i lang=\"eu\">i</i> (<i lang=\"eu\">-si, -zi, -tsi, -tzi, -txi</i>) o <i lang=\"eu\" class=\"nw\">-ztu</i>; los demás, <i lang=\"eu\" class=\"nw\">-tzen</i>.", "ex": [["hartu → hartzen", "coger"], ["egin → egiten", "hacer"], ["ikusi → ikusten", "ver"], ["piztu → pizten", "encender"]]}, {"h": "Sintéticos frente a habituales", "p": "<i lang=\"eu\">dago</i> (está) / <i lang=\"eu\">egoten da</i> (suele estar); <i lang=\"eu\">nabil</i> / <i lang=\"eu\">ibiltzen naiz</i>; <i lang=\"eu\">ona da</i> / <i lang=\"eu\">ona izaten da</i>. Los compuestos de <i lang=\"eu\">izan</i> (<i lang=\"eu\">nahi, behar, bizi, uste, ari</i>) usan <i lang=\"eu\">izan</i> e <i lang=\"eu\">izaten</i>.", "ex": [["behar du / behar izan du / behar izaten du", "necesita / ha necesitado / suele necesitar"]]}, {"h": "Días de la semana", "p": "<i lang=\"eu\">astelehen, astearte, asteazken, ostegun, ostiral, larunbat, igande</i>. Con <i lang=\"eu\">noiz?</i> van en NON: <i lang=\"eu\">ostiralean</i> (el viernes).", "ex": [["Igandean mendira joaten gara.", "El domingo solemos ir al monte."]]}, {"h": "Las horas en punto", "p": "<i lang=\"eu\">Zer ordu da?</i> → <i lang=\"eu\">ordu bata, ordu biak, hirurak, laurak… hamabiak</i>. <i lang=\"eu\">Zer ordutan?</i> → <i lang=\"eu\">ordu batean, ordu bietan, hiruretan… hamabietan</i>.", "ex": [["Orain hamabiak dira.", "Ahora son las doce."], ["Zazpietan jaikitzen da.", "Se levanta a las siete."]]}, {"h": "ari izan", "p": "«Estar haciendo algo»: nombre verbal en <i lang=\"eu\" class=\"nw\">-t(z)en</i> + <i lang=\"eu\">ari</i> + <i lang=\"eu\">naiz/da</i>… Admite otros elementos (<i lang=\"eu\">lanean ari da</i>, <i lang=\"eu\">barrez ari zara</i>). Negativa: <i lang=\"eu\">ez da ikasten ari</i>. Para el tiempo: <i lang=\"eu\">euria ari du</i>.", "ex": [["Irakurtzen ari dira.", "Están leyendo."], ["Umeak jolasean ari dira.", "Los niños están jugando."]]}], "trap": "<s class=\"bad\">Egunero nago bulegoan</s> para lo habitual → <i lang=\"eu\">Egunero egoten naiz bulegoan</i>.", "ohar": "Adverbios: <i lang=\"eu\">beti, batzuetan, askotan, gutxitan, gehienetan, inoiz ez / behin ere ez</i>; <i lang=\"eu\">goizean, eguerdian, arratsaldean, arratsean, gauean</i>.", "hitz": [["jaiki", "levantarse"], ["jantzi / jazten", "vestir(se)"], ["gosaldu", "desayunar"], ["bazkaldu", "comer"], ["afaldu", "cenar"], ["hasi / bukatu", "empezar / acabar"], ["jo", "golpear, tocar"], ["arropa", "ropa"], ["barrez", "riendo"], ["negarrez", "llorando"], ["ume", "niño"]], "elk": [{"t": "Itziarren eguna", "sin": "Un día cualquiera de Itziar: se levanta a las siete, trabaja de nueve a una y por la tarde hasta las seis, va a inglés; el sábado limpia, sale con amigos y va al baile o al cine.", "sin_eu": "Itziar egunero zazpietan jaikitzen da eta bederatzietan hasten da lanean. Larunbatean ez du lanik egiten.", "fr": [["Itziar egunero zazpietan jaikitzen da.", "Itziar se levanta todos los días a las siete."], ["Bederatzietan hasten da lanean.", "Empieza a trabajar a las nueve."], ["Larunbatean ez du lanik egiten.", "El sábado no trabaja."]]}], "irak": [{"t": "Herriko jaiak", "sin": "Crónica del día grande de las fiestas, San Miguel: charanga y niños bailando, mayores charlando en la plaza, bertsolaris en el balcón del ayuntamiento, comida larga, partido de pelota que gana el equipo local (20-19) y baile con una orquestina de Durango hasta la una.", "sin_eu": "Gaur San Migel eguna da. Bertsolariak kantatzen ari dira, herriko pilotariek irabazi dute eta gauean dantzaldia dago.", "fr": [["Jende asko dabil plazan.", "Hay mucha gente en la plaza."], ["Bertsoak kantatzen ari dira.", "Están cantando versos."]], "gl": [["nagusi", "principal"], ["saltoka", "a saltos"], ["alai", "alegre"], ["ugari", "abundante"], ["txaloak jo", "aplaudir"], ["berezi", "especial"], ["irabazi", "ganar"], ["dantzaldi", "baile"]]}]}, {"n": 13, "eu": "Nori eman diozu giltza?", "es": "¿A quién le has dado la llave?", "fam": "kas", "tags": ["kas", "adi", "den", "par"], "key": "El dativo NORI (<i lang=\"eu\" class=\"nw\">-(r)i</i>) y el auxiliar NOR-NORI-NORK: <i lang=\"eu\">diot, diozu, dio…</i> («se lo»); con objeto plural, <i lang=\"eu\">dizkiot</i>. Horas con minutos, <i lang=\"eu\">baietz / ezetz</i> y la partícula <i lang=\"eu\">ere</i>.", "typ": ["Zer erosi dio amak alabari?", "¿Qué le ha comprado la madre a la hija?", "Gona bat erosi dio.", "Le ha comprado una falda."], "teo": [{"h": "Formas de NORI", "p": "Propios: <i lang=\"eu\" class=\"nw\">-i</i> tras consonante, <i lang=\"eu\" class=\"nw\">-ri</i> tras vocal (<i lang=\"eu\">Mikeli</i>, <i lang=\"eu\">Idoiari</i>). Comunes singular: <i lang=\"eu\" class=\"nw\">-ari</i> (<i lang=\"eu\">gizonari</i>). Demostrativos: <i lang=\"eu\">honi, horri, hari</i>. Preguntas: <i lang=\"eu\">nori, zeini, zeri</i>.", "ex": [["Mireni egunkaria ekarri diot.", "Le he traído el periódico a Miren."]]}, {"h": "NOR-NORI-NORK (a él)", "p": "El dativo de 3.ª persona es <i lang=\"eu\" class=\"nw\">-io-</i>: <i lang=\"eu\">diot, diozu, dio, diogu, diozue, diote</i>. Con objeto plural, infijo <i lang=\"eu\" class=\"nw\">-zki-</i>: <i lang=\"eu\">dizkiot, dizkiozu…</i>", "ex": [["Liburua erosi dut. / Mikeli liburua erosi diot.", "He comprado un libro. / Le he comprado un libro a Mikel."], ["Kepari liburuak utzi dizkiot.", "Le he dejado los libros a Kepa."]]}, {"h": "Horas con minutos", "p": "<i lang=\"eu\">eta bost, eta hamar, eta laurden, eta erdiak</i> (y cinco, y diez, y cuarto, y media) — en la media, la hora va sin artículo (<i lang=\"eu\">bat eta erdiak</i>). «Menos»: <i lang=\"eu\">bost gutxi(ago)</i>, <i lang=\"eu\">laurden gutxi(ago)</i>. Para «a las…», <i lang=\"eu\" class=\"nw\">-(e)an / -tan</i>.", "ex": [["Ordu biak eta laurden.", "Las dos y cuarto."], ["Bost eta erdietan.", "A las cinco y media."], ["Zortziak laurden gutxitan.", "A las ocho menos cuarto."]]}, {"h": "baietz / ezetz", "p": "«Que sí / que no» para subordinar <i lang=\"eu\">bai, ez</i>. Con participio: «¡a que sí / a que no…!».", "ex": [["Baietz uste dut.", "Creo que sí."], ["Ezetz igarri zer den!", "¡A que no adivinas qué es!"]]}, {"h": "ere", "p": "«También», detrás de lo afirmado; en negativa, «tampoco». <i lang=\"eu\">ere bai / ere ez</i> al suprimir lo repetido; <i lang=\"eu\">baita … ere / ezta … ere</i>. Otras: <i lang=\"eu\">batez ere</i> (sobre todo), <i lang=\"eu\">hala ere</i> (sin embargo), <i lang=\"eu\">izan ere</i> (en efecto).", "ex": [["Mikel etorri da, eta Miren ere bai.", "Mikel ha venido, y Miren también."], ["Andoni ez da etorri; ezta Miren ere.", "Andoni no ha venido; Miren tampoco."]]}], "trap": "Olvidar el dativo en el verbo: <s class=\"bad\">Mireni liburua eman dut</s> → <i lang=\"eu\">eman diot</i>. Y con objeto plural, <i lang=\"eu\">dizkiot</i>.", "ohar": "El orden de la respuesta sigue la regla de siempre: lo preguntado, delante del verbo. <i lang=\"eu\">Nork erosi dio gona alabari? — Amak erosi dio.</i>", "hitz": [["gona", "falda"], ["izeba", "tía"], ["iloba", "sobrino/a"], ["kendu", "quitar"], ["puskatu", "romper"], ["konpondu", "arreglar"], ["erakutsi", "enseñar"], ["argazki", "fotografía"], ["agure", "anciano"], ["saldu", "vender"], ["sagar", "manzana"], ["ordaindu", "pagar"]], "elk": [{"t": "Iñakiren oparia", "sin": "Iñaki ha comprado un regalo a Maite y reta a sus compañeros a adivinarlo. No es un jersey ni un pañuelo: es un paraguas… justo lo mismo que le han regalado ellos.", "sin_eu": "Iñakik opari bat erosi dio Maiteri: euritako bat. Baina lagunek ere gauza bera erregalatu diote!", "fr": [["Opari bat erosi diot Maiteri.", "Le he comprado un regalo a Maite."], ["Ezetz igarri zer den!", "¡A que no adivináis qué es!"], ["Guk ere gauza bera erregalatu diogu.", "Nosotros le hemos regalado lo mismo."]]}], "irak": [{"t": "Arrasate", "sin": "Arrasate, en Gipuzkoa, cerca de Álava y Bizkaia, tiene muchas fábricas. Cuatro amigos trabajan en la oficina de una cooperativa que fabrica lavadoras y neveras; tienen la costumbre de regalarse algo en los cumpleaños. Hoy cumple Maite 25 años, el 16 de abril, y llega la escena del paraguas.", "sin_eu": "Lau lagunek Arrasateko kooperatiba batean egiten dute lan. Gaur Maiteren urtebetetzea da eta Iñakik euritako bat erosi dio.", "fr": [["Arrasate Gipuzkoan dago.", "Arrasate está en Gipuzkoa."], ["Opariak egiten dizkiote elkarri.", "Se hacen regalos unos a otros."]], "gl": [["ugari", "abundante"], ["urtebetetze", "cumpleaños"], ["ohitura", "costumbre"], ["asmatu", "acertar"], ["euritako", "paraguas"], ["harro", "orgulloso"], ["jota", "abatido"]]}]}, {"n": 14, "eu": "Norekin etorriko zara?", "es": "¿Con quién vendrás?", "fam": "kas", "tags": ["kas", "adi", "men", "par"], "key": "El sociativo NOREKIN (<i lang=\"eu\" class=\"nw\">-ekin</i>, «con»), el futuro (<i lang=\"eu\" class=\"nw\">-ko / -go</i>), la finalidad con <i lang=\"eu\" class=\"nw\">-t(z)eko</i> (<i lang=\"eu\">zertarako?</i>) y el condicional <i lang=\"eu\">ba-</i>.", "typ": ["Norekin joango zara?", "¿Con quién irás?", "Rosirekin, seguraski.", "Con Rosi, seguramente."], "teo": [{"h": "NOREKIN", "p": "Propios: <i lang=\"eu\" class=\"nw\">-ekin</i> tras consonante, <i lang=\"eu\" class=\"nw\">-rekin</i> tras vocal. Comunes: <i lang=\"eu\" class=\"nw\">-arekin</i>. Demostrativos: <i lang=\"eu\">honekin, horrekin, harekin</i>. Pronombres: <i lang=\"eu\">nirekin, zurekin, gurekin, zuekin</i>.", "ex": [["Mikelekin ibili naiz.", "He andado con Mikel."], ["Lagunarekin joan da.", "Se ha ido con el amigo."], ["Zurekin hitz egin behar dut.", "Tengo que hablar contigo."]]}, {"h": "Participio y nombre verbal", "p": "El participio (<i lang=\"eu\">etorri, egin</i>) forma el perfecto; el nombre verbal (<i lang=\"eu\">etortze-, egite-</i>) forma el habitual (<i lang=\"eu\">etortzen</i>) y las formas en <i lang=\"eu\" class=\"nw\">-t(z)eko</i>, <i lang=\"eu\" class=\"nw\">-t(z)era</i>.", "ex": [["etorri da / etortzen da", "ha venido / suele venir"]]}, {"h": "Futuro", "p": "Participio + <i lang=\"eu\" class=\"nw\">-ko</i>; si acaba en <i lang=\"eu\" class=\"nw\">-n</i>, <i lang=\"eu\" class=\"nw\">-go</i>: <i lang=\"eu\">etorriko, aterako, egingo, izango, jango</i>.", "ex": [["Gero etorriko naiz.", "Vendré luego."], ["Bihar hitz egingo dugu.", "Hablaremos mañana."]]}, {"h": "zertarako? -t(z)eko", "p": "Finalidad: nombre verbal + <i lang=\"eu\" class=\"nw\">-ko</i>. También como modificador delante de un nombre.", "ex": [["Ogia jateko da.", "El pan es para comer."], ["jateko gogoa", "ganas de comer"], ["idazteko makina", "máquina de escribir"]]}, {"h": "ba- condicional", "p": "Además del <i lang=\"eu\">ba-</i> afirmativo, <i lang=\"eu\">ba-</i> expresa condición («si»), a veces reforzado con <i lang=\"eu\">baldin</i>.", "ex": [["Nahi badu, egingo du.", "Si quiere, lo hará."], ["Dirua baldin badut, erosiko dut.", "Si tengo dinero, lo compraré."]]}], "trap": "<s class=\"bad\">nirearekin</s> → <i lang=\"eu\">nirekin</i>: los pronombres forman NOREKIN sobre el genitivo (<i lang=\"eu\">nire</i> → <i lang=\"eu\">nirekin</i>).", "ohar": "Adverbios de futuro: <i lang=\"eu\">gero, bihar, etzi, laster, berehala, datorren astean / hilean / urtean</i>.", "hitz": [["anai-arrebak", "hermano y hermana"], ["uztail", "julio"], ["zoragarri", "maravilloso"], ["bikain", "excelente"], ["seguraski", "seguramente"], ["asmo", "intención"], ["gogo", "ganas"], ["otso", "lobo"], ["baso", "bosque"], ["ehiztari", "cazador"]], "elk": [{"t": "Norekin joango zara?", "sin": "Lutxi pide la moto a su hermano para ir a la playa: hace un tiempo excelente. Él pensaba ir a Bilbao, pero le da igual: irá otro día.", "sin_eu": "Lutxik motoa eskatzen dio anaiari hondartzara joateko. Bernardok baietz esaten dio.", "fr": [["Utziko al didazu motoa?", "¿Me dejarás la moto?"], ["Bakarrik joango zara ala beste norbaitekin?", "¿Irás sola o con alguien más?"], ["Beste batean joango naiz.", "Iré en otra ocasión."]]}], "irak": [{"t": "Lutxi eta Bernardo", "sin": "Lutxi (18) y Bernardo (23) son hermanos y se llevan muy bien. Un miércoles de julio, con un sol espléndido, Lutxi le pide la moto para ir a la playa, seguramente con su amiga Rosi. Bernardo dice que sí: él irá a Bilbao otro día.", "sin_eu": "Lutxi eta Bernardo anai-arrebak dira. Lutxik hondartzara joateko gogoa du eta anaiaren motoa hartuko du.", "fr": [["Oso maite dute elkar.", "Se quieren mucho."], ["Eguzkia hartzeko gogoa dut.", "Tengo ganas de tomar el sol."]], "gl": [["uztail", "julio"], ["berotu", "calentar"], ["libre badago", "si está libre"], ["lasai", "tranquilamente"], ["asmoa zuen", "tenía intención"]]}, {"t": "Txano Gorritxo", "sin": "Caperucita Roja contada en euskera: la madre la manda a casa de la abuela con un cesto; el lobo la engaña, se come a la abuela y la espera en la cama. Tras el «¡qué ojos tan grandes!», el lobo se la come; un cazador lo abate y las saca vivas.", "sin_eu": "Txano Gorritxo amonaren etxera doa. Otsoak amona jaten du, baina ehiztari batek biak ateratzen ditu bizirik.", "fr": [["Nora zoaz, Txano Gorritxo?", "¿A dónde vas, Caperucita?"], ["Zu hobeto ikusteko!", "¡Para verte mejor!"]], "gl": [["otarre", "cesto"], ["gozo", "rico, dulce"], ["gaizto", "malvado"], ["korrika", "corriendo"], ["salto batean", "de un salto"], ["labana", "cuchillo"]]}]}], "CASES": [["nor", "NOR", "nor? zer?", 2, "-a · -ak", "sin marca", "sin marca", "hau · hori · hura", "Hau etxea da.", "Esto es una casa."], ["nork", "NORK", "nork?", 4, "-ak · -ek", "-k", "-ek", "honek · horrek · hark", "Gizonak liburua du.", "El hombre tiene un libro."], ["nori", "NORI", "nori?", 13, "-ari", "-ri", "-i", "honi · horri · hari", "Mikeli liburua eman diot.", "Le he dado un libro a Mikel."], ["noren", "NOREN", "noren?", 8, "-aren", "-ren", "-en", "honen · horren · haren", "neskaren izena", "el nombre de la chica"], ["norekin", "NOREKIN", "norekin?", 14, "-arekin", "-rekin", "-ekin", "honekin · horrekin · harekin", "Lagunarekin joan da.", "Se ha ido con el amigo."], ["z", "-Z", "nola? zerez?", 10, "-z · -ez", "—", "—", "—", "oinez, euskaraz", "a pie, en euskera"], ["non", "NON", "non?", 6, "-an · -ean", "-n", "-en", "honetan · horretan · hartan", "Gasteizen bizi naiz.", "Vivo en Vitoria."], ["nongo", "NONGO", "nongo?", 9, "-ko · -eko", "-ko", "-ko (l, n: -go)", "honetako · horretako · hartako", "Bilboko portua", "el puerto de Bilbao"], ["nora", "NORA", "nora?", 11, "-ra · -era", "-ra", "-a / -era", "honetara · horretara · hartara", "Mendira noa.", "Voy al monte."], ["nondik", "NONDIK", "nondik?", 11, "-tik · -etik", "-tik", "-tik (l, n: -dik)", "honetatik · horretatik · hartatik", "Irundik nator.", "Vengo de Irun."], ["rik", "-(R)IK", "—", 4, "-rik · -ik", "—", "—", "—", "Ez dut dirurik.", "No tengo dinero."]], "VERBS": [["izan · NOR", "ser, estar", 2, ["naiz", "zara", "da", "gara", "zarete", "dira"]], ["izan · NOR-NORK", "tener (objeto sing.)", 4, ["dut", "duzu", "du", "dugu", "duzue", "dute"]], ["izan · NOR-NORK", "tener (objeto pl.)", 5, ["ditut", "dituzu", "ditu", "ditugu", "dituzue", "dituzte"]], ["egon", "estar", 10, ["nago", "zaude", "dago", "gaude", "zaudete", "daude"]], ["ibili", "andar", 10, ["nabil", "zabiltza", "dabil", "gabiltza", "zabiltzate", "dabiltza"]], ["joan", "ir", 11, ["noa", "zoaz", "doa", "goaz", "zoazte", "doaz"]], ["etorri", "venir", 11, ["nator", "zatoz", "dator", "gatoz", "zatozte", "datoz"]], ["NOR-NORI-NORK", "«se lo» (a él)", 13, ["diot", "diozu", "dio", "diogu", "diozue", "diote"]], ["NOR-NORI-NORK", "«se los» (a él)", 13, ["dizkiot", "dizkiozu", "dizkio", "dizkiogu", "dizkiozue", "dizkiote"]]], "PRON": [["ni", "nik"], ["zu", "zuk"], ["hura", "hark"], ["gu", "guk"], ["zuek", "zuek"], ["haiek", "haiek"]]}</script>
+<script>
+{
+const D=JSON.parse(document.getElementById('bk-data').textContent);
+const FAMN=Object.fromEntries(D.FAM.map(f=>[f.id,f.name]));
+const S={fam:'all',txt:'all',q:'',sel:2,scope:'all'};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const strip=h=>h.replace(/<[^>]+>/g,'').toLowerCase();
+const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const lesson=n=>D.L.find(l=>l.n===n);
+const texts=l=>[...(l.elk||[]).map((t,i)=>({...t,k:'elk',id:'t'+l.n+'e'+i})),...l.irak.map((t,i)=>({...t,k:'irak',id:'t'+l.n+'i'+i}))];
+const KN={elk:'Elkarrizketa',irak:'Irakurgaia'};
+function famOK(l){return S.fam==='all'||l.tags.includes(S.fam)}
+function txtMatch(t){if(!S.q)return true;const q=norm(S.q.toLowerCase());return norm(strip([t.t,t.sin,t.sin_eu,...t.fr.flat(),...(t.gl||[]).flat()].join(' '))).includes(q)}
+function lessonMatch(l){if(!S.q)return true;const q=norm(S.q.toLowerCase());const blob=[l.eu,l.es,l.key,...l.teo.map(t=>t.h+' '+t.p+' '+t.ex.flat().join(' ')),...l.hitz.flat(),...texts(l).map(t=>t.t+' '+t.sin+' '+t.sin_eu+' '+t.fr.flat().join(' '))].join(' ');return norm(strip(blob)).includes(q)}
+
+/* ── rama ── */
+function drawRama(){
+  const svg=$('#rsvg');const W=1100,H=330,n=D.L.length;
+  const x0=70,x1=W-95,yb=t=>172-18*Math.sin(t*Math.PI*1.4);
+  let p='M20 '+(yb(0)+30);
+  for(let i=0;i<=40;i++){const t=i/40;p+=' L'+(x0-30+(x1-x0+40)*t).toFixed(1)+' '+yb(t).toFixed(1)}
+  let g='<path class="r-branch" d="'+p+'" stroke-width="9"/>';
+  D.L.forEach((l,i)=>{
+    const t=i/(n-1),x=x0+(x1-x0)*t,y0=yb((x-x0+30)/(x1-x0+40)),up=i%2===0,y=up?y0-82:y0+82;
+    const on=famOK(l)&&lessonMatch(l);const ts=texts(l);
+    const cx=x, cy=y, r=24;
+    let lv='';ts.forEach((tx,j)=>{const side=j%2?-1:1,row=Math.floor(j/2),ang=(side>0?0:180)+(up?1:-1)*(row*38-12)*side;const rad=ang*Math.PI/180;const lx=cx+Math.cos(rad)*(r+8),ly=cy+Math.sin(rad)*(r+8);lv+='<g transform="translate('+lx.toFixed(1)+' '+ly.toFixed(1)+') rotate('+ang+')" class="'+(tx.k==='elk'?'t-elk':'t-irak')+'"><path class="r-lf" d="M0 0 C3 -4 9 -4 14 0 C9 4 3 4 0 0 Z"/></g>'});
+    const lab1=l.eu.length>22?l.eu.slice(0,21)+'…':l.eu;
+    const ty=up?cy-r-30:cy+r+38;
+    g+='<path class="r-twig" d="M'+cx+' '+y0+' Q'+(cx+(up?-14:14))+' '+((y0+cy)/2)+' '+cx+' '+(cy+(up?r:-r))+'"/>';
+    g+='<g class="r-node f-'+l.fam+(on?'':' dim')+(S.sel===l.n?' is-sel':'')+'" data-n="'+l.n+'" tabindex="0" role="button" aria-label="Lección '+l.n+': '+strip(l.eu)+'">'+lv+'<circle class="halo" cx="'+cx+'" cy="'+cy+'" r="'+(r+7)+'"/><circle class="body" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/><ellipse class="gloss" cx="'+(cx-8)+'" cy="'+(cy-9)+'" rx="8" ry="4.5" transform="rotate(-35 '+(cx-8)+' '+(cy-9)+')"/><text class="r-num" x="'+cx+'" y="'+(cy+6)+'">'+l.n+'</text><text class="r-t" x="'+cx+'" y="'+ty+'">'+lab1+'</text><text class="r-s" x="'+cx+'" y="'+(ty+15)+'">'+FAMN[l.fam]+'</text></g>';
+  });
+  svg.innerHTML=g;
+  $$('.r-node').forEach(el=>{const go=()=>select(+el.dataset.n,true);el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+}
+
+/* ── ficha ── */
+function ficha(){
+  const l=lesson(S.sel);const el=$('#ficha');el.className='card f-'+l.fam;
+  const prev=lesson(l.n-1),next=lesson(l.n+1);
+  const ex=t=>t.ex.length?'<ul class="exl">'+t.ex.map(e=>'<li><p class="eu" lang="eu">'+e[0]+'</p><p class="es">'+e[1]+'</p></li>').join('')+'</ul>':'';
+  const ts=texts(l);
+  el.innerHTML=
+   '<div class="card-h"><div class="card-id"><div class="hlabel"><div class="hl-top"><span>Ikasgaia '+l.n+'</span><span>'+FAMN[l.fam]+'</span></div><h2 lang="eu">'+l.eu+'</h2><p class="card-tipo">'+l.es+'</p></div>'+
+   '<div class="tagrow">'+l.tags.map(t=>'<span class="ftag f-'+t+'">'+FAMN[t]+'</span>').join('')+'</div>'+
+   '<div class="nav-l">'+(prev?'<button type="button" class="lin-chip f-'+prev.fam+'" data-go="'+prev.n+'">← '+prev.n+' · '+prev.eu+'</button>':'')+(next?'<button type="button" class="lin-chip f-'+next.fam+'" data-go="'+next.n+'">'+next.n+' · '+next.eu+' →</button>':'')+'</div></div>'+
+   '<div><p class="card-key">'+l.key+'</p><div class="typ" style="margin-top:14px"><span class="lbl">Pregunta y respuesta tipo</span><p class="eu" lang="eu">'+l.typ[0]+'</p><p class="es">'+l.typ[1]+'</p><p class="eu ans" lang="eu">'+l.typ[2]+'</p><p class="es">'+l.typ[3]+'</p></div></div></div>'+
+   '<div class="teo-grid">'+l.teo.map(t=>'<section class="teo"><h3>'+t.h+'</h3><p class="teo-p">'+t.p+'</p>'+ex(t)+'</section>').join('')+'</div>'+
+   '<p class="trap"><b>Error típico</b>'+l.trap+'</p>'+
+   '<details class="fund"><summary><span class="fund-k">Oharrak</span><span class="fund-t">observaciones del libro</span><span class="fund-i" aria-hidden="true">▾</span></summary><p class="fund-b ohar">'+l.ohar+'</p></details>'+
+   '<div class="card-grid"><div><p class="sh">Hitz gakoak <small>vocabulario de la lección</small></p><div class="hz">'+l.hitz.map(h=>'<span><b lang="eu">'+h[0]+'</b>'+h[1]+'</span>').join('')+'</div></div>'+
+   '<div><p class="sh">Textos de la lección <small>'+(ts.length?'pulsa para leer el resumen':'sin diálogo ni lectura')+'</small></p><div class="txl">'+ts.map(t=>'<button type="button" class="txb '+(t.k==='elk'?'t-elk':'t-irak')+'" data-tx="'+t.id+'"><span class="txk">'+KN[t.k]+'</span><span class="txt" lang="eu">'+t.t+'</span><span class="txs">'+t.sin+'</span></button>').join('')+'</div></div></div>';
+  el.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>select(+b.dataset.go,true)));
+  el.querySelectorAll('[data-tx]').forEach(b=>b.addEventListener('click',()=>gotoText(b.dataset.tx)));
+}
+
+/* ── banco ── */
+const OPEN=new Set();
+function bank(){
+  const box=$('#bank');let total=0,html='';
+  $('#scope-one').textContent='Solo la lección '+S.sel;
+  D.L.forEach(l=>{
+    if(S.scope==='one'&&l.n!==S.sel)return;
+    if(!famOK(l))return;
+    const ts=texts(l).filter(t=>(S.txt==='all'||t.k===S.txt)&&txtMatch(t));
+    if(!ts.length)return;total+=ts.length;
+    const open=OPEN.has(l.n)||S.q||S.scope==='one';
+    html+='<div class="bgrp f-'+l.fam+'"><button type="button" class="bgrp-h" data-g="'+l.n+'" aria-expanded="'+(open?'true':'false')+'"><span class="bgrp-n">'+l.n+' · <span lang="eu">'+l.eu+'</span></span><span class="bgrp-t">'+l.es+'</span><span class="bgrp-c">'+ts.length+(ts.length>1?' textos':' texto')+'</span></button><div class="bgrp-b"'+(open?'':' hidden')+'>'+
+     ts.map(t=>'<div class="bitem '+(t.k==='elk'?'t-elk':'t-irak')+'" id="'+t.id+'"><div class="bhead"><span class="bk">'+KN[t.k]+'</span><span class="bt" lang="eu">'+t.t+'</span></div><p class="bsin">'+t.sin+'</p><p class="beu" lang="eu"><small>Laburpena</small>'+t.sin_eu+'</p><div class="bfr">'+t.fr.map(f=>'<div><p class="eu" lang="eu">'+f[0]+'</p><p class="es">'+f[1]+'</p></div>').join('')+'</div>'+((t.gl&&t.gl.length)?'<p class="bgl">'+t.gl.map(g=>'<b lang="eu">'+g[0]+'</b>: '+g[1]).join(' · ')+'</p>':'')+'</div>').join('')+'</div></div>';
+  });
+  box.innerHTML=html||'<p class="empty">Ningún texto coincide con estos filtros.</p>';
+  $('#bank-n').textContent=total+' de 31';
+  box.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.g,o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',!o);b.nextElementSibling.hidden=o;o?OPEN.delete(n):OPEN.add(n)}));
+}
+function gotoText(id){
+  const n=+id.match(/^t(\d+)/)[1];OPEN.add(n);
+  if(S.txt!=='all'&&!id.includes(S.txt==='elk'?'e':'i'))setF('txt','all');
+  if(S.fam!=='all'&&!lesson(n).tags.includes(S.fam))setF('fam','all');
+  S.q='';$('#q').value='';render();
+  const t=document.getElementById(id);if(t){t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash')}
+}
+
+/* ── laburpena ── */
+function tables(){
+  const cf={nor:'adi',nork:'kas',nori:'kas',noren:'kas',norekin:'kas',z:'kas',non:'kas',nongo:'kas',nora:'kas',nondik:'kas',rik:'par'};
+  $('#gtb').innerHTML=D.CASES.map(c=>'<tr class="f-'+cf[c[0]]+'"><th scope="row"><button type="button" class="gt-case" data-go="'+c[3]+'"><b>'+c[1]+'</b><span><i>'+c[2]+'</i> · lección '+c[3]+'</span></button></th><td class="gsep"><span class="gs">'+c[4]+'</span></td><td><span class="gs">'+c[5]+'</span></td><td><span class="gs">'+c[6]+'</span></td><td class="gsep"><span class="gw" lang="eu">'+c[7]+'</span></td><td class="gsep gex"><p class="eu" lang="eu">'+c[8]+'</p><p class="es">'+c[9]+'</p></td></tr>').join('');
+  $('#vtb').innerHTML=D.VERBS.map(v=>'<tr class="f-adi"><th scope="row">'+v[0]+'<span>'+v[1]+'</span></th>'+v[3].map(f=>'<td lang="eu">'+f+'</td>').join('')+'<td class="ln"><button type="button" class="lnk" data-go="'+v[2]+'">lección '+v[2]+'</button></td></tr>').join('');
+  $$('#gtb [data-go], #vtb [data-go]').forEach(b=>b.addEventListener('click',()=>select(+b.dataset.go,true)));
+}
+
+/* ── estado ── */
+function setF(f,v){S[f]=v;$$('.chip[data-f="'+f+'"]').forEach(c=>c.setAttribute('aria-pressed',c.dataset.v===v?'true':'false'))}
+function summary(){
+  const p=[];if(S.fam!=='all')p.push(FAMN[S.fam]);if(S.txt!=='all')p.push(KN[S.txt]+'s');if(S.q)p.push('«'+S.q+'»');
+  $('#fsum').textContent=p.length?p.join(' · '):'ninguno';
+  const nl=D.L.filter(l=>famOK(l)&&lessonMatch(l)).length;$('#fcount').textContent=nl+' de 14 lecciones';
+}
+function render(){drawRama();bank();summary()}
+function select(n,scroll){
+  S.sel=n;ficha();render();
+  try{history.replaceState(null,'','#ikasgaia-'+n)}catch(e){}
+  if(scroll)$('#ficha').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}
+$$('.chip[data-f]').forEach(c=>c.addEventListener('click',()=>{const f=c.dataset.f,v=c.dataset.v;setF(f,S[f]===v&&v!=='all'?'all':v);
+  if(f==='fam'&&S.fam!=='all'&&!lesson(S.sel).tags.includes(S.fam)){const first=D.L.find(l=>l.tags.includes(S.fam));if(first){S.sel=first.n;ficha()}}
+  render()}));
+let qt;$('#q').addEventListener('input',e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();render()},160)});
+$('#freset').addEventListener('click',()=>{setF('fam','all');setF('txt','all');S.q='';$('#q').value='';render()});
+$$('.seg [data-scope]').forEach(b=>b.addEventListener('click',()=>{S.scope=b.dataset.scope;$$('.seg [data-scope]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));bank()}));
+$('#ftoggle').addEventListener('click',()=>{const o=$('#fbar').classList.toggle('open');$('#ftoggle').setAttribute('aria-expanded',o)});
+const h=(location.hash.match(/^#ikasgaia-(\d+)$/)||[])[1];if(h&&lesson(+h))S.sel=+h;
+window.addEventListener('hashchange',()=>{const m=(location.hash.match(/^#ikasgaia-(\d+)$/)||[])[1];if(m&&lesson(+m)&&+m!==S.sel)select(+m,true)});
+tables();ficha();render();
+}
+</script>
+</body>
+</html>

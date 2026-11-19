@@ -5,7 +5,7 @@
 const PAGES = [['index.html', ['']], ['a1.html', ['egutegia', 'hiztegia', 'koadernoa', 'mintzamena', 'jokoa']],
   ['a2.html', ['orokorra', 'materialak', 'koadernoa']], ['gramatika.html', ['']], ['glosario.html', ['']],
   ['geruzak.html', ['']], ['ikasgela.html', ['']],
-  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']]];
+  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']], ['bakarka-hiztegia.html', ['']], ['bakarka-1-sintesia.html', ['']], ['bakarka-3-sintesia.html', ['']]];
 const MAX = 200;   // pulsaciones por subapartado (los juegos generan botones nuevos sin fin)
 
 const STUBS = `window.confirm = function(){ return false; }; window.alert = function(){}; window.prompt = function(){ return null; };

@@ -49,6 +49,8 @@ euskara-armairua/
 ├── nire-herria.html, nor-naiz.html   # Fichas A1 explicadas
 ├── esaldi-eraikitzailea.html         # Fichas A1 · constructor de frases
 ├── kasuak-aurkezpena.html            # Fichas A1 · diapositivas de los casos
+├── bakarka-hiztegia.html (+ .json)   # Léxico de Bakarka 1 y 3 con sus formas (⚠ Claude)
+├── bakarka-1-sintesia.html, bakarka-3-sintesia.html  # Lecciones de Bakarka 1 y 3 resumidas (⚠ Claude)
 ├── .nojekyll       # Evita el procesado de Jekyll en GitHub Pages
 └── README.md
 ```
@@ -57,7 +59,7 @@ euskara-armairua/
 
 `geruzak.html` es la guía de gramática completa en prosa (20 bloques, A1). Su botón **👓 Ikasteko betaurrekoak** («gafas de aprendizaje») pone la guía en modo interlineado: cada palabra vasca aparece troceada en sus morfemas —raíz, artículo, caso, enlace, aspecto, persona, derivación y partícula, cada tipo con su color— con la traducción al castellano debajo. Al tocar una palabra se abre su ficha, que explica cada pieza y enlaza al bloque donde se trata. Los datos (≈ 850 formas) están en `armairua-geruzak-betaurrekoak.js`; el desglose se preparó con ayuda de IA y conviene contrastarlo con las tablas.
 
-Las **Fichas A1 · kasuak** (bloque «Kasuak» de la portada) y `gramatika-sakonean.html` vienen de artifacts de Claude y se importan con `tools/fitxak/integrar.mjs` (ver [tools/README.md](tools/README.md)): conservan su aspecto propio.
+El bloque **«Fitxak eta hiztegiak»** de la portada tiene un selector con dos grupos: **Kasuen zuhaitza** (el árbol de los casos y sus fichas A1, `#kasuak`) y **Hiztegia · Bakarka** (vocabulario y lecciones resumidas de *Bakarka 1* y *3*, `#hiztegiak`). Esas páginas y `gramatika-sakonean.html` (en Tresnak) vienen de artifacts de Claude y se importan con `tools/fitxak/integrar.mjs` y `tools/fitxak/bakarka.mjs` (ver [tools/README.md](tools/README.md)): conservan su aspecto propio. De los libros solo llevan palabras sueltas, resúmenes propios y citas breves (lo vigila la prueba `datos/bakarka`).
 
 Para añadir un nivel nuevo, copia `a2.html` como plantilla, cambia el prefijo de las claves de guardado (p. ej. `koadernoa-b1:*`) y añade su tarjeta en `index.html`.
 
