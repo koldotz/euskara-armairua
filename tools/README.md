@@ -44,6 +44,25 @@ Es una criba, no una lista final:
 
 La selección, la traducción y el tema se deciden a mano. Así se hizo con Mintzamena: son las palabras con `src:"mz"` de `armairua-a1-data.js`.
 
+## `hiztegia/salbuespenak.mjs` · correcciones de las formas del Hiztegia · Bakarka
+
+El hiztegia de Bakarka (`bakarka-hiztegia.json`) trae unas 31.000 formas generadas por reglas: declinación, tiempos del verbo y grados. Una auditoría del 2026-11-19 las comparó una a una con una declinación de control. Las que estaban mal se corrigen con una lista revisada, `tools/hiztegia/salbuespenak.json`. Cada corrección indica:
+- la palabra: `id`, `lema` y `kat`;
+- la forma: `gakoa`, por ejemplo `sg.non`, `nora` o `konparatiboa`;
+- la mala y la buena: `okerra` y `zuzena`;
+- el motivo, la fuente y el estado.
+
+Solo se aplican las de estado `onartua`. Las dudas que no tienen corrección van en `zalantzak`. Las comprobaciones hechas en el nomenclátor de Euskaltzaindia van en `egiaztatuak`.
+
+En `jatorriak` están los 31 lemas que son formas declinadas de otro (*goizean* = *goiz* + *-ean*, NON; *gainera* = *gain* + *-era*, NORA). Se quedan como palabras propias y reciben un campo `jatorria` con su origen, para que el análisis de Buruko neurona explique su lectura y no los cuente como choque.
+
+```
+node tools/hiztegia/salbuespenak.mjs              # comprueba
+node tools/hiztegia/salbuespenak.mjs --aplikatu   # aplica las aprobadas a bakarka-hiztegia.json
+```
+
+`fitxak/bakarka.mjs` las aplica solo al reimportar, y se para si alguna ya no cuadra. La prueba `datos/hiztegia-formak` comprueba que estén aplicadas y que no vuelvan los patrones corregidos. Después de cambiar el JSON, sube la versión de `sw.js`.
+
 ## `iturriak/hiztegia.mjs` · vocabulario de las unidades personales → Hiztegia
 
 Si en `pribatua/` (carpeta local, ignorada por git) hay unidades personales con bloques de vocabulario, este script lleva sus palabras al Hiztegia, un tema por lección («Bakarka 1 · 2. Zer da hau?») y con `src:"bk1"`:
@@ -82,7 +101,7 @@ El texto de libros con derechos (*Bakarka 1*, *Arian A1*…) no va en el reposit
 
 ## `fitxak/` · fichas A1 de los casos (artifacts de claude.ai)
 
-Las cinco páginas de «Kasuak · fichas A1» (`kasuen-zuhaitza.html`, `nire-herria.html`, `nor-naiz.html`, `esaldi-eraikitzailea.html` y `kasuak-aurkezpena.html`) y `gramatika-sakonean.html` (en Tresnak, junto al buscador) **salen de artifacts de claude.ai**. `integrar.mjs` las adapta al sitio sin cambiar su aspecto:
+Las cinco páginas de las fichas de los casos (`kasuen-zuhaitza.html`, `nire-herria.html`, `nor-naiz.html`, `esaldi-eraikitzailea.html` y `kasuak-aurkezpena.html`; en la portada, pestaña «Neurona», salen el mural, el constructor y la presentación) y `gramatika-sakonean.html` (en Tresnak, junto al buscador) **salen de artifacts de claude.ai**. `integrar.mjs` las adapta al sitio sin cambiar su aspecto:
 
 - enlaces entre ellas y al sitio en relativo, sin pestaña nueva;
 - cabecera del sitio (manifest, iconos, descripción), «Fichas A1» de la ruta lleva a `index.html#kasuak`;
@@ -92,4 +111,4 @@ Las cinco páginas de «Kasuak · fichas A1» (`kasuen-zuhaitza.html`, `nire-her
 
 Si se cambia un artifact en claude.ai: descargar sus ficheros a una carpeta (página de cada uno en `src/`, `project/` de la presentación en `deck/`), ejecutar `node tools/fitxak/integrar.mjs <carpeta> .`, subir la versión de `sw.js` y pasar `npm test`. Se pueden editar las páginas a mano, pero la siguiente importación lo pisaría.
 
-**Grupo «Hiztegia · Bakarka»** (segunda pestaña del selector de la portada, `index.html#hiztegiak`): `bakarka-hiztegia.html` + `bakarka-hiztegia.json` (artifact MuSaLbS1TWnkcYmhh14X4N), `bakarka-1-sintesia.html` (Ps5ia2R6FHRuG7rDKPcJhY) y `bakarka-3-sintesia.html` (6vNeXq6GBbJVDWehBMmJoZ). Se importan con `bakarka.mjs`: descargar a una carpeta `hiztegia.html` y `hiztegia.json` (página y fichero del hiztegia), `bakarka-1.html` y `bakarka-3.html` (página de cada síntesis), y ejecutar `node tools/fitxak/bakarka.mjs <carpeta> .`. Pone la cabecera del sitio y el aviso ⚠ en el pie, lleva la ruta a la portada y al grupo, cambia los enlaces a artifacts por las páginas del sitio (falla si alguno no está integrado), enlaza las tres entre sí, renombra el JSON y corrige el pie de las síntesis (decía «no copiados»; las frases clave y parte de los ejemplos son citas breves del libro: en Bakarka 1, medido contra la transcripción privada, el 1,3 % del texto del libro). Falla también si cambia el texto que espera sustituir. Después: subir la versión de `sw.js` y pasar `npm test`; la prueba `datos/bakarka` para la reimportación si el hiztegia trae frases o una síntesis pasa de 3 citas por texto.
+**Pestaña «Hiztegia Mingaina»** (segunda del selector de la portada, `index.html#hiztegiak`): `bakarka-hiztegia.html` + `bakarka-hiztegia.json` (artifact MuSaLbS1TWnkcYmhh14X4N), `bakarka-1-sintesia.html` (Ps5ia2R6FHRuG7rDKPcJhY) y `bakarka-3-sintesia.html` (6vNeXq6GBbJVDWehBMmJoZ). Se importan con `bakarka.mjs`: descargar a una carpeta `hiztegia.html` y `hiztegia.json` (página y fichero del hiztegia), `bakarka-1.html` y `bakarka-3.html` (página de cada síntesis), y ejecutar `node tools/fitxak/bakarka.mjs <carpeta> .`. Pone la cabecera del sitio y el aviso ⚠ en el pie, lleva la ruta a la portada y al grupo, cambia los enlaces a artifacts por las páginas del sitio (falla si alguno no está integrado), enlaza las tres entre sí, renombra el JSON y corrige el pie de las síntesis (decía «no copiados»; las frases clave y parte de los ejemplos son citas breves del libro: en Bakarka 1, medido contra la transcripción privada, el 1,3 % del texto del libro). Falla también si cambia el texto que espera sustituir. Después: subir la versión de `sw.js` y pasar `npm test`; la prueba `datos/bakarka` para la reimportación si el hiztegia trae frases o una síntesis pasa de 3 citas por texto.

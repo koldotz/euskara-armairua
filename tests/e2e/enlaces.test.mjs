@@ -9,7 +9,7 @@ import { execFileSync } from 'child_process';
 const PAGES = [['index.html', ['']], ['a1.html', ['egutegia', 'hiztegia', 'koadernoa', 'mintzamena', 'mz-bilatu', 'jokoa']],
   ['a2.html', ['orokorra', 'materialak', 'koadernoa']], ['gramatika.html', ['']], ['glosario.html', ['']],
   ['geruzak.html', ['']], ['ikasgela.html', ['']],
-  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']], ['bakarka-hiztegia.html', ['']], ['bakarka-1-sintesia.html', ['']], ['bakarka-3-sintesia.html', ['']]];
+  ['kasuen-zuhaitza.html', ['']], ['nire-herria.html', ['']], ['nor-naiz.html', ['']], ['esaldi-eraikitzailea.html', ['']], ['kasuak-aurkezpena.html', ['']], ['gramatika-sakonean.html', ['']], ['bakarka-hiztegia.html', ['']], ['bakarka-1-sintesia.html', ['']], ['bakarka-3-sintesia.html', ['']], ['buruko-neurona.html', ['']]];
 
 /* páginas de un PDF: Spotlight en macOS; en otros sistemas no se comprueba */
 function pdfPages(file){

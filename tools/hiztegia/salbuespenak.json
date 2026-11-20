@@ -1,0 +1,1345 @@
+{
+  "_azalpena": "Correcciones de las formas generadas de bakarka-hiztegia.json (Hiztegia · Bakarka). Las «onartua» se aplican al importar el hiztegia (tools/fitxak/bakarka.mjs) y con «node tools/hiztegia/salbuespenak.mjs --aplikatu». «jatorriak»: lemas que son formas declinadas de otro lema (goizean = goiz + NON); se quedan como palabras propias y llevan la referencia a su origen (campo «jatorria») para que el análisis explique su lectura. La prueba datos/hiztegia-formak comprueba que estén aplicadas. Auditoría del 2026-11-19: 31.256 formas, comparadas con una declinación de control.",
+  "egoerak": {
+    "onartua": "aprobada: se aplica",
+    "berrikusteko": "pendiente de revisar: no se aplica",
+    "baztertua": "descartada: no se aplica"
+  },
+  "zuzenketak": [
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "sg.non",
+      "okerra": "gauan",
+      "zuzena": "gauean",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "sg.nora",
+      "okerra": "gaura",
+      "zuzena": "gauera",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "sg.nondik",
+      "okerra": "gautik",
+      "zuzena": "gauetik",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "sg.nongo",
+      "okerra": "gauko",
+      "zuzena": "gaueko",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "gautan",
+      "zuzena": "gauetan",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 896,
+      "lema": "gau",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "gautako",
+      "zuzena": "gauetako",
+      "arrazoia": "gau acaba en -au y se declina como si acabara en consonante: gauean, gauera, gauetik, gaueko (goizetik gauera, gaueko hamarretan). El propio Hiztegia tiene el lema «gauean».",
+      "iturria": "regla de diptongo -au; lema «gauean» del propio Hiztegia",
+      "egoera": "onartua"
+    },
+    {
+      "id": 61,
+      "lema": "aita-amak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "aita-am",
+      "zuzena": "aita-ama",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 61,
+      "lema": "aita-amak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "aita-amik",
+      "zuzena": "aita-amarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 63,
+      "lema": "aitona-amonak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "aitona-amon",
+      "zuzena": "aitona-amona",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 63,
+      "lema": "aitona-amonak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "aitona-amonik",
+      "zuzena": "aitona-amonarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 116,
+      "lema": "anai-arrebak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "anai-arreb",
+      "zuzena": "anai-arreba",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 116,
+      "lema": "anai-arrebak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "anai-arrebik",
+      "zuzena": "anai-arrebarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1708,
+      "lema": "osaba-izebak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "osaba-izeb",
+      "zuzena": "osaba-izeba",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1708,
+      "lema": "osaba-izebak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "osaba-izebik",
+      "zuzena": "osaba-izebarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1847,
+      "lema": "seme-alabak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "seme-alab",
+      "zuzena": "seme-alaba",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1847,
+      "lema": "seme-alabak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "seme-alabik",
+      "zuzena": "seme-alabarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 870,
+      "lema": "galtzak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "galtz",
+      "zuzena": "galtza",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 870,
+      "lema": "galtzak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "galtzik",
+      "zuzena": "galtzarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 870,
+      "lema": "galtzak",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "galtzetan",
+      "zuzena": "galtzatan",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del inesivo indefinido tras vocal (-tan)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 870,
+      "lema": "galtzak",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "galtzetako",
+      "zuzena": "galtzatako",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del genitivo locativo indefinido (-tako)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1792,
+      "lema": "prakak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "prak",
+      "zuzena": "praka",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1792,
+      "lema": "prakak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "prakik",
+      "zuzena": "prakarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1792,
+      "lema": "prakak",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "praketan",
+      "zuzena": "prakatan",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del inesivo indefinido tras vocal (-tan)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1792,
+      "lema": "prakak",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "praketako",
+      "zuzena": "prakatako",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del genitivo locativo indefinido (-tako)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1157,
+      "lema": "ikasketak",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "ikasket",
+      "zuzena": "ikasketa",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del mugagabe",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1157,
+      "lema": "ikasketak",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "ikasketik",
+      "zuzena": "ikasketarik",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del partitivo tras vocal (-rik)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1157,
+      "lema": "ikasketak",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "ikasketetan",
+      "zuzena": "ikasketatan",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del inesivo indefinido tras vocal (-tan)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1157,
+      "lema": "ikasketak",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "ikasketetako",
+      "zuzena": "ikasketatako",
+      "arrazoia": "Plural fijo cuya base acaba en -a: el generador quitó -ak y perdió la -a de la base; el mugagabe se forma sobre la base completa.",
+      "iturria": "regla del genitivo locativo indefinido (-tako)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "sg.non",
+      "okerra": "Errege egunan",
+      "zuzena": "Errege egunean",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "sg.nora",
+      "okerra": "Errege egunara",
+      "zuzena": "Errege egunera",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "sg.nondik",
+      "okerra": "Errege egunatik",
+      "zuzena": "Errege egunetik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "sg.nongo",
+      "okerra": "Errege egunako",
+      "zuzena": "Errege eguneko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "Errege eguna",
+      "zuzena": "Errege egun",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "Errege egunarik",
+      "zuzena": "Errege egunik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "Errege egunatan",
+      "zuzena": "Errege egunetan",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 704,
+      "lema": "Errege eguna",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "Errege egunatako",
+      "zuzena": "Errege egunetako",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "egun: egunean, egunera, egunetik, eguneko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "sg.nora",
+      "okerra": "Aste Nagusiara",
+      "zuzena": "Aste Nagusira",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "sg.nondik",
+      "okerra": "Aste Nagusiatik",
+      "zuzena": "Aste Nagusitik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "sg.nongo",
+      "okerra": "Aste Nagusiako",
+      "zuzena": "Aste Nagusiko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "mg.nor",
+      "okerra": "Aste Nagusia",
+      "zuzena": "Aste Nagusi",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "mg.rik",
+      "okerra": "Aste Nagusiarik",
+      "zuzena": "Aste Nagusirik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "mg.non",
+      "okerra": "Aste Nagusiatan",
+      "zuzena": "Aste Nagusitan",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 227,
+      "lema": "Aste Nagusia",
+      "kat": "iz",
+      "gakoa": "mg.nongo",
+      "okerra": "Aste Nagusiatako",
+      "zuzena": "Aste Nagusitako",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "nagusi: nagusira, nagusitik, nagusiko",
+      "egoera": "onartua"
+    },
+    {
+      "id": 576,
+      "lema": "Donejakue bidea",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Donejakue bideara",
+      "zuzena": "Donejakue bidera",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 576,
+      "lema": "Donejakue bidea",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Donejakue bideatik",
+      "zuzena": "Donejakue bidetik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 576,
+      "lema": "Donejakue bidea",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Donejakue bideako",
+      "zuzena": "Donejakue bideko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1730,
+      "lema": "Ozeano Atlantikoa",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Ozeano Atlantikoara",
+      "zuzena": "Ozeano Atlantikora",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1730,
+      "lema": "Ozeano Atlantikoa",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Ozeano Atlantikoatik",
+      "zuzena": "Ozeano Atlantikotik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1730,
+      "lema": "Ozeano Atlantikoa",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Ozeano Atlantikoako",
+      "zuzena": "Ozeano Atlantikoko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1731,
+      "lema": "Ozeano Barea",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Ozeano Bareara",
+      "zuzena": "Ozeano Barera",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1731,
+      "lema": "Ozeano Barea",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Ozeano Bareatik",
+      "zuzena": "Ozeano Baretik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1731,
+      "lema": "Ozeano Barea",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Ozeano Bareako",
+      "zuzena": "Ozeano Bareko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2324,
+      "lema": "Nafarroa Beherea",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Nafarroa Behereara",
+      "zuzena": "Nafarroa Beherera",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2324,
+      "lema": "Nafarroa Beherea",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Nafarroa Behereatik",
+      "zuzena": "Nafarroa Beheretik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2324,
+      "lema": "Nafarroa Beherea",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Nafarroa Behereako",
+      "zuzena": "Nafarroa Behereko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2329,
+      "lema": "Kantauri itsasoa",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Kantauri itsasoara",
+      "zuzena": "Kantauri itsasora",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2329,
+      "lema": "Kantauri itsasoa",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Kantauri itsasoatik",
+      "zuzena": "Kantauri itsasotik",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2329,
+      "lema": "Kantauri itsasoa",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Kantauri itsasoako",
+      "zuzena": "Kantauri itsasoko",
+      "arrazoia": "El lema incluye el artículo -a, que cae en estos casos como en un nombre común.",
+      "iturria": "el segundo elemento es un nombre común con artículo (bidea, itsasoa…)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2283,
+      "lema": "Hondarribia",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Hondarribiara",
+      "zuzena": "Hondarribira",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, «Hondarribia / Fuenterrabía toponimo(ar)en gainean», Euskera LII (2007), 390. or., 9. puntua: «Bukaerako –a hori artikulua da etorkiz […]: Hondarribiko, Hondarribira, Hondarribitik».",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2283,
+      "lema": "Hondarribia",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Hondarribiatik",
+      "zuzena": "Hondarribitik",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, «Hondarribia / Fuenterrabía toponimo(ar)en gainean», Euskera LII (2007), 390. or., 9. puntua: «Bukaerako –a hori artikulua da etorkiz […]: Hondarribiko, Hondarribira, Hondarribitik».",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2283,
+      "lema": "Hondarribia",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Hondarribiako",
+      "zuzena": "Hondarribiko",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, «Hondarribia / Fuenterrabía toponimo(ar)en gainean», Euskera LII (2007), 390. or., 9. puntua: «Bukaerako –a hori artikulua da etorkiz […]: Hondarribiko, Hondarribira, Hondarribitik».",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2286,
+      "lema": "Azpeitia",
+      "kat": "lek",
+      "gakoa": "nora",
+      "okerra": "Azpeitiara",
+      "zuzena": "Azpeitira",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, Gipuzkoako herrien izenak, Euskaltzaindia, 2019, 100. or. (Azpeitira, Azpeititik, Azpeitiko).",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2286,
+      "lema": "Azpeitia",
+      "kat": "lek",
+      "gakoa": "nondik",
+      "okerra": "Azpeitiatik",
+      "zuzena": "Azpeititik",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, Gipuzkoako herrien izenak, Euskaltzaindia, 2019, 100. or. (Azpeitira, Azpeititik, Azpeitiko).",
+      "egoera": "onartua"
+    },
+    {
+      "id": 2286,
+      "lema": "Azpeitia",
+      "kat": "lek",
+      "gakoa": "nongo",
+      "okerra": "Azpeitiako",
+      "zuzena": "Azpeitiko",
+      "arrazoia": "Topónimo cuya -a final es artículo de origen: cae en estos casos.",
+      "iturria": "Patxi Salaberri, Gipuzkoako herrien izenak, Euskaltzaindia, 2019, 100. or. (Azpeitira, Azpeititik, Azpeitiko).",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1664,
+      "lema": "on",
+      "kat": "izl",
+      "gakoa": "konparatiboa",
+      "okerra": "onago",
+      "zuzena": "hobe",
+      "arrazoia": "Comparativo irregular de on: hobe (onago no es estándar).",
+      "iturria": "comparativo irregular (on, hobe, onena)",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.nor",
+      "okerra": "Olentzeroa",
+      "zuzena": "Olentzero",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.nork",
+      "okerra": "Olentzeroak",
+      "zuzena": "Olentzerok",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.nori",
+      "okerra": "Olentzeroari",
+      "zuzena": "Olentzerori",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.noren",
+      "okerra": "Olentzeroaren",
+      "zuzena": "Olentzeroren",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.norekin",
+      "okerra": "Olentzeroarekin",
+      "zuzena": "Olentzerorekin",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.norentzat",
+      "okerra": "Olentzeroarentzat",
+      "zuzena": "Olentzerorentzat",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    },
+    {
+      "id": 1660,
+      "lema": "Olentzero",
+      "kat": "iz",
+      "gakoa": "sg.norengana",
+      "okerra": "Olentzeroarengana",
+      "zuzena": "Olentzerorengana",
+      "arrazoia": "Nombre propio: se declina sin artículo (Olentzerok, Olentzerori…), como Ane o Mikel.",
+      "iturria": "declinación de nombre propio",
+      "egoera": "onartua"
+    }
+  ],
+  "zalantzak": [
+    {
+      "gaia": "Grados de adjetivos que no se gradúan (gentilicios y haurdun)",
+      "lemak": [
+        "andetar",
+        "arabar",
+        "baztandar",
+        "bilbotar",
+        "bizkaitar",
+        "donostiar",
+        "ekuadortar",
+        "espainiar",
+        "estatubatuar",
+        "europar",
+        "frantziar",
+        "gasteiztar",
+        "getxotar",
+        "gipuzkoar",
+        "iruindar",
+        "madrildar",
+        "tuterar",
+        "haurdun"
+      ],
+      "gakoak": [
+        "konparatiboa",
+        "superlatiboa",
+        "gehiegizkoa"
+      ],
+      "proposamena": "quitar estas formas o marcarlas como no graduables",
+      "egoera": "berrikusteko"
+    },
+    {
+      "gaia": "arrain y oilasko sin marca de animado",
+      "lemak": [
+        "arrain",
+        "oilasko"
+      ],
+      "proposamena": "dejar como comida (inanimado) o duplicar con un sentido animal (arrainarengana…)",
+      "egoera": "berrikusteko"
+    },
+    {
+      "gaia": "Partitivo de gau",
+      "lemak": [
+        "gau"
+      ],
+      "gakoak": [
+        "mg.rik"
+      ],
+      "orain": "gaurik",
+      "proposamena": "confirmar (coincide con gaur «hoy» + -rik)",
+      "egoera": "berrikusteko"
+    },
+    {
+      "gaia": "euskal herritar sin formas",
+      "lemak": [
+        "euskal herritar"
+      ],
+      "proposamena": "añadir euskal herritarra, euskal herritarrak (sin grados)",
+      "egoera": "berrikusteko"
+    },
+    {
+      "gaia": "Basajaun con artículo",
+      "lemak": [
+        "Basajaun"
+      ],
+      "proposamena": "como nombre propio iría sin artículo (Basajaunek); como ser mitológico común, basajauna está bien",
+      "egoera": "berrikusteko"
+    },
+    {
+      "gaia": "Mungia y Hendaia (topónimos en -ia sin confirmar)",
+      "lemak": [
+        "Mungia",
+        "Hendaia"
+      ],
+      "orain": "Mungiara, Mungiako · Hendaiara, Hendaiako",
+      "proposamena": "mantener (Euskaltzaindia escribe «Hendaiako» en su material); confirmar en los izendegiak de Bizkaia y Lapurdi",
+      "egoera": "berrikusteko"
+    }
+  ],
+  "egiaztatuak": [
+    {
+      "lema": "Donostia",
+      "iturria": "Salaberri 2019, 144. or.",
+      "emaitza": "-a orgánica: Donostiara, Donostiatik, Donostiako (sin cambios)"
+    },
+    {
+      "lema": "Errenteria",
+      "iturria": "Salaberri 2019, 164. or.",
+      "emaitza": "-a orgánica: Errenteriara, Errenteriatik, Errenteriako (sin cambios)"
+    },
+    {
+      "lema": "Getaria",
+      "iturria": "Salaberri 2019, 190. or.",
+      "emaitza": "-a orgánica: Getariara, Getariatik, Getariako (sin cambios)"
+    },
+    {
+      "lema": "Hondarribia",
+      "iturria": "Patxi Salaberri, «Hondarribia / Fuenterrabía toponimo(ar)en gainean», Euskera LII (2007), 390. or., 9. puntua: «Bukaerako –a hori artikulua da etorkiz […]: Hondarribiko, Hondarribira, Hondarribitik».",
+      "emaitza": "-a artículo: corregido"
+    },
+    {
+      "lema": "Azpeitia",
+      "iturria": "Patxi Salaberri, Gipuzkoako herrien izenak, Euskaltzaindia, 2019, 100. or. (Azpeitira, Azpeititik, Azpeitiko).",
+      "emaitza": "-a artículo: corregido"
+    }
+  ],
+  "jatorriak": [
+    {
+      "id": 2205,
+      "lema": "goizean",
+      "kat": "adb",
+      "jatorria": {
+        "id": 956,
+        "lema": "goiz",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-ean"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2207,
+      "lema": "arratsaldean",
+      "kat": "adb",
+      "jatorria": {
+        "id": 196,
+        "lema": "arratsalde",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2209,
+      "lema": "gauean",
+      "kat": "adb",
+      "jatorria": {
+        "id": 896,
+        "lema": "gau",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-ean"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2208,
+      "lema": "iluntzean",
+      "kat": "adb",
+      "jatorria": {
+        "id": 1181,
+        "lema": "iluntze",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2206,
+      "lema": "eguerdian",
+      "kat": "adb",
+      "jatorria": {
+        "id": 612,
+        "lema": "eguerdi",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2249,
+      "lema": "gainean",
+      "kat": "post",
+      "jatorria": {
+        "id": 850,
+        "lema": "gain",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-ean"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2250,
+      "lema": "azpian",
+      "kat": "post",
+      "jatorria": {
+        "id": 293,
+        "lema": "azpi",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2251,
+      "lema": "aurrean",
+      "kat": "post",
+      "jatorria": {
+        "id": 270,
+        "lema": "aurre",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2252,
+      "lema": "atzean",
+      "kat": "post",
+      "jatorria": {
+        "id": 257,
+        "lema": "atze",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2253,
+      "lema": "barruan",
+      "kat": "post",
+      "jatorria": {
+        "id": 348,
+        "lema": "barru",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2254,
+      "lema": "kanpoan",
+      "kat": "post",
+      "jatorria": {
+        "id": 1322,
+        "lema": "kanpo",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2255,
+      "lema": "ondoan",
+      "kat": "post",
+      "jatorria": {
+        "id": 1668,
+        "lema": "ondo",
+        "kat": "post",
+        "gakoa": null,
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2257,
+      "lema": "erdian",
+      "kat": "post",
+      "jatorria": {
+        "id": 676,
+        "lema": "erdi",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2258,
+      "lema": "artean",
+      "kat": "post",
+      "jatorria": {
+        "id": 212,
+        "lema": "arte",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2201,
+      "lema": "behean",
+      "kat": "adb",
+      "jatorria": {
+        "id": 386,
+        "lema": "behe",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2200,
+      "lema": "goian",
+      "kat": "adb",
+      "jatorria": {
+        "id": 955,
+        "lema": "goi",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 389,
+      "lema": "behera",
+      "kat": "adb",
+      "jatorria": {
+        "id": 386,
+        "lema": "behe",
+        "kat": "iz",
+        "gakoa": "sg.nora",
+        "kasua": "NORA",
+        "atzizkia": "-ra"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 84,
+      "lema": "aldera",
+      "kat": "post",
+      "jatorria": {
+        "id": 82,
+        "lema": "alde",
+        "kat": "iz",
+        "gakoa": "sg.nora",
+        "kasua": "NORA",
+        "atzizkia": "-ra"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 852,
+      "lema": "gainera",
+      "kat": "jun",
+      "jatorria": {
+        "id": 850,
+        "lema": "gain",
+        "kat": "iz",
+        "gakoa": "sg.nora",
+        "kasua": "NORA",
+        "atzizkia": "-era"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1696,
+      "lema": "orduan",
+      "kat": "adb",
+      "jatorria": {
+        "id": 1695,
+        "lema": "ordu",
+        "kat": "iz",
+        "gakoa": "sg.non",
+        "kasua": "NON",
+        "atzizkia": "-an"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2204,
+      "lema": "hortik",
+      "kat": "adb",
+      "jatorria": {
+        "id": 1102,
+        "lema": "hor",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONDIK",
+        "atzizkia": "-tik"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1106,
+      "lema": "horra",
+      "kat": "adb",
+      "jatorria": {
+        "id": 1102,
+        "lema": "hor",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NORA",
+        "atzizkia": "-ra"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 450,
+      "lema": "bestelako",
+      "kat": "izl",
+      "jatorria": {
+        "id": 449,
+        "lema": "bestela",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 853,
+      "lema": "gainerako",
+      "kat": "izl",
+      "jatorria": {
+        "id": 852,
+        "lema": "gainera",
+        "kat": "jun",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1005,
+      "lema": "halako",
+      "kat": "izl",
+      "jatorria": {
+        "id": 1003,
+        "lema": "hala",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1101,
+      "lema": "honelako",
+      "kat": "izl",
+      "jatorria": {
+        "id": 1100,
+        "lema": "honela",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1109,
+      "lema": "horrelako",
+      "kat": "izl",
+      "jatorria": {
+        "id": 1108,
+        "lema": "horrela",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 1625,
+      "lema": "nolako",
+      "kat": "izord",
+      "jatorria": {
+        "id": 1623,
+        "lema": "nola",
+        "kat": "izord",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2192,
+      "lema": "aspaldiko",
+      "kat": "izl",
+      "jatorria": {
+        "id": 222,
+        "lema": "aspaldi",
+        "kat": "adb",
+        "gakoa": null,
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 949,
+      "lema": "gogoko",
+      "kat": "izl",
+      "jatorria": {
+        "id": 948,
+        "lema": "gogo",
+        "kat": "iz",
+        "gakoa": "sg.nongo",
+        "kasua": "NONGO",
+        "atzizkia": "-ko"
+      },
+      "egoera": "onartua"
+    },
+    {
+      "id": 2102,
+      "lema": "zutik",
+      "kat": "adb",
+      "jatorria": {
+        "id": null,
+        "lema": "zut",
+        "kat": null,
+        "gakoa": null,
+        "kasua": null,
+        "atzizkia": "-ik",
+        "oharra": "zut («derecho, erguido») no está en el Hiztegia"
+      },
+      "egoera": "onartua"
+    }
+  ]
+}

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Euskara Armairua — Buruko neurona: motor de creación. Una red asociativa editable une el árbol de los casos, el Hiztegia y escenas de la vida diaria; con sus piezas montas frases y el motor analiza casos, declinaciones y concordancia.">
+<meta name="theme-color" content="#171B18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<title>Buruko neurona</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}[hidden]:not([hidden=until-found]){display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: la cabecera del sitio; debajo, el contexto a la izquierda y la red a la derecha;
+   abajo, el puzzle y el análisis lado a lado. Colores de los casos: los de Kasuen zuhaitza. */
+:root{
+  --ground:#EDEEEA; --surface:#F8F9F6; --surface-2:#E4E7E0;
+  --ink:#171B18; --ink-2:#3E453F; --muted:#6E756C;
+  --line:#D2D6CC; --line-strong:#B6BCB1;
+  --sea:#1F5E4C; --sea-soft:#DCE9E2; --iron:#B0472B; --iron-soft:#F3DED6;
+  --gold:#8A6A19; --gold-soft:#F0E6CC; --ok:#2E6B42; --leaf:#5F7A2E; --leaf-soft:#E3EBD2;
+  --plum:#6A4C93; --plum-soft:#EAE2F3; --rose:#9C3D6B; --rose-soft:#F2DDE7; --blue:#2D5F8B; --blue-soft:#DDE7F1;
+  --teal:#1E6E7A; --teal-soft:#D7ECEE; --brown:#8B5E3C; --brown-soft:#EDE0D3; --mug:#5B6259; --mug-soft:#E1E4DD;
+  --shadow:0 1px 2px rgba(23,27,24,.06), 0 8px 24px -14px rgba(23,27,24,.28);
+  --f-display:"Zilla Slab", Georgia, serif; --f-body:"Source Serif 4", Georgia, serif;
+  --f-ui:"IBM Plex Sans", system-ui, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:4px; --topbar:66px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --leaf:#A9C473; --leaf-soft:#263318;
+  --plum:#B99BE0; --plum-soft:#2D2339; --rose:#E58FB8; --rose-soft:#3A2230; --blue:#8DB6DE; --blue-soft:#1C2A38;
+  --teal:#6CC3CF; --teal-soft:#18333A; --brown:#C9A07E; --brown-soft:#35271C; --mug:#AEB5AB; --mug-soft:#272C27;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --ground:#131613; --surface:#1B1F1B; --surface-2:#242924; --ink:#E8EBE4; --ink-2:#C2C8BE; --muted:#8D948A;
+  --line:#2E342E; --line-strong:#414840; --sea:#63C0A0; --sea-soft:#1B3830; --iron:#E08A6B; --iron-soft:#3A2620;
+  --gold:#D3AE5A; --gold-soft:#33290F; --ok:#6FBF88; --leaf:#A9C473; --leaf-soft:#263318;
+  --plum:#B99BE0; --plum-soft:#2D2339; --rose:#E58FB8; --rose-soft:#3A2230; --blue:#8DB6DE; --blue-soft:#1C2A38;
+  --teal:#6CC3CF; --teal-soft:#18333A; --brown:#C9A07E; --brown-soft:#35271C; --mug:#AEB5AB; --mug-soft:#272C27;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7); color-scheme:dark;}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; line-height:1.12; margin:0}
+p{margin:0}
+a{color:var(--sea)}
+button,input,select{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--sea); outline-offset:2px; border-radius:2px}
+.eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+.small{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+
+/* ── cabecera y perfil (como el resto del sitio) ── */
+.hub{position:sticky; top:0; z-index:80; background:var(--surface); border-bottom:1px solid var(--line-strong)}
+.hub .in{max-width:1400px; margin:0 auto; padding:0 22px; display:flex; align-items:center; gap:16px; min-height:var(--topbar)}
+.hub .brand{display:flex; flex-direction:column; justify-content:center; gap:1px; padding-right:20px; border-right:1px solid var(--line); flex:none}
+.hub .brand a{display:flex; align-items:center; gap:6px; text-decoration:none; color:inherit}
+.hub .brand .home{font-family:var(--f-mono); color:var(--muted); font-size:15px}
+.hub .brand b{font-family:var(--f-display); font-size:18px; font-weight:700; letter-spacing:-.01em}
+.hub .brand b em{font-style:normal; color:var(--iron)}
+.hub .brand span{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted)}
+.hub .ctx{flex:none; display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:14.5px; font-weight:600; color:var(--ink-2)}
+.hub .spacer{flex:1}
+.hub .who{flex:none; display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); border-radius:var(--r); padding:6px 11px; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--ink-2)}
+.hub .who:hover{border-color:var(--line-strong); background:var(--surface-2)}
+.hub .who .dot{width:7px; height:7px; border-radius:50%; background:var(--line-strong); flex:none}
+.hub .who[data-state="cloud"] .dot{background:var(--ok)}
+.hub .who .nm{font-weight:600; color:var(--ink)}
+.hub .who .st{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+.hub .who .stack{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25}
+@media (max-width:860px){:root{--topbar:56px} .hub .in{gap:10px; padding:0 14px} .hub .brand span,.hub .ctx,.hub .who .st{display:none}}
+.gate{position:fixed; inset:0; z-index:200; background:rgba(12,15,12,.62); display:grid; place-items:center; padding:22px}
+.gate .gbox{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); box-shadow:var(--shadow); padding:30px 30px 24px; max-width:440px; width:100%}
+.gate h2{font-size:28px; margin-bottom:4px} .gate h2 em{font-style:normal; color:var(--iron)}
+.gate .lede{font-family:var(--f-ui); font-size:14.5px; color:var(--ink-2); margin-top:10px}
+.gate form{display:flex; gap:8px; margin-top:18px}
+.gate input{flex:1; min-width:0; font-family:var(--f-ui); font-size:15px; padding:9px 12px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); color:var(--ink)}
+.gate input:focus{outline:2px solid var(--sea); outline-offset:1px; border-color:var(--sea)}
+.gate button[type="submit"]{font-family:var(--f-ui); font-size:14px; font-weight:600; padding:9px 18px; cursor:pointer; border:1px solid var(--sea); border-radius:var(--r); background:var(--sea); color:#fff}
+.gate .fine{font-family:var(--f-ui); font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:16px; border-top:1px solid var(--line); padding-top:14px}
+.gate .later{display:inline-block; margin-top:12px; background:none; border:0; padding:0; cursor:pointer; font-family:var(--f-ui); font-size:13px; color:var(--muted); text-decoration:underline; text-underline-offset:3px}
+
+/* ── página ── */
+.wrap{max-width:1400px; margin:0 auto; padding:0 22px 80px}
+.hero{padding:30px 0 6px}
+.hero h1{font-size:clamp(30px,5vw,44px); letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--sea)}
+.hero .lede{font-family:var(--f-ui); font-size:15.5px; color:var(--ink-2); max-width:78ch; margin:10px 0 0}
+.badge{display:inline-block; font-family:var(--f-mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); background:var(--gold-soft); border:1px solid var(--gold); border-radius:2px; padding:1px 6px; margin-right:6px}
+.itn{font-family:var(--f-ui); font-size:13px; color:var(--muted); margin-top:10px; max-width:90ch}
+.bn-err{font-family:var(--f-ui); color:var(--iron)}
+#bn-loading{font-family:var(--f-ui); color:var(--muted); padding:40px 0}
+h2.sec{font-size:22px; margin:0}
+.sec-h{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin:26px 0 10px}
+.sec-h .sp{flex:1}
+.btn{font-family:var(--f-ui); font-size:13px; font-weight:500; border:1px solid var(--line-strong); background:var(--surface); padding:7px 11px; border-radius:var(--r); cursor:pointer; color:var(--ink)}
+.btn:hover{border-color:var(--sea); color:var(--sea)}
+.btn:disabled{opacity:.45; cursor:default}
+.btn.pri{background:var(--sea); border-color:var(--sea); color:#fff}
+.btn.pri:hover{color:#fff; filter:brightness(1.08)}
+.row{display:flex; flex-wrap:wrap; gap:6px}
+
+/* contextos */
+.tt-bar{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:18px; padding:10px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r)}
+#bn-tabs{display:flex; flex-wrap:wrap; gap:6px; flex:1 1 420px}
+.bn-tab{display:flex; align-items:center; gap:6px; font-family:var(--f-ui); font-size:13px; border:1px solid var(--line); background:var(--ground); border-radius:var(--r); padding:6px 10px; cursor:pointer}
+.bn-tab small{color:var(--muted); font-size:11px}
+.bn-tab[aria-selected="true"]{border-color:var(--sea); background:var(--sea-soft)}
+.tt-ed{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.tt-ed input{font-family:var(--f-ui); font-size:14px; padding:6px 9px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); min-width:0; width:220px; max-width:100%}
+
+/* contexto + red */
+.bench{display:grid; grid-template-columns:300px minmax(0,1fr); gap:14px; margin-top:12px; align-items:start}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:14px; min-width:0}
+.grp{display:flex; flex-direction:column; gap:5px; margin-bottom:11px}
+.gl{font-family:var(--f-ui); font-size:12.5px; font-weight:600; color:var(--ink)}
+.gl span{font-weight:400; color:var(--muted)}
+.chips{display:flex; flex-wrap:wrap; gap:4px}
+.chip{font-family:var(--f-ui); font-size:12.5px; font-weight:500; cursor:pointer; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); border-radius:20px; padding:4px 10px; white-space:nowrap}
+.chip:hover{border-color:var(--sea); color:var(--sea)}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.thr{display:flex; align-items:center; gap:10px; font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2)}
+.thr input{flex:1; min-width:0; accent-color:var(--sea)}
+.thr output{font-family:var(--f-mono); font-size:12px; min-width:3em; text-align:right}
+.net{position:relative; display:grid; grid-template-columns:minmax(120px,.7fr) minmax(170px,1fr) minmax(170px,1fr) minmax(104px,.55fr); column-gap:clamp(28px,4vw,52px); align-items:start}
+#bn-edges{position:absolute; left:0; top:0; pointer-events:none; overflow:visible; z-index:0}
+.layer{position:relative; z-index:1; min-width:0; display:flex; flex-direction:column; gap:5px}
+.lh{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:flex; justify-content:space-between; gap:6px; margin-bottom:2px}
+.lh span:last-child{text-transform:none; letter-spacing:.01em}
+.src{font-family:var(--f-ui); font-size:13px; font-weight:600; background:var(--ink); color:var(--surface); border-radius:var(--r); padding:4px 8px 5px}
+.src small{display:block; font-family:var(--f-mono); font-size:9px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; opacity:.7}
+.node,.word{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; text-align:left; font-family:var(--f-ui); font-size:12.5px; line-height:1.25}
+.node{padding:5px 8px 8px; cursor:pointer}
+.node .k{display:block; font-family:var(--f-mono); font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--leaf)}
+.node .t{display:block}
+.node.nueva{border-style:dashed; border-color:var(--leaf)}
+.node.ov{box-shadow:inset 0 0 0 1px var(--gold)}
+.m{position:absolute; left:0; bottom:0; height:3px; width:calc(var(--a,0)*100%); background:var(--leaf)}
+.word{display:flex; align-items:stretch}
+.word .wb{flex:1; display:flex; flex-wrap:wrap; align-items:baseline; gap:5px; background:none; border:0; padding:5px 6px 8px 8px; cursor:pointer; text-align:left; min-width:0}
+.word .wb b{font-family:var(--f-body); font-size:14.5px}
+.word .es{color:var(--muted); font-size:11.5px}
+.word .tag{font-family:var(--f-mono); font-size:9px; text-transform:uppercase; padding:1px 4px; border-radius:2px; background:var(--gold-soft); color:var(--gold)}
+.word .dots{display:inline-flex; gap:3px; margin-left:auto}
+.word .m{background:var(--ink-2)}
+.word .mute{border:0; background:none; color:var(--muted); cursor:pointer; padding:0 8px; font-size:12px}
+.word .mute:hover{color:var(--iron)}
+.word.off{opacity:.45}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--c)}
+.addw input{width:100%; font-family:var(--f-ui); font-size:13px; padding:6px 8px; border:1px dashed var(--line-strong); border-radius:var(--r); background:var(--ground)}
+.more{font-family:var(--f-ui); font-size:12px; color:var(--muted); background:none; border:0; text-decoration:underline; cursor:pointer; text-align:left; padding:2px 0}
+.case{font-family:var(--f-mono); font-size:11px; font-weight:500; padding:5px 8px; border-radius:999px; border:1.5px solid var(--c); color:var(--c); background:var(--surface); display:flex; justify-content:space-between; gap:6px}
+.case.used{background:var(--c); color:var(--surface)}
+.case.idle{opacity:.35}
+.e{fill:none; stroke:var(--ink-2); stroke-width:calc(1px + var(--w)*2.2px); opacity:calc(.12 + var(--w)*.45)}
+.e.l1{stroke:var(--leaf)} .e.case{stroke:var(--c)} .e.off{opacity:.05}
+.net.focus .e{opacity:.04} .net.focus .e.hot{opacity:.95}
+
+/* piezas: colores de los casos (Kasuen zuhaitza) */
+.k-nor{--c:var(--sea); --cs:var(--sea-soft)} .k-nork{--c:var(--plum); --cs:var(--plum-soft)} .k-nori{--c:var(--rose); --cs:var(--rose-soft)}
+.k-noren,.k-norentzat{--c:var(--blue); --cs:var(--blue-soft)} .k-norekin{--c:var(--teal); --cs:var(--teal-soft)} .k-zerez{--c:var(--leaf); --cs:var(--leaf-soft)}
+.k-non,.k-nora,.k-nondik,.k-nongo,.k-norako{--c:var(--gold); --cs:var(--gold-soft)} .k-norengan,.k-norengana,.k-norengandik{--c:var(--brown); --cs:var(--brown-soft)}
+.k-mugagabe{--c:var(--mug); --cs:var(--mug-soft)} .k-rik{--c:var(--iron); --cs:var(--iron-soft)}
+.k-aditza,.k-aux{--c:var(--ink-2); --cs:var(--surface-2)} .k-adj{--c:var(--sea); --cs:var(--surface-2)} .k-beste,.k-izena{--c:var(--mug); --cs:var(--mug-soft)}
+.pz{display:inline-flex; flex-direction:column; align-items:center; gap:2px; padding:5px 9px 4px; background:var(--cs,var(--surface-2)); border:0; border-bottom:3px solid var(--c,var(--line-strong)); border-radius:3px 3px 1px 1px; cursor:pointer; font-family:var(--f-body)}
+.pz b{font-size:16.5px; font-weight:600; white-space:nowrap; color:var(--ink)}
+.pz small{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--c,var(--muted)); white-space:nowrap}
+.pz.sel{outline:2px solid var(--ink); outline-offset:1px}
+.pz.talka{outline:1.5px dashed var(--gold); outline-offset:1px}
+.word .tag.kat{background:var(--surface-2); color:var(--ink-2)}
+.talka-n{color:var(--gold); margin-top:8px}
+
+/* puzzle + análisis */
+.lower{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:14px; align-items:start}
+.es-row{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:8px 10px; margin-bottom:8px; cursor:pointer}
+.es-row.act{border-color:var(--sea); box-shadow:inset 3px 0 0 var(--sea)}
+.es-h{display:flex; align-items:center; gap:8px; margin-bottom:6px}
+.es-h .sp{flex:1}
+.es-n{font-family:var(--f-display); font-weight:700; color:var(--muted)}
+.es-who{font-family:var(--f-ui); font-size:12.5px; border:1px solid var(--line); border-radius:var(--r); background:var(--ground); padding:2px 6px}
+.ib{border:1px solid var(--line); background:none; border-radius:var(--r); cursor:pointer; color:var(--muted); font-size:12px; padding:2px 7px}
+.ib:hover{color:var(--ink); border-color:var(--line-strong)}
+.es-p{display:flex; flex-wrap:wrap; gap:5px; align-items:flex-end; min-height:46px; padding:4px; border:1px dashed transparent; border-radius:var(--r)}
+.es-row.act .es-p{border-color:var(--line)}
+.es-empty{font-family:var(--f-ui); font-size:12.5px; color:var(--muted)}
+.es-tool{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
+.an-head{font-family:var(--f-ui); font-size:14px; margin-bottom:8px}
+.an-s{border:1px solid var(--line); border-left:3px solid var(--ok); border-radius:var(--r); background:var(--surface); padding:8px 10px; margin-bottom:8px}
+.an-s.warn{border-left-color:var(--gold)} .an-s.bad{border-left-color:var(--iron)}
+.an-t{display:flex; gap:8px; font-family:var(--f-body); font-size:16px}
+.an-v{font-family:var(--f-ui); font-weight:700; color:var(--ok)} .an-s.bad .an-v{color:var(--iron)}
+.an-r{font-family:var(--f-mono); font-size:11px; color:var(--muted); margin-top:2px}
+.an-m{font-family:var(--f-ui); font-size:12.5px; color:var(--ink-2); margin-top:3px} .an-m.bad{color:var(--iron)} .an-m.talka{color:var(--gold)}
+.an-red{border:1px dashed var(--line-strong); border-radius:var(--r); padding:10px 12px; margin:12px 0}
+.an-red p{font-family:var(--f-body); font-size:16px; margin-top:4px}
+.an-cnt{display:grid; gap:4px; margin:10px 0}
+.bar{display:grid; grid-template-columns:110px 1fr 28px; gap:8px; align-items:center; font-family:var(--f-mono); font-size:11.5px; color:var(--c)}
+.bar i{display:block; height:10px; border-radius:2px; background:var(--c)}
+.bar b{color:var(--ink); text-align:right}
+.tbl{overflow-x:auto; margin-top:8px}
+.tbl table{border-collapse:collapse; width:100%; min-width:560px; font-family:var(--f-ui); font-size:12.5px}
+.tbl th{text-align:left; font-family:var(--f-mono); font-size:9.5px; font-weight:500; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line-strong); padding:4px 8px 4px 0}
+.tbl td{border-bottom:1px solid var(--line); padding:4px 8px 4px 0; vertical-align:top}
+.tbl td.hw{font-family:var(--f-body); font-weight:600; font-size:14px}
+.tbl td.kc{color:var(--c); font-family:var(--f-mono); font-size:11.5px}
+.exp{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+
+/* ventanas emergentes */
+.bn-pop{position:absolute; z-index:120; background:var(--surface); border:1px solid var(--line-strong); border-radius:6px; box-shadow:var(--shadow); padding:14px 14px 12px; max-height:70vh; overflow:auto}
+.bn-pop .px{position:absolute; right:8px; top:6px; border:0; background:none; cursor:pointer; color:var(--muted); font-size:15px}
+.pp-h{font-family:var(--f-ui); font-size:14px; padding-right:24px} .pp-h b{font-family:var(--f-body); font-size:19px} .pp-h span{color:var(--muted)}
+.pp-g{margin-top:10px}
+.pp-f{display:flex; flex-wrap:wrap; gap:5px; margin-top:6px}
+.bn-pop select{font-family:var(--f-ui); font-size:13px; border:1px solid var(--line-strong); border-radius:var(--r); background:var(--ground); padding:4px 6px; max-width:100%}
+#bn-toast{position:fixed; left:50%; bottom:max(18px, env(safe-area-inset-bottom, 0px)); transform:translateX(-50%); z-index:150; background:var(--ink); color:var(--surface); font-family:var(--f-ui); font-size:13.5px; padding:8px 14px; border-radius:var(--r); box-shadow:var(--shadow)}
+footer.src-note{margin-top:40px; padding-top:14px; border-top:1px solid var(--line); font-family:var(--f-ui); font-size:12.5px; color:var(--muted); max-width:100ch}
+
+@media (max-width:1100px){ .bench{grid-template-columns:minmax(0,1fr)} .lower{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:760px){
+  .net{grid-template-columns:minmax(0,1fr); row-gap:34px}
+  .layer.l1,.layer.l2,.layer.l3{flex-direction:row; flex-wrap:wrap} .layer .lh,.layer .addw,.layer .more{flex-basis:100%} .word{width:auto}
+  .layer.l0{flex-direction:row; flex-wrap:wrap} .layer.l0 .lh{flex-basis:100%}
+}
+</style>
+
+<div class="hub"><div class="in">
+  <div class="brand"><a href="index.html#kasuak" title="Neurona · Armairura itzuli"><span class="home" aria-hidden="true">‹</span><b>Euskara <em>armairua</em></b></a><span>Neurona · Buruko neurona</span></div>
+  <div class="ctx"><i>🧠</i>Sortzeko motorra</div>
+  <div class="spacer"></div>
+  <button type="button" class="who" id="who" data-state="local" aria-label="Perfil"><span class="dot"></span><span class="stack"><b class="nm">Sin perfil</b><span class="st">Solo en este navegador</span></span></button>
+</div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Sare asoziatiboa · puzzlea · analisia</div>
+    <h1>Buruko <em>neurona</em></h1>
+    <p class="lede">Crea un contexto (escena, personajes, tiempo, rasgo y tono) y la red se enciende: del contexto a los campos y subcategorías del Hiztegia, a las palabras y a los casos del árbol. Ajusta los pesos, añade o quita palabras y monta las frases con las piezas que elijas. El motor analiza cada frase: casos, declinaciones y concordancia del auxiliar.</p>
+    <p class="itn"><span class="badge">&#9888; Claude</span> El catálogo de escenas y personajes, los pesos de la red y las propuestas de frase los ha preparado Claude (sin revisar). Las palabras, sus formas y las tablas de auxiliares son del Hiztegia · Bakarka; los casos, de Kasuen zuhaitza.</p>
+  </header>
+
+  <div id="bn-app" aria-busy="true">
+    <div id="bn-loading">Kargatzen… (Hiztegia · Bakarka y el árbol de los casos)</div>
+    <div id="bn-main" hidden>
+      <div class="tt-bar" aria-label="Testuinguruak">
+        <div id="bn-tabs" role="tablist" aria-label="Contextos guardados"></div>
+        <div class="tt-ed">
+          <label class="small" for="bn-izena">Nombre</label><input id="bn-izena" maxlength="60">
+          <button type="button" class="btn pri" id="bn-new">＋ Berria</button>
+          <button type="button" class="btn" id="bn-dup">Bikoiztu</button>
+          <button type="button" class="btn" id="bn-del">Ezabatu</button>
+        </div>
+      </div>
+
+      <div class="bench">
+        <aside class="panel" aria-label="Testuingurua"><div class="lh" style="margin-bottom:8px"><span>Testuingurua</span><span>se guarda en tu perfil</span></div><div id="bn-editor"></div></aside>
+        <section class="panel" aria-label="Sarea">
+          <div class="net" id="bn-net">
+            <svg id="bn-edges" aria-hidden="true"></svg>
+            <div class="layer l0" id="bn-l0"></div>
+            <div class="layer l1" id="bn-l1"></div>
+            <div class="layer l2" id="bn-l2"></div>
+            <div class="layer l3" id="bn-l3"></div>
+          </div>
+          <datalist id="bn-hitzak"></datalist>
+        </section>
+      </div>
+
+      <div class="lower">
+        <section aria-label="Puzzlea">
+          <div class="sec-h"><h2 class="sec">Puzzlea</h2><span class="sp"></span>
+            <button type="button" class="btn" id="bn-chars">Pertsonaiak</button>
+            <button type="button" class="btn" id="bn-auxb">Laguntzailea</button>
+            <button type="button" class="btn" id="bn-plus">＋ Esaldia</button>
+          </div>
+          <div class="row" style="margin-bottom:10px">
+            <button type="button" class="btn pri" id="bn-prop">Proposatu esaldia</button>
+            <button type="button" class="btn" id="bn-prop-z">Ezaugarria</button>
+            <button type="button" class="btn" id="bn-prop-t">Tonua</button>
+            <button type="button" class="btn" id="bn-clear">Hustu</button>
+          </div>
+          <div id="bn-puzzle"></div>
+          <p class="small">Toca una pieza para moverla (← →) o quitarla; también se puede arrastrar entre frases.</p>
+        </section>
+        <section aria-label="Analisia">
+          <div class="sec-h"><h2 class="sec">Analisia</h2><span class="sp"></span></div>
+          <div id="bn-anal"></div>
+          <div class="exp">
+            <button type="button" class="btn pri" id="bn-lib">Libreta (PDF)</button>
+            <button type="button" class="btn" id="bn-json">Egitura · JSON</button>
+            <button type="button" class="btn" id="bn-copy">Kopiatu testua</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <footer class="src-note">Las palabras y sus formas son del Hiztegia · Bakarka (<code>bakarka-hiztegia.json</code>, con las correcciones revisadas de <code>tools/hiztegia/salbuespenak.json</code>). Las tablas de auxiliares también son del Hiztegia, más tres pasados estándar añadidos por Claude (<i>nion…</i>, <i>nituen…</i>, <i>nengoen…</i>). Los casos y sus colores son de Kasuen zuhaitza. Los niveles salen del vocabulario A1 de armairua, del de Ostalaritza (A2) y de Bakarka 1 y 3. Son ⚠ Claude, sin revisar: el catálogo de escenas y personajes, los pesos, las etiquetas nuevas (carácter, estado, aspecto) y las propuestas de frase. Dendan y Jatetxean siguen Mintzamena (d01, j04).</footer>
+</main>
+<div id="bn-toast" role="status" aria-live="polite" hidden></div>
+
+<div class="gate" id="gate" hidden>
+  <div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="eyebrow">Euskara armairua</div>
+    <h2 id="gateTitle">Nor <em>zara</em>?</h2>
+    <p class="lede">Tu nombre es la etiqueta de tu progreso; se comparte con A1 y A2.</p>
+    <form id="gateForm"><input id="gateName" type="text" autocomplete="off" placeholder="Maialen" maxlength="40" required aria-label="Tu nombre"><button type="submit">Sartu</button></form>
+    <p class="fine">No hay contraseña: solo una etiqueta para el progreso guardado.</p>
+    <button type="button" class="later" id="gateLater">Ahora no</button>
+  </div>
+</div>
+
+<script>
+/* ── perfil (compartido con A1/A2) ── */
+window.HUB=(function(){var NAMEK='euskara-izena',COL='aurrerapena',db=null,izena='';
+  function emit(){var c=document.getElementById('who');if(c){c.querySelector('.nm').textContent=izena||'Sin perfil';c.querySelector('.st').textContent=izena?'Zure profila':'Toca para crear tu perfil';c.setAttribute('data-state',izena&&db?'cloud':'local');}}
+  function save(n){izena=n;try{localStorage.setItem(NAMEK,n);}catch(e){}emit();if(db)db.doc(COL+'/profila').set({izena:n,t:Date.now()})['catch'](function(){});}
+  function open(){var g=document.getElementById('gate');if(!g)return;g.hidden=false;var i=document.getElementById('gateName');i.value=izena||'';setTimeout(function(){i.focus();i.select();},30);}
+  function close(){var g=document.getElementById('gate');if(g)g.hidden=true;}
+  try{izena=localStorage.getItem(NAMEK)||'';}catch(e){}
+  document.addEventListener('DOMContentLoaded',function(){
+    emit();
+    var f=document.getElementById('gateForm');if(f)f.addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('gateName').value.trim();if(v){save(v);close();}});
+    var l=document.getElementById('gateLater');if(l)l.addEventListener('click',close);
+    var c=document.getElementById('who');if(c)c.addEventListener('click',open);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    if(window.claude&&typeof claude.use==='function'){claude.use('db').then(function(d){if(d){db=d;emit();}})['catch'](function(){});}
+  });
+  return {name:function(){return izena;}};
+})();
+</script>
+<script src="armairua-a1-data.js"></script>
+<script src="armairua-a2-ostalaritza-data.js"></script>
+<script src="armairua-buruko-neurona-data.js"></script>
+<script src="armairua-buruko-neurona-motorra.js"></script>
+<script src="armairua-libreta.js"></script>
+<script src="armairua-buruko-neurona.js"></script>
+<script src="config.js"></script>
+<script src="armairua-cloud.js"></script>
+<script>if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }</script>
+</body>
+</html>

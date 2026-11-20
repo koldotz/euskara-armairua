@@ -1,5 +1,5 @@
 // Integra en euskara-armairua los tres artifacts de vocabulario y libros de Bakarka
-// (grupo «Hiztegia · Bakarka» de la portada; ver tools/README.md, sección fitxak/):
+// (pestaña «Hiztegia Mingaina» de la portada; ver tools/README.md, sección fitxak/):
 //   Bakarka · hiztegia     claude.ai/artifact/MuSaLbS1TWnkcYmhh14X4N → bakarka-hiztegia.html + bakarka-hiztegia.json
 //   Bakarka 1 · síntesis   claude.ai/artifact/Ps5ia2R6FHRuG7rDKPcJhY → bakarka-1-sintesia.html
 //   Bakarka 3 · síntesis   claude.ai/artifact/6vNeXq6GBbJVDWehBMmJoZ → bakarka-3-sintesia.html
@@ -8,6 +8,7 @@
 //   <carpeta>/bakarka-1.html y bakarka-3.html (página de cada síntesis)
 import fs from 'fs';
 import path from 'path';
+import { aplikatu, irakurri } from '../hiztegia/salbuespenak.mjs';
 
 const [, , S, REPO] = process.argv;
 if (!S || !REPO) { console.error('uso: node tools/fitxak/bakarka.mjs <carpeta> <repo>'); process.exit(1); }
@@ -47,9 +48,9 @@ function comun(html, file){
   if (!html.startsWith('<!DOCTYPE html>\n<html lang="es">')) throw new Error(file + ': cabecera inesperada');
   html = html.replace(/<meta name="claude:viewport-fit-sides" content="cover">\n?/, '');
   html = cambia(html, '<title>', HEAD(file) + '\n<title>');
-  // ruta: portada y grupo «Hiztegia · Bakarka», en la misma pestaña
+  // ruta: portada y pestaña «Hiztegia Mingaina», en la misma pestaña
   html = cambia(html, '<a href="https://koldotz.github.io/euskara-armairua/index.html" target="_blank" rel="noopener">Euskara Armairua</a>', '<a href="index.html">Euskara Armairua</a>');
-  html = cambia(html, '<span>Libros</span>', '<a href="index.html#hiztegiak">Hiztegia · Bakarka</a>');
+  html = cambia(html, '<span>Libros</span>', '<a href="index.html#hiztegiak">Hiztegia Mingaina</a>');
   // enlaces a artifacts ya integrados → página del sitio, sin pestaña nueva ni flecha
   html = html.replace(/<a ([^>]*?)href="https:\/\/claude\.ai\/artifact\/([A-Za-z0-9]{22})(#[^"]*)?"([^>]*)>([\s\S]*?)<\/a>/g, (m, pre, id, hash, post, text) => {
     if (!LOCAL[id]) throw new Error(file + ': artifact sin página en el sitio: ' + id);
@@ -78,7 +79,11 @@ const out = {};
   const raw = fs.readFileSync(path.join(S, 'hiztegia.json'), 'utf8');
   const d = JSON.parse(raw);
   if (!Array.isArray(d.entries) || d.entries.length !== d.meta.n) throw new Error('hiztegia.json: entries no cuadra con meta.n');
-  out['bakarka-hiztegia.json'] = raw;
+  // correcciones revisadas de las formas generadas (tools/hiztegia/salbuespenak.json)
+  const r = aplikatu(d, irakurri());
+  if (r.aldatuak.length || r.falta.length || r.jat.falta.length) throw new Error('hiztegia.json: hay correcciones u orígenes que ya no cuadran (' + [...r.aldatuak, ...r.falta, ...r.jat.falta].map(z => z.lema + ' ' + (z.gakoa || '')).join(', ') + '); revisa tools/hiztegia/salbuespenak.json');
+  console.log('correcciones aplicadas al hiztegia:', r.aplikatuak.length, '· ya traía bien:', r.jadanik.length, '· orígenes:', r.jat.aplikatuak.length + r.jat.jadanik.length);
+  out['bakarka-hiztegia.json'] = JSON.stringify(d);
 }
 
 /* ── 2. Las dos síntesis ── */
